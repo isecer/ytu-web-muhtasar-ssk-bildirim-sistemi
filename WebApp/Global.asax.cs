@@ -31,7 +31,7 @@ namespace WebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BiskaUtil.Membership.OnRequireUserIdentity += Membership_OnRequireUserIdentity;
             BiskaUtil.SystemInformation.OnEvent += SystemInformation_OnEvent;
-            //Management.Update();
+            Management.Update();
             OnlineUsers.users = new List<OnlineUser>();
             _quartzScheduler = ConfigureQuartz();
             var geciciDosyalarOtomatikOlarakKaldirilsin = SistemAyar.GeciciDosyalarOtomatikOlarakKaldirilsin.getAyar("false").ToBooleanObj().Value;

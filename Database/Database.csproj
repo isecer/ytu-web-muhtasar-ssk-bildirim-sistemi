@@ -177,7 +177,6 @@
     <Compile Include="Unvanlar.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Utility\Util.cs" />
     <Compile Include="VASurecleri.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>

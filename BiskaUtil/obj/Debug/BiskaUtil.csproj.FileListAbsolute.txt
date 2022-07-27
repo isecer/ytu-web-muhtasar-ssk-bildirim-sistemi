@@ -929,3 +929,23 @@ E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Debug\BiskaUtil.csproj.CoreCompi
 E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Debug\BiskaUtil.csproj.CopyComplete
 E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Debug\Biska.Util.v1.dll
 E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Debug\Biska.Util.v1.pdb
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\Biska.Util.v1.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\Biska.Util.v1.pdb
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Helpers.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Mvc.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Razor.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Helpers.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Mvc.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Razor.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csprojAssemblyReference.cache
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CopyComplete
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\Biska.Util.v1.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\Biska.Util.v1.pdb

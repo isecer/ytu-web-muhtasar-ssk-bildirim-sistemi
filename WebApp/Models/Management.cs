@@ -2122,7 +2122,7 @@ namespace WebApp.Models
             for (int i = DateTime.Now.Year + 1; i >= 2022; i--)
             {
                 dct.Add(new ComboModelInt { Value = i, Caption = i + " Yılı" });
-            } 
+            }
 
             return dct;
 
@@ -2135,13 +2135,11 @@ namespace WebApp.Models
             {
                 var BirimIDs = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == (Yil ?? p.YevmiyeTarih.Year)).Select(s => s.BirimID).Distinct().ToList();
 
-                var data = (from s in db.VASurecleriBirims.Where(p => BirimIDs.Contains(p.BirimID))
-                            join b in db.Vw_BirimlerTree on s.BirimID equals b.BirimID
-                            select new
-                            {
-                                b.BirimID,
-                                BirimTreeAdi = b.BirimTreeAdi + " (" + b.VergiKimlikNo + ")"
-                            }).OrderBy(o => o.BirimTreeAdi).ToList();
+                var data = db.Birimlers.Where(p => BirimIDs.Contains(p.BirimID)).Select(s => new
+                {
+                    s.BirimID,
+                    BirimTreeAdi = s.BirimAdi + " (" + s.VergiKimlikNo + ")"
+                }).OrderBy(o => o.BirimTreeAdi).ToList();
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.BirimID, Caption = item.BirimTreeAdi });

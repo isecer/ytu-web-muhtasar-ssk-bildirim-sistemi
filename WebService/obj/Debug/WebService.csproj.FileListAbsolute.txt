@@ -2585,3 +2585,43 @@ E:\Yazılım\Ana Projeler\MUSSK\4\WebService\obj\Debug\WebService.csproj.CoreCom
 E:\Yazılım\Ana Projeler\MUSSK\4\WebService\obj\Debug\WebService.csproj.CopyComplete
 E:\Yazılım\Ana Projeler\MUSSK\4\WebService\obj\Debug\WebService.dll
 E:\Yazılım\Ana Projeler\MUSSK\4\WebService\obj\Debug\WebService.pdb
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\csc.exe
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\vbc.exe
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\VBCSCompiler.exe
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\WebService.dll.config
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\WebService.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\WebService.pdb
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Database.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Helpers.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Mvc.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Razor.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\EntityFramework.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Database.pdb
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Database.dll.config
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Helpers.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Mvc.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.Razor.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\bin\EntityFramework.xml
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csprojAssemblyReference.cache
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.CopyComplete
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.dll
+C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.pdb

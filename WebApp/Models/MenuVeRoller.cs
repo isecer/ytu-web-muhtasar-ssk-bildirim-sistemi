@@ -63,7 +63,7 @@ namespace WebApp.Models
         public const string MeslekTurleri = "Meslek Türleri";
 
 
-        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Yevmiye Girişi", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeGiris/Index", DilCeviriYap = false, SiraNo = 1)]
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Yevmiye Girişi", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeGiris/Index", DilCeviriYap = false, SiraNo = 1)]
         [RoleAttribute(GorunurAdi = "Yevmiye Girişi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeVeriGiris = "Yevmiye Veri Girişi";
         [RoleAttribute(GorunurAdi = "Yevmiye Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]

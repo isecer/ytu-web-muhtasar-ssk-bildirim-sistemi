@@ -69,8 +69,8 @@ namespace WebApp.Controllers
             model.Data = q.Skip(PS.StartRowIndex).Take(model.PageSize).ToList();
             var IndexModel = new MIndexBilgi() { Toplam = 0, Pasif = 0, Aktif = 0 };
             ViewBag.IndexModel = IndexModel;
-            ViewBag.Yil = new SelectList(Management.CmbYevmiyeGirisYil(false), "Value", "Caption", model.Yil);
-            ViewBag.BirimID = new SelectList(Management.CmbYevmiyeGirisBirim(model.Yil, false), "Value", "Caption", model.BirimID);
+            ViewBag.Yil = new SelectList(Management.CmbYevmiyeGirisYil(true), "Value", "Caption", model.Yil);
+            ViewBag.BirimID = new SelectList(Management.CmbYevmiyeGirisBirim(model.Yil, true), "Value", "Caption", model.BirimID);
 
 
             return View(model);
