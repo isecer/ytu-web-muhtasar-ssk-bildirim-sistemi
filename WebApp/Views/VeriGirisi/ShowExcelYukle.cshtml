@@ -1,0 +1,96 @@
+﻿@using WebApp.Models
+@using Database
+@using BiskaUtil
+@model VeriGirisPopupExcelModel
+@{
+    Layout = null;
+    
+
+}
+<div class="row">
+    @using (Ajax.BeginForm("ExcelYuklePost", null, new AjaxOptions() { HttpMethod = "POST", }, new { enctype = "multipart/form-data", id = "ExcelYuklePostForm" }))
+    {
+        <input name="VASurecleriBirimID" class="hide" value="@Model.VASurecleriBirimID" />
+        <input name="VASurecID" class="hide" value="@Model.SurecBilgi.VASurecID" />
+        <input name="AyID" class="hide" value="@Model.SurecBilgi.SecilenAyBilgi.AyID" />
+        <div class="panel panel-info">
+
+            <div class="panel-body" style="margin: 0px; padding: 0px;">
+                <div class="col-md-12">
+                    <table class="table" style="font-size:9pt;margin:0px;">
+                        <tbody>
+                            <tr>
+                                <td width="155">Süreç</td>
+                                <td width="5">:</td>
+                                <td>@Model.SurecBilgi.SurecYilAdi (@(Model.SurecBilgi.AktifSurec?"Aktif":"Pasif"))</td>
+                            </tr>
+                            <tr>
+                                <td>Veri Giriş Tarih Aralığı</td>
+                                <td>:</td>
+                                <td>@Model.SurecBilgi.BaslangicTarihi.ToString("dd.MM.yyyyy") / @Model.SurecBilgi.BitisTarihi.ToString("dd.MM.yyyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Birim Adı</td>
+                                <td>:</td>
+                                <td>@Model.BirimAdi</td>
+                            </tr>
+                            <tr>
+                                <td>Veri Giriş Tipi</td>
+                                <td>:</td>
+                                <td>@Model.VeriGirisTipAdi</td>
+                            </tr>
+                            <tr>
+                                <td>Excel Yükleme Şablonu</td>
+                                <td>:</td>
+                                <td>
+                                    <a href="@Url.Content("~/TempDocumentFolder/AktarmaSablonlari/MuhtasarVeSskBildirimSablonu.xlsx")"><img src="/Content/img/Excel-Icon.png" width="18" height="17"> Muhtasar ve SSK Bildirim Şablonunu İndir</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-danger" style="padding-bottom: 0px;" id="pnlFileD">
+            <div class="panel-body" style="padding: 0px;">
+                <div class="panel panel-default form-horizontal" style="margin: 0px;">
+                    <div class="panel-body form-group-separated">
+
+                        <table class="table" style="margin:0px;padding:0px;width:100%;table-layout:fixed;">
+
+                            <tbody>
+                                <tr>
+                                    <td width="155">Veri Giriş Ayı</td>
+                                    <td width="5">:</td>
+                                    <td>
+                                       @Model.SurecBilgi.SecilenAyBilgi.AyAdi (@Model.SurecBilgi.SecilenAyBilgi.AyDurumAdi)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Excel Dosyası</td>
+                                    <td>:</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-xs-12">
+                                                <input type="file" name="DosyaEki" id="DosyaEki" style="height:24px;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div> 
+
+<script>
+    $(function () {
+        $('.make-switch')['bootstrapSwitch']();
+    })
+</script>

@@ -1,0 +1,261 @@
+﻿@using BiskaUtil;
+@using WebApp.Models;
+@{
+
+    var root = WebApp.Models.Management.GetRoot();
+
+
+}
+<head>
+    <meta charset="utf-8" /> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <meta name="MobileOptimized" content="320">
+    <!-- BEGIN GLOBAL MANDATORY STYLES -->
+    <!-- CSS INCLUDE -->
+    <link rel="stylesheet" type="text/css" id="theme" href="~/Content/css/theme-default.css" />
+    <link href="~/Content/assets/plugins/select2/select2.css" rel="stylesheet" />
+    <link href="~/Content/assets/plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <!-- START PLUGINS -->
+    <script type="text/javascript">
+        var root = '@root';
+    </script>
+
+    <script type="text/javascript" src="~/Content/js/plugins/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/jquery/jquery-ui.min.js"></script>
+    <script src="~/Content/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/js/plugins/bootstrap/bootstrap-select.js"></script>
+
+    <link href="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.css" rel="stylesheet" />
+    <script src="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.js"></script>
+
+</head>
+<body style="padding: 0px;">
+    <div class="col-md-12" style="padding: 4px; margin: 0px;">
+        @RenderBody()
+        @{
+            if (UserIdentity.Current.IsAuthenticated)
+            {
+                var msgs = MessageBox.GetShows();
+
+                if (msgs != null && msgs.Length > 0)
+                {
+                    <div id="msgs" style="display: none;">
+                        @foreach (var msg in msgs)
+                        {
+                            var cls = msg.MsgType == MessageBox.MessageType.Success ?
+                                "success" : (msg.MsgType == MessageBox.MessageType.Warning ? "warning" : (msg.MsgType == MessageBox.MessageType.Error ? "danger" : "info"));
+                            <div class="panel panel-@cls" style="margin-bottom:3px;">
+
+                                <div class="panel-body panel-body-pricing">
+                                    @if (!msg.Title.IsNullOrWhiteSpace())
+                                    {
+                                        <h3 class="text-@cls">@Html.Raw(msg.Title)</h3>
+                                    }
+                                    @foreach (var itemmsg in msg.Message)
+                                    {
+                                        <p style="margin:0px;padding:0px;">
+                                            <span class="fa fa-caret-right"></span> @Html.Raw(itemmsg)
+                                        </p>
+                                    }
+                                </div>
+
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    var mmmsgs = new MmMessage();
+                    if (Session["ShwMesaj"] != null)
+                    {
+                        mmmsgs = (MmMessage)Session["ShwMesaj"];
+                        Session["ShwMesaj"] = null;
+                    }
+                    if (mmmsgs.Messages.Count > 0)
+                    {
+                        <div id="msgs" style="display: none;">
+                            @{
+                                var cls = mmmsgs.MessageType == Msgtype.Success ? "success" : (mmmsgs.MessageType == Msgtype.Warning ? "warning" : (mmmsgs.MessageType == Msgtype.Error ? "danger" : "info"));
+                                <div class="panel-body panel-body-pricing">
+                                    @if (!mmmsgs.Title.IsNullOrWhiteSpace())
+                                    {
+                                        <h3 class="text-@cls">@Html.Raw(mmmsgs.Title)</h3>
+                                    }
+                                    @foreach (var itemmsg in mmmsgs.Messages)
+                                    {
+                                        <p style="margin:0px;padding:0px;">
+                                            <span class="fa fa-caret-right"></span> @Html.Raw(itemmsg)
+                                        </p>
+                                    }
+                                </div>
+                            }
+                        </div>
+
+
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    var mmmsgs = new MmMessage();
+                                    if (Session["ShwMesaj"] != null)
+                                    {
+                                        mmmsgs = (MmMessage)Session["ShwMesaj"];
+                                        Session["ShwMesaj"] = null;
+                                    }
+                                    if (mmmsgs.Messages.Count > 0)
+                                    {
+                                        <div id="msgs" style="display: none;">
+                                            @{
+                                                var cls = mmmsgs.MessageType == Msgtype.Success ? "success" : (mmmsgs.MessageType == Msgtype.Warning ? "warning" : (mmmsgs.MessageType == Msgtype.Error ? "danger" : "info"));
+                                                <div class="panel-body panel-body-pricing">
+                                                    @if (!mmmsgs.Title.IsNullOrWhiteSpace())
+                                                    {
+                                                        <h3 class="text-@cls">@Html.Raw(mmmsgs.Title)</h3>
+                                                    }
+                                                    @foreach (var itemmsg in mmmsgs.Messages)
+                                                    {
+                                                        <p style="margin:0px;padding:0px;">
+                                                            <span class="fa fa-caret-right"></span> @Html.Raw(itemmsg)
+                                                        </p>
+                                                    }
+                                                </div>
+                                            }
+                                        </div>
+
+
+                                                    }
+
+
+
+                                                }
+        }
+    </div> 
+</body>
+<script type="text/javascript" src="~/Content/js/plugins/bootstrap/bootstrap.min.js"></script>
+<script type='text/javascript' src="~/Content/js/plugins/icheck/icheck.min.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/scrolltotop/scrolltopcontrol.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/morris/raphael-min.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/morris/morris.min.js"></script>
+<script type='text/javascript' src="~/Content/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+<script type='text/javascript' src="~/Content/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+
+<script type="text/javascript" src="~/Content/js/plugins/owl/owl.carousel.min.js"></script>
+
+<script type="text/javascript" src="~/Content/js/plugins/moment.min.js"></script>
+<script type="text/javascript" src="~/Content/js/settings.js"></script>
+
+<script type="text/javascript" src="~/Content/js/plugins.js"></script>
+<script type="text/javascript" src="~/Content/js/actions.js"></script>
+<script type="text/javascript" src="~/Scripts/biskaPager.js"></script>
+<script type="text/javascript" src="~/Content/js/app.js"></script>
+<script type="text/javascript" src="~/Content/assets/plugins/bootstrap-switch/static/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/plugins/bootbox/bootbox.min.js"></script>
+<link href="~/Content/assets/plugins/bootstrap-toastr/toastr.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/assets/plugins/bootstrap-toastr/toastr.min.js"></script>
+<script type="text/javascript" src="~/Content/assets/plugins/jquery.pulsate.min.js"></script>
+<script type="text/javascript" src="~/Scripts/biskaUtil.js"></script>
+<script type="text/javascript" src="~/Content/js/plugins/bootstrap/bootstrap-file-input.js"></script>
+<script type="text/javascript" src="~/Content/ckeditor/ckeditor.js"></script>
+
+
+<link href="~/Content/assets/plugins/select2/select2.css" rel="stylesheet" />
+
+<link href="~/Content/assets/plugins/select2/select2_conquer.css" rel="stylesheet" />
+<script type="text/javascript" src="~/Content/assets/plugins/select2/select2.js"></script>
+<script type="text/javascript" src="~/Content/assets/plugins/select2/select2_locale_tr.js"></script>
+
+<script>
+    $('.scrolkikko').slimScroll({
+        color: '#9bbb67'
+    });
+    $('.date-picker').datetimepicker({
+        lang: 'tr',
+        startDate: '',
+        timepicker: false,
+        format: 'd-m-Y'
+    });
+    function blockUI(el, centerY) {
+        var el = jQuery(el);
+        if (el.height() <= 400) {
+            centerY = true;
+        }
+        el.block({
+            message: '<img src="' + root + 'Content/img/loaders/ajax-loading.gif" align="">',
+            centerY: centerY != undefined ? centerY : true,
+            css: {
+                top: '10%',
+                border: 'none',
+                padding: '2px',
+                backgroundColor: 'none'
+            },
+            overlayCSS: {
+                backgroundColor: '#000',
+                opacity: 0.05,
+                cursor: 'wait'
+            }
+        });
+    }
+
+    // wrapper function to  un-block element(finish loading)
+    function unblockUI(el) {
+        jQuery(el).unblock({
+            onUnblock: function () {
+                jQuery(el).removeAttr("style");
+            }
+        });
+    }
+    function showMmMessage(msgs, btnName) {
+        bootbox.dialog({
+            message: $.parseHTML(msgs),
+            buttons: {
+                danger: {
+                    label: btnName,
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function _pRefresh(panel, IsRemove) {
+        if (IsRemove) {
+            panel.find(".panel-refresh-layer").remove();
+            panel.removeClass("panel-refreshing");
+        }
+        else {
+            panel_refresh(panel);
+        }
+
+
+    }
+</script>
+
+<script type="text/javascript">
+    setTimeout(function () {
+
+        if ($('#msgs').length > 0) {
+            bootbox.dialog({
+                message: $('#msgs').html(),
+                buttons: {
+                    danger: {
+                        label: "Tamam",
+                        className: "btn-success",
+                        callback: function () {
+                        }
+                    }
+                }
+            });
+        }
+        $('.tooltips').tooltip();
+    }, 150);
+</script>

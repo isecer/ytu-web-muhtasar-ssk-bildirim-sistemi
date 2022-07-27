@@ -1,0 +1,95 @@
+﻿@using WebApp.Models
+@using Database
+@using BiskaUtil
+@model VeriGirisPopupToplamModel
+@{
+    Layout = null; 
+}
+<div class="row">
+    @using (Ajax.BeginForm("VeriGirisiPost", null, new AjaxOptions() { HttpMethod = "POST", }, new {  id = "VeriGirisiPostForm" }))
+    {
+        <input name="BirimID" class="hide" value="@Model.BirimID" />
+        <input name="VASurecID" class="hide" value="@Model.SurecBilgi.VASurecID" />
+        <input name="AyID" class="hide" value="@Model.SurecBilgi.SecilenAyBilgi.AyID" />
+        <input name="VASurecleriBirimVerileriAylikToplamID" class="hide" value="@Model.VASurecleriBirimVerileriAylikToplamID" />
+        
+        <div class="panel panel-info">
+
+            <div class="panel-body" style="margin: 0px; padding: 0px;">
+                <div class="col-md-12">
+                    <table class="table" style="font-size:9pt;margin:0px;">
+                        <tbody>
+                            <tr>
+                                <td width="140">Süreç</td>
+                                <td width="5">:</td>
+                                <td>@Model.SurecBilgi.SurecYilAdi (@(Model.SurecBilgi.AktifSurec ? "Aktif" : "Pasif"))</td>
+                            </tr>
+                            <tr>
+                                <td>Veri Giriş Tarih Aralığı</td>
+                                <td>:</td>
+                                <td>@Model.SurecBilgi.BaslangicTarihi.ToString("dd.MM.yyyyy") / @Model.SurecBilgi.BitisTarihi.ToString("dd.MM.yyyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Birim Adı</td>
+                                <td>:</td>
+                                <td>@Model.BirimAdi)</td>
+                            </tr>
+                            <tr>
+                                <td>Veri Giriş Tipi</td>
+                                <td>:</td>
+                                <td>@Model.VeriGirisTipAdi</td>
+                            </tr>
+                            <tr>
+                                <td>Ay</td>
+                                <td>:</td>
+                                <td>
+                                    @Model.SurecBilgi.SecilenAyBilgi.AyAdi (@Model.SurecBilgi.SecilenAyBilgi.AyDurumAdi)
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-danger" style="padding-bottom: 0px;" id="pnlFileD">
+            <div class="panel-body" style="padding: 0px;">
+                <div class="panel panel-default form-horizontal" style="margin: 0px;">
+                    <div class="panel-body form-group-separated">
+                        @*<div class="form-group">
+                            <label class="col-md-3 col-xs-4 control-label">Agi Toplam</label>
+                            <div class="col-md-9 col-xs-8">
+                                <input type="text" name="AsgariGecimIndirimiToplam" id="AsgariGecimIndirimiToplam" value="@Model.AsgariGecimIndirimiToplam" class="form-control" />
+                            </div>
+                        </div>*@
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-4 control-label">G.V Matrah Toplam</label>
+                            <div class="col-md-9 col-xs-8">
+                                <input type="text" name="GvMatrahiToplam" id="GvMatrahiToplam" value="@Model.GvMatrahiToplam" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-4 control-label">G.V Kesinti Toplam</label>
+                            <div class="col-md-9 col-xs-8">
+                                <input type="text" name="GvKesintiToplam" id="GvKesintiToplam" value="@Model.GvKesintiToplam" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 col-xs-4 control-label">Prim Tutar Toplam</label>
+                            <div class="col-md-9 col-xs-8">
+                                <input type="text" name="PrimTutarToplam" id="PrimTutarToplam" value="@Model.PrimTutarToplam" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script>
+    $(function () {
+        $('.make-switch')['bootstrapSwitch']();
+    })
+</script>

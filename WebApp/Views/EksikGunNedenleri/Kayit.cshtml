@@ -1,0 +1,67 @@
+﻿@using Database;
+@using WebApp.Models;
+@using BiskaUtil; 
+@model EksikGunNedenleri
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form method="post" class="form-horizontal" role="form">
+        <input type="text" style="display:none;" id="EksikGunNedenID" name="EksikGunNedenID" value="@Model.EksikGunNedenID" />
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default" id="pUnvanK">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.EksikGunNedenID <= 0 ? "Yeni Eksik Gün Nedeni Tanımlama İşlemi" : "Eksik Gün Nedeni Düzeltme İşlemi") </h3>
+                    <ul class="panel-controls">
+                        <li><a href="@Url.Action("Kayit", Model.EksikGunNedenID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Eksik Gün Neden Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="EksikGunNedenKodu" id="EksikGunNedenKodu"  maxlength="2" value="@Model.EksikGunNedenKodu.ToEmptyStringZero()" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Eksik Gün Neden Adı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="EksikGunNedenAdi" id="EksikGunNedenAdi"  maxlength="256" value="@Model.EksikGunNedenAdi" class="form-control" />
+                                </div>
+                            </div>
+
+                            @if (Model.EksikGunNedenID > 0)
+                            {
+                                <div class="form-group">
+                                    <label class="col-md-3 col-xs-4 control-label">Durum</label>
+                                    <div class="col-md-9 col-xs-8">
+                                        <div class="make-switch" data-on-label="Aktif" data-off-label="Pasif" data-on="success" data-off="danger">
+                                            <input type="checkbox" value="true" name="IsAktif" class="toggle" @Model.IsAktif.ToChecked() />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(function () {
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+ 
+</script>
+

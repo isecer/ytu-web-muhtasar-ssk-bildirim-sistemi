@@ -1,0 +1,220 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FmMailSablonlari
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Şablon Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh fa-lg"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="75"></th>
+                                <th class="sirala sorting" field="SablonAdi">Şablon Adı</th>
+                                <th class="sirala sorting" field="EkSayisi" width="65">Ek.S.</th>
+                                <th class="sirala sorting" field="IsAktif" width="60">Durum</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <input name="SablonAdi" type="text" value="@Model.SablonAdi" class="form-control" />
+                                </th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 30px;">@RowIndex</td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_@item.MailSablonlariID" onclick="ShowDetail('@item.MailSablonlariID')">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span></a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                        <td>@item.SablonAdi</td>
+                                        <td>
+                                            <span class="badge badge-@(item.EkSayisi>0 ? "success" : "danger")">@item.EkSayisi</span>
+                                        </td>
+
+                                        <td id="tdIa_@item.MailSablonlariID" style="text-align:center;">
+                                            <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "MailSablonlari", new { id = item.MailSablonlariID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,'@item.MailSablonlariID')"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="cls-@item.MailSablonlariID hide">
+                                        <td id="cls-@item.MailSablonlariID" colspan="5" style="padding: 1px 1px 2px 75px;">
+
+                                            <div class="panel panel-primary form-horizontal" style="margin: 0px; padding: 0px;">
+                                                <div class="panel-body form-group-separated" style="margin: 0px; padding: 0px;">
+
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Şablon Adı</label>
+                                                        <div class="col-md-9">@item.SablonAdi</div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <div class="col-md-12 col-xs-12" style="text-align: left;">
+                                                            <div class="panel panel-default" style="margin:0px;padding:0px;">
+                                                                <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                                                    <div class="scrolkikko" style="max-height: 250px; width:100%; overflow:hidden;">
+                                                                        @Html.Raw(item.SablonHtml)
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 col-xs-4 control-label">Ekler <img src="/Images/Attachment.png" style="height: 16px;"></label>
+                                                        <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 250px; overflow: auto;">
+                                                            <div class="panel panel-default" style="margin:0px;padding:0px;">
+                                                                <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                                                    <div class="scrolkikko" style="max-height: 210px; width:100%; overflow:hidden;">
+                                                                        <table style="width: 100%; table-layout: fixed;">
+                                                                            @if (item.EkSayisi > 0)
+                                                                            {
+                                                                                foreach (var item2 in item.MailSablonlariEkleris.Select((s, inx) => new { inx, s }))
+                                                                                {
+                                                                                    <tr>
+                                                                                        <td style="width: 25px;">@(item2.inx + 1))</td>
+                                                                                        <td class="name"><a href="@item2.s.EkDosyaYolu" target="_blank"><span class="fa fa-download" style="color: green;"></span>&nbsp;@item2.s.EkAdi</a></td>
+                                                                                    </tr>
+                                                                                }
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <tr>
+                                                                                    <td colspan="2">Ek Yok</td>
+                                                                                </tr>
+                                                                            }
+
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">Durum</label>
+                                                        <div class="col-md-9" style="text-align: left; max-height: 200px; overflow: auto;">
+                                                            <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@(item.IsAktif ? "Aktif" : "Pasif")</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">İşlem Yapan</label>
+                                                        <div class="col-md-9">@item.IslemYapan [@item.IslemYapanIP][@item.IslemTarihi]</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function ShowDetail(id) {
+        var sndr = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(sndr, cls, unTogled);
+
+    }
+    function SilmeOnay(sndr, id) {
+        var gMesaj = $("#cls-" + id).html();
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçilen Şablonu Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: gMesaj + SoruHtml,
+            title: "Şablon Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Şablonu Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "MailSablonlari")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Şablon Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

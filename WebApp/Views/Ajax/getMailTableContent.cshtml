@@ -1,0 +1,61 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model mailTableContent
+@{
+    Layout = null;
+}
+
+@if (Model.AciklamaBasligi.IsNullOrWhiteSpace() == false)
+{     
+    <br>
+    <table style="width:100%;table-layout:fixed;">
+        <tr>
+            <td style="font-family:Tahoma;font-size:9pt;color:maroon;text-align:@(Model.AciklamaTextAlingCenter?"center":"left")">@Model.AciklamaBasligi</td>
+        </tr>
+    </table>         
+}
+@if (Model.AciklamaDetayi.IsNullOrWhiteSpace() == false)
+{
+
+    <br>
+    <table style="width:100%;table-layout:fixed;">
+        <tr>
+            <td style="font-family:Tahoma;font-size:9pt;color:maroon;text-align:@(Model.AciklamaTextAlingCenter?"center":"left")">@Model.AciklamaDetayi</td>
+        </tr>
+    </table>    
+}
+<div style="width:100%;float:left;margin:0px;padding:0px;border:1px solid rgb(221,221,221);border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:4px;border-bottom-left-radius:4px">
+    <div style="border-top-left-radius:4px;border-top-right-radius:4px;border-bottom-right-radius:0px;border-bottom-left-radius:0px;padding:0px 10px 2px;min-height:25px;background-color:rgb(238,238,238)">
+        <span style="color:maroon;float:left;display:inline-block;margin:1px 0px 0px;padding:3px">@Html.Raw(Model.GrupBasligi)</span>
+    </div>
+    <div style="clear:both;padding:0px;border-top-left-radius:0px;border-top-right-radius:0px;border-bottom-right-radius:4px;border-bottom-left-radius:4px">
+        <div style="margin-bottom:2px;border:3px solid rgb(53,170,71);border-top-left-radius:3px;border-top-right-radius:3px;border-bottom-right-radius:3px;border-bottom-left-radius:3px">
+            <ul style="margin-top:0px;margin-bottom:10px;padding-left:0px;list-style:none">
+                 
+                @foreach (var item in Model.Detaylar)
+                {
+                    <li style="color:rgb(36,36,36);margin:0px;padding-left:1px;padding-right:1px;padding-top:2px;padding-bottom:2px;border-bottom-style:solid;border-bottom-width:1px;border-bottom-color:rgb(245,249,23)">
+                        <table style="border-collapse:collapse;border-spacing:0px;width:100%;table-layout:fixed;background-color:transparent">
+                            <tbody>
+                                
+                                    <tr>
+                                        @if (item.Colspan2)
+                                        {                                                                                                        
+                                            <td colspan="2">@Html.Raw(item.Aciklama)</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:@(Model.CaptTdWidth)px; border-right-width:1px;border-right-style:dotted">@Html.Raw(item.Baslik)</td>
+                                        <td>@Html.Raw(item.Aciklama)</td>
+
+                                        }
+                                      
+                                    </tr> 
+                            </tbody>
+                        </table>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>

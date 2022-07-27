@@ -1,0 +1,133 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FmMesajKategorileri
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Mesaj Kategori Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh fa-lg"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="sirala sorting" width="50">Kod</th>
+                                <th class="sirala sorting" field="KategoriAdi">Kategori Adı</th>
+                                <th class="sirala sorting" field="KategoriAciklamasi">Not</th>
+                                <th class="sirala sorting" field="IsAktif" width="60">Durum</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+
+                                <th></th>
+                                <th>
+                                    <input name="KategoriAdi" type="text" value="@Model.KategoriAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="KategoriAciklamasi" type="text" value="@Model.KategoriAciklamasi" class="form-control" />
+                                </th>
+                                <th>
+                                    @Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;" })
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                foreach (var item in Model.Data)
+                                {
+                                    <tr>
+                                        <td>@item.MesajKategoriID</td>
+                                        <td id="tdMad_@item.MesajKategoriID">
+                                            @item.KategoriAdi
+                                        </td>
+                                        <td id="tdMack_@item.MesajKategoriID">
+                                            @item.KategoriAciklamasi
+                                        </td>
+                                        <td id="tdIa_@item.MesajKategoriID" style="text-align:center;">
+                                            <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "MesajKategorileri", new { id = item.MesajKategoriID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,'@item.MesajKategoriID')"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var gMesaj = $("#tdMad_" + id).html();
+        bootbox.dialog({
+            message: "Kategori Adı: " + gMesaj + " <br/> Seçilen Kategori Bilgisini Silmek İstiyor Musunuz?",
+            title: "Mesaj Kategorisi Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Kategoriyi Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id ) {
+        $.ajax({
+            url: '@Url.Action("Sil", "MesajKategorileri")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Kategori Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

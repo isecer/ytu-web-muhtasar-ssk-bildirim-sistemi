@@ -1,0 +1,270 @@
+﻿@using BiskaUtil
+@using WebApp.Models
+@model FmDuyurular
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-bullhorn"></i>&nbsp; Duyuru Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <table class="table table-hovers" style="margin-bottom:0px;">
+                        <thead>
+                            <tr>
+                                <th width="75"></th>
+                                <th width="110" class="sirala sorting" field="Tarih">Tarih</th>
+                                <th class="sirala sorting" field="Baslik">Başlık</th>
+                                <th width="40" class="sirala sorting" field="EkSayisi"><i class="fa fa-download"></i></th>
+                                <th class="sirala sorting" field="IsAktif" width="60">Durum</th>
+                                <th style="width:35px; padding-left: 0px; padding-right: 0px;"></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+
+                                <th>
+                                    <input type="text" name="Tarih" value="@Model.Tarih" class="form-control" />
+                                </th>
+                                <th>
+                                    <input type="text" name="Baslik" value="@Model.Baslik" class="form-control" />
+                                </th>
+                                <th></th>
+                                <th>
+                                    @Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;" })
+                                </th>
+                                <th></th>
+
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width:30px;">@RowIndex</td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_@item.DuyuruID" onclick="ShowDetail(@item.DuyuruID)">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td ondblclick="ShowDetail(@item.DuyuruID)">
+                                            @item.Tarih.ToFormatDateAndTime()
+                                        </td>
+                                        <td ondblclick="ShowDetail(@item.DuyuruID)">
+                                            @(item.Baslik.Length > 70 ? item.Baslik.Substring(0, 69) + "..." : item.Baslik)
+                                        </td>
+                                        <td ondblclick="ShowDetail(@item.DuyuruID)">
+                                            <img src="~/Images/Attachment.png" style="height: 16px;" />@item.EkSayisi
+                                        </td>
+                                        <td><span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span></td>
+                                        <td style="vertical-align: middle; padding-left: 0px; padding-right: 0px;">
+                                            <a href="@Url.Action("Kayit", "Duyurular", new { id = item.DuyuruID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.DuyuruID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="cls-@item.DuyuruID hide">
+                                        <td id="cls-@item.DuyuruID" colspan="6" style="padding: 1px 1px 2px 75px;">
+                                            <div class="panel panel-primary form-horizontal" style="margin:0px;padding:0px;">
+                                                <div class="panel-body" style="margin:0px;padding:0px;">
+                                                    <div class="panel-body form-group-separated">
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Ana Sayfada Gözüksün</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 200px; overflow: auto;">
+                                                                <span class="badge badge-@(item.AnaSayfadaGozuksun ? "success" : "danger")">@item.AnaSayfadaGozuksun.ToEvetHayir()</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Ana Sayfada Popup Aç</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 200px; overflow: auto;">
+                                                                <span class="badge badge-@(item.AnaSayfaPopupAc ? "success" : "danger")">@item.AnaSayfaPopupAc.ToEvetHayir()</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Başlık / Tarih</label>
+                                                            <div class="col-md-9 col-xs-8">
+                                                                <table style="width: 100%; table-layout: fixed;">
+                                                                    <tr>
+                                                                        <td style="padding-left: 1px; padding-right: 1px;">
+                                                                            @item.Baslik
+                                                                        </td>
+                                                                        <td style="width: 120px; padding-left: 1px; padding-right: 1px;vertical-align:top">
+                                                                            @item.Tarih.ToFormatDateAndTime()
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Duyurunun Yayınlanacağı Son Tarih</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 200px; overflow: auto;">
+                                                                @if (item.YayinSonTarih.HasValue)
+                                                                {
+                                                                    <span>@item.YayinSonTarih.Value.ToFormatDateAndTime()</span>
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    <span>Son Tarih Kriteri Belirlenmedi</span>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="col-md-12 col-xs-12" style="text-align: left;">
+                                                                <div class="panel panel-primary" style="margin:0px;padding:0px;">
+                                                                    <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                                                        <div class="scrolkikko" style="max-height: 250px; width:100%; overflow:hidden;">
+                                                                            @Html.Raw(item.AciklamaHtml)
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Ekler <img src="/Images/Attachment.png" style="height: 16px;"></label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 250px; overflow: auto;"> 
+                                                                <div class="scrolkikko" style="max-height: 210px; width:100%; overflow:hidden;">
+                                                                    <table style="width: 100%; table-layout: fixed;">
+                                                                        @if (item.EkSayisi > 0)
+                                                                        {
+                                                                            foreach (var item2 in item.DuyuruEkleris.Select((s, inx) => new { inx, s }))
+                                                                            {
+                                                                                <tr>
+                                                                                    <td style="width: 25px;">@(item2.inx + 1))</td>
+                                                                                    <td class="name"><a href="@item2.s.DosyaYolu" target="_blank"><span class="fa fa-download" style="color: green;"></span>&nbsp;@item2.s.DosyaEkAdi</a></td>
+                                                                                </tr>
+                                                                            }
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <tr>
+                                                                                <td colspan="2">Ek Yok</td>
+                                                                            </tr>
+                                                                        }
+
+                                                                    </table>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 control-label">Durum</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left; max-height: 200px; overflow: auto;">
+                                                                <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Duyuru Yapan</label>
+                                                            <div class="col-md-9 col-xs-8">@item.DuyuruYapan</div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Ip</label>
+                                                            <div class="col-md-9 col-xs-8">@item.IslemYapanIP</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="text-align: center">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+<script type="text/javascript">
+
+    function ShowDetail(id) {
+        var sndr = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(sndr, cls, unTogled);
+
+    }
+    function SilmeOnay(sndr, id) {
+        var htmlCont = $("#cls-" + id).html();
+        var eks = $("#tdEk_" + id).html();
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçilen Duyuruyu Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: htmlCont + SoruHtml,
+            title: "Duyuru Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Duyuruyu Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "Duyurular")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Duyuru Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    $(".cls-" + id).remove();
+                }
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

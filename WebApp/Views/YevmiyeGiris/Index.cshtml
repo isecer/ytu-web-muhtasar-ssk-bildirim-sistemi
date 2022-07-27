@@ -1,0 +1,279 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FmYevmiyeGiris
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    var KayitYetkisi = RoleNames.YevmiyeGirisKayitYetkisi.InRole();
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+    @using (Html.BeginForm("Index", "YevmiyeGiris", FormMethod.Post, new { id = "frmYevmiyeGiris" }))
+    {
+        <div class="col-md-12">
+
+            @Html.Hidden("export", false)
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-info @(Model.Expand ? "" : "panel-toggled")" id="pnlFltr">
+                <input class="hide" name="Expand" value="@Model.Expand.ToString().ToLower()" id="Expand" />
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title">
+                        <i class="glyphicon glyphicon-filter"></i> Filtre İşlemi
+                    </h3>
+                    <ul class="panel-controls">
+
+                        <li><a href="javasctipr:void(0)" onclick="$('#Expand').val(($('#pnlFltr').hasClass('panel-toggled') ? 'true' :'false' )); " class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <table class="table table-hover" style="table-layout:fixed;">
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Yıl</td>
+                                                    <td>@Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeGiris').submit();" })</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Birim</td>
+                                                    <td>@Html.DropDownList("BirimID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeGiris').submit();" })</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td>
+                                <table class="table table-hover" style="table-layout:fixed;">
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Yevmiye No</td>
+                                                    <td>
+                                                        <input name="YevmiyeNo" id="YevmiyeNo" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeGiris').submit(); }" value="@Model.VergiKimlikNo" class="form-control" />
+                                                        @if (Model.YevmiyeNo.HasValue == false)
+                                                        {
+                                                            <script>
+                                                                $(function () {
+                                                                    SetCaretAtEnd(document.getElementById('YevmiyeNo'));
+                                                                });
+
+                                                            </script>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Harcama Birim Kodu</td>
+                                                    <td>
+                                                        <table style="width:100%;table-layout:fixed;">
+                                                            <tr>
+                                                                <td><input name="HarcamaBirimKod" id="HarcamaBirimKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeGiris').submit(); }" value="@Model.HarcamaBirimKod" class="form-control" /></td>
+                                                                <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmYevmiyeGiris').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
+                                                            </tr>
+                                                        </table>
+                                                        @if (Model.HarcamaBirimKod.IsNullOrEmpty() == false)
+                                                        {
+                                                            <script>
+                                                                $(function () {
+                                                                    SetCaretAtEnd(document.getElementById('HarcamaBirimKod'));
+                                                                });
+
+                                                            </script>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="panel panel-danger" id="pnlDetay">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; Yevmiyeler</h3>
+                    <ul class="panel-controls">
+
+                        @if (KayitYetkisi && Model.Yil.HasValue)
+                        {
+
+                            <li>
+                                <span class="label label-info" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
+                                <script>
+
+
+                                    function ExcelYukle() {
+                                        var _anaPnl = $('#pnlDetay');
+                                        _pRefresh(_anaPnl, false);
+                                        $.ajax({
+                                            url: '@Url.Action("GetExcelYukle", "YevmiyeGiris")',
+                                            data: { 'Yil': @Model.Yil },
+                                            type: 'POST',
+                                            cache: false,
+                                            success: function (result) {
+                                                debugger
+                                                _pRefresh(_anaPnl, true);
+
+                                                    var btbxxFS = bootbox.dialog({
+                                                        message: result.page,
+                                                        title: "Excel'den Yevmiye yükleme işlemi",
+                                                        buttons: {
+                                                            success: {
+                                                                label: 'Yükle',
+                                                                className: "btn-primary",
+                                                                callback: function (event) {
+                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                                                    var saveOk = true;
+                                                                    if (saveOk) {
+                                                                        _pRefresh(pnlx, false);
+                                                                        $('#ExcelYuklePostForm').ajaxForm({
+                                                                            success: function (result) {
+                                                                                _pRefresh(pnlx, true);
+                                                                                getMsg(result);
+                                                                                if (result.IsSuccess) {
+                                                                                    setTimeout(function () {
+                                                                                        var _clsBtn = $('.modal-header').find('button').first();
+                                                                                        $(_clsBtn).click();
+                                                                                        $('#frmVeriGirisi').submit();
+                                                                                    }, 3400)
+                                                                                }
+                                                                                else {
+                                                                                    return false;
+                                                                                }
+                                                                            },
+                                                                            complete: function (cmp) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            },
+                                                                            error: function (err) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            }
+
+                                                                        });
+                                                                        $('#ExcelYuklePostForm').submit();
+                                                                    }
+                                                                    return false;
+                                                                }
+                                                            },
+                                                            danger: {
+                                                                label: 'Kapat',
+                                                                className: "btn-success",
+                                                                callback: function () {
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+
+                                            },
+                                            error: function (err) {
+                                                _pRefresh(_anaPnl, true);
+                                                alert(err.responseText);
+                                            }
+                                        });
+                                    };
+
+                                </script>
+
+                            </li>
+
+                        }
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="75"></th>
+                                <th class="sirala sorting" field="BirimAdi">Birim Adı</th>
+                                <th>Ad Soyad</th>
+                                <th>Meslek</th>
+                                <th class="sirala sorting">Süreç</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width:30px;">@RowIndex</td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_@item.YevmiyeID" onclick="ShowDetail(@item.YevmiyeID)">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>@item.BirimAdi <br /> a</td>
+                                        <td>a <br /> a</td>
+                                        <td>a</td>
+                                        <td>a</td>
+
+                                    </tr>
+                                    <tr class="cls-@item.YevmiyeID hide">
+                                        <td id="cls-@item.YevmiyeID" colspan="10" style="padding: 1px 1px 2px 75px;"></td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="text-align: center;">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function ShowDetail(id) {
+        var sndr = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(sndr, cls, unTogled);
+
+    }
+
+</script>

@@ -1,0 +1,48 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FrSurecIslemleri
+@{
+    Layout = null;
+    string Id = Model.VASurecID.ToString();
+
+}
+<style>
+    .myCaptionTdx {
+        text-align: right;
+        font-size: 9pt;
+        margin: 0px;
+        color: black;
+    }
+
+    .myValueTdx {
+        text-align: left;
+        font-size: 12pt;
+        margin: 0px;
+        color: black;
+    }
+</style>
+<div class="panel" style="vertical-align:top;height:489px;" id="pnglDB_@Model.VASurecID">
+    <div class="panel-body" style="margin: 0px; padding: 0px;">
+        <div class="panel tabs" style="margin-bottom:0px; padding:0px;">
+            <ul class="nav nav-tabs BsTabBtn_@Id" role="tablist">
+                <li class="@(Model.SelectedTabIndex == 1 ? "active" : "") bnt-@Id-1" style="margin-right:3px;"><a href="#" onclick="tabchangeSet('@Id',1)" style="cursor:pointer;margin:0px;padding-left:6px;padding-right:6px;" role="tab" data-toggle="tab"> <i class="fa fa-list-alt"></i>&nbsp; <span class="myCaptionTdx">Ay Bilgileri</span></a></li>
+                <li class="@(Model.SelectedTabIndex == 2 ? "active" : "") bnt-@Id-2" style="margin-right:3px;"><a href="#" onclick="tabchangeSet('@Id',2)" style="cursor:pointer;margin:0px;padding-left:6px;padding-right:6px;" role="tab" data-toggle="tab"> <i class="fa fa-home"></i>&nbsp; <span class="myCaptionTdx">Birim Bilgileri</span></a></li>
+
+                <li><a href="javascript:void(0);" onclick="SubData('@Id');" class="panel-refresh" title="Yenile"><span class="fa fa-refresh myValueTdx"></span></a></li>
+
+            </ul>
+            <div class="panel-body tab-content BsTabCont_@Id" style="padding:0px;">
+                <input type="text" id="selectedTb_@Id" style="display:none;" value="@Model.SelectedTabIndex" />
+                <input type="text" id="selectedBirimDurumID_@Model.VASurecID" style="display:none;" value="@Model.SBirimDurumID" />
+                <input type="text" id="selectedAyID_@Model.VASurecID" style="display:none;" value="@Model.SAyID" />
+                <div class="tab-pane @(Model.SelectedTabIndex == 1 ? "active" : "") " id="tab-@Id-1">
+
+                </div>
+                <div class="tab-pane @(Model.SelectedTabIndex == 2 ? "active" : "") " id="tab-@Id-2">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

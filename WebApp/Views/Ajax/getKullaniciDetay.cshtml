@@ -1,0 +1,310 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@using Database
+@model FrKullanicilar
+@{
+    Layout = null;
+    bool ResimVar = (bool)ViewBag.ResimVar;
+    bool KYetki = RoleNames.KullaniciKayit.InRole();
+
+    var roller = (URoles)ViewBag.KRoller;
+
+}
+
+<div class="panel panel-colorful form-horizontal" style="margin: 0px;">
+    <div class="panel-body form-group-separated">
+        <input type="text" style="display:none;" id="KullaniciID" name="KullaniciID" value="@Model.KullaniciID" />
+
+        <div class="form-group">
+            <div class="col-md-12 " style="text-align: left;padding:4px;">
+                <div class="panel panel-info">
+                    <div class="panel-heading padding-0">
+                        <h3 class="panel-title" style="font-size:9pt;color:#3fbae4;">Kullanıcı Bilgisi</h3>
+                        <ul class="panel-controls">
+                            @if (KYetki)
+                            {
+                                <li style="padding-right:5px;"><span class="label label-info label-form" onclick="window.open('/Kullanicilar/Kayit/@Model.KullaniciID', target = '_blank');" style="cursor:pointer;" title="Kullanıcı Hesabını Düzenle"><i class="fa fa-edit fa-lg"></i></span></li>
+                                <li style="padding-right:5px;"><span class="label label-info label-form" onclick="window.open('/Kullanicilar/Yetkilendirme/@Model.KullaniciID', target = '_blank');" style="cursor:pointer;" title="Erişim Yetkilerini Düzenle"><i class="fa fa-lock fa-lg"></i> EYT</span></li>
+                                <li style="padding-right:5px;"><span class="label label-info label-form" onclick="window.open('/Kullanicilar/KullaniciBirimYetkileri/@Model.KullaniciID', target = '_blank');" style="cursor:pointer;" title="Birim Yetkilerini Düzenle"><i class="fa fa-home fa-lg"></i> BYT</span></li>
+                                <li style="padding-right:5px;"><span class="label label-info label-form" onclick="window.open('/Kullanicilar/KullaniciRaporBirimYetkileri/@Model.KullaniciID', target = '_blank');" style="cursor:pointer;" title="Rapor Birim Yetkilerini Düzenle"><i class="fa fa-home fa-lg"></i> RBYT</span></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="panel-body padding-0">
+                        <div class="panel panel-default" style="padding: 0px; margin: 0px;">
+                            <table id="tblKul" style="width:100%;">
+                                <tr>
+                                    <td style="vertical-align:top;padding:0px;">
+                                        <table class="table" style="width:100%;margin:0px;padding:0px;">
+                                            <tr>
+                                                <td width="100">Ad Soyad</td>
+                                                <td width="5">:</td>
+                                                <td>@Model.Ad @Model.Soyad</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Birimi</td>
+                                                <td>:</td>
+                                                <td>@Model.BirimTreeAdi</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ünvanı</td>
+                                                <td>:</td>
+                                                <td>@Model.UnvanAdi</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tel</td>
+                                                <td>:</td>
+                                                <td>@Model.Tel</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email Adres</td>
+                                                <td>:</td>
+                                                <td>@Model.EMail</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Kullanıcı Adı</td>
+                                                <td>:</td>
+                                                <td>@Model.KullaniciAdi</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Şifre Kabul Türü</td>
+                                                <td>:</td>
+                                                <td>@(Model.IsActiveDirectoryUser ? "Active Directory" : "Lokal Şifre")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Yetki Grubu</td>
+                                                <td>:</td>
+                                                <td>@Model.YetkiGrupAdi @(Model.IsAdmin ? "+" : "")  @(roller.EklenenRoller.Count > 0 ? ("  (Ek " + roller.EklenenRoller.Count + " Yetki)") : "")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Oluşturma Tarihi</td>
+                                                <td>:</td>
+                                                <td>@Model.OlusturmaTarihi.ToDatetTimeString()</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Son Giriş Zamanı</td>
+                                                <td>:</td>
+                                                <td>@(Model.LastLogonDate.HasValue ? Model.LastLogonDate.ToDatetTimeString() : "Henüz Giriş Yapmamış")</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Durum</td>
+                                                <td>:</td>
+                                                <td>@Model.IsAktif.ToAktifPasif()</td>
+                                            </tr>
+                                        </table>
+
+
+                                    </td>
+                                    <td width="140" style="background-color:#3fbae4;">
+                                        <div class="panel-body profile bg-info" style="padding: 0px; margin: 0px;" id="pImageD">
+
+                                            <table style="height:100%;width:100%;table-layout:fixed;background-color:#3fbae4;">
+                                                <tr class="_EditImg @((KYetki) || Model.KullaniciID == UserIdentity.Current.Id?"":"hide")">
+                                                    <td height="30" style="text-align:center;"><button class="btn btn-info" onclick="getImageUpload()"><i class="fa fa-image fa-lg"></i> Resim Yükle</button></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+
+                                                        <div class="profile-image" style="padding: 0px; margin: 0px;">
+                                                            <img class="pImageD" style="width:120px;height:120px;" src="@Model.ResimAdi" alt="@Model.Ad @Model.Soyad">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <tr class="_EditImg @((ResimVar && KYetki) || Model.KullaniciID == UserIdentity.Current.Id?"":"hide")">
+                                                    <td height="30">
+                                                        <table style="width:100%;table-layout:fixed;">
+                                                            <tr>
+                                                                <td style="text-align:center;"><button class="btn btn-info" onclick="rotateImage(true)" title="Sola Döndür"><i class="fa fa-rotate-left fa-lg"></i></button></td>
+                                                                <td style="text-align:center;"><button class="btn btn-info" onclick="rotateImage(false)" title="Sağa Döndür"><i class="fa fa-rotate-right fa-lg"></i></button></td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-info">
+                    <div class="panel-heading padding-0">
+                        <h3 class="panel-title" style="font-size:9pt;color:#3fbae4;">Yetkili Olduğu Birimler (@Model.BirimYetkileri.Count Adet)</h3>
+                    </div>
+                    <div class="panel-body padding-0">
+                        <table class="table" style="width:100%;table-layout:fixed;padding:0px;margin:0px;">
+                            <thead>
+                                <tr>
+                                    <th width="30"></th>
+                                    <th>Birim Adı</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.BirimYetkileri.Count() > 0)
+                                {
+                                    int inx = 0;
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="overflow:auto;max-height:160px;">
+                                                <table id="prgList" style="table-layout:fixed;width:100%;">
+                                                    @foreach (var item in Model.BirimYetkileri)
+                                                    {
+                                                        inx++;
+
+                                                        <tr class="_rows">
+                                                            <td width="20">@inx)</td>
+                                                            <td>
+                                                                @item.BirimAdi
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="2" style="text-align: center;">
+                                            [ Kullanıcıya Ait Birim Yetkisi Bulunamadı! ]
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div> 
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<script>
+    var h = window.innerHeight - 380;
+    $('.scrolkikko').slimScroll({
+        color: '#9bbb67',
+        height: h
+    });
+    $('.icheckbox').iCheck({ checkboxClass: 'icheckbox_minimal-grey', radioClass: 'iradio_minimal-grey' });
+
+</script>
+
+<script>
+    function rotateImage(rotate) {
+        var KullaniciID = $('#KullaniciID').val();
+        var _panel = $('#pImageD');
+        _pRefresh(_panel, false);
+        setTimeout(function () {
+            $.ajax({
+                url: '@Url.Action("rotateImage", "Ajax")',
+                data: { LeftOrRight: rotate, KullaniciID: KullaniciID },
+                success: function (result) {
+                    var src = root + result.ResimAdi + "?time=" + new Date();
+                    $('.pImageD').first().attr('src', src);
+                    $('#pImageD').find('.panel-refresh-layer').remove();
+                    if (KullaniciID=='@UserIdentity.Current.Id') {
+                        var _userMainImg = $('#userMainImg').first();
+                        $(_userMainImg).attr('src', src);
+                    }
+                    _pRefresh(_panel, true);
+                },
+                error: function (err) {
+                    $('#pImageD').find('.panel-refresh-layer').remove();
+                    alert(err.responseText);
+                    _pRefresh(_panel, true);
+                }
+            });
+        }, 1000);
+
+    }
+ function getImageUpload() {
+
+     var _panelM = $('#pImageD');
+            _pRefresh(_panelM, false);
+            $.ajax({
+                url: '@Url.Action("getImageUpload", "Ajax")',
+                data: { 'KullaniciID': @Model.KullaniciID },
+                success: function (resultPG) {
+                    _pRefresh(_panelM, true);
+                        var btbxxFSx = bootbox.dialog({
+                            message: resultPG,
+                            title: "<i class='fa fa-user-o fa-lg'></i> Profil Resmi Ekleme İşlemi",
+                            buttons: {
+                                success: {
+                                    label: "Resmi Kaydet",
+                                    className: "btn-primary",
+                                    callback: function () {
+                                        var kbuton = $(btbxxFSx).find('.modal-footer').find('.btn-primary').first();
+                                        $(kbuton).attr('disabled', 'disabled');
+                                        var _panel = $('#_ImageUploadPnl');
+                                        _pRefresh(_panel, false);
+                                        $('#GetImageUploadForm').ajaxForm({
+                                            success: function (result) {
+                                                debugger
+                                                if (result.mMessage.IsSuccess) {
+                                                    toastr["success"](result.mMessage.Title, "Resim Kaydetme İşlemi");
+                                                    var src =  result.ResimAdi + "?time=" + new Date();
+                                                    $('.pImageD').first().attr('src', src);
+                                                    $('#pImageD').find('.panel-refresh-layer').remove();
+                                                    $('._EditImg').removeClass('hide');
+                                                    if (result.AnaResmiDegistir) {
+                                                        var _userMainImg = $('#userMainImg').first();
+                                                        $(_userMainImg).attr('src', src);
+                                                    }
+
+                                                    _pRefresh(_panel, true);
+                                                    setTimeout(function () {
+                                                        var _clsBtn = $(btbxxFSx).find('.modal-header').find('button').first();
+                                                        $(_clsBtn).click();
+                                                    }, 800)
+                                                }
+                                                else {
+                                                    $(kbuton).removeAttr('disabled');
+                                                    getMsg(result.mMessage);
+                                                    return false;
+                                                }
+                                                _pRefresh(_panel, true);
+                                            },
+                                            complete: function (cmp) {
+                                                $(kbuton).removeAttr('disabled');
+                                                _pRefresh(_panel, true);
+                                            },
+                                            error: function (err) {
+                                                $(kbuton).removeAttr('disabled');
+                                                _pRefresh(_panel, true);
+                                            }
+
+                                        });
+                                        $('#GetImageUploadForm').submit();
+                                        return false;
+                                    }
+                                },
+                                danger: {
+                                    label: "Vazgeç",
+                                    className: "btn-success",
+                                    callback: function () {
+                                    }
+                                }
+                            }
+                        });
+
+                },
+                error: function (err) {
+                    _pRefresh(_panelM, true);
+                    alert(err.responseText);
+                }
+            });
+        }
+
+</script>   

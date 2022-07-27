@@ -1,0 +1,282 @@
+﻿
+@using BiskaUtil
+@using WebApp.Models
+@model FmSurecIslemleri
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    var kayit = RoleNames.SurecIslemleriKayitYetkisi.InRole();
+
+
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-danger" id="pnlDnms">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-clock-o"></i>&nbsp; Süreç İşlemleri</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <table class="table table-hover padding-0">
+                        <thead>
+                            <tr>
+                                <th width="125"></th>
+                                <th width="160"class="sirala sorting" field="Yil">Süreç</th>
+                                <th >Başlangıç / Bitiş Tarihi</th> 
+                                <th width="105" class="sirala sorting" field="IsAktif" style="text-align:center;">Durum</th>
+                            </tr> 
+                        </thead>
+                        <tbody>
+                            @*<tr class="filtrele">
+                                <th></th>
+                                <th> 
+                                </th>
+                                <th> 
+                                </th>
+                                <th></th>
+                                <th> 
+                                </th> 
+                            </tr>*@
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr class="delrw_@item.VASurecID" style="@(item.AktifSurec?"color:green;font-weight:bold;":"")">
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width: 30px;">@RowIndex</td>
+                                                    <td style="width: 50px;">
+                                                        <div class="btn-group">
+                                                            <a href="javascript:void(0);" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><i class="fa fa-cogs"></i></a>
+                                                            <ul class="dropdown-menu" role="menu">
+                                                                <li role="presentation" class="dropdown-header">İşlemler</li> 
+                                                                <li>
+
+                                                                    <a href="@Url.Action("Kayit")"><i class="fa fa-plus fa-lg"></i>Yeni</a>
+                                                                    <a href="@Url.Action("Kayit", new { id = item.VASurecID })"><i class="fa fa-edit fa-lg"></i>Düzenle</a>
+                                                                    <a href="javascript:void(0)" onclick="Sil(@item.VASurecID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i>Sil</a>
+
+                                                                </li>
+                                                               
+
+                                                            </ul>
+
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_ana-@item.VASurecID" onclick="ShowDetail('ana-@item.VASurecID',@item.VASurecID)">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span></a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td width="160" class="sYilBilgi_@item.VASurecID">@item.SurecYilAdi</td> 
+                                        <td>@item.BaslangicTarihi.ToDateString() / @item.BitisTarihi.ToDateString()</td>
+                                        <td style="text-align:center;">
+                                            <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+
+
+                                    </tr>
+                                    <tr class="hide cls-ana-@item.VASurecID delrw_@item.VASurecID">
+                                        <td id="cls-ana-@item.VASurecID" colspan="4" height="495"></td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" style="text-align: center">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+ 
+<script type="text/javascript">
+    function ShowDetail(rwGD, id) {
+        var rwID = $('#iShow_' + rwGD);
+        var cls = 'cls-' + rwGD;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(rwID, cls, unTogled);
+        if (unTogled && id != undefined) setTimeout(function () { GetDetail(id); }, 200);
+    }
+    function ShowDetail2(VASurecID, KayitID, rwGD, isBirimOrMadde) {
+        var rwID = $('#iShow_' + rwGD);
+        var cls = 'cls-' + rwGD;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(rwID, cls, unTogled);
+        if (unTogled) {
+            if (isBirimOrMadde) GetMaddeBirimleri(VASurecID, KayitID, rwGD);
+            else GetBirimMaddeleri(VASurecID, KayitID, rwGD);
+        }
+    }
+    function GetDetail(id) { 
+        var tID = "1";
+        if ($('#selectedTb_' + id).length > 0) {
+            var tID = $('#selectedTb_' + id).val();
+            SubData(id);
+        }
+        else {
+            $.ajax({
+                url: '@Url.Action("GetDetail", "SurecIslemleri")',
+                data: { id: id, tbInx: tID },
+                async: false,
+                success: function (result) { 
+                    if (!result.IsAuthenticated) {
+                        alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
+                        window.location.href = '@Url.Action("Index", "Home")';
+                    }
+                    else  {
+                        $('#cls-ana-' + id).html(result.page);
+                        SubData(id);
+                    }
+                    
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+
+    }
+  
+    function Sil(id) {
+        var _Yil = $('.sYilBilgi_' + id).text();
+        var btbx = bootbox.dialog({
+            message: "<table style='table-layout:fixed;width:100%;'><tr><td style='font-size:14pt;text-align:center;color:maroon;'>" + _Yil + " Bilgisini Silmek İstiyor Musunuz?</td></tr></table>",
+            title: "Süreç Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Süreci Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            url: '@Url.Action("Sil", "SurecIslemleri")',
+                            data: { id: id },
+                            success: function (result) {
+                                if (result.IsSuccess) {
+                                    $(".delrw_" + id).remove();
+                                }
+                                showMmMessage(result.Messages, 'Tamam');
+                            },
+                            error: function (err) {
+                                alert(err.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Kapat",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+
+
+    function SubData(id) { 
+        var _panel = $('#pnglDB_' + id);
+        var tID = "1";
+        var sDurumID = "";
+        var sAyID = ""; 
+        if ($('#selectedTb_' + id).length > 0) {
+            var tID = $('#selectedTb_' + id).val();
+            var sHafta = "";
+            if (tID == 2) {
+                sDurumID = $('#selectedBirimDurumID_' + id).val();
+                sAyID = $('#selectedAyID_' + id).val();
+            }
+            
+        } 
+        _pRefresh(_panel, false);
+        $.ajax({
+            url: '@Url.Action("GetSubData", "SurecIslemleri")',
+            data: { id: id, SelectDurumID: sDurumID, SelectAyID: sAyID, tbInx: tID },
+            success: function (result) { 
+                 if (!result.IsAuthenticated) {
+                     alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
+                     window.location.href = '@Url.Action("Index", "Home")';
+                 }
+                 else  {
+                    var _nme = 'tab-' + id + '-' + tID;
+                    insertHtml(_nme, result.page); 
+                 } 
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                alert(err.responseText);
+                _pRefresh(_panel, true);
+            }
+        });
+    }
+  
+    function setselectedBirimDurumID(val, _VASurecID) {
+
+        $('#selectedBirimDurumID_' + _VASurecID).val(val);
+    }
+    function setselectedAyID(val, _VASurecID) {
+
+        $('#selectedAyID_' + _VASurecID).val(val);
+    }
+    function tabchangeSet(bsvID, tID) {
+        var clsNM_Btn = '.BsTabBtn_' + bsvID;
+        $(clsNM_Btn).find('li').each(function (inx, itmx) {
+            $(itmx).removeClass('active');
+        })
+        var clsNM_Cont = '.BsTabCont_' + bsvID;
+        $(clsNM_Cont).find('.tab-pane').each(function (inx, itmx) {
+            $(itmx).removeClass('active');
+        })
+        $('.btn-' + bsvID + '-' + tID).addClass('active');
+        $('#tab-' + bsvID + '-' + tID).addClass('active');
+        $('#selectedTb_' + bsvID).val(tID);
+        var tbHtml = $('#tab-' + bsvID + '-' + tID).html().trim();
+        if (tbHtml == "") {
+            SubData(bsvID, false, null);
+        }
+    }
+    function AyDurumuGuncelle(sndr, id) {
+        var _AyDurumID = $(sndr).val();
+        $.ajax({
+            url: '@Url.Action("AyDurumuGuncelle","SurecIslemleri")',
+            data: { id: id, AyDurumID: _AyDurumID },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Ay Veri Girişi Durumu Güncelleme İşlemi")
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>
