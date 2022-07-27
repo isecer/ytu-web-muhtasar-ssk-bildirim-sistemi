@@ -1,0 +1,104 @@
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\bin\Release\System.Web.Mvc.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\obj\Release\BiskaUtil.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\bin\Release\System.Web.Mvc.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\obj\Release\BiskaUtil.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\obj\Release\Biska.Util.v1.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\Biska.Util.v1.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\Biska.Util.v1.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\Biska.Util.v1.pdb

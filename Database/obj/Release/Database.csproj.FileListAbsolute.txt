@@ -1,0 +1,170 @@
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Release\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Release\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Release\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Release\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Release\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Release\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Release\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Release\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Release\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Release\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Release\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Release\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Release\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Release\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Release\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Release\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Release\Database.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Release\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Release\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Release\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\Database.dll.config
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Release\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Release\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Release\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Release\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Release\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\Database.dll.config
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\EntityFramework.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\EntityFramework.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.csproj.CopyComplete
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.pdb

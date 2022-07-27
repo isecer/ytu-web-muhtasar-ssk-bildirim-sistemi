@@ -1,0 +1,1269 @@
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\Database.dll.config
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\Database.dll
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\Database.pdb
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\EntityFramework.dll
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\EntityFramework.SqlServer.dll
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\EntityFramework.xml
+c:\Users\iRfan\source\repos\EUS\Database\bin\Debug\EntityFramework.SqlServer.xml
+c:\Users\iRfan\source\repos\EUS\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+c:\Users\iRfan\source\repos\EUS\Database\obj\Debug\Database.dll
+c:\Users\iRfan\source\repos\EUS\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\7 net framework 4_7_2\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\8\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\9\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\10\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\11\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\12\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\13\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\14\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\14\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\15\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\16\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\17\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\18\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\19\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\20\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\21\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\22\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\23\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\24\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\25\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\26\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\28\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\29\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\30\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\31\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\33\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\33\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\34\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\34\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\35\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\38\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\39\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\40\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\41\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\42\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\44\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\45_\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\46\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\47\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\48\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\49\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\50\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\51\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\52\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\53\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\54\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\55\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\55\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\57\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\58\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\59\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\59\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\60\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\61\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\62\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\62\Database\obj\Debug\Database.pdb
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\Database.dll.config
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\Database.dll
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\Database.pdb
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\EntityFramework.dll
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\EntityFramework.xml
+C:\Users\iRfan\Desktop\63\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\63\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+C:\Users\iRfan\Desktop\63\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\63\Database\obj\Debug\Database.dll
+C:\Users\iRfan\Desktop\63\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\BISKA\EUS\Proje\63\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\obj\Debug\Database.csprojResolveAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\64\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\66\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\EUS\Proje\67- USIS_GSIS WS\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\67- USIS_GSIS WS\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\1\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\2\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\2\Database\obj\Debug\Database.pdb
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\Database.dll.config
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\Database.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\Database.pdb
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\EntityFramework.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\EntityFramework.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\4\Database\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\4\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\4\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\4\Database\obj\Debug\Database.csproj.CopyComplete
+C:\Users\iRfan\Desktop\4\Database\obj\Debug\Database.dll
+C:\Users\iRfan\Desktop\4\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\5\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\7\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\Database.dll.config
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\Database.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\Database.pdb
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\EntityFramework.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\EntityFramework.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\7\Database\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\7\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\7\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\7\Database\obj\Debug\Database.csproj.CopyComplete
+C:\Users\iRfan\Desktop\7\Database\obj\Debug\Database.dll
+C:\Users\iRfan\Desktop\7\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\8\Database\obj\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\Database.dll.config
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\Database.pdb
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\obj\Debug\Database.dll
+D:\Kişisel\_irfanOzel\Projeler\Istatistik\9\Database\obj\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\Database.dll.config
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\obj\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\obj\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\Istatistik\10\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\YtuIstatistik\Preoje\11\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VeriYonetimSistemi\Preoje\12\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\12\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\Database.dll.config
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\Projeler\YTU\VYS\12\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\Projeler\YTU\VYS\12\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\Projeler\YTU\VYS\12\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\Projeler\YTU\VYS\12\Database\obj\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\VYS\12\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\14\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\VYS\Preoje\15\Database\obj\Debug\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\Database.dll.config
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\EntityFramework.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\EntityFramework.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\obj\Debug\Database.csproj.CopyComplete
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\obj\Debug\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\1\Database\obj\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.dll.config
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.dll.config
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Database.pdb
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Helpers.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Mvc.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Helpers.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Mvc.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csprojAssemblyReference.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.csproj.CopyComplete
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.dll
+C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\2\Database\obj\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\Database.dll.config
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\Database.pdb
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\EntityFramework.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Helpers.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Mvc.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Razor.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\EntityFramework.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Helpers.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Mvc.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.Razor.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\obj\Debug\Database.dll
+D:\Kişisel\Projeler\YTU\MUSSK\Proje\4\Database\obj\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\Database.dll.config
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\Database.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\Database.pdb
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\EntityFramework.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\EntityFramework.SqlServer.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Helpers.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Mvc.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Razor.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.Razor.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\EntityFramework.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\EntityFramework.SqlServer.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Helpers.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Mvc.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.Razor.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\bin\Debug\System.Web.WebPages.Razor.xml
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\obj\Debug\Database.csprojAssemblyReference.cache
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\obj\Debug\Database.csproj.CopyComplete
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\obj\Debug\Database.dll
+D:\Yazılım\YeniYazılım\Muhtasar Ve SSK Bildirimi\Proje\4\Database\obj\Debug\Database.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\Database.dll.config
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\Database.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\Database.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\EntityFramework.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\EntityFramework.SqlServer.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\Microsoft.Web.Infrastructure.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Helpers.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Mvc.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.Deployment.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\EntityFramework.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\EntityFramework.SqlServer.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Helpers.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Mvc.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.Deployment.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Debug\System.Web.WebPages.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Debug\Database.csprojAssemblyReference.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Debug\Database.csproj.CopyComplete
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Debug\Database.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Debug\Database.pdb

@@ -1,0 +1,1685 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MusskDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MusskDBEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_BirimAgaci" ReturnType="Collection(MusskDBModel.sp_BirimAgaci_Result)" />
+    <FunctionImport Name="sp_BirimAgaciGetBr" ReturnType="Collection(MusskDBModel.sp_BirimAgaciGetBr_Result)">
+      <Parameter Name="BirimID" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Ayarlars" EntityType="MusskDBModel.Ayarlar" />
+    <EntitySet Name="AyDurumlaris" EntityType="MusskDBModel.AyDurumlari" />
+    <EntitySet Name="Aylars" EntityType="MusskDBModel.Aylar" />
+    <EntitySet Name="BelgeMahiyetTipleris" EntityType="MusskDBModel.BelgeMahiyetTipleri" />
+    <EntitySet Name="BelgeTurleris" EntityType="MusskDBModel.BelgeTurleri" />
+    <EntitySet Name="Birimlers" EntityType="MusskDBModel.Birimler" />
+    <EntitySet Name="DuyuruEkleris" EntityType="MusskDBModel.DuyuruEkleri" />
+    <EntitySet Name="Duyurulars" EntityType="MusskDBModel.Duyurular" />
+    <EntitySet Name="EksikGunNedenleris" EntityType="MusskDBModel.EksikGunNedenleri" />
+    <EntitySet Name="GonderilenMailEkleris" EntityType="MusskDBModel.GonderilenMailEkleri" />
+    <EntitySet Name="GonderilenMailKullanicilars" EntityType="MusskDBModel.GonderilenMailKullanicilar" />
+    <EntitySet Name="GonderilenMaillers" EntityType="MusskDBModel.GonderilenMailler" />
+    <EntitySet Name="IstenCikisNedenleris" EntityType="MusskDBModel.IstenCikisNedenleri" />
+    <EntitySet Name="KullaniciBirimleris" EntityType="MusskDBModel.KullaniciBirimleri" />
+    <EntitySet Name="KullaniciBirimleriRapors" EntityType="MusskDBModel.KullaniciBirimleriRapor" />
+    <EntitySet Name="Kullanicilars" EntityType="MusskDBModel.Kullanicilar" />
+    <EntitySet Name="MailSablonlaris" EntityType="MusskDBModel.MailSablonlari" />
+    <EntitySet Name="MailSablonlariEkleris" EntityType="MusskDBModel.MailSablonlariEkleri" />
+    <EntitySet Name="MailSablonTipleris" EntityType="MusskDBModel.MailSablonTipleri" />
+    <EntitySet Name="Menulers" EntityType="MusskDBModel.Menuler" />
+    <EntitySet Name="MesajEkleris" EntityType="MusskDBModel.MesajEkleri" />
+    <EntitySet Name="MesajKategorileris" EntityType="MusskDBModel.MesajKategorileri" />
+    <EntitySet Name="Mesajlars" EntityType="MusskDBModel.Mesajlar" />
+    <EntitySet Name="MeslekTurleris" EntityType="MusskDBModel.MeslekTurleri" />
+    <EntitySet Name="Rollers" EntityType="MusskDBModel.Roller" />
+    <EntitySet Name="SistemBilgilendirmes" EntityType="MusskDBModel.SistemBilgilendirme" />
+    <EntitySet Name="Unvanlars" EntityType="MusskDBModel.Unvanlar" />
+    <EntitySet Name="VASurecleris" EntityType="MusskDBModel.VASurecleri" />
+    <EntitySet Name="VASurecleriAylars" EntityType="MusskDBModel.VASurecleriAylar" />
+    <EntitySet Name="VASurecleriBirims" EntityType="MusskDBModel.VASurecleriBirim" />
+    <EntitySet Name="VASurecleriBirimVerileris" EntityType="MusskDBModel.VASurecleriBirimVerileri" />
+    <EntitySet Name="VASurecleriBirimVerileriAylikToplams" EntityType="MusskDBModel.VASurecleriBirimVerileriAylikToplam" />
+    <EntitySet Name="VeriGirisTipleris" EntityType="MusskDBModel.VeriGirisTipleri" />
+    <EntitySet Name="YetkiGruplaris" EntityType="MusskDBModel.YetkiGruplari" />
+    <EntitySet Name="YetkiGrupRolleris" EntityType="MusskDBModel.YetkiGrupRolleri" />
+    <EntitySet Name="Yevmiyelers" EntityType="MusskDBModel.Yevmiyeler" />
+    <EntitySet Name="YevmiyelerAyristirmas" EntityType="MusskDBModel.YevmiyelerAyristirma" />
+    <EntitySet Name="KullanicilarLogs" EntityType="MusskDBModel.KullanicilarLog" />
+    <EntitySet Name="YevmiyeAyristirmalaris" EntityType="MusskDBModel.YevmiyeAyristirmalari" />
+    <EntitySet Name="Vw_BirimlerTree" EntityType="MusskDBModel.Vw_BirimlerTree" />
+    <AssociationSet Name="FK_Ayarlar_Kullanicilar" Association="MusskDBModel.FK_Ayarlar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Ayarlar" EntitySet="Ayarlars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriAylar_AyDurumlari" Association="MusskDBModel.FK_VASurecleriAylar_AyDurumlari">
+      <End Role="AyDurumlari" EntitySet="AyDurumlaris" />
+      <End Role="VASurecleriAylar" EntitySet="VASurecleriAylars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriAylar_Aylar" Association="MusskDBModel.FK_VASurecleriAylar_Aylar">
+      <End Role="Aylar" EntitySet="Aylars" />
+      <End Role="VASurecleriAylar" EntitySet="VASurecleriAylars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_Aylar" Association="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar">
+      <End Role="Aylar" EntitySet="Aylars" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileriAylikToplam_Aylar" Association="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar">
+      <End Role="Aylar" EntitySet="Aylars" />
+      <End Role="VASurecleriBirimVerileriAylikToplam" EntitySet="VASurecleriBirimVerileriAylikToplams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BelgeMahiyetTipleri_Kullanicilar" Association="MusskDBModel.FK_BelgeMahiyetTipleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="BelgeMahiyetTipleri" EntitySet="BelgeMahiyetTipleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_BelgeMahiyetTipleri" Association="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeMahiyetTipleri">
+      <End Role="BelgeMahiyetTipleri" EntitySet="BelgeMahiyetTipleris" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BelgeTurleri_Kullanicilar" Association="MusskDBModel.FK_BelgeTurleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="BelgeTurleri" EntitySet="BelgeTurleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_BelgeTurleri" Association="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeTurleri">
+      <End Role="BelgeTurleri" EntitySet="BelgeTurleris" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Birimler_Kullanicilar" Association="MusskDBModel.FK_Birimler_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Birimler" EntitySet="Birimlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Birimler_UstBirimler" Association="MusskDBModel.FK_Birimler_UstBirimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="Birimler1" EntitySet="Birimlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Birimler_VeriGirisTipleri" Association="MusskDBModel.FK_Birimler_VeriGirisTipleri">
+      <End Role="VeriGirisTipleri" EntitySet="VeriGirisTipleris" />
+      <End Role="Birimler" EntitySet="Birimlers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciBirimleri_Birimler" Association="MusskDBModel.FK_KullaniciBirimleri_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="KullaniciBirimleri" EntitySet="KullaniciBirimleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciBirimleriRapor_Birimler" Association="MusskDBModel.FK_KullaniciBirimleriRapor_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="KullaniciBirimleriRapor" EntitySet="KullaniciBirimleriRapors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_Birimler" Association="MusskDBModel.FK_Kullanicilar_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirim_Birimler" Association="MusskDBModel.FK_VASurecleriBirim_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="VASurecleriBirim" EntitySet="VASurecleriBirims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyeAyristirmalari_Birimler" Association="MusskDBModel.FK_YevmiyeAyristirmalari_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="YevmiyeAyristirmalari" EntitySet="YevmiyeAyristirmalaris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler_Birimler" Association="MusskDBModel.FK_Yevmiyeler_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerAyristirma_Birimler" Association="MusskDBModel.FK_YevmiyelerAyristirma_Birimler">
+      <End Role="Birimler" EntitySet="Birimlers" />
+      <End Role="YevmiyelerAyristirma" EntitySet="YevmiyelerAyristirmas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DuyuruEkleri_Duyurular" Association="MusskDBModel.FK_DuyuruEkleri_Duyurular">
+      <End Role="Duyurular" EntitySet="Duyurulars" />
+      <End Role="DuyuruEkleri" EntitySet="DuyuruEkleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Duyurular_Kullanicilar" Association="MusskDBModel.FK_Duyurular_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Duyurular" EntitySet="Duyurulars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_EksikGunNedenleri_Kullanicilar" Association="MusskDBModel.FK_EksikGunNedenleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="EksikGunNedenleri" EntitySet="EksikGunNedenleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_EksikGunNedenleri" Association="MusskDBModel.FK_VASurecleriBirimVerileri_EksikGunNedenleri">
+      <End Role="EksikGunNedenleri" EntitySet="EksikGunNedenleris" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailEkleri_GonderilenMailler" Association="MusskDBModel.FK_GonderilenMailEkleri_GonderilenMailler">
+      <End Role="GonderilenMailler" EntitySet="GonderilenMaillers" />
+      <End Role="GonderilenMailEkleri" EntitySet="GonderilenMailEkleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailKullanicilar_GonderilenMailler" Association="MusskDBModel.FK_GonderilenMailKullanicilar_GonderilenMailler">
+      <End Role="GonderilenMailler" EntitySet="GonderilenMaillers" />
+      <End Role="GonderilenMailKullanicilar" EntitySet="GonderilenMailKullanicilars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailKullanicilar_Kullanicilar" Association="MusskDBModel.FK_GonderilenMailKullanicilar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="GonderilenMailKullanicilar" EntitySet="GonderilenMailKullanicilars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailler_Kullanicilar" Association="MusskDBModel.FK_GonderilenMailler_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="GonderilenMailler" EntitySet="GonderilenMaillers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailler_Mesajlar" Association="MusskDBModel.FK_GonderilenMailler_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlars" />
+      <End Role="GonderilenMailler" EntitySet="GonderilenMaillers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IstenCikisNedenleri_Kullanicilar" Association="MusskDBModel.FK_IstenCikisNedenleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="IstenCikisNedenleri" EntitySet="IstenCikisNedenleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_IstenCikisNedenleri" Association="MusskDBModel.FK_VASurecleriBirimVerileri_IstenCikisNedenleri">
+      <End Role="IstenCikisNedenleri" EntitySet="IstenCikisNedenleris" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciBirimleri_Kullanicilar" Association="MusskDBModel.FK_KullaniciBirimleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="KullaniciBirimleri" EntitySet="KullaniciBirimleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciBirimleriRapor_Kullanicilar" Association="MusskDBModel.FK_KullaniciBirimleriRapor_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="KullaniciBirimleriRapor" EntitySet="KullaniciBirimleriRapors" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GelenMesajlar_Kullanicilar" Association="MusskDBModel.FK_GelenMesajlar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Mesajlar" EntitySet="Mesajlars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_Unvanlar" Association="MusskDBModel.FK_Kullanicilar_Unvanlar">
+      <End Role="Unvanlar" EntitySet="Unvanlars" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_YetkiGruplari" Association="MusskDBModel.FK_Kullanicilar_YetkiGruplari">
+      <End Role="YetkiGruplari" EntitySet="YetkiGruplaris" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MesajKategorileri_Kullanicilar" Association="MusskDBModel.FK_MesajKategorileri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="MesajKategorileri" EntitySet="MesajKategorileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MeslekTurleri_Kullanicilar" Association="MusskDBModel.FK_MeslekTurleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="MeslekTurleri" EntitySet="MeslekTurleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SistemBilgilendirme_Kullanicilar" Association="MusskDBModel.FK_SistemBilgilendirme_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="SistemBilgilendirme" EntitySet="SistemBilgilendirmes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailSablonlari_MailSablonTipleri" Association="MusskDBModel.FK_MailSablonlari_MailSablonTipleri">
+      <End Role="MailSablonTipleri" EntitySet="MailSablonTipleris" />
+      <End Role="MailSablonlari" EntitySet="MailSablonlaris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailSablonlariEkleri_MailSablonlari" Association="MusskDBModel.FK_MailSablonlariEkleri_MailSablonlari">
+      <End Role="MailSablonlari" EntitySet="MailSablonlaris" />
+      <End Role="MailSablonlariEkleri" EntitySet="MailSablonlariEkleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MesajEkleri_Mesajlar" Association="MusskDBModel.FK_MesajEkleri_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlars" />
+      <End Role="MesajEkleri" EntitySet="MesajEkleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesajlar_MesajKategorileri" Association="MusskDBModel.FK_Mesajlar_MesajKategorileri">
+      <End Role="MesajKategorileri" EntitySet="MesajKategorileris" />
+      <End Role="Mesajlar" EntitySet="Mesajlars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesajlar_Mesajlar" Association="MusskDBModel.FK_Mesajlar_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlars" />
+      <End Role="Mesajlar1" EntitySet="Mesajlars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YetkiGrupRolleri_Roller" Association="MusskDBModel.FK_YetkiGrupRolleri_Roller">
+      <End Role="Roller" EntitySet="Rollers" />
+      <End Role="YetkiGrupRolleri" EntitySet="YetkiGrupRolleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriAylar_VASurecleri" Association="MusskDBModel.FK_VASurecleriAylar_VASurecleri">
+      <End Role="VASurecleri" EntitySet="VASurecleris" />
+      <End Role="VASurecleriAylar" EntitySet="VASurecleriAylars" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirim_VASurecleri" Association="MusskDBModel.FK_VASurecleriBirim_VASurecleri">
+      <End Role="VASurecleri" EntitySet="VASurecleris" />
+      <End Role="VASurecleriBirim" EntitySet="VASurecleriBirims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_VASurecleriBirim" Association="MusskDBModel.FK_VASurecleriBirimVerileri_VASurecleriBirim">
+      <End Role="VASurecleriBirim" EntitySet="VASurecleriBirims" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileriAylikToplam_VASurecleriBirim" Association="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_VASurecleriBirim">
+      <End Role="VASurecleriBirim" EntitySet="VASurecleriBirims" />
+      <End Role="VASurecleriBirimVerileriAylikToplam" EntitySet="VASurecleriBirimVerileriAylikToplams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VASurecleriBirimVerileri_VeriGirisTipleri" Association="MusskDBModel.FK_VASurecleriBirimVerileri_VeriGirisTipleri">
+      <End Role="VeriGirisTipleri" EntitySet="VeriGirisTipleris" />
+      <End Role="VASurecleriBirimVerileri" EntitySet="VASurecleriBirimVerileris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YetkiGrupRolleri_YetkiGruplari" Association="MusskDBModel.FK_YetkiGrupRolleri_YetkiGruplari">
+      <End Role="YetkiGruplari" EntitySet="YetkiGruplaris" />
+      <End Role="YetkiGrupRolleri" EntitySet="YetkiGrupRolleris" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerAyristirma_Yevmiyeler" Association="MusskDBModel.FK_YevmiyelerAyristirma_Yevmiyeler">
+      <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
+      <End Role="YevmiyelerAyristirma" EntitySet="YevmiyelerAyristirmas" />
+    </AssociationSet>
+    <AssociationSet Name="KullaniciRolleri" Association="MusskDBModel.KullaniciRolleri">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Roller" EntitySet="Rollers" />
+    </AssociationSet>
+    <AssociationSet Name="MenuRollleri" Association="MusskDBModel.MenuRollleri">
+      <End Role="Menuler" EntitySet="Menulers" />
+      <End Role="Roller" EntitySet="Rollers" />
+    </AssociationSet>
+  </EntityContainer>
+  <ComplexType Name="sp_BirimAgaci_Result">
+    <Property Type="Int32" Name="BirimID" Nullable="true" />
+    <Property Type="Int32" Name="UstBirimID" Nullable="true" />
+    <Property Type="String" Name="BirimAdi" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="BirimTreeAdi" Nullable="true" MaxLength="1000" />
+    <Property Type="Int32" Name="Lvl" Nullable="true" />
+    <Property Type="Boolean" Name="IsVeriGirisiYapilabilir" Nullable="true" />
+    <Property Type="Int32" Name="VeriGirisTipID" Nullable="true" />
+    <Property Type="String" Name="YeniUniteKodu" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="EskiUniteKodu" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="IsyeriSiraNumarasi" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="IlKodu" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="AltIsverenNumarasi" Nullable="true" MaxLength="12" />
+    <Property Type="Boolean" Name="IsAktif" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_BirimAgaciGetBr_Result">
+    <Property Type="Int32" Name="BirimID" Nullable="true" />
+    <Property Type="Int32" Name="UstBirimID" Nullable="true" />
+    <Property Type="String" Name="BirimAdi" Nullable="true" MaxLength="256" />
+    <Property Type="String" Name="BirimTreeAdi" Nullable="true" MaxLength="1000" />
+    <Property Type="Int32" Name="Lvl" Nullable="true" />
+    <Property Type="Boolean" Name="IsVeriGirisiYapilabilir" Nullable="true" />
+    <Property Type="Int32" Name="VeriGirisTipID" Nullable="true" />
+    <Property Type="String" Name="YeniUniteKodu" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="EskiUniteKodu" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="IsyeriSiraNumarasi" Nullable="true" MaxLength="12" />
+    <Property Type="String" Name="IlKodu" Nullable="true" MaxLength="3" />
+    <Property Type="String" Name="AltIsverenNumarasi" Nullable="true" MaxLength="12" />
+    <Property Type="Boolean" Name="IsAktif" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="Ayarlar">
+    <Key>
+      <PropertyRef Name="AyarAdi" />
+    </Key>
+    <Property Name="AyarAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="AyarDegeri" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="InpType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="SItems" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Kategori" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Varsayilanlar" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="SiraNo" Type="Int32" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_Ayarlar_Kullanicilar" FromRole="Ayarlar" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="AyDurumlari">
+    <Key>
+      <PropertyRef Name="AyDurumID" />
+    </Key>
+    <Property Name="AyDurumID" Type="Int32" Nullable="false" />
+    <Property Name="DurumAdi" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="IsVeriGirilebilir" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="VASurecleriAylars" Relationship="MusskDBModel.FK_VASurecleriAylar_AyDurumlari" FromRole="AyDurumlari" ToRole="VASurecleriAylar" />
+  </EntityType>
+  <EntityType Name="Aylar">
+    <Key>
+      <PropertyRef Name="AyID" />
+    </Key>
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="AyAdi" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="VASurecleriAylars" Relationship="MusskDBModel.FK_VASurecleriAylar_Aylar" FromRole="Aylar" ToRole="VASurecleriAylar" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileri" />
+    <NavigationProperty Name="VASurecleriBirimVerileriAylikToplams" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileriAylikToplam" />
+  </EntityType>
+  <EntityType Name="BelgeMahiyetTipleri">
+    <Key>
+      <PropertyRef Name="BelgeMahiyetTipID" />
+    </Key>
+    <Property Name="BelgeMahiyetTipID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BelgeMahiyetTipKodu" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="BelgeMahiyetTipAdi" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_BelgeMahiyetTipleri_Kullanicilar" FromRole="BelgeMahiyetTipleri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeMahiyetTipleri" FromRole="BelgeMahiyetTipleri" ToRole="VASurecleriBirimVerileri" />
+  </EntityType>
+  <EntityType Name="BelgeTurleri">
+    <Key>
+      <PropertyRef Name="BelgeTurID" />
+    </Key>
+    <Property Name="BelgeTurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BelgeTurKodu" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="PrimYuzdesi" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="BelgeTurAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_BelgeTurleri_Kullanicilar" FromRole="BelgeTurleri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeTurleri" FromRole="BelgeTurleri" ToRole="VASurecleriBirimVerileri" />
+  </EntityType>
+  <EntityType Name="Birimler">
+    <Key>
+      <PropertyRef Name="BirimID" />
+    </Key>
+    <Property Name="BirimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UstBirimID" Type="Int32" />
+    <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+    <Property Name="VeriGirisTipID" Type="Int32" />
+    <Property Name="YeniUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="EskiUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsyeriSiraNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IlKodu" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="AltIsverenNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsAyAsiriHesaplama" Type="Boolean" Nullable="false" />
+    <Property Name="AyBaslangicGun" Type="Int32" />
+    <Property Name="GelecekAyBitisGun" Type="Int32" />
+    <Property Name="IsYevmiyeVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_Birimler_Kullanicilar" FromRole="Birimler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Birimler1" Relationship="MusskDBModel.FK_Birimler_UstBirimler" FromRole="Birimler" ToRole="Birimler1" />
+    <NavigationProperty Name="Birimler2" Relationship="MusskDBModel.FK_Birimler_UstBirimler" FromRole="Birimler1" ToRole="Birimler" />
+    <NavigationProperty Name="VeriGirisTipleri" Relationship="MusskDBModel.FK_Birimler_VeriGirisTipleri" FromRole="Birimler" ToRole="VeriGirisTipleri" />
+    <NavigationProperty Name="KullaniciBirimleris" Relationship="MusskDBModel.FK_KullaniciBirimleri_Birimler" FromRole="Birimler" ToRole="KullaniciBirimleri" />
+    <NavigationProperty Name="KullaniciBirimleriRapors" Relationship="MusskDBModel.FK_KullaniciBirimleriRapor_Birimler" FromRole="Birimler" ToRole="KullaniciBirimleriRapor" />
+    <NavigationProperty Name="Kullanicilars" Relationship="MusskDBModel.FK_Kullanicilar_Birimler" FromRole="Birimler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="VASurecleriBirims" Relationship="MusskDBModel.FK_VASurecleriBirim_Birimler" FromRole="Birimler" ToRole="VASurecleriBirim" />
+    <NavigationProperty Name="YevmiyeAyristirmalaris" Relationship="MusskDBModel.FK_YevmiyeAyristirmalari_Birimler" FromRole="Birimler" ToRole="YevmiyeAyristirmalari" />
+    <NavigationProperty Name="Yevmiyelers" Relationship="MusskDBModel.FK_Yevmiyeler_Birimler" FromRole="Birimler" ToRole="Yevmiyeler" />
+    <NavigationProperty Name="YevmiyelerAyristirmas" Relationship="MusskDBModel.FK_YevmiyelerAyristirma_Birimler" FromRole="Birimler" ToRole="YevmiyelerAyristirma" />
+  </EntityType>
+  <EntityType Name="DuyuruEkleri">
+    <Key>
+      <PropertyRef Name="DuyuruDosyaEkID" />
+    </Key>
+    <Property Name="DuyuruDosyaEkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DuyuruID" Type="Int32" Nullable="false" />
+    <Property Name="DosyaEkAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="DosyaYolu" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Duyurular" Relationship="MusskDBModel.FK_DuyuruEkleri_Duyurular" FromRole="DuyuruEkleri" ToRole="Duyurular" />
+  </EntityType>
+  <EntityType Name="Duyurular">
+    <Key>
+      <PropertyRef Name="DuyuruID" />
+    </Key>
+    <Property Name="DuyuruID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnaSayfadaGozuksun" Type="Boolean" Nullable="false" />
+    <Property Name="AnaSayfaPopupAc" Type="Boolean" Nullable="false" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Baslik" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AciklamaHtml" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="YayinSonTarih" Type="DateTime" Precision="3" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DuyuruEkleris" Relationship="MusskDBModel.FK_DuyuruEkleri_Duyurular" FromRole="Duyurular" ToRole="DuyuruEkleri" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_Duyurular_Kullanicilar" FromRole="Duyurular" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="EksikGunNedenleri">
+    <Key>
+      <PropertyRef Name="EksikGunNedenID" />
+    </Key>
+    <Property Name="EksikGunNedenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EksikGunNedenKodu" Type="Int32" Nullable="false" />
+    <Property Name="EksikGunNedenAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_EksikGunNedenleri_Kullanicilar" FromRole="EksikGunNedenleri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_EksikGunNedenleri" FromRole="EksikGunNedenleri" ToRole="VASurecleriBirimVerileri" />
+  </EntityType>
+  <EntityType Name="GonderilenMailEkleri">
+    <Key>
+      <PropertyRef Name="GonderilenMailEkiID" />
+    </Key>
+    <Property Name="GonderilenMailEkiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GonderilenMailID" Type="Int32" Nullable="false" />
+    <Property Name="EkAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EkDosyaYolu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GonderilenMailler" Relationship="MusskDBModel.FK_GonderilenMailEkleri_GonderilenMailler" FromRole="GonderilenMailEkleri" ToRole="GonderilenMailler" />
+  </EntityType>
+  <EntityType Name="GonderilenMailKullanicilar">
+    <Key>
+      <PropertyRef Name="GonderilenMailKisiID" />
+    </Key>
+    <Property Name="GonderilenMailKisiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="GonderilenMailID" Type="Int32" Nullable="false" />
+    <Property Name="KullaniciID" Type="Int32" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GonderilenMailler" Relationship="MusskDBModel.FK_GonderilenMailKullanicilar_GonderilenMailler" FromRole="GonderilenMailKullanicilar" ToRole="GonderilenMailler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_GonderilenMailKullanicilar_Kullanicilar" FromRole="GonderilenMailKullanicilar" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="GonderilenMailler">
+    <Key>
+      <PropertyRef Name="GonderilenMailID" />
+    </Key>
+    <Property Name="GonderilenMailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MesajID" Type="Int32" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Konu" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AciklamaHtml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Gonderildi" Type="Boolean" Nullable="false" />
+    <Property Name="HataMesaji" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Silindi" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GonderilenMailEkleris" Relationship="MusskDBModel.FK_GonderilenMailEkleri_GonderilenMailler" FromRole="GonderilenMailler" ToRole="GonderilenMailEkleri" />
+    <NavigationProperty Name="GonderilenMailKullanicilars" Relationship="MusskDBModel.FK_GonderilenMailKullanicilar_GonderilenMailler" FromRole="GonderilenMailler" ToRole="GonderilenMailKullanicilar" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_GonderilenMailler_Kullanicilar" FromRole="GonderilenMailler" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Mesajlar" Relationship="MusskDBModel.FK_GonderilenMailler_Mesajlar" FromRole="GonderilenMailler" ToRole="Mesajlar" />
+  </EntityType>
+  <EntityType Name="IstenCikisNedenleri">
+    <Key>
+      <PropertyRef Name="IstenCikisNedenID" />
+    </Key>
+    <Property Name="IstenCikisNedenID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IstenCikisNedenKodu" Type="Int32" Nullable="false" />
+    <Property Name="IstenCikisNedenAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_IstenCikisNedenleri_Kullanicilar" FromRole="IstenCikisNedenleri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_IstenCikisNedenleri" FromRole="IstenCikisNedenleri" ToRole="VASurecleriBirimVerileri" />
+  </EntityType>
+  <EntityType Name="KullaniciBirimleri">
+    <Key>
+      <PropertyRef Name="KullaniciBirimID" />
+    </Key>
+    <Property Name="KullaniciBirimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_KullaniciBirimleri_Birimler" FromRole="KullaniciBirimleri" ToRole="Birimler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_KullaniciBirimleri_Kullanicilar" FromRole="KullaniciBirimleri" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="KullaniciBirimleriRapor">
+    <Key>
+      <PropertyRef Name="KullaniciBirimID" />
+    </Key>
+    <Property Name="KullaniciBirimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_KullaniciBirimleriRapor_Birimler" FromRole="KullaniciBirimleriRapor" ToRole="Birimler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_KullaniciBirimleriRapor_Kullanicilar" FromRole="KullaniciBirimleriRapor" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+    </Key>
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YetkiGrupID" Type="Int32" Nullable="false" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="UnvanID" Type="Int32" Nullable="false" />
+    <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EMail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ResimAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="SifresiniDegistirsin" Type="Boolean" Nullable="false" />
+    <Property Name="IsActiveDirectoryUser" Type="Boolean" Nullable="false" />
+    <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+    <Property Name="Aciklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ParolaSifirlamaKodu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ParolaSifirlamGecerlilikTarihi" Type="DateTime" Precision="3" />
+    <Property Name="FixedHeader" Type="Boolean" Nullable="false" />
+    <Property Name="FixedSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="ScrollSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="RightSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="CustomNavigation" Type="Boolean" Nullable="false" />
+    <Property Name="ToggledNavigation" Type="Boolean" Nullable="false" />
+    <Property Name="BoxedOrFullWidth" Type="Boolean" Nullable="false" />
+    <Property Name="ThemeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BackgroundImage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="3" />
+    <Property Name="LastLogonDate" Type="DateTime" Precision="0" />
+    <Property Name="LastLogonIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IslemYapanID" Type="Int32" />
+    <Property Name="IslemTarihi" Type="DateTime" Precision="0" />
+    <Property Name="IslemYapanIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Ayarlars" Relationship="MusskDBModel.FK_Ayarlar_Kullanicilar" FromRole="Kullanicilar" ToRole="Ayarlar" />
+    <NavigationProperty Name="BelgeMahiyetTipleris" Relationship="MusskDBModel.FK_BelgeMahiyetTipleri_Kullanicilar" FromRole="Kullanicilar" ToRole="BelgeMahiyetTipleri" />
+    <NavigationProperty Name="BelgeTurleris" Relationship="MusskDBModel.FK_BelgeTurleri_Kullanicilar" FromRole="Kullanicilar" ToRole="BelgeTurleri" />
+    <NavigationProperty Name="Birimlers" Relationship="MusskDBModel.FK_Birimler_Kullanicilar" FromRole="Kullanicilar" ToRole="Birimler" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_Kullanicilar_Birimler" FromRole="Kullanicilar" ToRole="Birimler" />
+    <NavigationProperty Name="Duyurulars" Relationship="MusskDBModel.FK_Duyurular_Kullanicilar" FromRole="Kullanicilar" ToRole="Duyurular" />
+    <NavigationProperty Name="EksikGunNedenleris" Relationship="MusskDBModel.FK_EksikGunNedenleri_Kullanicilar" FromRole="Kullanicilar" ToRole="EksikGunNedenleri" />
+    <NavigationProperty Name="GonderilenMailKullanicilars" Relationship="MusskDBModel.FK_GonderilenMailKullanicilar_Kullanicilar" FromRole="Kullanicilar" ToRole="GonderilenMailKullanicilar" />
+    <NavigationProperty Name="GonderilenMaillers" Relationship="MusskDBModel.FK_GonderilenMailler_Kullanicilar" FromRole="Kullanicilar" ToRole="GonderilenMailler" />
+    <NavigationProperty Name="IstenCikisNedenleris" Relationship="MusskDBModel.FK_IstenCikisNedenleri_Kullanicilar" FromRole="Kullanicilar" ToRole="IstenCikisNedenleri" />
+    <NavigationProperty Name="KullaniciBirimleris" Relationship="MusskDBModel.FK_KullaniciBirimleri_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciBirimleri" />
+    <NavigationProperty Name="KullaniciBirimleriRapors" Relationship="MusskDBModel.FK_KullaniciBirimleriRapor_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciBirimleriRapor" />
+    <NavigationProperty Name="Mesajlars" Relationship="MusskDBModel.FK_GelenMesajlar_Kullanicilar" FromRole="Kullanicilar" ToRole="Mesajlar" />
+    <NavigationProperty Name="Unvanlar" Relationship="MusskDBModel.FK_Kullanicilar_Unvanlar" FromRole="Kullanicilar" ToRole="Unvanlar" />
+    <NavigationProperty Name="YetkiGruplari" Relationship="MusskDBModel.FK_Kullanicilar_YetkiGruplari" FromRole="Kullanicilar" ToRole="YetkiGruplari" />
+    <NavigationProperty Name="MesajKategorileris" Relationship="MusskDBModel.FK_MesajKategorileri_Kullanicilar" FromRole="Kullanicilar" ToRole="MesajKategorileri" />
+    <NavigationProperty Name="MeslekTurleris" Relationship="MusskDBModel.FK_MeslekTurleri_Kullanicilar" FromRole="Kullanicilar" ToRole="MeslekTurleri" />
+    <NavigationProperty Name="SistemBilgilendirmes" Relationship="MusskDBModel.FK_SistemBilgilendirme_Kullanicilar" FromRole="Kullanicilar" ToRole="SistemBilgilendirme" />
+    <NavigationProperty Name="Rollers" Relationship="MusskDBModel.KullaniciRolleri" FromRole="Kullanicilar" ToRole="Roller" />
+  </EntityType>
+  <EntityType Name="MailSablonlari">
+    <Key>
+      <PropertyRef Name="MailSablonlariID" />
+    </Key>
+    <Property Name="MailSablonlariID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MailSablonTipID" Type="Int32" Nullable="false" />
+    <Property Name="SablonAdi" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Sablon" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SablonHtml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MailSablonTipleri" Relationship="MusskDBModel.FK_MailSablonlari_MailSablonTipleri" FromRole="MailSablonlari" ToRole="MailSablonTipleri" />
+    <NavigationProperty Name="MailSablonlariEkleris" Relationship="MusskDBModel.FK_MailSablonlariEkleri_MailSablonlari" FromRole="MailSablonlari" ToRole="MailSablonlariEkleri" />
+  </EntityType>
+  <EntityType Name="MailSablonlariEkleri">
+    <Key>
+      <PropertyRef Name="MailSablonlariEkiID" />
+    </Key>
+    <Property Name="MailSablonlariEkiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MailSablonlariID" Type="Int32" Nullable="false" />
+    <Property Name="EkAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EkDosyaYolu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MailSablonlari" Relationship="MusskDBModel.FK_MailSablonlariEkleri_MailSablonlari" FromRole="MailSablonlariEkleri" ToRole="MailSablonlari" />
+  </EntityType>
+  <EntityType Name="MailSablonTipleri">
+    <Key>
+      <PropertyRef Name="MailSablonTipID" />
+    </Key>
+    <Property Name="MailSablonTipID" Type="Int32" Nullable="false" />
+    <Property Name="SablonTipAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="SistemMaili" Type="Boolean" Nullable="false" />
+    <Property Name="Parametreler" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="MailSablonlaris" Relationship="MusskDBModel.FK_MailSablonlari_MailSablonTipleri" FromRole="MailSablonTipleri" ToRole="MailSablonlari" />
+  </EntityType>
+  <EntityType Name="Menuler">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="Int32" Nullable="false" />
+    <Property Name="MenuAdi" Type="String" Nullable="false" MaxLength="400" FixedLength="false" Unicode="true" />
+    <Property Name="BagliMenuID" Type="Int32" />
+    <Property Name="MenuIconUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MenuCssClass" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MenuUrl" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DilCeviriYap" Type="Boolean" />
+    <Property Name="YetkisizErisim" Type="Boolean" />
+    <Property Name="AuthenticationControl" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="SiraNo" Type="Int32" />
+    <NavigationProperty Name="Rollers" Relationship="MusskDBModel.MenuRollleri" FromRole="Menuler" ToRole="Roller" />
+  </EntityType>
+  <EntityType Name="MesajEkleri">
+    <Key>
+      <PropertyRef Name="MesajEkiID" />
+    </Key>
+    <Property Name="MesajEkiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MesajID" Type="Int32" Nullable="false" />
+    <Property Name="EkAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EkDosyaYolu" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Mesajlar" Relationship="MusskDBModel.FK_MesajEkleri_Mesajlar" FromRole="MesajEkleri" ToRole="Mesajlar" />
+  </EntityType>
+  <EntityType Name="MesajKategorileri">
+    <Key>
+      <PropertyRef Name="MesajKategoriID" />
+    </Key>
+    <Property Name="MesajKategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KategoriAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="KategoriAciklamasi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_MesajKategorileri_Kullanicilar" FromRole="MesajKategorileri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Mesajlars" Relationship="MusskDBModel.FK_Mesajlar_MesajKategorileri" FromRole="MesajKategorileri" ToRole="Mesajlar" />
+  </EntityType>
+  <EntityType Name="Mesajlar">
+    <Key>
+      <PropertyRef Name="MesajID" />
+    </Key>
+    <Property Name="MesajID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UstMesajID" Type="Int32" />
+    <Property Name="GroupID" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="KullaniciID" Type="Int32" />
+    <Property Name="MesajKategoriID" Type="Int32" Nullable="false" />
+    <Property Name="AdSoyad" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Tarih" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Konu" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="AciklamaHtml" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="Silindi" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="GonderilenMaillers" Relationship="MusskDBModel.FK_GonderilenMailler_Mesajlar" FromRole="Mesajlar" ToRole="GonderilenMailler" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_GelenMesajlar_Kullanicilar" FromRole="Mesajlar" ToRole="Kullanicilar" />
+    <NavigationProperty Name="MesajEkleris" Relationship="MusskDBModel.FK_MesajEkleri_Mesajlar" FromRole="Mesajlar" ToRole="MesajEkleri" />
+    <NavigationProperty Name="MesajKategorileri" Relationship="MusskDBModel.FK_Mesajlar_MesajKategorileri" FromRole="Mesajlar" ToRole="MesajKategorileri" />
+    <NavigationProperty Name="Mesajlar1" Relationship="MusskDBModel.FK_Mesajlar_Mesajlar" FromRole="Mesajlar" ToRole="Mesajlar1" />
+    <NavigationProperty Name="Mesajlar2" Relationship="MusskDBModel.FK_Mesajlar_Mesajlar" FromRole="Mesajlar1" ToRole="Mesajlar" />
+  </EntityType>
+  <EntityType Name="MeslekTurleri">
+    <Key>
+      <PropertyRef Name="MeslekTurID" />
+    </Key>
+    <Property Name="MeslekTurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MeslekTurKodu" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="MeslekTurAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_MeslekTurleri_Kullanicilar" FromRole="MeslekTurleri" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="Roller">
+    <Key>
+      <PropertyRef Name="RolID" />
+    </Key>
+    <Property Name="RolID" Type="Int32" Nullable="false" />
+    <Property Name="RolAdi" Type="String" Nullable="false" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+    <Property Name="Kategori" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="GorunurAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="YetkiGrupRolleris" Relationship="MusskDBModel.FK_YetkiGrupRolleri_Roller" FromRole="Roller" ToRole="YetkiGrupRolleri" />
+    <NavigationProperty Name="Kullanicilars" Relationship="MusskDBModel.KullaniciRolleri" FromRole="Roller" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Menulers" Relationship="MusskDBModel.MenuRollleri" FromRole="Roller" ToRole="Menuler" />
+  </EntityType>
+  <EntityType Name="SistemBilgilendirme">
+    <Key>
+      <PropertyRef Name="SistemBilgiID" />
+    </Key>
+    <Property Name="SistemBilgiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BilgiTipi" Type="Byte" Nullable="false" />
+    <Property Name="Kategori" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="StackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Precision="3" />
+    <Property Name="IslemYapanIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IslemYapanID" Type="Int32" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_SistemBilgilendirme_Kullanicilar" FromRole="SistemBilgilendirme" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="Unvanlar">
+    <Key>
+      <PropertyRef Name="UnvanID" />
+    </Key>
+    <Property Name="UnvanID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UnvanAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilars" Relationship="MusskDBModel.FK_Kullanicilar_Unvanlar" FromRole="Unvanlar" ToRole="Kullanicilar" />
+  </EntityType>
+  <EntityType Name="VASurecleri">
+    <Key>
+      <PropertyRef Name="VASurecID" />
+    </Key>
+    <Property Name="VASurecID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Yil" Type="Int32" Nullable="false" />
+    <Property Name="BaslangicTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="BitisTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="VASurecleriAylars" Relationship="MusskDBModel.FK_VASurecleriAylar_VASurecleri" FromRole="VASurecleri" ToRole="VASurecleriAylar" />
+    <NavigationProperty Name="VASurecleriBirims" Relationship="MusskDBModel.FK_VASurecleriBirim_VASurecleri" FromRole="VASurecleri" ToRole="VASurecleriBirim" />
+  </EntityType>
+  <EntityType Name="VASurecleriAylar">
+    <Key>
+      <PropertyRef Name="VASurecleriAyID" />
+    </Key>
+    <Property Name="VASurecleriAyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VASurecID" Type="Int32" Nullable="false" />
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="AyDurumID" Type="Int32" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AyDurumlari" Relationship="MusskDBModel.FK_VASurecleriAylar_AyDurumlari" FromRole="VASurecleriAylar" ToRole="AyDurumlari" />
+    <NavigationProperty Name="Aylar" Relationship="MusskDBModel.FK_VASurecleriAylar_Aylar" FromRole="VASurecleriAylar" ToRole="Aylar" />
+    <NavigationProperty Name="VASurecleri" Relationship="MusskDBModel.FK_VASurecleriAylar_VASurecleri" FromRole="VASurecleriAylar" ToRole="VASurecleri" />
+  </EntityType>
+  <EntityType Name="VASurecleriBirim">
+    <Key>
+      <PropertyRef Name="VASurecleriBirimID" />
+    </Key>
+    <Property Name="VASurecleriBirimID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VASurecID" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="UstBirimID" Type="Int32" />
+    <Property Name="IsVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+    <Property Name="VeriGirisTipID" Type="Int32" />
+    <Property Name="YeniUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="EskiUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsyeriSiraNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IlKodu" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="AltIsverenNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsAyAsiriHesaplama" Type="Boolean" Nullable="false" />
+    <Property Name="AyBaslangicGun" Type="Int32" />
+    <Property Name="GelecekAyBitisGun" Type="Int32" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_VASurecleriBirim_Birimler" FromRole="VASurecleriBirim" ToRole="Birimler" />
+    <NavigationProperty Name="VASurecleri" Relationship="MusskDBModel.FK_VASurecleriBirim_VASurecleri" FromRole="VASurecleriBirim" ToRole="VASurecleri" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_VASurecleriBirim" FromRole="VASurecleriBirim" ToRole="VASurecleriBirimVerileri" />
+    <NavigationProperty Name="VASurecleriBirimVerileriAylikToplams" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_VASurecleriBirim" FromRole="VASurecleriBirim" ToRole="VASurecleriBirimVerileriAylikToplam" />
+  </EntityType>
+  <EntityType Name="VASurecleriBirimVerileri">
+    <Key>
+      <PropertyRef Name="VASurecleriBirimVeriID" />
+    </Key>
+    <Property Name="VASurecleriBirimVeriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VASurecleriBirimID" Type="Int32" Nullable="false" />
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="HizmetDonemYil" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="HizmetDonemAy" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="BelgeMahiyetTipID" Type="Int32" Nullable="false" />
+    <Property Name="BelgeMahiyetTipKodu" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="BelgeTurID" Type="Int32" Nullable="false" />
+    <Property Name="BelgeTurKodu" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="PrimYuzdesi" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="DEsasKanunNo" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="YeniUniteKodu" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="EskiUniteKodu" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsyeriSiraNumarasi" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IlKodu" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="AltIsverenNumarasi" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="VeriGirisTipID" Type="Int32" Nullable="false" />
+    <Property Name="SSKSicilNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="TcKimlikNo" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="PrimOdemeGun" Type="Int32" Nullable="false" />
+    <Property Name="UzaktanCalismaGun" Type="Int32" />
+    <Property Name="HakEdilenUcret" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PrimIkramiyeIstihkak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="IseGirisGun" Type="Int32" />
+    <Property Name="IseGirisGunStr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="IseGirisAy" Type="Int32" />
+    <Property Name="IseGirisAyStr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="IstenCikisGun" Type="Int32" />
+    <Property Name="IstenCikisGunStr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="IstenCikisAy" Type="Int32" />
+    <Property Name="IstenCikisAyStr" Type="String" MaxLength="2" FixedLength="false" Unicode="true" />
+    <Property Name="IstenCikisNedenID" Type="Int32" />
+    <Property Name="IstenCikisNedenKodu" Type="Int32" />
+    <Property Name="EksikGunSayisi" Type="Int32" />
+    <Property Name="EksikGunNedenID" Type="Int32" />
+    <Property Name="EksikGunNedenKodu" Type="Int32" />
+    <Property Name="MeslekTurID" Type="Int32" Nullable="false" />
+    <Property Name="MeslekTurKodu" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="IstirahatSurecindeCalismamistir" Type="Int32" />
+    <Property Name="TahakkukNedeni" Type="String" Nullable="false" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="GvDenMuafmi" Type="Int32" Nullable="false" />
+    <Property Name="AsgariGecimIndirimi" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GvMatrahi" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GvEngellilikOrani" Type="Int32" />
+    <Property Name="HesaplananGv" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="AsgariGecimIstisnaGvTutar" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="GvKesinti" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="AsgariGecimIstisnaDvTutar" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="DvKesintisi" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Aylar" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar" FromRole="VASurecleriBirimVerileri" ToRole="Aylar" />
+    <NavigationProperty Name="BelgeMahiyetTipleri" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeMahiyetTipleri" FromRole="VASurecleriBirimVerileri" ToRole="BelgeMahiyetTipleri" />
+    <NavigationProperty Name="BelgeTurleri" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_BelgeTurleri" FromRole="VASurecleriBirimVerileri" ToRole="BelgeTurleri" />
+    <NavigationProperty Name="EksikGunNedenleri" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_EksikGunNedenleri" FromRole="VASurecleriBirimVerileri" ToRole="EksikGunNedenleri" />
+    <NavigationProperty Name="IstenCikisNedenleri" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_IstenCikisNedenleri" FromRole="VASurecleriBirimVerileri" ToRole="IstenCikisNedenleri" />
+    <NavigationProperty Name="VASurecleriBirim" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_VASurecleriBirim" FromRole="VASurecleriBirimVerileri" ToRole="VASurecleriBirim" />
+    <NavigationProperty Name="VeriGirisTipleri" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_VeriGirisTipleri" FromRole="VASurecleriBirimVerileri" ToRole="VeriGirisTipleri" />
+  </EntityType>
+  <EntityType Name="VASurecleriBirimVerileriAylikToplam">
+    <Key>
+      <PropertyRef Name="VASurecleriBirimVerileriAylikToplamID" />
+    </Key>
+    <Property Name="VASurecleriBirimVerileriAylikToplamID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VASurecleriBirimID" Type="Int32" Nullable="false" />
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="AsgariGecimIndirimiToplam" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="GvMatrahiToplam" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="GvKesintiToplam" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="PrimTutarToplam" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Aylar" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar" FromRole="VASurecleriBirimVerileriAylikToplam" ToRole="Aylar" />
+    <NavigationProperty Name="VASurecleriBirim" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_VASurecleriBirim" FromRole="VASurecleriBirimVerileriAylikToplam" ToRole="VASurecleriBirim" />
+  </EntityType>
+  <EntityType Name="VeriGirisTipleri">
+    <Key>
+      <PropertyRef Name="VeriGirisTipID" />
+    </Key>
+    <Property Name="VeriGirisTipID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VeriGirisTipAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Aciklama" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Birimlers" Relationship="MusskDBModel.FK_Birimler_VeriGirisTipleri" FromRole="VeriGirisTipleri" ToRole="Birimler" />
+    <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_VeriGirisTipleri" FromRole="VeriGirisTipleri" ToRole="VASurecleriBirimVerileri" />
+  </EntityType>
+  <EntityType Name="YetkiGruplari">
+    <Key>
+      <PropertyRef Name="YetkiGrupID" />
+    </Key>
+    <Property Name="YetkiGrupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YetkiGrupAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilars" Relationship="MusskDBModel.FK_Kullanicilar_YetkiGruplari" FromRole="YetkiGruplari" ToRole="Kullanicilar" />
+    <NavigationProperty Name="YetkiGrupRolleris" Relationship="MusskDBModel.FK_YetkiGrupRolleri_YetkiGruplari" FromRole="YetkiGruplari" ToRole="YetkiGrupRolleri" />
+  </EntityType>
+  <EntityType Name="YetkiGrupRolleri">
+    <Key>
+      <PropertyRef Name="YetkiGrupRolID" />
+    </Key>
+    <Property Name="YetkiGrupRolID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YetkiGrupID" Type="Int32" Nullable="false" />
+    <Property Name="RolID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Roller" Relationship="MusskDBModel.FK_YetkiGrupRolleri_Roller" FromRole="YetkiGrupRolleri" ToRole="Roller" />
+    <NavigationProperty Name="YetkiGruplari" Relationship="MusskDBModel.FK_YetkiGrupRolleri_YetkiGruplari" FromRole="YetkiGrupRolleri" ToRole="YetkiGruplari" />
+  </EntityType>
+  <EntityType Name="Yevmiyeler">
+    <Key>
+      <PropertyRef Name="YevmiyeID" />
+    </Key>
+    <Property Name="YevmiyeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YevmiyeTarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="YevmiyeNo" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="HarcamaBirimKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="HarcamaBirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="HesapKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="HesapAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Borc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Alacak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_Yevmiyeler_Birimler" FromRole="Yevmiyeler" ToRole="Birimler" />
+    <NavigationProperty Name="YevmiyelerAyristirmas" Relationship="MusskDBModel.FK_YevmiyelerAyristirma_Yevmiyeler" FromRole="Yevmiyeler" ToRole="YevmiyelerAyristirma" />
+  </EntityType>
+  <EntityType Name="YevmiyelerAyristirma">
+    <Key>
+      <PropertyRef Name="YevmiyelerAyristirmaID" />
+    </Key>
+    <Property Name="YevmiyelerAyristirmaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YevmiyeID" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="Borc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Alacak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_YevmiyelerAyristirma_Birimler" FromRole="YevmiyelerAyristirma" ToRole="Birimler" />
+    <NavigationProperty Name="Yevmiyeler" Relationship="MusskDBModel.FK_YevmiyelerAyristirma_Yevmiyeler" FromRole="YevmiyelerAyristirma" ToRole="Yevmiyeler" />
+  </EntityType>
+  <EntityType Name="KullanicilarLog">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+      <PropertyRef Name="YetkiGrupID" />
+      <PropertyRef Name="Ad" />
+      <PropertyRef Name="Soyad" />
+      <PropertyRef Name="KullaniciAdi" />
+      <PropertyRef Name="Sifre" />
+      <PropertyRef Name="SifresiniDegistirsin" />
+      <PropertyRef Name="IsActiveDirectoryUser" />
+      <PropertyRef Name="IsAdmin" />
+      <PropertyRef Name="FixedHeader" />
+      <PropertyRef Name="FixedSidebar" />
+      <PropertyRef Name="ScrollSidebar" />
+      <PropertyRef Name="RightSidebar" />
+      <PropertyRef Name="CustomNavigation" />
+      <PropertyRef Name="ToggledNavigation" />
+      <PropertyRef Name="BoxedOrFullWidth" />
+      <PropertyRef Name="ThemeName" />
+      <PropertyRef Name="BackgroundImage" />
+      <PropertyRef Name="IsAktif" />
+    </Key>
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="YetkiGrupID" Type="Int32" Nullable="false" />
+    <Property Name="Ad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Soyad" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="BirimID" Type="Int32" />
+    <Property Name="UnvanID" Type="Int32" />
+    <Property Name="Tel" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EMail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="ResimAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="KullaniciAdi" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Sifre" Type="String" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+    <Property Name="SifresiniDegistirsin" Type="Boolean" Nullable="false" />
+    <Property Name="IsActiveDirectoryUser" Type="Boolean" Nullable="false" />
+    <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
+    <Property Name="Aciklama" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ParolaSifirlamaKodu" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ParolaSifirlamGecerlilikTarihi" Type="DateTime" Precision="3" />
+    <Property Name="FixedHeader" Type="Boolean" Nullable="false" />
+    <Property Name="FixedSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="ScrollSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="RightSidebar" Type="Boolean" Nullable="false" />
+    <Property Name="CustomNavigation" Type="Boolean" Nullable="false" />
+    <Property Name="ToggledNavigation" Type="Boolean" Nullable="false" />
+    <Property Name="BoxedOrFullWidth" Type="Boolean" Nullable="false" />
+    <Property Name="ThemeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="BackgroundImage" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="OlusturmaTarihi" Type="DateTime" Precision="3" />
+    <Property Name="LastLogonDate" Type="DateTime" Precision="0" />
+    <Property Name="LastLogonIP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="IslemYapanID" Type="Int32" />
+    <Property Name="IslemTarihi" Type="DateTime" Precision="0" />
+    <Property Name="IslemYapanIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="YevmiyeAyristirmalari">
+    <Key>
+      <PropertyRef Name="YevmiyelerAyristirmaID" />
+      <PropertyRef Name="YevmiyeID" />
+      <PropertyRef Name="BirimID" />
+      <PropertyRef Name="Borc" />
+      <PropertyRef Name="Alacak" />
+    </Key>
+    <Property Name="YevmiyelerAyristirmaID" Type="Int32" Nullable="false" />
+    <Property Name="YevmiyeID" Type="Int32" Nullable="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="Borc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Alacak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Aciklama" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Birimler" Relationship="MusskDBModel.FK_YevmiyeAyristirmalari_Birimler" FromRole="YevmiyeAyristirmalari" ToRole="Birimler" />
+  </EntityType>
+  <EntityType Name="Vw_BirimlerTree">
+    <Key>
+      <PropertyRef Name="BirimID" />
+      <PropertyRef Name="BirimAdi" />
+      <PropertyRef Name="IsVeriGirisiYapilabilir" />
+      <PropertyRef Name="IsAyAsiriHesaplama" />
+      <PropertyRef Name="IsYevmiyeVeriGirisiYapilabilir" />
+      <PropertyRef Name="IsAktif" />
+      <PropertyRef Name="IslemTarihi" />
+      <PropertyRef Name="IslemYapanID" />
+      <PropertyRef Name="IslemYapanIP" />
+    </Key>
+    <Property Name="BirimTreeAdi" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="BirimID" Type="Int32" Nullable="false" />
+    <Property Name="UstBirimID" Type="Int32" />
+    <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IsVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+    <Property Name="VeriGirisTipID" Type="Int32" />
+    <Property Name="VeriGirisTipAdi" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="YeniUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="EskiUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsyeriSiraNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IlKodu" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="AltIsverenNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+    <Property Name="IsAyAsiriHesaplama" Type="Boolean" Nullable="false" />
+    <Property Name="AyBaslangicGun" Type="Int32" />
+    <Property Name="GelecekAyBitisGun" Type="Int32" />
+    <Property Name="IsYevmiyeVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Ayarlar_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.Ayarlar" Role="Ayarlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Ayarlar">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriAylar_AyDurumlari">
+    <End Type="MusskDBModel.AyDurumlari" Role="AyDurumlari" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriAylar" Role="VASurecleriAylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AyDurumlari">
+        <PropertyRef Name="AyDurumID" />
+      </Principal>
+      <Dependent Role="VASurecleriAylar">
+        <PropertyRef Name="AyDurumID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriAylar_Aylar">
+    <End Type="MusskDBModel.Aylar" Role="Aylar" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriAylar" Role="VASurecleriAylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="VASurecleriAylar">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_Aylar">
+    <End Type="MusskDBModel.Aylar" Role="Aylar" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileriAylikToplam_Aylar">
+    <End Type="MusskDBModel.Aylar" Role="Aylar" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileriAylikToplam" Role="VASurecleriBirimVerileriAylikToplam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileriAylikToplam">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BelgeMahiyetTipleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.BelgeMahiyetTipleri" Role="BelgeMahiyetTipleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="BelgeMahiyetTipleri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_BelgeMahiyetTipleri">
+    <End Type="MusskDBModel.BelgeMahiyetTipleri" Role="BelgeMahiyetTipleri" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BelgeMahiyetTipleri">
+        <PropertyRef Name="BelgeMahiyetTipID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="BelgeMahiyetTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BelgeTurleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.BelgeTurleri" Role="BelgeTurleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="BelgeTurleri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_BelgeTurleri">
+    <End Type="MusskDBModel.BelgeTurleri" Role="BelgeTurleri" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BelgeTurleri">
+        <PropertyRef Name="BelgeTurID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="BelgeTurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Birimler_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Birimler">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Birimler_UstBirimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="0..1" />
+    <End Type="MusskDBModel.Birimler" Role="Birimler1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="Birimler1">
+        <PropertyRef Name="UstBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Birimler_VeriGirisTipleri">
+    <End Type="MusskDBModel.VeriGirisTipleri" Role="VeriGirisTipleri" Multiplicity="0..1" />
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VeriGirisTipleri">
+        <PropertyRef Name="VeriGirisTipID" />
+      </Principal>
+      <Dependent Role="Birimler">
+        <PropertyRef Name="VeriGirisTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciBirimleri_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.KullaniciBirimleri" Role="KullaniciBirimleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="KullaniciBirimleri">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciBirimleriRapor_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.KullaniciBirimleriRapor" Role="KullaniciBirimleriRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="KullaniciBirimleriRapor">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirim_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirim" Role="VASurecleriBirim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirim">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyeAyristirmalari_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.YevmiyeAyristirmalari" Role="YevmiyeAyristirmalari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="YevmiyeAyristirmalari">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiyeler_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler" Role="Yevmiyeler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerAyristirma_Birimler">
+    <End Type="MusskDBModel.Birimler" Role="Birimler" Multiplicity="1" />
+    <End Type="MusskDBModel.YevmiyelerAyristirma" Role="YevmiyelerAyristirma" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="YevmiyelerAyristirma">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DuyuruEkleri_Duyurular">
+    <End Type="MusskDBModel.Duyurular" Role="Duyurular" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.DuyuruEkleri" Role="DuyuruEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Duyurular">
+        <PropertyRef Name="DuyuruID" />
+      </Principal>
+      <Dependent Role="DuyuruEkleri">
+        <PropertyRef Name="DuyuruID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Duyurular_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.Duyurular" Role="Duyurular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Duyurular">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_EksikGunNedenleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.EksikGunNedenleri" Role="EksikGunNedenleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="EksikGunNedenleri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_EksikGunNedenleri">
+    <End Type="MusskDBModel.EksikGunNedenleri" Role="EksikGunNedenleri" Multiplicity="0..1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EksikGunNedenleri">
+        <PropertyRef Name="EksikGunNedenID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="EksikGunNedenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailEkleri_GonderilenMailler">
+    <End Type="MusskDBModel.GonderilenMailler" Role="GonderilenMailler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.GonderilenMailEkleri" Role="GonderilenMailEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GonderilenMailler">
+        <PropertyRef Name="GonderilenMailID" />
+      </Principal>
+      <Dependent Role="GonderilenMailEkleri">
+        <PropertyRef Name="GonderilenMailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailKullanicilar_GonderilenMailler">
+    <End Type="MusskDBModel.GonderilenMailler" Role="GonderilenMailler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.GonderilenMailKullanicilar" Role="GonderilenMailKullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GonderilenMailler">
+        <PropertyRef Name="GonderilenMailID" />
+      </Principal>
+      <Dependent Role="GonderilenMailKullanicilar">
+        <PropertyRef Name="GonderilenMailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailKullanicilar_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="0..1" />
+    <End Type="MusskDBModel.GonderilenMailKullanicilar" Role="GonderilenMailKullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="GonderilenMailKullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailler_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.GonderilenMailler" Role="GonderilenMailler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="GonderilenMailler">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailler_Mesajlar">
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar" Multiplicity="0..1" />
+    <End Type="MusskDBModel.GonderilenMailler" Role="GonderilenMailler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="GonderilenMailler">
+        <PropertyRef Name="MesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IstenCikisNedenleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.IstenCikisNedenleri" Role="IstenCikisNedenleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="IstenCikisNedenleri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_IstenCikisNedenleri">
+    <End Type="MusskDBModel.IstenCikisNedenleri" Role="IstenCikisNedenleri" Multiplicity="0..1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IstenCikisNedenleri">
+        <PropertyRef Name="IstenCikisNedenID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="IstenCikisNedenID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciBirimleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.KullaniciBirimleri" Role="KullaniciBirimleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="KullaniciBirimleri">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciBirimleriRapor_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.KullaniciBirimleriRapor" Role="KullaniciBirimleriRapor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="KullaniciBirimleriRapor">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GelenMesajlar_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="0..1" />
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_Unvanlar">
+    <End Type="MusskDBModel.Unvanlar" Role="Unvanlar" Multiplicity="1" />
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Unvanlar">
+        <PropertyRef Name="UnvanID" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="UnvanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_YetkiGruplari">
+    <End Type="MusskDBModel.YetkiGruplari" Role="YetkiGruplari" Multiplicity="1" />
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YetkiGruplari">
+        <PropertyRef Name="YetkiGrupID" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="YetkiGrupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MesajKategorileri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.MesajKategorileri" Role="MesajKategorileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="MesajKategorileri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MeslekTurleri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.MeslekTurleri" Role="MeslekTurleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="MeslekTurleri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SistemBilgilendirme_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.SistemBilgilendirme" Role="SistemBilgilendirme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="SistemBilgilendirme">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailSablonlari_MailSablonTipleri">
+    <End Type="MusskDBModel.MailSablonTipleri" Role="MailSablonTipleri" Multiplicity="1" />
+    <End Type="MusskDBModel.MailSablonlari" Role="MailSablonlari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailSablonTipleri">
+        <PropertyRef Name="MailSablonTipID" />
+      </Principal>
+      <Dependent Role="MailSablonlari">
+        <PropertyRef Name="MailSablonTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailSablonlariEkleri_MailSablonlari">
+    <End Type="MusskDBModel.MailSablonlari" Role="MailSablonlari" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.MailSablonlariEkleri" Role="MailSablonlariEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailSablonlari">
+        <PropertyRef Name="MailSablonlariID" />
+      </Principal>
+      <Dependent Role="MailSablonlariEkleri">
+        <PropertyRef Name="MailSablonlariID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MesajEkleri_Mesajlar">
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.MesajEkleri" Role="MesajEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="MesajEkleri">
+        <PropertyRef Name="MesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesajlar_MesajKategorileri">
+    <End Type="MusskDBModel.MesajKategorileri" Role="MesajKategorileri" Multiplicity="1" />
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MesajKategorileri">
+        <PropertyRef Name="MesajKategoriID" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="MesajKategoriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesajlar_Mesajlar">
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar" Multiplicity="0..1" />
+    <End Type="MusskDBModel.Mesajlar" Role="Mesajlar1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="Mesajlar1">
+        <PropertyRef Name="UstMesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YetkiGrupRolleri_Roller">
+    <End Type="MusskDBModel.Roller" Role="Roller" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.YetkiGrupRolleri" Role="YetkiGrupRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roller">
+        <PropertyRef Name="RolID" />
+      </Principal>
+      <Dependent Role="YetkiGrupRolleri">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriAylar_VASurecleri">
+    <End Type="MusskDBModel.VASurecleri" Role="VASurecleri" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.VASurecleriAylar" Role="VASurecleriAylar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VASurecleri">
+        <PropertyRef Name="VASurecID" />
+      </Principal>
+      <Dependent Role="VASurecleriAylar">
+        <PropertyRef Name="VASurecID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirim_VASurecleri">
+    <End Type="MusskDBModel.VASurecleri" Role="VASurecleri" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.VASurecleriBirim" Role="VASurecleriBirim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VASurecleri">
+        <PropertyRef Name="VASurecID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirim">
+        <PropertyRef Name="VASurecID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_VASurecleriBirim">
+    <End Type="MusskDBModel.VASurecleriBirim" Role="VASurecleriBirim" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VASurecleriBirim">
+        <PropertyRef Name="VASurecleriBirimID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="VASurecleriBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileriAylikToplam_VASurecleriBirim">
+    <End Type="MusskDBModel.VASurecleriBirim" Role="VASurecleriBirim" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileriAylikToplam" Role="VASurecleriBirimVerileriAylikToplam" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VASurecleriBirim">
+        <PropertyRef Name="VASurecleriBirimID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileriAylikToplam">
+        <PropertyRef Name="VASurecleriBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VASurecleriBirimVerileri_VeriGirisTipleri">
+    <End Type="MusskDBModel.VeriGirisTipleri" Role="VeriGirisTipleri" Multiplicity="1" />
+    <End Type="MusskDBModel.VASurecleriBirimVerileri" Role="VASurecleriBirimVerileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="VeriGirisTipleri">
+        <PropertyRef Name="VeriGirisTipID" />
+      </Principal>
+      <Dependent Role="VASurecleriBirimVerileri">
+        <PropertyRef Name="VeriGirisTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YetkiGrupRolleri_YetkiGruplari">
+    <End Type="MusskDBModel.YetkiGruplari" Role="YetkiGruplari" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.YetkiGrupRolleri" Role="YetkiGrupRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YetkiGruplari">
+        <PropertyRef Name="YetkiGrupID" />
+      </Principal>
+      <Dependent Role="YetkiGrupRolleri">
+        <PropertyRef Name="YetkiGrupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerAyristirma_Yevmiyeler">
+    <End Type="MusskDBModel.Yevmiyeler" Role="Yevmiyeler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="MusskDBModel.YevmiyelerAyristirma" Role="YevmiyelerAyristirma" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Yevmiyeler">
+        <PropertyRef Name="YevmiyeID" />
+      </Principal>
+      <Dependent Role="YevmiyelerAyristirma">
+        <PropertyRef Name="YevmiyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="KullaniciRolleri">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="*" />
+    <End Type="MusskDBModel.Roller" Role="Roller" Multiplicity="*" />
+  </Association>
+  <Association Name="MenuRollleri">
+    <End Type="MusskDBModel.Menuler" Role="Menuler" Multiplicity="*" />
+    <End Type="MusskDBModel.Roller" Role="Roller" Multiplicity="*" />
+  </Association>
+</Schema>

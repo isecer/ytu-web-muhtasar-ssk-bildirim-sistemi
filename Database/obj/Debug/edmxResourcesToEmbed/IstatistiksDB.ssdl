@@ -1,0 +1,887 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="YtuIstatistiksModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Ayarlar">
+    <Key>
+      <PropertyRef Name="AyarAdi" />
+    </Key>
+    <Property Name="AyarAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="AyarDegeri" Type="nvarchar" MaxLength="4000" />
+    <Property Name="InpType" Type="nvarchar" MaxLength="50" />
+    <Property Name="SItems" Type="nvarchar(max)" />
+    <Property Name="Kategori" Type="nvarchar" MaxLength="255" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="255" />
+    <Property Name="Varsayilanlar" Type="nvarchar" MaxLength="4000" />
+    <Property Name="SiraNo" Type="int" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Birimler">
+    <Key>
+      <PropertyRef Name="BirimID" />
+    </Key>
+    <Property Name="BirimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BirimTurID" Type="int" Nullable="false" />
+    <Property Name="IsUniDisiDevletOrVakif" Type="bit" />
+    <Property Name="UstBirimID" Type="int" />
+    <Property Name="BirimKod" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BirimKisaAdi" Type="nvarchar" MaxLength="10" />
+    <Property Name="BirimAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Adres" Type="nvarchar" MaxLength="512" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BirimTurleri">
+    <Key>
+      <PropertyRef Name="BirimTurID" />
+    </Key>
+    <Property Name="BirimTurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BirimTurAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsEgitmenVar" Type="bit" Nullable="false" />
+    <Property Name="IsDersVar" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DuyuruEkleri">
+    <Key>
+      <PropertyRef Name="DuyuruDosyaEkID" />
+    </Key>
+    <Property Name="DuyuruDosyaEkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DuyuruID" Type="int" Nullable="false" />
+    <Property Name="DosyaEkAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="DosyaYolu" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Duyurular">
+    <Key>
+      <PropertyRef Name="DuyuruID" />
+    </Key>
+    <Property Name="DuyuruID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnaSayfadaGozuksun" Type="bit" Nullable="false" />
+    <Property Name="AnaSayfaPopupAc" Type="bit" Nullable="false" />
+    <Property Name="Tarih" Type="smalldatetime" Nullable="false" />
+    <Property Name="Baslik" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AciklamaHtml" Type="nvarchar(max)" />
+    <Property Name="YayinSonTarih" Type="datetime" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GonderilenMailEkleri">
+    <Key>
+      <PropertyRef Name="GonderilenMailEkiID" />
+    </Key>
+    <Property Name="GonderilenMailEkiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GonderilenMailID" Type="int" Nullable="false" />
+    <Property Name="EkAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EkDosyaYolu" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="GonderilenMailKullanicilar">
+    <Key>
+      <PropertyRef Name="GonderilenMailKisiID" />
+    </Key>
+    <Property Name="GonderilenMailKisiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="GonderilenMailID" Type="int" Nullable="false" />
+    <Property Name="KullaniciID" Type="int" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GonderilenMailler">
+    <Key>
+      <PropertyRef Name="GonderilenMailID" />
+    </Key>
+    <Property Name="GonderilenMailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MesajID" Type="int" />
+    <Property Name="Tarih" Type="smalldatetime" Nullable="false" />
+    <Property Name="Konu" Type="nvarchar" MaxLength="512" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AciklamaHtml" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gonderildi" Type="bit" Nullable="false" />
+    <Property Name="HataMesaji" Type="nvarchar(max)" />
+    <Property Name="Silindi" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Gunler">
+    <Key>
+      <PropertyRef Name="GunID" />
+    </Key>
+    <Property Name="GunID" Type="int" Nullable="false" />
+    <Property Name="GunKodu" Type="int" Nullable="false" />
+    <Property Name="GunAdi" Type="varchar" MaxLength="16" Nullable="false" />
+    <Property Name="GunKisaAdi" Type="nvarchar" MaxLength="6" Nullable="false" />
+    <Property Name="IsHaftaIci" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Kullanicilar">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+    </Key>
+    <Property Name="KullaniciID" Type="int" Nullable="false" />
+    <Property Name="YetkiGrupID" Type="int" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Soyad" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="BirimID" Type="int" Nullable="false" />
+    <Property Name="CepTel" Type="nvarchar" MaxLength="20" />
+    <Property Name="EMail" Type="nvarchar" MaxLength="250" />
+    <Property Name="ResimAdi" Type="nvarchar" MaxLength="255" />
+    <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="1024" Nullable="false" />
+    <Property Name="SifresiniDegistirsin" Type="bit" Nullable="false" />
+    <Property Name="IsActiveDirectoryUser" Type="bit" Nullable="false" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="255" />
+    <Property Name="ParolaSifirlamaKodu" Type="nvarchar" MaxLength="20" />
+    <Property Name="ParolaSifirlamGecerlilikTarihi" Type="datetime" />
+    <Property Name="FixedHeader" Type="bit" Nullable="false" />
+    <Property Name="FixedSidebar" Type="bit" Nullable="false" />
+    <Property Name="ScrollSidebar" Type="bit" Nullable="false" />
+    <Property Name="RightSidebar" Type="bit" Nullable="false" />
+    <Property Name="CustomNavigation" Type="bit" Nullable="false" />
+    <Property Name="ToggledNavigation" Type="bit" Nullable="false" />
+    <Property Name="BoxedOrFullWidth" Type="bit" Nullable="false" />
+    <Property Name="ThemeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BackgroundImage" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="OlusturmaTarihi" Type="datetime" />
+    <Property Name="LastLogonDate" Type="smalldatetime" />
+    <Property Name="LastLogonIP" Type="nvarchar" MaxLength="50" />
+    <Property Name="IslemYapanID" Type="int" />
+    <Property Name="IslemTarihi" Type="smalldatetime" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'YtuIstatistiks.dbo.KullanicilarLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="KullanicilarLog">
+    <Key>
+      <PropertyRef Name="KullaniciID" />
+      <PropertyRef Name="YetkiGrupID" />
+      <PropertyRef Name="Ad" />
+      <PropertyRef Name="Soyad" />
+      <PropertyRef Name="KullaniciAdi" />
+      <PropertyRef Name="Sifre" />
+      <PropertyRef Name="SifresiniDegistirsin" />
+      <PropertyRef Name="IsActiveDirectoryUser" />
+      <PropertyRef Name="IsAdmin" />
+      <PropertyRef Name="FixedHeader" />
+      <PropertyRef Name="FixedSidebar" />
+      <PropertyRef Name="ScrollSidebar" />
+      <PropertyRef Name="RightSidebar" />
+      <PropertyRef Name="CustomNavigation" />
+      <PropertyRef Name="ToggledNavigation" />
+      <PropertyRef Name="BoxedOrFullWidth" />
+      <PropertyRef Name="ThemeName" />
+      <PropertyRef Name="BackgroundImage" />
+      <PropertyRef Name="IsAktif" />
+    </Key>
+    <Property Name="KullaniciID" Type="int" Nullable="false" />
+    <Property Name="YetkiGrupID" Type="int" Nullable="false" />
+    <Property Name="Ad" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Soyad" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="BirimID" Type="int" />
+    <Property Name="UnvanID" Type="int" />
+    <Property Name="CepTel" Type="nvarchar" MaxLength="20" />
+    <Property Name="EMail" Type="nvarchar" MaxLength="250" />
+    <Property Name="ResimAdi" Type="nvarchar" MaxLength="255" />
+    <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Sifre" Type="nvarchar" MaxLength="1024" Nullable="false" />
+    <Property Name="SifresiniDegistirsin" Type="bit" Nullable="false" />
+    <Property Name="IsActiveDirectoryUser" Type="bit" Nullable="false" />
+    <Property Name="IsAdmin" Type="bit" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="255" />
+    <Property Name="ParolaSifirlamaKodu" Type="nvarchar" MaxLength="20" />
+    <Property Name="ParolaSifirlamGecerlilikTarihi" Type="datetime" />
+    <Property Name="FixedHeader" Type="bit" Nullable="false" />
+    <Property Name="FixedSidebar" Type="bit" Nullable="false" />
+    <Property Name="ScrollSidebar" Type="bit" Nullable="false" />
+    <Property Name="RightSidebar" Type="bit" Nullable="false" />
+    <Property Name="CustomNavigation" Type="bit" Nullable="false" />
+    <Property Name="ToggledNavigation" Type="bit" Nullable="false" />
+    <Property Name="BoxedOrFullWidth" Type="bit" Nullable="false" />
+    <Property Name="ThemeName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="BackgroundImage" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="OlusturmaTarihi" Type="datetime" />
+    <Property Name="LastLogonDate" Type="smalldatetime" />
+    <Property Name="LastLogonIP" Type="nvarchar" MaxLength="50" />
+    <Property Name="IslemYapanID" Type="int" />
+    <Property Name="IslemTarihi" Type="smalldatetime" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="KullaniciRolleri">
+    <Key>
+      <PropertyRef Name="RolID" />
+      <PropertyRef Name="KullaniciID" />
+    </Key>
+    <Property Name="RolID" Type="int" Nullable="false" />
+    <Property Name="KullaniciID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MailSablonlari">
+    <Key>
+      <PropertyRef Name="MailSablonlariID" />
+    </Key>
+    <Property Name="MailSablonlariID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MailSablonTipID" Type="int" Nullable="false" />
+    <Property Name="SablonAdi" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Sablon" Type="text" Nullable="false" />
+    <Property Name="SablonHtml" Type="text" Nullable="false" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MailSablonlariEkleri">
+    <Key>
+      <PropertyRef Name="MailSablonlariEkiID" />
+    </Key>
+    <Property Name="MailSablonlariEkiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MailSablonlariID" Type="int" Nullable="false" />
+    <Property Name="EkAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EkDosyaYolu" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="MailSablonTipleri">
+    <Key>
+      <PropertyRef Name="MailSablonTipID" />
+    </Key>
+    <Property Name="MailSablonTipID" Type="int" Nullable="false" />
+    <Property Name="SablonTipAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="SistemMaili" Type="bit" Nullable="false" />
+    <Property Name="Parametreler" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Menuler">
+    <Key>
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="MenuID" Type="int" Nullable="false" />
+    <Property Name="MenuAdi" Type="nvarchar" MaxLength="400" Nullable="false" />
+    <Property Name="BagliMenuID" Type="int" />
+    <Property Name="MenuIconUrl" Type="nvarchar" MaxLength="255" />
+    <Property Name="MenuCssClass" Type="nvarchar" MaxLength="255" />
+    <Property Name="MenuUrl" Type="nvarchar" MaxLength="255" />
+    <Property Name="DilCeviriYap" Type="bit" />
+    <Property Name="YetkisizErisim" Type="bit" />
+    <Property Name="AuthenticationControl" Type="nvarchar" MaxLength="500" />
+    <Property Name="SiraNo" Type="int" />
+  </EntityType>
+  <EntityType Name="MenuRollleri">
+    <Key>
+      <PropertyRef Name="RolID" />
+      <PropertyRef Name="MenuID" />
+    </Key>
+    <Property Name="RolID" Type="int" Nullable="false" />
+    <Property Name="MenuID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MesajEkleri">
+    <Key>
+      <PropertyRef Name="MesajEkiID" />
+    </Key>
+    <Property Name="MesajEkiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MesajID" Type="int" Nullable="false" />
+    <Property Name="EkAdi" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="EkDosyaYolu" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="MesajKategorileri">
+    <Key>
+      <PropertyRef Name="MesajKategoriID" />
+    </Key>
+    <Property Name="MesajKategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KategoriAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="KategoriAciklamasi" Type="nvarchar(max)" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Mesajlar">
+    <Key>
+      <PropertyRef Name="MesajID" />
+    </Key>
+    <Property Name="MesajID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UstMesajID" Type="int" />
+    <Property Name="GroupID" Type="nvarchar" MaxLength="256" />
+    <Property Name="KullaniciID" Type="int" />
+    <Property Name="MesajKategoriID" Type="int" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="256" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="Tarih" Type="datetime" Nullable="false" />
+    <Property Name="Konu" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AciklamaHtml" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="Silindi" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Roller">
+    <Key>
+      <PropertyRef Name="RolID" />
+    </Key>
+    <Property Name="RolID" Type="int" Nullable="false" />
+    <Property Name="RolAdi" Type="nvarchar" MaxLength="4000" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="4000" />
+    <Property Name="Kategori" Type="nvarchar" MaxLength="255" />
+    <Property Name="GorunurAdi" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="SistemBilgilendirme">
+    <Key>
+      <PropertyRef Name="SistemBilgiID" />
+    </Key>
+    <Property Name="SistemBilgiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BilgiTipi" Type="tinyint" Nullable="false" />
+    <Property Name="Kategori" Type="nvarchar" MaxLength="255" />
+    <Property Name="Message" Type="text" />
+    <Property Name="StackTrace" Type="text" />
+    <Property Name="IslemTarihi" Type="datetime" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="50" />
+    <Property Name="IslemYapanID" Type="int" />
+  </EntityType>
+  <EntityType Name="Unvanlar">
+    <Key>
+      <PropertyRef Name="UnvanID" />
+    </Key>
+    <Property Name="UnvanID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UnvanTipID" Type="int" Nullable="false" />
+    <Property Name="UnvanAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Yuk" Type="int" />
+    <Property Name="YukKatsayisi" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="IsAktif" Type="bit" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnvanTipleri">
+    <Key>
+      <PropertyRef Name="UnvanTipID" />
+    </Key>
+    <Property Name="UnvanTipID" Type="int" Nullable="false" />
+    <Property Name="PersonelTipID" Type="int" Nullable="false" />
+    <Property Name="UnvanTipAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YetkiGruplari">
+    <Key>
+      <PropertyRef Name="YetkiGrupID" />
+    </Key>
+    <Property Name="YetkiGrupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YetkiGrupAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YetkiGrupRolleri">
+    <Key>
+      <PropertyRef Name="YetkiGrupRolID" />
+    </Key>
+    <Property Name="YetkiGrupRolID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YetkiGrupID" Type="int" Nullable="false" />
+    <Property Name="RolID" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Ayarlar_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="Ayarlar" Type="Self.Ayarlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Ayarlar">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Birimler_BirimTurleri">
+    <End Role="BirimTurleri" Type="Self.BirimTurleri" Multiplicity="1" />
+    <End Role="Birimler" Type="Self.Birimler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BirimTurleri">
+        <PropertyRef Name="BirimTurID" />
+      </Principal>
+      <Dependent Role="Birimler">
+        <PropertyRef Name="BirimTurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DuyuruEkleri_Duyurular">
+    <End Role="Duyurular" Type="Self.Duyurular" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="DuyuruEkleri" Type="Self.DuyuruEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Duyurular">
+        <PropertyRef Name="DuyuruID" />
+      </Principal>
+      <Dependent Role="DuyuruEkleri">
+        <PropertyRef Name="DuyuruID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Duyurular_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="Duyurular" Type="Self.Duyurular" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Duyurular">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GelenMesajlar_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailEkleri_GonderilenMailler">
+    <End Role="GonderilenMailler" Type="Self.GonderilenMailler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GonderilenMailEkleri" Type="Self.GonderilenMailEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GonderilenMailler">
+        <PropertyRef Name="GonderilenMailID" />
+      </Principal>
+      <Dependent Role="GonderilenMailEkleri">
+        <PropertyRef Name="GonderilenMailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailKullanicilar_GonderilenMailler">
+    <End Role="GonderilenMailler" Type="Self.GonderilenMailler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="GonderilenMailKullanicilar" Type="Self.GonderilenMailKullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GonderilenMailler">
+        <PropertyRef Name="GonderilenMailID" />
+      </Principal>
+      <Dependent Role="GonderilenMailKullanicilar">
+        <PropertyRef Name="GonderilenMailID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailKullanicilar_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1" />
+    <End Role="GonderilenMailKullanicilar" Type="Self.GonderilenMailKullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="GonderilenMailKullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailler_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="GonderilenMailler" Type="Self.GonderilenMailler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="GonderilenMailler">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GonderilenMailler_Mesajlar">
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="0..1" />
+    <End Role="GonderilenMailler" Type="Self.GonderilenMailler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="GonderilenMailler">
+        <PropertyRef Name="MesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_Birimler">
+    <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Birimler">
+        <PropertyRef Name="BirimID" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="BirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kullanicilar_YetkiGruplari">
+    <End Role="YetkiGruplari" Type="Self.YetkiGruplari" Multiplicity="1" />
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YetkiGruplari">
+        <PropertyRef Name="YetkiGrupID" />
+      </Principal>
+      <Dependent Role="Kullanicilar">
+        <PropertyRef Name="YetkiGrupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciRolleri_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="KullaniciRolleri">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciRolleri_Roller">
+    <End Role="Roller" Type="Self.Roller" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="KullaniciRolleri" Type="Self.KullaniciRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roller">
+        <PropertyRef Name="RolID" />
+      </Principal>
+      <Dependent Role="KullaniciRolleri">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailSablonlari_MailSablonTipleri">
+    <End Role="MailSablonTipleri" Type="Self.MailSablonTipleri" Multiplicity="1" />
+    <End Role="MailSablonlari" Type="Self.MailSablonlari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailSablonTipleri">
+        <PropertyRef Name="MailSablonTipID" />
+      </Principal>
+      <Dependent Role="MailSablonlari">
+        <PropertyRef Name="MailSablonTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MailSablonlariEkleri_MailSablonlari">
+    <End Role="MailSablonlari" Type="Self.MailSablonlari" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MailSablonlariEkleri" Type="Self.MailSablonlariEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MailSablonlari">
+        <PropertyRef Name="MailSablonlariID" />
+      </Principal>
+      <Dependent Role="MailSablonlariEkleri">
+        <PropertyRef Name="MailSablonlariID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuRollleri_Menuler">
+    <End Role="Menuler" Type="Self.Menuler" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MenuRollleri" Type="Self.MenuRollleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Menuler">
+        <PropertyRef Name="MenuID" />
+      </Principal>
+      <Dependent Role="MenuRollleri">
+        <PropertyRef Name="MenuID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MenuRollleri_Roller">
+    <End Role="Roller" Type="Self.Roller" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MenuRollleri" Type="Self.MenuRollleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roller">
+        <PropertyRef Name="RolID" />
+      </Principal>
+      <Dependent Role="MenuRollleri">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MesajEkleri_Mesajlar">
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="MesajEkleri" Type="Self.MesajEkleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="MesajEkleri">
+        <PropertyRef Name="MesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MesajKategorileri_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="MesajKategorileri" Type="Self.MesajKategorileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="MesajKategorileri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesajlar_MesajKategorileri">
+    <End Role="MesajKategorileri" Type="Self.MesajKategorileri" Multiplicity="1" />
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MesajKategorileri">
+        <PropertyRef Name="MesajKategoriID" />
+      </Principal>
+      <Dependent Role="Mesajlar">
+        <PropertyRef Name="MesajKategoriID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Mesajlar_Mesajlar">
+    <End Role="Mesajlar" Type="Self.Mesajlar" Multiplicity="0..1" />
+    <End Role="Mesajlar1" Type="Self.Mesajlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Mesajlar">
+        <PropertyRef Name="MesajID" />
+      </Principal>
+      <Dependent Role="Mesajlar1">
+        <PropertyRef Name="UstMesajID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SistemBilgilendirme_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="SistemBilgilendirme" Type="Self.SistemBilgilendirme" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="SistemBilgilendirme">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unvanlar_UnvanTipleri">
+    <End Role="UnvanTipleri" Type="Self.UnvanTipleri" Multiplicity="1" />
+    <End Role="Unvanlar" Type="Self.Unvanlar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnvanTipleri">
+        <PropertyRef Name="UnvanTipID" />
+      </Principal>
+      <Dependent Role="Unvanlar">
+        <PropertyRef Name="UnvanTipID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YetkiGrupRolleri_Roller">
+    <End Role="Roller" Type="Self.Roller" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="YetkiGrupRolleri" Type="Self.YetkiGrupRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Roller">
+        <PropertyRef Name="RolID" />
+      </Principal>
+      <Dependent Role="YetkiGrupRolleri">
+        <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YetkiGrupRolleri_YetkiGruplari">
+    <End Role="YetkiGruplari" Type="Self.YetkiGruplari" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="YetkiGrupRolleri" Type="Self.YetkiGrupRolleri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YetkiGruplari">
+        <PropertyRef Name="YetkiGrupID" />
+      </Principal>
+      <Dependent Role="YetkiGrupRolleri">
+        <PropertyRef Name="YetkiGrupID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="sp_BirimAgaci" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_BirimAgaciGetBr" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="BirimID" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="YtuIstatistiksModelStoreContainer">
+    <EntitySet Name="Ayarlar" EntityType="Self.Ayarlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Birimler" EntityType="Self.Birimler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BirimTurleri" EntityType="Self.BirimTurleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DuyuruEkleri" EntityType="Self.DuyuruEkleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Duyurular" EntityType="Self.Duyurular" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GonderilenMailEkleri" EntityType="Self.GonderilenMailEkleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GonderilenMailKullanicilar" EntityType="Self.GonderilenMailKullanicilar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GonderilenMailler" EntityType="Self.GonderilenMailler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Gunler" EntityType="Self.Gunler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KullaniciRolleri" EntityType="Self.KullaniciRolleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MailSablonlari" EntityType="Self.MailSablonlari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MailSablonlariEkleri" EntityType="Self.MailSablonlariEkleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MailSablonTipleri" EntityType="Self.MailSablonTipleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Menuler" EntityType="Self.Menuler" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MenuRollleri" EntityType="Self.MenuRollleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MesajEkleri" EntityType="Self.MesajEkleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MesajKategorileri" EntityType="Self.MesajKategorileri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Mesajlar" EntityType="Self.Mesajlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Roller" EntityType="Self.Roller" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SistemBilgilendirme" EntityType="Self.SistemBilgilendirme" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unvanlar" EntityType="Self.Unvanlar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UnvanTipleri" EntityType="Self.UnvanTipleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YetkiGruplari" EntityType="Self.YetkiGruplari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YetkiGrupRolleri" EntityType="Self.YetkiGrupRolleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KullanicilarLog" EntityType="Self.KullanicilarLog" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [KullanicilarLog].[KullaniciID] AS [KullaniciID], 
+    [KullanicilarLog].[YetkiGrupID] AS [YetkiGrupID], 
+    [KullanicilarLog].[Ad] AS [Ad], 
+    [KullanicilarLog].[Soyad] AS [Soyad], 
+    [KullanicilarLog].[BirimID] AS [BirimID], 
+    [KullanicilarLog].[UnvanID] AS [UnvanID], 
+    [KullanicilarLog].[CepTel] AS [CepTel], 
+    [KullanicilarLog].[EMail] AS [EMail], 
+    [KullanicilarLog].[ResimAdi] AS [ResimAdi], 
+    [KullanicilarLog].[KullaniciAdi] AS [KullaniciAdi], 
+    [KullanicilarLog].[Sifre] AS [Sifre], 
+    [KullanicilarLog].[SifresiniDegistirsin] AS [SifresiniDegistirsin], 
+    [KullanicilarLog].[IsActiveDirectoryUser] AS [IsActiveDirectoryUser], 
+    [KullanicilarLog].[IsAdmin] AS [IsAdmin], 
+    [KullanicilarLog].[Aciklama] AS [Aciklama], 
+    [KullanicilarLog].[ParolaSifirlamaKodu] AS [ParolaSifirlamaKodu], 
+    [KullanicilarLog].[ParolaSifirlamGecerlilikTarihi] AS [ParolaSifirlamGecerlilikTarihi], 
+    [KullanicilarLog].[FixedHeader] AS [FixedHeader], 
+    [KullanicilarLog].[FixedSidebar] AS [FixedSidebar], 
+    [KullanicilarLog].[ScrollSidebar] AS [ScrollSidebar], 
+    [KullanicilarLog].[RightSidebar] AS [RightSidebar], 
+    [KullanicilarLog].[CustomNavigation] AS [CustomNavigation], 
+    [KullanicilarLog].[ToggledNavigation] AS [ToggledNavigation], 
+    [KullanicilarLog].[BoxedOrFullWidth] AS [BoxedOrFullWidth], 
+    [KullanicilarLog].[ThemeName] AS [ThemeName], 
+    [KullanicilarLog].[BackgroundImage] AS [BackgroundImage], 
+    [KullanicilarLog].[IsAktif] AS [IsAktif], 
+    [KullanicilarLog].[OlusturmaTarihi] AS [OlusturmaTarihi], 
+    [KullanicilarLog].[LastLogonDate] AS [LastLogonDate], 
+    [KullanicilarLog].[LastLogonIP] AS [LastLogonIP], 
+    [KullanicilarLog].[IslemYapanID] AS [IslemYapanID], 
+    [KullanicilarLog].[IslemTarihi] AS [IslemTarihi], 
+    [KullanicilarLog].[IslemYapanIP] AS [IslemYapanIP]
+    FROM [dbo].[KullanicilarLog] AS [KullanicilarLog]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Ayarlar_Kullanicilar" Association="Self.FK_Ayarlar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Ayarlar" EntitySet="Ayarlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Birimler_BirimTurleri" Association="Self.FK_Birimler_BirimTurleri">
+      <End Role="BirimTurleri" EntitySet="BirimTurleri" />
+      <End Role="Birimler" EntitySet="Birimler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DuyuruEkleri_Duyurular" Association="Self.FK_DuyuruEkleri_Duyurular">
+      <End Role="Duyurular" EntitySet="Duyurular" />
+      <End Role="DuyuruEkleri" EntitySet="DuyuruEkleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Duyurular_Kullanicilar" Association="Self.FK_Duyurular_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Duyurular" EntitySet="Duyurular" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GelenMesajlar_Kullanicilar" Association="Self.FK_GelenMesajlar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailEkleri_GonderilenMailler" Association="Self.FK_GonderilenMailEkleri_GonderilenMailler">
+      <End Role="GonderilenMailler" EntitySet="GonderilenMailler" />
+      <End Role="GonderilenMailEkleri" EntitySet="GonderilenMailEkleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailKullanicilar_GonderilenMailler" Association="Self.FK_GonderilenMailKullanicilar_GonderilenMailler">
+      <End Role="GonderilenMailler" EntitySet="GonderilenMailler" />
+      <End Role="GonderilenMailKullanicilar" EntitySet="GonderilenMailKullanicilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailKullanicilar_Kullanicilar" Association="Self.FK_GonderilenMailKullanicilar_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="GonderilenMailKullanicilar" EntitySet="GonderilenMailKullanicilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailler_Kullanicilar" Association="Self.FK_GonderilenMailler_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="GonderilenMailler" EntitySet="GonderilenMailler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GonderilenMailler_Mesajlar" Association="Self.FK_GonderilenMailler_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+      <End Role="GonderilenMailler" EntitySet="GonderilenMailler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_Birimler" Association="Self.FK_Kullanicilar_Birimler">
+      <End Role="Birimler" EntitySet="Birimler" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kullanicilar_YetkiGruplari" Association="Self.FK_Kullanicilar_YetkiGruplari">
+      <End Role="YetkiGruplari" EntitySet="YetkiGruplari" />
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciRolleri_Kullanicilar" Association="Self.FK_KullaniciRolleri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="Self.FK_KullaniciRolleri_Roller">
+      <End Role="Roller" EntitySet="Roller" />
+      <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailSablonlari_MailSablonTipleri" Association="Self.FK_MailSablonlari_MailSablonTipleri">
+      <End Role="MailSablonTipleri" EntitySet="MailSablonTipleri" />
+      <End Role="MailSablonlari" EntitySet="MailSablonlari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MailSablonlariEkleri_MailSablonlari" Association="Self.FK_MailSablonlariEkleri_MailSablonlari">
+      <End Role="MailSablonlari" EntitySet="MailSablonlari" />
+      <End Role="MailSablonlariEkleri" EntitySet="MailSablonlariEkleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuRollleri_Menuler" Association="Self.FK_MenuRollleri_Menuler">
+      <End Role="Menuler" EntitySet="Menuler" />
+      <End Role="MenuRollleri" EntitySet="MenuRollleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MenuRollleri_Roller" Association="Self.FK_MenuRollleri_Roller">
+      <End Role="Roller" EntitySet="Roller" />
+      <End Role="MenuRollleri" EntitySet="MenuRollleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MesajEkleri_Mesajlar" Association="Self.FK_MesajEkleri_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+      <End Role="MesajEkleri" EntitySet="MesajEkleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MesajKategorileri_Kullanicilar" Association="Self.FK_MesajKategorileri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="MesajKategorileri" EntitySet="MesajKategorileri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesajlar_MesajKategorileri" Association="Self.FK_Mesajlar_MesajKategorileri">
+      <End Role="MesajKategorileri" EntitySet="MesajKategorileri" />
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Mesajlar_Mesajlar" Association="Self.FK_Mesajlar_Mesajlar">
+      <End Role="Mesajlar" EntitySet="Mesajlar" />
+      <End Role="Mesajlar1" EntitySet="Mesajlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SistemBilgilendirme_Kullanicilar" Association="Self.FK_SistemBilgilendirme_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="SistemBilgilendirme" EntitySet="SistemBilgilendirme" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unvanlar_UnvanTipleri" Association="Self.FK_Unvanlar_UnvanTipleri">
+      <End Role="UnvanTipleri" EntitySet="UnvanTipleri" />
+      <End Role="Unvanlar" EntitySet="Unvanlar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YetkiGrupRolleri_Roller" Association="Self.FK_YetkiGrupRolleri_Roller">
+      <End Role="Roller" EntitySet="Roller" />
+      <End Role="YetkiGrupRolleri" EntitySet="YetkiGrupRolleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YetkiGrupRolleri_YetkiGruplari" Association="Self.FK_YetkiGrupRolleri_YetkiGruplari">
+      <End Role="YetkiGruplari" EntitySet="YetkiGruplari" />
+      <End Role="YetkiGrupRolleri" EntitySet="YetkiGrupRolleri" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

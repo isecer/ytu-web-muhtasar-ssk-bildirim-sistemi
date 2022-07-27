@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ekdersModelStoreContainer" CdmEntityContainer="ekdersEntities">
+    <EntitySetMapping Name="Bolums">
+      <EntityTypeMapping TypeName="ekdersModel.Bolum">
+        <MappingFragment StoreEntitySet="Bolum">
+          <ScalarProperty Name="IDBolum" ColumnName="IDBolum" />
+          <ScalarProperty Name="BolumKodu" ColumnName="BolumKodu" />
+          <ScalarProperty Name="FakulteKodu" ColumnName="FakulteKodu" />
+          <ScalarProperty Name="BolumAdi" ColumnName="BolumAdi" />
+          <ScalarProperty Name="SorumluSicilNo" ColumnName="SorumluSicilNo" />
+          <ScalarProperty Name="BolumBaskaniSicilNo" ColumnName="BolumBaskaniSicilNo" />
+          <ScalarProperty Name="UzaktanEgitim" ColumnName="UzaktanEgitim" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
