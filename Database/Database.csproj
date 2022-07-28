@@ -204,13 +204,22 @@
     <Compile Include="YetkiGrupRolleri.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="YevmiyeAyristirmalari.cs">
-      <DependentUpon>MusskDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Yevmiyeler.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="YevmiyelerAyristirma.cs">
+    <Compile Include="Yevmiyeler1003BAyristirmalari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerBelgeKodlari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerEslestirme.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerEslestirmeTurleri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerProjeBankaHesapNumaralari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

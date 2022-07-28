@@ -22,9 +22,8 @@ namespace Database
             this.KullaniciBirimleriRapors = new HashSet<KullaniciBirimleriRapor>();
             this.Kullanicilars = new HashSet<Kullanicilar>();
             this.VASurecleriBirims = new HashSet<VASurecleriBirim>();
-            this.YevmiyeAyristirmalaris = new HashSet<YevmiyeAyristirmalari>();
             this.Yevmiyelers = new HashSet<Yevmiyeler>();
-            this.YevmiyelerAyristirmas = new HashSet<YevmiyelerAyristirma>();
+            this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
         }
     
         public int BirimID { get; set; }
@@ -42,6 +41,8 @@ namespace Database
         public Nullable<int> GelecekAyBitisGun { get; set; }
         public bool IsYevmiyeVeriGirisiYapilabilir { get; set; }
         public string VergiKimlikNo { get; set; }
+        public bool Is1003BSskIsleri { get; set; }
+        public string SskIsYeriKodu { get; set; }
         public bool IsAktif { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
@@ -61,10 +62,8 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VASurecleriBirim> VASurecleriBirims { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<YevmiyeAyristirmalari> YevmiyeAyristirmalaris { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<YevmiyelerAyristirma> YevmiyelerAyristirmas { get; set; }
+        public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
     }
 }

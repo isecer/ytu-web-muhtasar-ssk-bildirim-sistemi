@@ -51,6 +51,8 @@ namespace WebApp.Controllers
                          GelecekAyBitisGun = s.GelecekAyBitisGun,
                          IsYevmiyeVeriGirisiYapilabilir = s.IsYevmiyeVeriGirisiYapilabilir,
                          VergiKimlikNo = s.VergiKimlikNo,
+                         Is1003BSskIsleri = s.Is1003BSskIsleri,
+                         SskIsYeriKodu=s.SskIsYeriKodu
 
                      }).AsQueryable();
             if (!model.Aranan.IsNullOrWhiteSpace()) q = q.Where(p => p.AltIsverenNumarasi == model.Aranan ||
@@ -59,11 +61,13 @@ namespace WebApp.Controllers
                                                                      p.EskiUniteKodu == model.Aranan ||
                                                                      p.IlKodu == model.Aranan ||
                                                                      p.VergiKimlikNo == model.Aranan ||
+                                                                     p.SskIsYeriKodu == model.Aranan ||
                                                                      p.BirimTreeAdi.ToLower().Contains(model.Aranan.ToLower())
                                                                  );
 
             if (model.IsVeriGirisiYapilabilir.HasValue) q = q.Where(p => p.IsVeriGirisiYapilabilir == model.IsVeriGirisiYapilabilir.Value);
             if (model.IsYevmiyeVeriGirisiYapilabilir.HasValue) q = q.Where(p => p.IsYevmiyeVeriGirisiYapilabilir == model.IsYevmiyeVeriGirisiYapilabilir.Value);
+            if (model.Is1003BSskIsleri.HasValue) q = q.Where(p => p.Is1003BSskIsleri == model.Is1003BSskIsleri.Value);
             if (model.IsAktif.HasValue) q = q.Where(p => p.IsAktif == model.IsAktif.Value);
             if (model.VeriGirisTipID > 0 || !model.VeriGirisTipID.HasValue) q = q.Where(p => p.VeriGirisTipID == model.VeriGirisTipID);
             model.RowCount = q.Count();
@@ -195,6 +199,8 @@ namespace WebApp.Controllers
                 if (!kModel.IsYevmiyeVeriGirisiYapilabilir)
                 {
                     kModel.VergiKimlikNo = null;
+                    kModel.Is1003BSskIsleri = null;
+                    kModel.SskIsYeriKodu = null;
                 }
 
 
@@ -224,6 +230,8 @@ namespace WebApp.Controllers
                     Table.GelecekAyBitisGun = kModel.GelecekAyBitisGun;
                     Table.IsYevmiyeVeriGirisiYapilabilir = kModel.IsYevmiyeVeriGirisiYapilabilir;
                     Table.VergiKimlikNo = kModel.VergiKimlikNo;
+                    Table.Is1003BSskIsleri = kModel.Is1003BSskIsleri;
+                    Table.SskIsYeriKodu = kModel.SskIsYeriKodu;
                     Table.IsAktif = kModel.IsAktif;
                     Table.IslemTarihi = kModel.IslemTarihi;
                     Table.IslemYapanID = kModel.IslemYapanID;

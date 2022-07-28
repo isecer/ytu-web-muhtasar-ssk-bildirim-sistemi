@@ -179,6 +179,7 @@ namespace WebApp.Models
         public int? VeriGirisTipID { get; set; }
         public bool? IsAyAsiriHesaplama { get; set; }
         public bool? IsYevmiyeVeriGirisiYapilabilir { get; set; }
+        public bool? Is1003BSskIsleri { get; set; }
         public string Aranan { get; set; }
         public bool? IsAktif { get; set; }
         public IEnumerable<FrBirimler> Data { get; set; }

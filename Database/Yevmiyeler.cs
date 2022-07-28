@@ -17,7 +17,7 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Yevmiyeler()
         {
-            this.YevmiyelerAyristirmas = new HashSet<YevmiyelerAyristirma>();
+            this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
         }
     
         public int YevmiyeID { get; set; }
@@ -38,6 +38,6 @@ namespace Database
     
         public virtual Birimler Birimler { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<YevmiyelerAyristirma> YevmiyelerAyristirmas { get; set; }
+        public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
     }
 }
