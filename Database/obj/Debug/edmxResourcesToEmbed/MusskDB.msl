@@ -639,7 +639,7 @@
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
           <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
           <ScalarProperty Name="KisaAdi" ColumnName="KisaAdi" />
-          <ScalarProperty Name="IbanNo" ColumnName="IbanNo" />
+          <ScalarProperty Name="IBanNo" ColumnName="IBanNo" />
           <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
           <ScalarProperty Name="VergiKimlikNo" ColumnName="VergiKimlikNo" />
           <ScalarProperty Name="TevkifatOraniBolen" ColumnName="TevkifatOraniBolen" />
@@ -666,8 +666,8 @@
           <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
-          <ScalarProperty Name="ProjeNo" ColumnName="ProjeNo" />
           <ScalarProperty Name="ProjeAdi" ColumnName="ProjeAdi" />
+          <ScalarProperty Name="ProjeNo" ColumnName="ProjeNo" />
           <ScalarProperty Name="HesapAdi" ColumnName="HesapAdi" />
           <ScalarProperty Name="HesapNo" ColumnName="HesapNo" />
           <ScalarProperty Name="ProjeBankaHesapNoID" ColumnName="ProjeBankaHesapNoID" />

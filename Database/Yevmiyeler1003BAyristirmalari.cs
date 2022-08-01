@@ -29,6 +29,7 @@ namespace Database
     
         public virtual Aylar Aylar { get; set; }
         public virtual Birimler Birimler { get; set; }
+        public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual Yevmiyeler Yevmiyeler { get; set; }
         public virtual YevmiyelerBelgeKodlari YevmiyelerBelgeKodlari { get; set; }
     }

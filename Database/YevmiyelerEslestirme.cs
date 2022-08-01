@@ -23,13 +23,14 @@ namespace Database
         public Nullable<int> TevkifatOraniBolen { get; set; }
         public string VergiKimlikNo { get; set; }
         public string AdSoyad { get; set; }
-        public string IbanNo { get; set; }
+        public string IBanNo { get; set; }
         public string KisaAdi { get; set; }
         public string Aciklama { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
+        public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual YevmiyelerEslestirmeTurleri YevmiyelerEslestirmeTurleri { get; set; }
     }
 }

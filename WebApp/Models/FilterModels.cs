@@ -1058,7 +1058,7 @@ namespace WebApp.Models
     }
     public class YevmiyeVeriGirisPopupExcelModel
     {
-        public int Yil { get; set; } 
+        public int Yil { get; set; }
     }
     public class VeriGirisPopupToplamModel
     {
@@ -1073,6 +1073,60 @@ namespace WebApp.Models
         public decimal? GvMatrahiToplam { get; set; }
         public decimal? GvKesintiToplam { get; set; }
         public decimal? PrimTutarToplam { get; set; }
+    }
+    public class FmYevmiyelerEslestirme : PagerOption
+    {
+        public int? YevmiyeEslestirmeID { get; set; }
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public string VergiKodu { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string AdSoyad { get; set; }
+        public string IBanNo { get; set; }
+        public string KisaAdi { get; set; }
+        public string Aciklama { get; set; }
+        public IEnumerable<FrYevmiyelerEslestirme> Data { get; set; }
+
+    }
+    public class FrYevmiyelerEslestirme : YevmiyelerEslestirme
+    {
+        public string EslestirmeTurAdi { get; set; }
+        public string IslemYapan { get; set; }
+        public FrYevmiyelerEslestirme()
+        {
+        }
+    }
+    public class FmYevmiyeBelgeKodlari : PagerOption
+    {
+        public string BelgeKodu { get; set; }
+        public string BelgeAdi { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiyelerBelgeKodlari> Data { get; set; }
+
+    }
+    public class FrYevmiyelerBelgeKodlari : YevmiyelerBelgeKodlari
+    {
+        public string IslemYapan { get; set; }
+        public FrYevmiyelerBelgeKodlari()
+        {
+        }
+    }
+    public class FmYevmiyeProjeBankaHesaplari : PagerOption
+    {
+        public string HesapNo { get; set; }
+        public string HesapAdi { get; set; }
+        public string ProjeNo { get; set; }
+        public string ProjeAdi { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiyeProjeBankaHesaplari> Data { get; set; }
+
+    }
+    public class FrYevmiyeProjeBankaHesaplari : YevmiyelerProjeBankaHesapNumaralari
+    {
+        public string IslemYapan { get; set; }
+        public FrYevmiyeProjeBankaHesaplari()
+        {
+        }
     }
     public class FmVASurecleriBirimVerileriAylikToplam
     {
@@ -1093,7 +1147,7 @@ namespace WebApp.Models
         public int? BirimID { get; set; }
         public int? YevmiyeNo { get; set; }
         public string VergiKimlikNo { get; set; }
-        public string HarcamaBirimKod { get; set; } 
+        public string HarcamaBirimKod { get; set; }
         public string HesapKod { get; set; }
         public string Aciklama { get; set; }
 
@@ -1125,7 +1179,7 @@ namespace WebApp.Models
         public decimal PrimeEsasKazancTutar { get; set; }
         public decimal PrimTutari { get; set; }
         public decimal Agi { get; set; }
-        public decimal DvKesinti{ get; set; }
+        public decimal DvKesinti { get; set; }
         public decimal GvMatrah { get; set; }
         public decimal GvKesinti { get; set; }
         public int KisiSayisi { get; set; }
@@ -1136,5 +1190,16 @@ namespace WebApp.Models
     }
     #endregion
 
-
+    #region Enums
+    public static class YevmiyeEslestirmeTuru
+    {
+        public static byte Ssk1003B = 1;
+        public static byte Vergi1003A = 2;
+        public static byte KdvVergi = 3;
+        public static byte EmekliKesenek = 4;
+        public static byte TasinirKontrol = 5;
+        public static byte BankaIslemleri = 6;
+        public static byte SendikaIslemleri = 7;
+    }
+    #endregion
 }

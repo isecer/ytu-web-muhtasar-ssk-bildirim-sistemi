@@ -1095,6 +1095,7 @@ namespace WebApp.Models
                 foreach (var attr in roleAttrs)
                 {
                     var dbrole = dbRoller.FirstOrDefault(p => p.RolID == attr.RolID);
+
                     if (dbrole == null)
                     {
                         db.Rollers.Add(new Roller
@@ -1139,7 +1140,7 @@ namespace WebApp.Models
                             MenuCssClass = attr.MenuCssClass,
                             MenuIconUrl = attr.MenuIconUrl,
                             DilCeviriYap = attr.DilCeviriYap,
-                            YetkisizErisim = attr.YetkisizErisim,
+                            YetkisizErisim = attr.YetkisizErisim, 
                             AuthenticationControl = attr.AuthenticationControl,
                             SiraNo = attr.SiraNo
                         };
@@ -1163,7 +1164,7 @@ namespace WebApp.Models
                         dbmenu.MenuCssClass = attr.MenuCssClass;
                         dbmenu.MenuIconUrl = attr.MenuIconUrl;
                         dbmenu.DilCeviriYap = attr.DilCeviriYap;
-                        dbmenu.YetkisizErisim = attr.YetkisizErisim;
+                        dbmenu.YetkisizErisim = attr.YetkisizErisim; 
                         dbmenu.AuthenticationControl = attr.AuthenticationControl;
                         dbmenu.SiraNo = attr.SiraNo;
                         if (attr.BagliRoller != null && attr.BagliRoller.Length > 0)
@@ -1172,36 +1173,15 @@ namespace WebApp.Models
                             var nRols = dbRoller.Select(s => s.RolID).ToList();
                             var Yeni = dbmenu.Rollers.Where(a => !nRols.Contains(a.RolID)).ToList();
                             var varolan = dbmenu.Rollers.Where(a => nRols.Contains(a.RolID)).ToList();
-                            //foreach (var item in varolan)
-                            //{
-                            //    try
-                            //    {
-                            //        db.Rollers.Remove(item);
-                            //        db.SaveChanges();
-                            //    }
-                            //    catch (Exception ex)
-                            //    {
-                            //        err.Add("Menü Adı:" + dbmenu.MenuAdi + " \r\n Rol Adı:" + item.GorunurAdi + "\r\n Hata:" + ex.ToExceptionMessage());
-                            //        stkTrc = ex.ToExceptionStackTrace();
-                            //    }
-                            //}
-                            //foreach (var item in varolan)
-                            //{
-                            //    dbmenu.Rollers.Add(item);
-                            //}
+                             
                             foreach (var dbRole in Yeni)
                             {
-                                dbmenu.Rollers.Add(dbRole);
-
+                                dbmenu.Rollers.Add(dbRole); 
                             }
                         }
                         db.SaveChanges();
                     }
-                }
-                //if (err.Count > 0)
-                //{
-                //    Management.SistemBilgisiKaydet("Rol optimizasyonu yapılırken "+err.Count+" Rolün silme işlemi sırasında hata oluştu! \r\n" + string.Join("\r\n", err), stkTrc, BilgiTipi.Uyarı);
-                //}
+                } 
             }
         }
         public static Roller[] GetAllRoles(bool TumuOrYetkiIstenenler = true)
@@ -1493,8 +1473,8 @@ namespace WebApp.Models
                     q.SeciliVASurecID.Add(RoleNames.VeriGirisi, SeciliSurecID);
 
 
-                    q.SeciliBirimID.Add(RoleNames.YevmiyeVeriGiris, null);
-                    q.SeciliYil.Add(RoleNames.YevmiyeVeriGiris, DateTime.Now.Year);
+                    q.SeciliBirimID.Add(RoleNames.Yevmiyeler, null);
+                    q.SeciliYil.Add(RoleNames.Yevmiyeler, DateTime.Now.Year);
 
                 }
                 return q;
@@ -2576,6 +2556,8 @@ namespace WebApp.Models
 
 
         #endregion
+
+       
 
 
     }

@@ -37,6 +37,7 @@ namespace Database
         public string IslemYapanIP { get; set; }
     
         public virtual Birimler Birimler { get; set; }
+        public virtual Kullanicilar Kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
     }

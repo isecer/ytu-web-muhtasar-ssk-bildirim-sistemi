@@ -48,9 +48,7 @@
                                     @Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;" })
 
                                 </th>
-                                <th>
-
-                                </th>
+                                <th> </th>
                             </tr>
                             @if (Model.RowCount > 0)
                             {
@@ -59,27 +57,27 @@
                                 {
                                     RowIndex++;
                                     trCls = RowIndex % 2 == 1 ? "" : "even";
-                            <tr class="@trCls">
-                                <td>
-                                    @RowIndex
-                                </td>
-                                <td id="tdMtk_@item.BelgeTurID">
-                                    @item.BelgeTurKodu
-                                </td>
-                                <td id="tdMpy_@item.BelgeTurID" style="text-align:right;padding-right:20px;">
-                                    % @item.PrimYuzdesi
-                                </td>
-                                <td id="tdMtad_@item.BelgeTurID">
-                                    @item.BelgeTurAdi
-                                </td>
-                                <td id="tdIa_@item.BelgeTurID" style="text-align:center;">
-                                    <span style="font-size:8.5pt;display:inline-block;" class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
-                                </td>
-                                <td>
-                                    <a href="@Url.Action("Kayit", "BelgeTurleri", new { id = item.BelgeTurID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
-                                    <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.BelgeTurID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
-                                </td>
-                            </tr>
+                                    <tr class="@trCls">
+                                        <td>
+                                            @RowIndex
+                                        </td>
+                                        <td id="tdMtk_@item.BelgeTurID">
+                                            @item.BelgeTurKodu
+                                        </td>
+                                        <td id="tdMpy_@item.BelgeTurID" style="text-align:right;padding-right:20px;">
+                                            % @item.PrimYuzdesi
+                                        </td>
+                                        <td id="tdMtad_@item.BelgeTurID">
+                                            @item.BelgeTurAdi
+                                        </td>
+                                        <td id="tdIa_@item.BelgeTurID" style="text-align:center;">
+                                            <span style="font-size:8.5pt;display:inline-block;" class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "BelgeTurleri", new { id = item.BelgeTurID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.BelgeTurID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
 
 
                                 }
@@ -89,7 +87,7 @@
                                 <tr>
                                     <td colspan="6" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
-                                    </td> 
+                                    </td>
                                 </tr>
                             }
 

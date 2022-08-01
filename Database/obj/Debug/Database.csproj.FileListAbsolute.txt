@@ -1287,7 +1287,6 @@ C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.Razor
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.xml
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csprojAssemblyReference.cache
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csproj.CopyComplete
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.dll
@@ -1317,3 +1316,4 @@ E:\Yazılım\Git\Ytu_Mussk\Database\obj\Debug\Database.csproj.CoreCompileInputs.
 E:\Yazılım\Git\Ytu_Mussk\Database\obj\Debug\Database.csproj.CopyComplete
 E:\Yazılım\Git\Ytu_Mussk\Database\obj\Debug\Database.dll
 E:\Yazılım\Git\Ytu_Mussk\Database\obj\Debug\Database.pdb
+C:\Users\iRfan\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csprojAssemblyReference.cache

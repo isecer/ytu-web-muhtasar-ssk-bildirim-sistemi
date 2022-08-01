@@ -237,7 +237,10 @@
     <Compile Include="Controllers\UnvanlarController.cs" />
     <Compile Include="Controllers\VeriGirisiController.cs" />
     <Compile Include="Controllers\YetkiGruplariController.cs" />
-    <Compile Include="Controllers\YevmiyeGirisController.cs" />
+    <Compile Include="Controllers\YevmiyeHesapKoduEslestirmeController.cs" />
+    <Compile Include="Controllers\YevmiyeProjeBankaHesaplariController.cs" />
+    <Compile Include="Controllers\YevmiyeBelgeKodlariController.cs" />
+    <Compile Include="Controllers\YevmiyelerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1928,8 +1931,12 @@
     <Content Include="Views\RprBildirgeToplamsal\Index.cshtml" />
     <Content Include="Views\RprBirimToplamsal\Index.cshtml" />
     <Content Include="Views\RprBirimExcelListExport\Index.cshtml" />
-    <Content Include="Views\YevmiyeGiris\Index.cshtml" />
-    <Content Include="Views\YevmiyeGiris\ShowExcelYukle.cshtml" />
+    <Content Include="Views\Yevmiyeler\Index.cshtml" />
+    <Content Include="Views\Yevmiyeler\ShowExcelYukle.cshtml" />
+    <Content Include="Views\YevmiyeBelgeKodlari\Index.cshtml" />
+    <Content Include="Views\YevmiyeBelgeKodlari\Kayit.cshtml" />
+    <Content Include="Views\YevmiyeProjeBankaHesaplari\Index.cshtml" />
+    <Content Include="Views\YevmiyeProjeBankaHesaplari\Kayit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

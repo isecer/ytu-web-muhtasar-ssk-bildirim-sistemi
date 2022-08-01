@@ -17,10 +17,12 @@ namespace Database
         public int ProjeBankaHesapNoID { get; set; }
         public string HesapNo { get; set; }
         public string HesapAdi { get; set; }
-        public string ProjeAdi { get; set; }
         public string ProjeNo { get; set; }
+        public string ProjeAdi { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
+    
+        public virtual Kullanicilar Kullanicilar { get; set; }
     }
 }

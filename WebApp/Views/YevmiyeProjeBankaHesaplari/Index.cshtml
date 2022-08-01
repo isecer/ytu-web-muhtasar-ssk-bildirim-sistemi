@@ -1,0 +1,146 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyeProjeBankaHesaplari
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Proje Banka Hesap Numaraları Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="90" field="HesapNo">Hesap No</th>
+                                <th class="sirala sorting" width="240" field="HesapAdi">Hesap Adi</th>
+                                <th class="sirala sorting" width="240" field="ProjeNo">Proje No</th>
+                                <th class="sirala sorting" field="ProjeAdi">Proje Adı</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <input name="HesapNo" type="text" value="@Model.HesapNo" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="HesapAdi" type="text" value="@Model.HesapAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="ProjeNo" type="text" value="@Model.ProjeNo" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="ProjeAdi" type="text" value="@Model.ProjeAdi" class="form-control" />
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>@RowIndex</td>
+                                        <td id="tdBhn_@item.ProjeBankaHesapNoID">
+                                            @item.HesapNo
+                                        </td>
+                                        <td id="tdBha_@item.ProjeBankaHesapNoID">
+                                            @item.HesapAdi
+                                        </td>
+                                        <td id="tdMPk_@item.ProjeBankaHesapNoID">
+                                            @item.ProjeNo
+                                        </td>
+                                        <td id="tdMPa_@item.ProjeBankaHesapNoID">
+                                            @item.ProjeAdi
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YevmiyeProjeBankaHesaplari", new { id = item.ProjeBankaHesapNoID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.ProjeBankaHesapNoID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="6" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var ProjeNo = $("#tdMPk_" + id).html();
+        var ProjeAdi = $("#tdMPa_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (ProjeNo + ' - ' + SoruHtml) + "</td></tr>" +
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Proje Banka Hesap Numarasını Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message: SoruHtml,
+            title: "Proje Banka Hesap Numarası Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Proje Banka Hesap Numarası Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeBankaHesapNumaralari")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Proje Banka Hesap Numarası Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

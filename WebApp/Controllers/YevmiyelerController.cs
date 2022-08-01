@@ -11,16 +11,16 @@ using WebApp.Models;
 namespace WebApp.Controllers
 {
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-    [Authorize(Roles = RoleNames.YevmiyeVeriGiris)]
-    public class YevmiyeGirisController : Controller
+    [Authorize(Roles = RoleNames.Yevmiyeler)]
+    public class YevmiyelerController : Controller
     {
         // GET: YevmiyeGiris
         private MusskDBEntities db = new MusskDBEntities();
         public ActionResult Index()
         {
             var fModel = new FmYevmiyeGiris { PageSize = 15 };
-            var BirimID = UserIdentity.Current.SeciliBirimID[RoleNames.YevmiyeVeriGiris];
-            var Yil = UserIdentity.Current.SeciliYil[RoleNames.YevmiyeVeriGiris];
+            var BirimID = UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler];
+            var Yil = UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler];
             fModel.Expand = Yil.HasValue || BirimID.HasValue;
             fModel.BirimID = BirimID;
             fModel.Yil = Yil;
@@ -32,8 +32,8 @@ namespace WebApp.Controllers
         {
 
             var BirimIDs = UserIdentity.Current.BirimYetkileri;
-            UserIdentity.Current.SeciliBirimID[RoleNames.YevmiyeVeriGiris] = model.BirimID;
-            UserIdentity.Current.SeciliYil[RoleNames.YevmiyeVeriGiris] = model.Yil;
+            UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.BirimID;
+            UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
 
 
             var q = (from s in db.Yevmiyelers
@@ -91,7 +91,7 @@ namespace WebApp.Controllers
             }, "application/json", JsonRequestBehavior.AllowGet);
 
         }
-        [Authorize(Roles = RoleNames.YevmiyeGirisKayitYetkisi)]
+        [Authorize(Roles = RoleNames.YevmiyelerKayitYetkisi)]
         public ActionResult ShowExcelYukle(int Yil)
         {
             var model = new YevmiyeVeriGirisPopupExcelModel();
@@ -100,7 +100,7 @@ namespace WebApp.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleNames.YevmiyeGirisKayitYetkisi)]
+        [Authorize(Roles = RoleNames.YevmiyelerKayitYetkisi)]
         public ActionResult ExcelYuklePost(int Yil, HttpPostedFileBase DosyaEki)
         {
 

@@ -199,7 +199,7 @@ namespace WebApp.Controllers
                 if (!kModel.IsYevmiyeVeriGirisiYapilabilir)
                 {
                     kModel.VergiKimlikNo = null;
-                    kModel.Is1003BSskIsleri = null;
+                    kModel.Is1003BSskIsleri = false;
                     kModel.SskIsYeriKodu = null;
                 }
 

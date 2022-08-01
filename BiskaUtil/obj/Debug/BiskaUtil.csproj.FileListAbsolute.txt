@@ -944,7 +944,6 @@ C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.Razo
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.xml
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csprojAssemblyReference.cache
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CoreCompileInputs.cache
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CopyComplete
 C:\Users\iRfan\Source\Repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\Biska.Util.v1.dll
@@ -969,3 +968,4 @@ E:\Yazılım\Git\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CoreCompileInput
 E:\Yazılım\Git\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csproj.CopyComplete
 E:\Yazılım\Git\Ytu_Mussk\BiskaUtil\obj\Debug\Biska.Util.v1.dll
 E:\Yazılım\Git\Ytu_Mussk\BiskaUtil\obj\Debug\Biska.Util.v1.pdb
+C:\Users\iRfan\source\repos\isecer\Ytu_Mussk\BiskaUtil\obj\Debug\BiskaUtil.csprojAssemblyReference.cache
