@@ -21,8 +21,7 @@ namespace WebApp.Controllers
         }
         [HttpPost]
         public ActionResult Index(FmYevmiyelerEslestirme model)
-        {
-
+        { 
             var q = from s in db.YevmiyelerEslestirmes
                     select s;
 
