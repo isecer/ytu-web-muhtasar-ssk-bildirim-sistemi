@@ -295,5 +295,27 @@ namespace WebApp.Controllers
             return mMessage.ToJsonResult();
         }
 
+        public ActionResult GetDetail(int id)
+        {
+            var mdl = db.Yevmiyelers.Where(p => p.YevmiyeID == id).First();
+            return View(mdl);
+        }
+
+        public ActionResult YevmiyeAyristir(int YevmiyeID, int? Yevmiyeler1003BAyristirmaID = null)
+        {
+            var model = new Yevmiyeler1003BAyristirmalari();
+            if (Yevmiyeler1003BAyristirmaID > 0)
+            {
+                model = db.Yevmiyeler1003BAyristirmalari.Where(p => p.YevmiyeID == YevmiyeID && p.Yevmiyeler1003BAyristirmaID == Yevmiyeler1003BAyristirmaID).First();
+            }
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID);
+            //var YilYevmiyeToplamAlacak=db.Yevmiyelers.Where(p=>p.)
+            ViewBag.BirimID = new SelectList(Management.CmbBirimlerUniversiteIsYerleri(true), "Value", "Caption", model.BirimID);
+            ViewBag.Yil = new SelectList(Management.CmbYevmiyeGirisYil(true), "Value", "Caption", model.Yil);
+            ViewBag.AyID = new SelectList(Management.CmbAylar(true), "Value", "Caption", model.AyID);
+            ViewBag.YevmiyeBelgeKodID = new SelectList(Management.CmbYevmiyeBelgeKodlari(true), "Value", "Caption", model.YevmiyeBelgeKodID);
+            
+            return View(model);
+        }
     }
 }

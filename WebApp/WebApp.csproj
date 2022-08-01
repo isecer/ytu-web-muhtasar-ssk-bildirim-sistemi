@@ -1937,6 +1937,8 @@
     <Content Include="Views\YevmiyeBelgeKodlari\Kayit.cshtml" />
     <Content Include="Views\YevmiyeProjeBankaHesaplari\Index.cshtml" />
     <Content Include="Views\YevmiyeProjeBankaHesaplari\Kayit.cshtml" />
+    <Content Include="Views\Yevmiyeler\GetDetail.cshtml" />
+    <Content Include="Views\Yevmiyeler\YevmiyeAyristir.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

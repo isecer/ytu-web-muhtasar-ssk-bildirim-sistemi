@@ -250,8 +250,7 @@
                                         var _panel = $('#_ImageUploadPnl');
                                         _pRefresh(_panel, false);
                                         $('#GetImageUploadForm').ajaxForm({
-                                            success: function (result) {
-                                                debugger
+                                            success: function (result) { 
                                                 if (result.mMessage.IsSuccess) {
                                                     toastr["success"](result.mMessage.Title, "Resim Kaydetme İşlemi");
                                                     var src =  result.ResimAdi + "?time=" + new Date();

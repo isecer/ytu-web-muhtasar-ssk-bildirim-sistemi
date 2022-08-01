@@ -1140,7 +1140,7 @@ namespace WebApp.Models
                             MenuCssClass = attr.MenuCssClass,
                             MenuIconUrl = attr.MenuIconUrl,
                             DilCeviriYap = attr.DilCeviriYap,
-                            YetkisizErisim = attr.YetkisizErisim, 
+                            YetkisizErisim = attr.YetkisizErisim,
                             AuthenticationControl = attr.AuthenticationControl,
                             SiraNo = attr.SiraNo
                         };
@@ -1164,7 +1164,7 @@ namespace WebApp.Models
                         dbmenu.MenuCssClass = attr.MenuCssClass;
                         dbmenu.MenuIconUrl = attr.MenuIconUrl;
                         dbmenu.DilCeviriYap = attr.DilCeviriYap;
-                        dbmenu.YetkisizErisim = attr.YetkisizErisim; 
+                        dbmenu.YetkisizErisim = attr.YetkisizErisim;
                         dbmenu.AuthenticationControl = attr.AuthenticationControl;
                         dbmenu.SiraNo = attr.SiraNo;
                         if (attr.BagliRoller != null && attr.BagliRoller.Length > 0)
@@ -1173,15 +1173,15 @@ namespace WebApp.Models
                             var nRols = dbRoller.Select(s => s.RolID).ToList();
                             var Yeni = dbmenu.Rollers.Where(a => !nRols.Contains(a.RolID)).ToList();
                             var varolan = dbmenu.Rollers.Where(a => nRols.Contains(a.RolID)).ToList();
-                             
+
                             foreach (var dbRole in Yeni)
                             {
-                                dbmenu.Rollers.Add(dbRole); 
+                                dbmenu.Rollers.Add(dbRole);
                             }
                         }
                         db.SaveChanges();
                     }
-                } 
+                }
             }
         }
         public static Roller[] GetAllRoles(bool TumuOrYetkiIstenenler = true)
@@ -1810,6 +1810,21 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelInt> CmbBirimlerUniversiteIsYerleri(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
+                var data = db.Birimlers.Where(p => p.Is1003BSskIsleri == true).OrderBy(o => o.BirimAdi).ToList();
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.BirimID, Caption = item.BirimAdi + " (" + item.VergiKimlikNo + ")" });
+                }
+            }
+            return dct;
+
+        }
         public static List<ComboModelInt> CmbKullaniciBirimlerTree(bool bosSecimVar = true, int? HaricBirimID = null)
         {
             var dct = new List<ComboModelInt>();
@@ -2090,6 +2105,23 @@ namespace WebApp.Models
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.BirimID, Caption = item.BirimTreeAdi });
+                }
+            }
+            return dct;
+
+        }
+        public static List<ComboModelInt> CmbYevmiyeBelgeKodlari(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
+
+                var data = db.YevmiyelerBelgeKodlaris.OrderBy(p=>p.BelgeKodu).ToList();
+
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeBelgeKodID, Caption = item.BelgeKodu + " " + item.BelgeAdi });
                 }
             }
             return dct;
@@ -2557,7 +2589,7 @@ namespace WebApp.Models
 
         #endregion
 
-       
+
 
 
     }

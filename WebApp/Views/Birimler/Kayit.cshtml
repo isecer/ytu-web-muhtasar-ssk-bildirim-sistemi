@@ -122,7 +122,7 @@
                                 <label class="col-md-2 col-xs-2 control-label">1003B SSK İşyeri Mi?</label>
                                 <div class="col-md-10 col-xs-10">
                                     <div class="make-switch" data-on-label="Evet" data-off-label="Hayır" data-on="success" data-off="danger">
-                                        <input type="checkbox" value="true" name="Is1003BSskDahilinde" class="toggle" onchange="if ($(this).prop('checked')) { $('.SgDetay').removeClass('hide'); } else { $('.SgDetay').addClass('hide'); }" @Model.Is1003BSskIsleri.ToChecked() />
+                                        <input type="checkbox" value="true" name="Is1003BSskIsleri" class="toggle" onchange="if ($(this).prop('checked')) { $('.SgDetay').removeClass('hide'); } else { $('.SgDetay').addClass('hide'); }" @Model.Is1003BSskIsleri.ToChecked() />
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +130,7 @@
                                 <div class="form-group">
                                     <label class="col-md-2 col-xs-2 control-label">1003B SSK İş Yeri Kodu</label>
                                     <div class="col-md-10 col-xs-10">
-                                        <input type="text" name="SskIsYeriKodu" id="SskIsYeriKodu" value="@Model.SskIsYeriKodu" maxlength="10" class="form-control" />
+                                        <input type="text" name="SskIsYeriKodu" id="SskIsYeriKodu" value="@Model.SskIsYeriKodu"  class="form-control" />
                                     </div>
                                 </div>
                             </div>

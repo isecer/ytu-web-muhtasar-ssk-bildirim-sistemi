@@ -113,62 +113,56 @@
                                         cache: false,
                                         success: function (result) {
                                             _pRefresh(_anaPnl, true);
-                                            if (!result.IsAuthenticated) {
-                                                alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
-                                                window.location.href = '@Url.Action("Index", "Home")';
-                                            }
-                                            else {
-                                                var btbxxFS = bootbox.dialog({
-                                                    message: result.page,
-                                                    title: "Muhtasar ve SSK Bildirim Toplamsal Veri Girişi işlemi",
-                                                    buttons: {
-                                                        success: {
-                                                            label: 'Kaydet',
-                                                            className: "btn-primary",
-                                                            callback: function (event) {
-                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
-                                                                var saveOk = true;
-                                                                if (saveOk) {
-                                                                    _pRefresh(_anaPnl, false);
-                                                                    _pRefresh(pnlx, false);
-                                                                    $('#VeriGirisiPostForm').ajaxForm({
-                                                                        success: function (result) {
-                                                                            _pRefresh(_anaPnl, true);
-                                                                            _pRefresh(pnlx, true);
-                                                                            getMsg(result.mMessage);
-                                                                            if (result.mMessage.IsSuccess) {
-                                                                                $('#VGDetay').html(result.page);
-                                                                                var _clsBtn = $('.modal-header').find('button').first();
-                                                                                $(_clsBtn).click();
-                                                                            }
-                                                                            else {
-                                                                                return false;
-                                                                            }
 
-                                                                        },
-                                                                        complete: function (cmp) {
-                                                                            _pRefresh(pnlx, true);
-                                                                        },
-                                                                        error: function (err) {
-                                                                            _pRefresh(pnlx, true);
+                                            var btbxxFS = bootbox.dialog({
+                                                message: result.page,
+                                                title: "Muhtasar ve SSK Bildirim Toplamsal Veri Girişi işlemi",
+                                                buttons: {
+                                                    success: {
+                                                        label: 'Kaydet',
+                                                        className: "btn-primary",
+                                                        callback: function (event) {
+                                                            var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                                            var saveOk = true;
+                                                            if (saveOk) {
+                                                                _pRefresh(_anaPnl, false);
+                                                                _pRefresh(pnlx, false);
+                                                                $('#VeriGirisiPostForm').ajaxForm({
+                                                                    success: function (result) {
+                                                                        _pRefresh(_anaPnl, true);
+                                                                        _pRefresh(pnlx, true);
+                                                                        getMsg(result.mMessage);
+                                                                        if (result.mMessage.IsSuccess) {
+                                                                            $('#VGDetay').html(result.page);
+                                                                            var _clsBtn = $('.modal-header').find('button').first();
+                                                                            $(_clsBtn).click();
+                                                                        }
+                                                                        else {
+                                                                            return false;
                                                                         }
 
-                                                                    });
-                                                                    $('#VeriGirisiPostForm').submit();
-                                                                }
-                                                                return false;
+                                                                    },
+                                                                    complete: function (cmp) {
+                                                                        _pRefresh(pnlx, true);
+                                                                    },
+                                                                    error: function (err) {
+                                                                        _pRefresh(pnlx, true);
+                                                                    }
+
+                                                                });
+                                                                $('#VeriGirisiPostForm').submit();
                                                             }
-                                                        },
-                                                        danger: {
-                                                            label: 'Kapat',
-                                                            className: "btn-success",
-                                                            callback: function () {
-                                                            }
+                                                            return false;
+                                                        }
+                                                    },
+                                                    danger: {
+                                                        label: 'Kapat',
+                                                        className: "btn-success",
+                                                        callback: function () {
                                                         }
                                                     }
-                                                });
-                                            }
-
+                                                }
+                                            }); 
                                         },
                                         error: function (err) {
                                             _pRefresh(_anaPnl, true);
@@ -262,60 +256,56 @@
                                             success: function (result) {
 
                                                 _pRefresh(_anaPnl, true);
-                                                if (!result.IsAuthenticated) {
-                                                    alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
-                                                    window.location.href = '@Url.Action("Index", "Home")';
-                                                }
-                                                else {
-                                                    var btbxxFS = bootbox.dialog({
-                                                        message: result.page,
-                                                        title: "Muhtasar ve SSK Bildirim Excel'den veri yükleme işlemi",
-                                                        buttons: {
-                                                            success: {
-                                                                label: 'Yükle',
-                                                                className: "btn-primary",
-                                                                callback: function (event) {
-                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
-                                                                    var saveOk = true;
-                                                                    if (saveOk) {
-                                                                        _pRefresh(pnlx, false);
-                                                                        $('#ExcelYuklePostForm').ajaxForm({
-                                                                            success: function (result) {
-                                                                                _pRefresh(pnlx, true);
-                                                                                getMsg(result);
-                                                                                if (result.IsSuccess) {
-                                                                                    setTimeout(function () {
-                                                                                        var _clsBtn = $('.modal-header').find('button').first();
-                                                                                        $(_clsBtn).click();
-                                                                                        $('#frmVeriGirisi').submit();
-                                                                                    }, 3400)
-                                                                                }
-                                                                                else {
-                                                                                    return false;
-                                                                                }
-                                                                            },
-                                                                            complete: function (cmp) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            },
-                                                                            error: function (err) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            }
 
-                                                                        });
-                                                                        $('#ExcelYuklePostForm').submit();
-                                                                    }
-                                                                    return false;
+                                                var btbxxFS = bootbox.dialog({
+                                                    message: result.page,
+                                                    title: "Muhtasar ve SSK Bildirim Excel'den veri yükleme işlemi",
+                                                    buttons: {
+                                                        success: {
+                                                            label: 'Yükle',
+                                                            className: "btn-primary",
+                                                            callback: function (event) {
+                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                                                var saveOk = true;
+                                                                if (saveOk) {
+                                                                    _pRefresh(pnlx, false);
+                                                                    $('#ExcelYuklePostForm').ajaxForm({
+                                                                        success: function (result) {
+                                                                            _pRefresh(pnlx, true);
+                                                                            getMsg(result);
+                                                                            if (result.IsSuccess) {
+                                                                                setTimeout(function () {
+                                                                                    var _clsBtn = $('.modal-header').find('button').first();
+                                                                                    $(_clsBtn).click();
+                                                                                    $('#frmVeriGirisi').submit();
+                                                                                }, 3400)
+                                                                            }
+                                                                            else {
+                                                                                return false;
+                                                                            }
+                                                                        },
+                                                                        complete: function (cmp) {
+                                                                            _pRefresh(pnlx, true);
+                                                                        },
+                                                                        error: function (err) {
+                                                                            _pRefresh(pnlx, true);
+                                                                        }
+
+                                                                    });
+                                                                    $('#ExcelYuklePostForm').submit();
                                                                 }
-                                                            },
-                                                            danger: {
-                                                                label: 'Kapat',
-                                                                className: "btn-success",
-                                                                callback: function () {
-                                                                }
+                                                                return false;
+                                                            }
+                                                        },
+                                                        danger: {
+                                                            label: 'Kapat',
+                                                            className: "btn-success",
+                                                            callback: function () {
                                                             }
                                                         }
-                                                    });
-                                                }
+                                                    }
+                                                });
+
 
                                             },
                                             error: function (err) {

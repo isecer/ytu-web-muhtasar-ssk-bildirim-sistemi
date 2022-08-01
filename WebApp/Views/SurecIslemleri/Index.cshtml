@@ -32,22 +32,22 @@
                         <thead>
                             <tr>
                                 <th width="125"></th>
-                                <th width="160"class="sirala sorting" field="Yil">Süreç</th>
-                                <th >Başlangıç / Bitiş Tarihi</th> 
+                                <th width="160" class="sirala sorting" field="Yil">Süreç</th>
+                                <th>Başlangıç / Bitiş Tarihi</th>
                                 <th width="105" class="sirala sorting" field="IsAktif" style="text-align:center;">Durum</th>
-                            </tr> 
+                            </tr>
                         </thead>
                         <tbody>
                             @*<tr class="filtrele">
-                                <th></th>
-                                <th> 
-                                </th>
-                                <th> 
-                                </th>
-                                <th></th>
-                                <th> 
-                                </th> 
-                            </tr>*@
+                                    <th></th>
+                                    <th>
+                                    </th>
+                                    <th>
+                                    </th>
+                                    <th></th>
+                                    <th>
+                                    </th>
+                                </tr>*@
                             @if (Model.RowCount > 0)
                             {
                                 int RowIndex = Model.StartRowIndex;
@@ -63,7 +63,7 @@
                                                         <div class="btn-group">
                                                             <a href="javascript:void(0);" data-toggle="dropdown" class="btn btn-primary dropdown-toggle"><i class="fa fa-cogs"></i></a>
                                                             <ul class="dropdown-menu" role="menu">
-                                                                <li role="presentation" class="dropdown-header">İşlemler</li> 
+                                                                <li role="presentation" class="dropdown-header">İşlemler</li>
                                                                 <li>
 
                                                                     <a href="@Url.Action("Kayit")"><i class="fa fa-plus fa-lg"></i>Yeni</a>
@@ -71,7 +71,7 @@
                                                                     <a href="javascript:void(0)" onclick="Sil(@item.VASurecID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i>Sil</a>
 
                                                                 </li>
-                                                               
+
 
                                                             </ul>
 
@@ -87,7 +87,7 @@
                                                 </tr>
                                             </table>
                                         </td>
-                                        <td width="160" class="sYilBilgi_@item.VASurecID">@item.SurecYilAdi</td> 
+                                        <td width="160" class="sYilBilgi_@item.VASurecID">@item.SurecYilAdi</td>
                                         <td>@item.BaslangicTarihi.ToDateString() / @item.BitisTarihi.ToDateString()</td>
                                         <td style="text-align:center;">
                                             <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
@@ -120,7 +120,7 @@
         </div>
     }
 </div>
- 
+
 <script type="text/javascript">
     function ShowDetail(rwGD, id) {
         var rwID = $('#iShow_' + rwGD);
@@ -139,7 +139,7 @@
             else GetBirimMaddeleri(VASurecID, KayitID, rwGD);
         }
     }
-    function GetDetail(id) { 
+    function GetDetail(id) {
         var tID = "1";
         if ($('#selectedTb_' + id).length > 0) {
             var tID = $('#selectedTb_' + id).val();
@@ -150,16 +150,12 @@
                 url: '@Url.Action("GetDetail", "SurecIslemleri")',
                 data: { id: id, tbInx: tID },
                 async: false,
-                success: function (result) { 
-                    if (!result.IsAuthenticated) {
-                        alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
-                        window.location.href = '@Url.Action("Index", "Home")';
-                    }
-                    else  {
+                success: function (result) {
+
                         $('#cls-ana-' + id).html(result.page);
                         SubData(id);
-                    }
-                    
+
+
                 },
                 error: function (err) {
                     alert(err.responseText);
@@ -168,7 +164,7 @@
         }
 
     }
-  
+
     function Sil(id) {
         var _Yil = $('.sYilBilgi_' + id).text();
         var btbx = bootbox.dialog({
@@ -205,11 +201,11 @@
     }
 
 
-    function SubData(id) { 
+    function SubData(id) {
         var _panel = $('#pnglDB_' + id);
         var tID = "1";
         var sDurumID = "";
-        var sAyID = ""; 
+        var sAyID = "";
         if ($('#selectedTb_' + id).length > 0) {
             var tID = $('#selectedTb_' + id).val();
             var sHafta = "";
@@ -217,21 +213,19 @@
                 sDurumID = $('#selectedBirimDurumID_' + id).val();
                 sAyID = $('#selectedAyID_' + id).val();
             }
-            
-        } 
+
+        }
         _pRefresh(_panel, false);
         $.ajax({
             url: '@Url.Action("GetSubData", "SurecIslemleri")',
             data: { id: id, SelectDurumID: sDurumID, SelectAyID: sAyID, tbInx: tID },
-            success: function (result) { 
-                 if (!result.IsAuthenticated) {
-                     alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
-                     window.location.href = '@Url.Action("Index", "Home")';
-                 }
-                 else  {
-                    var _nme = 'tab-' + id + '-' + tID;
-                    insertHtml(_nme, result.page); 
-                 } 
+            success: function (result) {
+                alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
+                window.location.href = '@Url.Action("Index", "Home")';
+
+                var _nme = 'tab-' + id + '-' + tID;
+                insertHtml(_nme, result.page);
+
                 _pRefresh(_panel, true);
             },
             error: function (err) {
@@ -240,7 +234,7 @@
             }
         });
     }
-  
+
     function setselectedBirimDurumID(val, _VASurecID) {
 
         $('#selectedBirimDurumID_' + _VASurecID).val(val);

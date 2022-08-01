@@ -282,7 +282,85 @@
         var cls = 'cls-' + id;
         var unTogled = ($('.' + cls).hasClass("hide"));
         toggleByClass(sndr, cls, unTogled);
+        if (unTogled) GetDetail(id);
 
     }
+    function GetDetail(id) {
+        var _panel = $('#yevmiyeDetayPanel_' + id);
+        _pRefresh(_panel, false);
+         $.ajax({
+             url: '@Url.Action("GetDetail", "Yevmiyeler")',
+             data: { id: id },
+             async: false,
+             success: function (result) {
+                 _pRefresh(_panel, true);
+                 $('#cls-' + id).html(result);
+             },
+             error: function (err) {
+                 _pRefresh(_panel, true);
+                 alert(err.responseText);
+             }
+         });
+    }
 
+    function YevmiyeAyristir(YevmiyeID, Yevmiyeler1003BAyristirmaID) {
+        var _panel = $('#yevmiyeDetayPanel_' + YevmiyeID);
+        _pRefresh(_panel, false);
+        $.ajax({
+            url: '@Url.Action("YevmiyeAyristir", "Yevmiyeler")',
+            data: { YevmiyeID, Yevmiyeler1003BAyristirmaID },
+            async: false,
+            success: function (result) {
+                _pRefresh(_panel, false);
+                var btbxxFS = bootbox.dialog({
+                    message: result,
+                    title: "<i class='fa fa-user-o fa-lg'></i> " + (Yevmiyeler1003BAyristirmaID == null ? 'Yeni Yevmiye Ayrıştırma İşlemi' : 'Yevmiye Ayrıştırma Güncelleme İşlemi'),
+                    buttons: {
+                        success: {
+                            label: 'Kaydet',
+                            className: "btn-success",
+                            callback: function (event) {
+                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                _pRefresh(pnlx, false);
+                                $('#frmYevmiyeKayit').ajaxForm({
+                                    success: function (result) {
+                                        if (result.IsSuccess) {
+                                            toastr["success"](result.Messages[0], result.Title);
+                                            var _clsBtn = $('.modal-header').find('button').first();
+                                            $(_clsBtn).click();
+                                        }
+                                        else {
+                                            getMsg(result);
+                                            return false;
+                                        }
+                                        _pRefresh(pnlx, true);
+
+                                    },
+                                    complete: function (cmp) {
+                                        _pRefresh(pnlx, true);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh(pnlx, true);
+                                    }
+
+                                }).submit();
+
+                                return false;
+                            }
+                        },
+                        danger: {
+                            label: 'Kapat',
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+                alert(err.responseText);
+            }
+        });
+    }
 </script>

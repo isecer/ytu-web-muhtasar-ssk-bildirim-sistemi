@@ -256,7 +256,7 @@
                                                             <div class="form-group">
                                                                 <label class="col-md-3 col-xs-4 control-label">1003B SSK İşyeri Mi?</label>
                                                                 <div class="col-md-9 col-xs-8" style="text-align: left;">
-                                                                    <span class="badge badge-@(item.Is1003BSskIsleri==true ? "success" : "danger")">@((item.Is1003BSskIsleri ?? false).ToEvetHayir())</span>
+                                                                    <span class="badge badge-@(item.Is1003BSskIsleri==true ? "success" : "danger")">@item.Is1003BSskIsleri.ToEvetHayir()</span>
                                                                 </div>
                                                             </div>
                                                             if (item.Is1003BSskIsleri == true)
