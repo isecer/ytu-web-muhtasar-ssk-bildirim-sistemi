@@ -508,7 +508,13 @@ namespace WebApp.Models
         public static string ToFormatDate(this DateTime datetime)
         {
             if (datetime == DateTime.MinValue) return "";
-            else return datetime.ToString("yyyy-MM-dd");
+            else return datetime.ToString("dd-MM-yyyy");
+
+        }
+        public static string ToFormatDate(this DateTime? datetime)
+        {
+            if (!datetime.HasValue) return "";
+            else return datetime.ToString("dd-MM-yyyy");
 
         }
         public static string ToHizmetYili(this int ToplamGun)
@@ -2121,7 +2127,7 @@ namespace WebApp.Models
 
                 foreach (var item in data)
                 {
-                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi});
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi });
                 }
             }
             return dct;
@@ -2176,7 +2182,27 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelInt> CmbYevmiyelerHesapKodlari(int? YevmiyeHesapKodTurID, bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
 
+                var data = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == (YevmiyeHesapKodTurID ?? p.YevmiyeHesapKodTurID)).Select(s => new
+                {
+                    s.YevmiyeHesapKodID,
+                    s.VergiKodu,
+                    HesapAdi = s.VergiKodu + " " + s.HesapAdi + " (" + s.HesapKod + ")"
+                }).OrderBy(o => o.VergiKodu).ToList();
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodID, Caption = item.HesapAdi });
+                }
+            }
+            return dct;
+
+        }
         public static List<ComboModelInt> CmbSurecBirimDurum()
         {
             var dct = new List<ComboModelInt>();

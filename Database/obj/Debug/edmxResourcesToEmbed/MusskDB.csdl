@@ -41,6 +41,7 @@
     <EntitySet Name="YetkiGruplaris" EntityType="MusskDBModel.YetkiGruplari" />
     <EntitySet Name="YetkiGrupRolleris" EntityType="MusskDBModel.YetkiGrupRolleri" />
     <EntitySet Name="Yevmiyelers" EntityType="MusskDBModel.Yevmiyeler" />
+    <EntitySet Name="Yevmiyeler1003AGelirKayit" EntityType="MusskDBModel.Yevmiyeler1003AGelirKayit" />
     <EntitySet Name="Yevmiyeler1003BAyristirmalari" EntityType="MusskDBModel.Yevmiyeler1003BAyristirmalari" />
     <EntitySet Name="YevmiyelerBelgeKodlaris" EntityType="MusskDBModel.YevmiyelerBelgeKodlari" />
     <EntitySet Name="YevmiyelerHarcamaBirimleris" EntityType="MusskDBModel.YevmiyelerHarcamaBirimleri" />
@@ -50,6 +51,7 @@
     <EntitySet Name="YevmiyelerProjeBankaHesapNumaralaris" EntityType="MusskDBModel.YevmiyelerProjeBankaHesapNumaralari" />
     <EntitySet Name="YevmiyelerSendikaBilgileris" EntityType="MusskDBModel.YevmiyelerSendikaBilgileri" />
     <EntitySet Name="YevmiyelerTasinirKontrolTifKaydis" EntityType="MusskDBModel.YevmiyelerTasinirKontrolTifKaydi" />
+    <EntitySet Name="YevmiyelerVergiKimlikNumaralaris" EntityType="MusskDBModel.YevmiyelerVergiKimlikNumaralari" />
     <EntitySet Name="KullanicilarLogs" EntityType="MusskDBModel.KullanicilarLog" />
     <EntitySet Name="Vw_BirimlerTree" EntityType="MusskDBModel.Vw_BirimlerTree" />
     <AssociationSet Name="FK_Ayarlar_Kullanicilar" Association="MusskDBModel.FK_Ayarlar_Kullanicilar">
@@ -200,6 +202,10 @@
       <End Role="Kullanicilar" EntitySet="Kullanicilars" />
       <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
     </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler1003AGelirKayit_Kullanicilar" Association="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="Yevmiyeler1003AGelirKayit" EntitySet="Yevmiyeler1003AGelirKayit" />
+    </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Kullanicilar" Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilars" />
       <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
@@ -284,9 +290,9 @@
       <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleris" />
       <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
     </AssociationSet>
-    <AssociationSet Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek" Association="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek">
-      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleris" />
+    <AssociationSet Name="FK_Yevmiyeler1003AGelirKayit_Yevmiyeler" Association="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Yevmiyeler">
       <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
+      <End Role="Yevmiyeler1003AGelirKayit" EntitySet="Yevmiyeler1003AGelirKayit" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Yevmiyeler" Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Yevmiyeler">
       <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
@@ -295,6 +301,10 @@
     <AssociationSet Name="FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler" Association="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler">
       <End Role="Yevmiyeler" EntitySet="Yevmiyelers" />
       <End Role="YevmiyelerTasinirKontrolTifKaydi" EntitySet="YevmiyelerTasinirKontrolTifKaydis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler1003AGelirKayit_YevmiyelerHesapKodlari" Association="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_YevmiyelerHesapKodlari">
+      <End Role="YevmiyelerHesapKodlari" EntitySet="YevmiyelerHesapKodlaris" />
+      <End Role="Yevmiyeler1003AGelirKayit" EntitySet="Yevmiyeler1003AGelirKayit" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_YevmiyelerBelgeKodlari" Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerBelgeKodlari">
       <End Role="YevmiyelerBelgeKodlari" EntitySet="YevmiyelerBelgeKodlaris" />
@@ -618,6 +628,7 @@
     <NavigationProperty Name="MeslekTurleris" Relationship="MusskDBModel.FK_MeslekTurleri_Kullanicilar" FromRole="Kullanicilar" ToRole="MeslekTurleri" />
     <NavigationProperty Name="SistemBilgilendirmes" Relationship="MusskDBModel.FK_SistemBilgilendirme_Kullanicilar" FromRole="Kullanicilar" ToRole="SistemBilgilendirme" />
     <NavigationProperty Name="Yevmiyelers" Relationship="MusskDBModel.FK_Yevmiyeler_Kullanicilar" FromRole="Kullanicilar" ToRole="Yevmiyeler" />
+    <NavigationProperty Name="Yevmiyeler1003AGelirKayit" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Kullanicilar" FromRole="Kullanicilar" ToRole="Yevmiyeler1003AGelirKayit" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Kullanicilar" FromRole="Kullanicilar" ToRole="Yevmiyeler1003BAyristirmalari" />
     <NavigationProperty Name="YevmiyelerBelgeKodlaris" Relationship="MusskDBModel.FK_YevmiyelerBelgeKodlari_Kullanicilar" FromRole="Kullanicilar" ToRole="YevmiyelerBelgeKodlari" />
     <NavigationProperty Name="YevmiyelerHarcamaBirimleris" Relationship="MusskDBModel.FK_YevmiyelerHarcamaBirimleri_Kullanicilar" FromRole="Kullanicilar" ToRole="YevmiyelerHarcamaBirimleri" />
@@ -972,15 +983,37 @@
     <Property Name="Borc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Alacak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="EKYevmiyeHarcamaBirimID" Type="Int32" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_Yevmiyeler_Kullanicilar" FromRole="Yevmiyeler" ToRole="Kullanicilar" />
     <NavigationProperty Name="YevmiyelerHarcamaBirimleri" Relationship="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleri" FromRole="Yevmiyeler" ToRole="YevmiyelerHarcamaBirimleri" />
-    <NavigationProperty Name="YevmiyelerHarcamaBirimleri1" Relationship="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek" FromRole="Yevmiyeler" ToRole="YevmiyelerHarcamaBirimleri" />
+    <NavigationProperty Name="Yevmiyeler1003AGelirKayit" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Yevmiyeler" FromRole="Yevmiyeler" ToRole="Yevmiyeler1003AGelirKayit" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Yevmiyeler" FromRole="Yevmiyeler" ToRole="Yevmiyeler1003BAyristirmalari" />
     <NavigationProperty Name="YevmiyelerTasinirKontrolTifKaydis" Relationship="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler" FromRole="Yevmiyeler" ToRole="YevmiyelerTasinirKontrolTifKaydi" />
+  </EntityType>
+  <EntityType Name="Yevmiyeler1003AGelirKayit">
+    <Key>
+      <PropertyRef Name="Yevmiye1003AGelirKayitID" />
+    </Key>
+    <Property Name="Yevmiye1003AGelirKayitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="YevmiyeID" Type="Int32" Nullable="false" />
+    <Property Name="YeniYevmiyeHesapKodID" Type="Int32" />
+    <Property Name="VergiKodu" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="IsHesaplamayaGirecek" Type="Boolean" />
+    <Property Name="VergiKimlikNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="AdSoyad" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Adres" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="Matrah" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="BelgeninMahiyeti" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="FaturaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="FaturaNo" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Kullanicilar" FromRole="Yevmiyeler1003AGelirKayit" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Yevmiyeler" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Yevmiyeler" FromRole="Yevmiyeler1003AGelirKayit" ToRole="Yevmiyeler" />
+    <NavigationProperty Name="YevmiyelerHesapKodlari" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_YevmiyelerHesapKodlari" FromRole="Yevmiyeler1003AGelirKayit" ToRole="YevmiyelerHesapKodlari" />
   </EntityType>
   <EntityType Name="Yevmiyeler1003BAyristirmalari">
     <Key>
@@ -1030,7 +1063,6 @@
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_YevmiyelerHarcamaBirimleri_Kullanicilar" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Kullanicilar" />
     <NavigationProperty Name="Yevmiyelers" Relationship="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler" />
-    <NavigationProperty Name="Yevmiyelers1" Relationship="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler1003BAyristirmalari" />
   </EntityType>
   <EntityType Name="YevmiyelerHesapKodlari">
@@ -1042,12 +1074,14 @@
     <Property Name="HesapKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="HesapAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="VergiKodu" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="IsGelirKaydindaKullaniclacak" Type="Boolean" />
     <Property Name="TevkifatOranBolunen" Type="Int32" />
     <Property Name="TevkifatOranBolen" Type="Int32" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_YevmiyelerHesapKodlari_Kullanicilar" FromRole="YevmiyelerHesapKodlari" ToRole="Kullanicilar" />
+    <NavigationProperty Name="Yevmiyeler1003AGelirKayit" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_YevmiyelerHesapKodlari" FromRole="YevmiyelerHesapKodlari" ToRole="Yevmiyeler1003AGelirKayit" />
     <NavigationProperty Name="YevmiyelerHesapKodTurleri" Relationship="MusskDBModel.FK_YevmiyelerHesapKodlari_YevmiyelerHesapKodTurleri" FromRole="YevmiyelerHesapKodlari" ToRole="YevmiyelerHesapKodTurleri" />
   </EntityType>
   <EntityType Name="YevmiyelerHesapKodTurleri">
@@ -1115,6 +1149,15 @@
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar" FromRole="YevmiyelerTasinirKontrolTifKaydi" ToRole="Kullanicilar" />
     <NavigationProperty Name="Yevmiyeler" Relationship="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler" FromRole="YevmiyelerTasinirKontrolTifKaydi" ToRole="Yevmiyeler" />
+  </EntityType>
+  <EntityType Name="YevmiyelerVergiKimlikNumaralari">
+    <Key>
+      <PropertyRef Name="YevmiyeVergiKimlikNoID" />
+    </Key>
+    <Property Name="YevmiyeVergiKimlikNoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="VergiKimlikNo" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="AdSoyad" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Adres" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="KullanicilarLog">
     <Key>
@@ -1659,6 +1702,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Yevmiyeler1003AGelirKayit_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003AGelirKayit" Role="Yevmiyeler1003AGelirKayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003AGelirKayit">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Yevmiyeler1003BAyristirmalari_Kullanicilar">
     <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
     <End Type="MusskDBModel.Yevmiyeler1003BAyristirmalari" Role="Yevmiyeler1003BAyristirmalari" Multiplicity="*" />
@@ -1923,15 +1978,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek">
-    <End Type="MusskDBModel.YevmiyelerHarcamaBirimleri" Role="YevmiyelerHarcamaBirimleri" Multiplicity="0..1" />
-    <End Type="MusskDBModel.Yevmiyeler" Role="Yevmiyeler" Multiplicity="*" />
+  <Association Name="FK_Yevmiyeler1003AGelirKayit_Yevmiyeler">
+    <End Type="MusskDBModel.Yevmiyeler" Role="Yevmiyeler" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003AGelirKayit" Role="Yevmiyeler1003AGelirKayit" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="YevmiyelerHarcamaBirimleri">
-        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      <Principal Role="Yevmiyeler">
+        <PropertyRef Name="YevmiyeID" />
       </Principal>
-      <Dependent Role="Yevmiyeler">
-        <PropertyRef Name="EKYevmiyeHarcamaBirimID" />
+      <Dependent Role="Yevmiyeler1003AGelirKayit">
+        <PropertyRef Name="YevmiyeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1956,6 +2011,18 @@
       </Principal>
       <Dependent Role="YevmiyelerTasinirKontrolTifKaydi">
         <PropertyRef Name="YevmiyeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiyeler1003AGelirKayit_YevmiyelerHesapKodlari">
+    <End Type="MusskDBModel.YevmiyelerHesapKodlari" Role="YevmiyelerHesapKodlari" Multiplicity="0..1" />
+    <End Type="MusskDBModel.Yevmiyeler1003AGelirKayit" Role="Yevmiyeler1003AGelirKayit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHesapKodlari">
+        <PropertyRef Name="YevmiyeHesapKodID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003AGelirKayit">
+        <PropertyRef Name="YeniYevmiyeHesapKodID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

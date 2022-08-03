@@ -207,6 +207,9 @@
     <Compile Include="Yevmiyeler.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Yevmiyeler1003AGelirKayit.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Yevmiyeler1003BAyristirmalari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
@@ -232,6 +235,9 @@
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
     <Compile Include="YevmiyelerTasinirKontrolTifKaydi.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerVergiKimlikNumaralari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -27,6 +27,7 @@
                                     @Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control", onchange = "HKoduChange(this);" })
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <label class="col-md-3 col-xs-4 control-label">Hesap Kodu</label>
                                 <div class="col-md-9 col-xs-8">
@@ -39,12 +40,23 @@
                                     <input type="text" name="HesapAdi" id="HesapAdi" maxlength="256" value="@Model.HesapAdi" class="form-control" />
                                 </div>
                             </div>
-                            <div class="form-group HKvergiKodu @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.SSKPrimHesapKodlari1003B?"":"hide")">
+                            <div class="form-group HKvergiOran @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
+                                <label class="col-md-3 col-xs-4 control-label">Gelir Kaydı Yapılacak Mı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <select class="form-control" name="IsGelirKaydindaKullaniclacak" id="IsGelirKaydindaKullaniclacak">
+                                        <option></option>
+                                        <option value="true" @Model.IsGelirKaydindaKullaniclacak.ToSelected()>Evet</option>
+                                        <option value="false" @((!Model.IsGelirKaydindaKullaniclacak).ToSelected())>Hayır</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group HKvergiKodu @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
                                 <label class="col-md-3 col-xs-4 control-label">Vergi Kodu</label>
                                 <div class="col-md-9 col-xs-8">
                                     <input type="text" name="VergiKodu" id="VergiKodu" maxlength="8" value="@Model.VergiKodu" class="form-control" />
                                 </div>
                             </div>
+
                             <div class="form-group HKvergiOran @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.KDVTevkifatHesapKodlari?"":"hide")">
                                 <label class="col-md-3 col-xs-4 control-label">Tevkifat Oranı</label>
                                 <div class="col-md-9 col-xs-8">

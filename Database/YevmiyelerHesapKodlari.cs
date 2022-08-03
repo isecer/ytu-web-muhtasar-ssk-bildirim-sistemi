@@ -14,11 +14,18 @@ namespace Database
     
     public partial class YevmiyelerHesapKodlari
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public YevmiyelerHesapKodlari()
+        {
+            this.Yevmiyeler1003AGelirKayit = new HashSet<Yevmiyeler1003AGelirKayit>();
+        }
+    
         public int YevmiyeHesapKodID { get; set; }
         public int YevmiyeHesapKodTurID { get; set; }
         public string HesapKod { get; set; }
         public string HesapAdi { get; set; }
         public string VergiKodu { get; set; }
+        public Nullable<bool> IsGelirKaydindaKullaniclacak { get; set; }
         public Nullable<int> TevkifatOranBolunen { get; set; }
         public Nullable<int> TevkifatOranBolen { get; set; }
         public System.DateTime IslemTarihi { get; set; }
@@ -26,6 +33,8 @@ namespace Database
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         public virtual YevmiyelerHesapKodTurleri YevmiyelerHesapKodTurleri { get; set; }
     }
 }

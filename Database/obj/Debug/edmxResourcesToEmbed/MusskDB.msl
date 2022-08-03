@@ -581,7 +581,6 @@
           <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
-          <ScalarProperty Name="EKYevmiyeHarcamaBirimID" ColumnName="EKYevmiyeHarcamaBirimID" />
           <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
           <ScalarProperty Name="Alacak" ColumnName="Alacak" />
           <ScalarProperty Name="Borc" ColumnName="Borc" />
@@ -594,6 +593,27 @@
           <ScalarProperty Name="YevmiyeNo" ColumnName="YevmiyeNo" />
           <ScalarProperty Name="YevmiyeTarih" ColumnName="YevmiyeTarih" />
           <ScalarProperty Name="YevmiyeID" ColumnName="YevmiyeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yevmiyeler1003AGelirKayit">
+      <EntityTypeMapping TypeName="MusskDBModel.Yevmiyeler1003AGelirKayit">
+        <MappingFragment StoreEntitySet="Yevmiyeler1003AGelirKayit">
+          <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
+          <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
+          <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+          <ScalarProperty Name="FaturaNo" ColumnName="FaturaNo" />
+          <ScalarProperty Name="FaturaTarihi" ColumnName="FaturaTarihi" />
+          <ScalarProperty Name="BelgeninMahiyeti" ColumnName="BelgeninMahiyeti" />
+          <ScalarProperty Name="Matrah" ColumnName="Matrah" />
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="VergiKimlikNo" ColumnName="VergiKimlikNo" />
+          <ScalarProperty Name="IsHesaplamayaGirecek" ColumnName="IsHesaplamayaGirecek" />
+          <ScalarProperty Name="VergiKodu" ColumnName="VergiKodu" />
+          <ScalarProperty Name="YeniYevmiyeHesapKodID" ColumnName="YeniYevmiyeHesapKodID" />
+          <ScalarProperty Name="YevmiyeID" ColumnName="YevmiyeID" />
+          <ScalarProperty Name="Yevmiye1003AGelirKayitID" ColumnName="Yevmiye1003AGelirKayitID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -648,6 +668,7 @@
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
           <ScalarProperty Name="TevkifatOranBolen" ColumnName="TevkifatOranBolen" />
           <ScalarProperty Name="TevkifatOranBolunen" ColumnName="TevkifatOranBolunen" />
+          <ScalarProperty Name="IsGelirKaydindaKullaniclacak" ColumnName="IsGelirKaydindaKullaniclacak" />
           <ScalarProperty Name="VergiKodu" ColumnName="VergiKodu" />
           <ScalarProperty Name="HesapAdi" ColumnName="HesapAdi" />
           <ScalarProperty Name="HesapKod" ColumnName="HesapKod" />
@@ -718,6 +739,16 @@
           <ScalarProperty Name="TifNo" ColumnName="TifNo" />
           <ScalarProperty Name="YevmiyeID" ColumnName="YevmiyeID" />
           <ScalarProperty Name="YevmiyelerTasinirKontrolTifKayitID" ColumnName="YevmiyelerTasinirKontrolTifKayitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YevmiyelerVergiKimlikNumaralaris">
+      <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerVergiKimlikNumaralari">
+        <MappingFragment StoreEntitySet="YevmiyelerVergiKimlikNumaralari">
+          <ScalarProperty Name="Adres" ColumnName="Adres" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="VergiKimlikNo" ColumnName="VergiKimlikNo" />
+          <ScalarProperty Name="YevmiyeVergiKimlikNoID" ColumnName="YevmiyeVergiKimlikNoID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

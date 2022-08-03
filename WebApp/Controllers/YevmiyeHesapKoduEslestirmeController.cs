@@ -28,6 +28,7 @@ namespace WebApp.Controllers
             if (model.YevmiyeHesapKodTurID.HasValue) q = q.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID);
             if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod == model.HesapKod);
             if (!model.HesapAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapAdi.Contains(model.HesapAdi));
+            if (model.IsGelirKaydindaKullaniclacak.HasValue) q = q.Where(p => p.IsGelirKaydindaKullaniclacak == model.IsGelirKaydindaKullaniclacak);
             if (!model.VergiKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.VergiKodu == model.VergiKodu);
 
 
@@ -43,6 +44,7 @@ namespace WebApp.Controllers
                 HesapKod = s.HesapKod,
                 HesapAdi = s.HesapAdi,
                 VergiKodu = s.VergiKodu,
+                IsGelirKaydindaKullaniclacak=s.IsGelirKaydindaKullaniclacak,
                 TevkifatOranBolunen=s.TevkifatOranBolunen,
                 TevkifatOranBolen=s.TevkifatOranBolen,
                 IslemTarihi = s.IslemTarihi,
@@ -99,8 +101,14 @@ namespace WebApp.Controllers
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "HesapAdi" });
 
-            if (kModel.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
+            if (kModel.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
             {
+                if (!kModel.IsGelirKaydindaKullaniclacak.HasValue)
+                {
+                    MmMessage.Messages.Add("Gelir Kaydı Yapılacak Mı Sorusunu Cevaplayınız.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "IsGelirKaydindaKullaniclacak" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "IsGelirKaydindaKullaniclacak" });
                 if (kModel.VergiKodu.IsNullOrWhiteSpace())
                 {
                     MmMessage.Messages.Add("Vergi Kodu Boş bırakılamaz.");
@@ -139,9 +147,10 @@ namespace WebApp.Controllers
                 kModel.IslemTarihi = DateTime.Now;
                 kModel.IslemYapanID = UserIdentity.Current.Id;
                 kModel.IslemYapanIP = UserIdentity.Ip;
-                if (kModel.YevmiyeHesapKodTurID != HesapKoduTuru.SSKPrimHesapKodlari1003B)
+                if (kModel.YevmiyeHesapKodTurID != HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                 {
                     kModel.VergiKodu = null;
+                    kModel.IsGelirKaydindaKullaniclacak = null;
                 }
                 if (kModel.YevmiyeHesapKodTurID != HesapKoduTuru.KDVTevkifatHesapKodlari)
                 {
@@ -158,6 +167,7 @@ namespace WebApp.Controllers
                     data.YevmiyeHesapKodTurID = kModel.YevmiyeHesapKodTurID;
                     data.HesapKod = kModel.HesapKod;
                     data.HesapAdi = kModel.HesapAdi;
+                    data.IsGelirKaydindaKullaniclacak = kModel.IsGelirKaydindaKullaniclacak;
                     data.VergiKodu = kModel.VergiKodu;
                     data.TevkifatOranBolen = kModel.TevkifatOranBolen;
                     data.TevkifatOranBolunen = kModel.TevkifatOranBolunen;

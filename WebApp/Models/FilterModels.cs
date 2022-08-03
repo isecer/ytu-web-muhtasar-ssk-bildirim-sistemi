@@ -1096,6 +1096,7 @@ namespace WebApp.Models
         public int? YevmiyeHesapKodTurID { get; set; }
         public string HesapKod { get; set; }
         public string HesapAdi { get; set; }
+        public bool? IsGelirKaydindaKullaniclacak { get; set; }
         public string VergiKodu { get; set; }
         public IEnumerable<FrYevmiyelerHesapKodlari> Data { get; set; }
 
@@ -1210,6 +1211,7 @@ namespace WebApp.Models
     {
         public decimal? YevmiyeNoToplamGv { get; set; }
         public decimal? YevmiyeNoToplamDv { get; set; }
+        public SelectList SHesapKodlari1003A { get; set; }
     }
 
     public class RpModelToplamsalModel

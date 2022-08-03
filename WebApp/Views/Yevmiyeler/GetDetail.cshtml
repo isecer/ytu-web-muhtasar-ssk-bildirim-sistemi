@@ -1,12 +1,13 @@
 ﻿@using WebApp.Models
+@using BiskaUtil
 @model YevmiyeDetayModel
 @{
     Layout = null;
 }
 
-<div class="panel"  id="yevmiyeDetayPanel_@Model.YevmiyeID">
+<div class="panel" id="yevmiyeDetayPanel_@Model.YevmiyeID">
     <div class="panel-body" style="margin: 0px; padding: 0px;">
-        <div class="widget widget-default"  style="border-top:1px solid; margin-bottom:8px;padding:6px 10px;min-height:100px;">
+        <div class="widget widget-default" style="border-top:1px solid; margin-bottom:8px;padding:6px 10px;min-height:100px;">
             <br />
             <table style="width:100%;">
                 <tbody>
@@ -103,18 +104,73 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                <table style="width:100%;">
-                                                    <tbody>
+                                                @using (Ajax.BeginForm("GelirKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit", @class = "form-horizontal" }))
+                                                {
+                                                    var GMdl = Model.Yevmiyeler1003AGelirKayit.First();
+                                                    @Html.Hidden("YevmiyeID", GMdl.YevmiyeID)
+                                                    @Html.Hidden("Yevmiye1003AGelirKayitID", GMdl.Yevmiye1003AGelirKayitID)
+                                                    var VergiKimlikNo = GMdl.VergiKimlikNo;
+                                                    <table style="width:100%;">
                                                         <tr>
-                                                            <td class="CaptionTd" width="140">Salon Adı</td>
-                                                            <td class="CaptionTd" width="10">:</td>
-                                                            <td class="ValueTd">
-                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            <td width="240">Yeni Hesap Kodu</td>
+                                                            <td width="10">:</td>
+                                                            <td>@Html.DropDownList("YeniYevmiyeHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Vergi Kodu</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("VergiKodu", GMdl.VergiKodu, new { @class = "form-control", maxlength = "8" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Hesaplamaya Girecek Mi</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                <select class="form-control" name="IsHesaplamayaGirecekmi">
+                                                                    <option></option>
+                                                                    <option value="true" @GMdl.IsHesaplamayaGirecek.ToSelected()>Evet</option>
+                                                                    <option value="false" @((GMdl.IsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
+                                                                </select>
                                                             </td>
                                                         </tr>
-
-                                                    </tbody>
-                                                </table>
+                                                        <tr>
+                                                            <td>Vergi Kimlik No</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                <input type="text" class="form-control" maxlength="11" name="VergiKimlikNo" id="VergiKimlikNo" value="@GMdl.VergiKimlikNo" /> 
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ad Soyad</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("AdSoyad", GMdl.AdSoyad, new { @class = "form-control", maxlength = "256" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Adres</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("Adres", GMdl.Adres, new { @class = "form-control", maxlength = "512" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Matrah</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("Matrah", GMdl.Matrah, new { @class = "form-control", maxlength = "32" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Belgenin Mahiyeti</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("BelgeninMahiyeti", GMdl.BelgeninMahiyeti, new { @class = "form-control", maxlength = "128" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura Tarihi</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("FaturaTarihi", GMdl.FaturaTarihi.ToFormatDate(), new { @class = "form-control date-picker" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura No</td>
+                                                            <td>:</td>
+                                                            <td>@Html.TextBox("FaturaNo", GMdl.FaturaNo, new { @class = "form-control", maxlength = "64" })</td>
+                                                        </tr>
+                                                    </table>
+                                                }
                                             </td>
                                         </tr>
                                     </tbody>
@@ -186,16 +242,16 @@
                                                     <table class="table table-hover" style="width:100%;">
                                                         <tr class="info">
                                                             <th width="110">Tif Numarası</th>
-                                                            <th width="90">Tutar</th>
                                                             <th>Açıklama</th>
+                                                            <th width="220" style="text-align:right;">Tutar</th>
                                                             <th width="60"></th>
                                                         </tr>
                                                         @foreach (var item in Model.YevmiyelerTasinirKontrolTifKaydis)
                                                         {
                                                             <tr>
                                                                 <td>@item.TifNo</td>
-                                                                <td>@item.Tutar TL</td>
                                                                 <td>@item.Aciklama</td>
+                                                                <td style="text-align:right;">@item.Tutar TL</td>
                                                                 <td>
                                                                     <table style="width:100%;">
                                                                         <tr>
@@ -211,9 +267,9 @@
                                                         }
 
                                                         <tr class="info">
-                                                            <td style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
-                                                            <td colspan="3" style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
-                                                         
+                                                            <td colspan="2" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
+                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
+                                                            <td></td>
                                                         </tr>
                                                     </table>
                                                 }
@@ -283,6 +339,13 @@
         </div>
     </div>
 </div>
+<script>
+     $('.date-picker').datetimepicker({
+                lang: 'tr',
+                timepicker: false,
+                format: 'd-m-Y'
+            });
+</script>
 
 
 

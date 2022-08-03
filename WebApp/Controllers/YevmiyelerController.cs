@@ -295,7 +295,7 @@ namespace WebApp.Controllers
         }
 
         public ActionResult GetDetail(int id)
-        { 
+        {
             var mdl = db.Yevmiyelers.Where(p => p.YevmiyeID == id).Select(s => new YevmiyeDetayModel
             {
 
@@ -310,12 +310,19 @@ namespace WebApp.Controllers
                 Borc = s.Borc,
                 Alacak = s.Alacak,
                 Yevmiyeler1003BAyristirmalari = s.Yevmiyeler1003BAyristirmalari,
-                YevmiyelerTasinirKontrolTifKaydis=s.YevmiyelerTasinirKontrolTifKaydis
+                YevmiyelerTasinirKontrolTifKaydis = s.YevmiyelerTasinirKontrolTifKaydis,
+                Yevmiyeler1003AGelirKayit = s.Yevmiyeler1003AGelirKayit,
             }).First();
+            if (mdl.Yevmiyeler1003AGelirKayit.Count == 0) mdl.Yevmiyeler1003AGelirKayit.Add(new Yevmiyeler1003AGelirKayit());
+
             var GelirVergisiHesapKods = new List<string> { "360.01.01.01", "360.01.01.02" };
             mdl.YevmiyeNoToplamGv = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == mdl.YevmiyeTarih.Year && p.YevmiyeNo == mdl.YevmiyeNo && GelirVergisiHesapKods.Contains(p.HesapKod)).Sum(s => (decimal?)s.Alacak);
             var DamgaVergisiHesapKods = new List<string> { "360.03.01" };
             mdl.YevmiyeNoToplamDv = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == mdl.YevmiyeTarih.Year && p.YevmiyeNo == mdl.YevmiyeNo && DamgaVergisiHesapKods.Contains(p.HesapKod)).Sum(s => (decimal?)s.Alacak);
+
+            var Yevmiyeler1003AGelirK = mdl.Yevmiyeler1003AGelirKayit.First();
+            mdl.SHesapKodlari1003A = new SelectList(Management.CmbYevmiyelerHesapKodlari(HesapKoduTuru.VergiTevkifatHesapKodlari1003A), "Value", "Caption", Yevmiyeler1003AGelirK.YeniYevmiyeHesapKodID);
+
             return View(mdl);
         }
 
@@ -341,7 +348,7 @@ namespace WebApp.Controllers
             var MmMessage = new MmMessage();
             MmMessage.IsSuccess = false;
             MmMessage.Title = "1003B Yevmiye Ayrıştırma İşlemi";
-            MmMessage.MessageType = Msgtype.Warning; 
+            MmMessage.MessageType = Msgtype.Warning;
             if (kModel.YevmiyeHarcamaBirimID <= 0)
             {
                 MmMessage.Messages.Add("İş Yeri Seçiniz.");
@@ -372,7 +379,7 @@ namespace WebApp.Controllers
                 MmMessage.Messages.Add("Matrah 0'Dan Büyük Olmalı.");
                 MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Matrah" });
             }
-            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Matrah" }); 
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Matrah" });
             if (!MmMessage.Messages.Any())
             {
                 var YevmiyeAyniYilGirisi = db.Yevmiyeler1003BAyristirmalari.Any(a => a.YevmiyeID == kModel.YevmiyeID && a.Yil == kModel.Yil && a.AyID == kModel.AyID && a.Yevmiye1003BAyristirmaID != kModel.Yevmiye1003BAyristirmaID);
@@ -395,7 +402,7 @@ namespace WebApp.Controllers
                         MmMessage.Messages.Add("Tüm Ayrıştırma İşlemlerinin Matrahları Toplamı Yevmiyenin Alacak Toplamını Geçemez!");
                         MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Matrah" });
                     }
-                } 
+                }
             }
             if (!MmMessage.Messages.Any())
             {
@@ -424,7 +431,7 @@ namespace WebApp.Controllers
                 MmMessage.IsSuccess = true;
                 MmMessage.MessageType = Msgtype.Success;
 
-            } 
+            }
             return MmMessage.ToJsonResult();
         }
 
@@ -438,7 +445,7 @@ namespace WebApp.Controllers
             //var YilYevmiyeToplamAlacak=db.Yevmiyelers.Where(p=>p.) 
 
             return View(model);
-        } 
+        }
         [HttpPost]
         public ActionResult YevmiyeTasinirkontrolTifKayit(YevmiyelerTasinirKontrolTifKaydi kModel)
         {

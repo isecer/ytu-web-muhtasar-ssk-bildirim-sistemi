@@ -28,8 +28,9 @@
                                 <th class="sirala sorting" width="220" field="HesapKodTurAdi">Hesap Kodu Türü</th>
                                 <th class="sirala sorting" width="140" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" field="HesapAdi">Hesap Adı</th>
-                                <th class="sirala sorting" width="140" field="VergiKodu">Vergi Kodu</th>
-                                <th class="sirala sorting" width="140" field="VergiKodu">Tevkifat Oranı</th>
+                                <th class="sirala sorting" field="IsGelirKaydindaKullaniclacak">Gelir Kaydı Yapılacak Mı</th>
+                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
+                                <th class="sirala sorting" field="VergiKodu">Tevkifat Oranı</th>
                                 <th width="35"></th>
                             </tr>
                         </thead>
@@ -44,6 +45,13 @@
                                 </th>
                                 <th>
                                     <input name="HesapAdi" type="text" value="@Model.HesapAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <select class="form-control" name="IsGelirKaydindaKullaniclacak" id="IsGelirKaydindaKullaniclacak">
+                                        <option></option>
+                                        <option value="true" @Model.IsGelirKaydindaKullaniclacak.ToSelected()>Evet</option>
+                                        <option value="false" @((!Model.IsGelirKaydindaKullaniclacak).ToSelected())>Hayır</option>
+                                    </select>
                                 </th>
                                 <th>
                                     <input name="VergiKodu" type="text" value="@Model.VergiKodu" class="form-control" />
@@ -72,6 +80,9 @@
                                             @item.HesapAdi
                                         </td>
                                         <td>
+                                            @(item.IsGelirKaydindaKullaniclacak.HasValue ? item.IsGelirKaydindaKullaniclacak.Value.ToEvetHayir().ToString() : "")
+                                        </td>
+                                        <td>
                                             @item.VergiKodu
                                         </td>
                                         <td>
@@ -89,7 +100,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="5" style="text-align: center;">
+                                    <td colspan="8" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
                                     </td>
                                 </tr>

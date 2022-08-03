@@ -63,6 +63,7 @@ namespace Database
         public virtual DbSet<YetkiGruplari> YetkiGruplaris { get; set; }
         public virtual DbSet<YetkiGrupRolleri> YetkiGrupRolleris { get; set; }
         public virtual DbSet<Yevmiyeler> Yevmiyelers { get; set; }
+        public virtual DbSet<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         public virtual DbSet<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         public virtual DbSet<YevmiyelerBelgeKodlari> YevmiyelerBelgeKodlaris { get; set; }
         public virtual DbSet<YevmiyelerHarcamaBirimleri> YevmiyelerHarcamaBirimleris { get; set; }
@@ -72,6 +73,7 @@ namespace Database
         public virtual DbSet<YevmiyelerProjeBankaHesapNumaralari> YevmiyelerProjeBankaHesapNumaralaris { get; set; }
         public virtual DbSet<YevmiyelerSendikaBilgileri> YevmiyelerSendikaBilgileris { get; set; }
         public virtual DbSet<YevmiyelerTasinirKontrolTifKaydi> YevmiyelerTasinirKontrolTifKaydis { get; set; }
+        public virtual DbSet<YevmiyelerVergiKimlikNumaralari> YevmiyelerVergiKimlikNumaralaris { get; set; }
         public virtual DbSet<KullanicilarLog> KullanicilarLogs { get; set; }
         public virtual DbSet<Vw_BirimlerTree> Vw_BirimlerTree { get; set; }
     
