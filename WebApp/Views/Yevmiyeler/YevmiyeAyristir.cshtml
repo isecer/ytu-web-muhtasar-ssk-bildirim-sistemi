@@ -6,7 +6,7 @@
 @using (Ajax.BeginForm("YevmiyeAyristir", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit", @class = "form-horizontal" }))
 {
     @Html.HiddenFor(h => h.YevmiyeID)
-    @Html.HiddenFor(h => h.Yevmiyeler1003BAyristirmaID)
+    @Html.HiddenFor(h => h.Yevmiye1003BAyristirmaID)
     <div class="col-md-12" style="overflow-x:auto; max-height:600px;">
         <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
             <table style="width:100%;">
@@ -16,10 +16,10 @@
                             <table style="width:100%;">
                                 <tbody>
                                     <tr>
-                                        <td id="lbl_BirimID" width="140">Üniversite İşyeri Adı</td>
+                                        <td id="lbl_YevmiyeHarcamaBirimID" width="140">Üniversite İşyeri Adı</td>
                                         <td width="10">:</td>
                                         <td class="form-group">
-                                            @Html.DropDownList("BirimID", null, new { @class = "form-control" })
+                                            @Html.DropDownList("YevmiyeHarcamaBirimID", null, new { @class = "form-control" })
                                         </td>
                                     </tr>
                                     <tr>
@@ -37,32 +37,18 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td id="lbl_YevmiyeBelgeKodID">Kullanıcı Tipi</td>
+                                        <td id="lbl_YevmiyeBelgeKodID">Belge Kodu</td>
                                         <td>:</td>
                                         <td class="form-group">
                                             @Html.DropDownList("YevmiyeBelgeKodID", null, new { @class = "form-control" })
 
                                         </td>
-                                    </tr>
-                                    <tr>
-                                        <td id="lbl_GelirVergisi">Gelir Vergisi</td>
-                                        <td>:</td>
-                                        <td class="form-group">
-                                            @Html.TextBox("GelirVergisi", Model.GelirVergisi.ToString("n2"), new { @class = "form-control" })
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td id="lbl_DamgaVergisi">Damga Vergisi</td>
-                                        <td>:</td>
-                                        <td class="form-group">
-                                            @Html.TextBox("DamgaVergisi", Model.GelirVergisi.ToString("n2"), new { @class = "form-control" })
-                                        </td>
-                                    </tr>
+                                    </tr> 
                                     <tr>
                                         <td id="lbl_Matrah">Matrah</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextBox("Matrah", Model.GelirVergisi.ToString("n2"), new { @class = "form-control" })
+                                            @Html.TextBox("Matrah", Model.Matrah, new { @class = "form-control" })
                                         </td>
                                     </tr>
                                 </tbody>

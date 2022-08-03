@@ -63,7 +63,7 @@ namespace WebApp.Models
 
         public System.DateTime? YevmiyeTarih { get; set; }
         public int? YevmiyeNo { get; set; }
-        public int? BirimID { get; set; }
+        public int? YevmiyeHarcamaBirimID { get; set; }
         public string HarcamaBirimAdi { get; set; }
         public decimal? Borc { get; set; }
         public decimal? Alacak { get; set; }

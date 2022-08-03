@@ -213,13 +213,25 @@
     <Compile Include="YevmiyelerBelgeKodlari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="YevmiyelerEslestirme.cs">
+    <Compile Include="YevmiyelerHarcamaBirimleri.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="YevmiyelerEslestirmeTurleri.cs">
+    <Compile Include="YevmiyelerHesapKodlari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerHesapKodTurleri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerKdvKodlari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
     <Compile Include="YevmiyelerProjeBankaHesapNumaralari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerSendikaBilgileri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerTasinirKontrolTifKaydi.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>

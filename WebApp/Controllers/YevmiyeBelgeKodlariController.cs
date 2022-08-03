@@ -87,7 +87,14 @@ namespace WebApp.Controllers
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "YuzdeOran" });
             #endregion
-
+            if (!MmMessage.Messages.Any())
+            {
+                if (db.YevmiyelerBelgeKodlaris.Any(a=>a.BelgeKodu==kModel.BelgeKodu && a.YevmiyeBelgeKodID!=kModel.YevmiyeBelgeKodID))
+                {
+                    MmMessage.Messages.Add("Belge kodu daha önce tanımlanmıştır. Tekrar tanımlanamaz!");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "BelgeKodu" });
+                } 
+            }
             if (MmMessage.Messages.Count == 0)
             {
                 kModel.IslemTarihi = DateTime.Now;

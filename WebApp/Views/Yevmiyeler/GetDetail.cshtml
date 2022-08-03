@@ -1,210 +1,291 @@
-﻿@using Database
-@model Yevmiyeler
+﻿@using WebApp.Models
+@model YevmiyeDetayModel
 @{
     Layout = null;
 }
-<div class="widget widget-default" id="yevmiyeDetayPanel_@Model.YevmiyeID" style="border-top:1px solid; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-    <table style="width:100%;">
-        <tbody>
-            <tr>
-                <td style="font-weight:bold;font-size:11pt;"><i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i> Yevmiye İşlemleri Detayı</td>
-                <td width="40" style="font-weight:bold;">
-                    <ul class="panel-controls">
-                        <li><a href="javascript:void(0);" onclick="GetDetail(@Model.YevmiyeID)" title="Yenile" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br />
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> 1003B SSK</td>
-                                    <td style="border-bottom:1px solid; border-bottom-color:lightgray;">
-                                        <a class="btn btn-info btn-sm" onclick="YevmiyeAyristir(@Model.YevmiyeID,null)"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @if (Model.Yevmiyeler1003BAyristirmalari.Any())
-                                        {
-                                           <table>
-                                               <tr>
-                                                   <td>Üniversite İş Yeri Adı</td>
-                                                   <td>Yıl</td>
-                                                   <td>Ay</td>
-                                                   <td>Belge Kodu</td>
-                                                   <td>Gelir Vergisi</td>
-                                                   <td>Damga Vergisi</td>
-                                               </tr>
-                                           </table>
-                                        }
-                                        else
-                                        {
-                                            <div style="margin:50px auto;color:maroon;">Yevmiye Ayrıştırması Yapılmadı</div>
-                                        }
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> 1003A VERGİ</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
+<div class="panel"  id="yevmiyeDetayPanel_@Model.YevmiyeID">
+    <div class="panel-body" style="margin: 0px; padding: 0px;">
+        <div class="widget widget-default"  style="border-top:1px solid; margin-bottom:8px;padding:6px 10px;min-height:100px;">
+            <br />
+            <table style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="font-weight:bold;font-size:11pt;"><i class="fa fa-file-text-o fa-lg" aria-hidden="true"></i> Yevmiye İşlemleri Detayı</td>
+                        <td width="40" style="font-weight:bold;">
+                            <ul class="panel-controls">
+                                <li><a href="javascript:void(0);" onclick="SubData(@Model.YevmiyeID)" title="Yenile"><span class="fa fa-refresh"></span></a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <br />
+                            <table>
                                 <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> KDV VERGİ</td>
+                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
+                                    <td width="10">:</td>
+                                    <td>@Model.YevmiyeNoToplamGv TL</td>
                                 </tr>
                                 <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
+                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
+                                    <td width="10">:</td>
+                                    <td>@Model.YevmiyeNoToplamDv TL</td>
+                                </tr>
+                            </table>
+                            <br />
+                            <div class="widget widget-default" id="YaPanel_@Model.YevmiyeID" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> EMEKLİ KESENEK</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> 1003B Ssk</td>
+                                            <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
+                                                <a class="btn btn-info btn-sm" onclick="YevmiyeAyristir(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                @if (Model.Yevmiyeler1003BAyristirmalari.Any())
+                                                {
+                                                    <table class="table table-hover" style="width:100%;">
+                                                        <tr class="info">
+                                                            <th>Üniversite İş Yeri Adı</th>
+                                                            <th width="50">Yıl</th>
+                                                            <th width="50">Ay</th>
+                                                            <th>Belge Kodu</th>
+                                                            <th width="210" style="text-align:right;">Matrah</th>
+                                                            <th width="50"></th>
+                                                        </tr>
+                                                        @foreach (var item in Model.Yevmiyeler1003BAyristirmalari)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.YevmiyelerHarcamaBirimleri.BirimAdi</td>
+                                                                <td>@item.Yil</td>
+                                                                <td>@item.Aylar.AyAdi</td>
+                                                                <td>@item.YevmiyelerBelgeKodlari.BelgeKodu - @item.YevmiyelerBelgeKodlari.BelgeAdi</td>
+                                                                <td style="text-align:right;">@item.Matrah TL</td>
+                                                                <td>
+                                                                    <table style="width:100%;">
+                                                                        <tr>
+                                                                            <td><a style="float:right;font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeAyristir(@Model.YevmiyeID,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a></td>
+                                                                            <td><a style="float:right;font-size:10pt;" href="javascript:void(0)" onclick="SilmeOnay(this,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a></td>
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> TAŞINIR KONTROL</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
+                                                                        </tr>
+                                                                    </table>
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> BANKA İŞLEMLERİ</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;max-width:1200px;">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:11pt; border-bottom:1px solid; border-bottom-color:lightgray;"><i class="fa fa-calendar fa-lg" aria-hidden="true"></i> SENDİKA İŞLEMLERİ</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <table style="width:100%;">
-                                            <tbody>
-                                                <tr>
-                                                    <td class="CaptionTd" width="140">Salon Adı</td>
-                                                    <td class="CaptionTd" width="10">:</td>
-                                                    <td class="ValueTd">
-                                                        MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
-                                                    </td>
-                                                </tr>
+                                                                </td>
+                                                            </tr>
+                                                        }
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                                                        <tr class="info">
+                                                            <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
+                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <div style="margin:50px auto;color:maroon;">Yevmiye Ayrıştırması Yapılmadı</div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> 1003A Vergi</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="CaptionTd" width="140">Salon Adı</td>
+                                                            <td class="CaptionTd" width="10">:</td>
+                                                            <td class="ValueTd">
+                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Kdv Vergi</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="CaptionTd" width="140">Salon Adı</td>
+                                                            <td class="CaptionTd" width="10">:</td>
+                                                            <td class="ValueTd">
+                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Emekli Kesenek</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="CaptionTd" width="140">Salon Adı</td>
+                                                            <td class="CaptionTd" width="10">:</td>
+                                                            <td class="ValueTd">
+                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Taşınır Kontrol</td>
+                                            <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
+                                                <a class="btn btn-info btn-sm" onclick="TifKaydiOlustur(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Tif Kaydı Oluştur</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                @if (Model.YevmiyelerTasinirKontrolTifKaydis.Any())
+                                                {
+                                                    <table class="table table-hover" style="width:100%;">
+                                                        <tr class="info">
+                                                            <th width="110">Tif Numarası</th>
+                                                            <th width="90">Tutar</th>
+                                                            <th>Açıklama</th>
+                                                            <th width="60"></th>
+                                                        </tr>
+                                                        @foreach (var item in Model.YevmiyelerTasinirKontrolTifKaydis)
+                                                        {
+                                                            <tr>
+                                                                <td>@item.TifNo</td>
+                                                                <td>@item.Tutar TL</td>
+                                                                <td>@item.Aciklama</td>
+                                                                <td>
+                                                                    <table style="width:100%;">
+                                                                        <tr>
+                                                                            <td><a style="float:right;font-size:10pt;" href="Javascript:void(0);" onclick="TifKaydiOlustur(@Model.YevmiyeID,@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a></td>
+                                                                            <td><a style="float:right;font-size:10pt;" href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a></td>
+
+                                                                        </tr>
+                                                                    </table>
+
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+
+                                                        <tr class="info">
+                                                            <td style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
+                                                            <td colspan="3" style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
+                                                         
+                                                        </tr>
+                                                    </table>
+                                                }
+                                                else
+                                                {
+                                                    <div style="margin:50px auto;color:maroon;">Tif Kaydı Yapılmadı</div>
+                                                }
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Banka İşlemleri</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="CaptionTd" width="140">Salon Adı</td>
+                                                            <td class="CaptionTd" width="10">:</td>
+                                                            <td class="ValueTd">
+                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                                <table style="width:100%;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Sendika İşlemleri</td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="CaptionTd" width="140">Salon Adı</td>
+                                                            <td class="CaptionTd" width="10">:</td>
+                                                            <td class="ValueTd">
+                                                                MİMARLIK FAKÜLTESİ D BLOK 407 BOAT LABORATUVARI
+                                                            </td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
+
+
+
 
 
 

@@ -73,10 +73,6 @@
     <Property Name="IsAyAsiriHesaplama" Type="bit" Nullable="false" />
     <Property Name="AyBaslangicGun" Type="int" />
     <Property Name="GelecekAyBitisGun" Type="int" />
-    <Property Name="IsYevmiyeVeriGirisiYapilabilir" Type="bit" Nullable="false" />
-    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="10" />
-    <Property Name="Is1003BSskIsleri" Type="bit" Nullable="false" />
-    <Property Name="SskIsYeriKodu" Type="nvarchar" MaxLength="128" />
     <Property Name="IsAktif" Type="bit" Nullable="false" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
@@ -586,8 +582,8 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="YevmiyeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="YevmiyeTarih" Type="date" Nullable="false" />
     <Property Name="YevmiyeNo" Type="int" Nullable="false" />
-    <Property Name="BirimID" Type="int" Nullable="false" />
-    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="int" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="11" Nullable="false" />
     <Property Name="HarcamaBirimKod" Type="nvarchar" MaxLength="64" Nullable="false" />
     <Property Name="HarcamaBirimAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
     <Property Name="HesapKod" Type="nvarchar" MaxLength="64" Nullable="false" />
@@ -595,22 +591,21 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="Borc" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Alacak" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Aciklama" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="EKYevmiyeHarcamaBirimID" Type="int" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
   <EntityType Name="Yevmiyeler1003BAyristirmalari">
     <Key>
-      <PropertyRef Name="Yevmiyeler1003BAyristirmaID" />
+      <PropertyRef Name="Yevmiye1003BAyristirmaID" />
     </Key>
-    <Property Name="Yevmiyeler1003BAyristirmaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Yevmiye1003BAyristirmaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="YevmiyeID" Type="int" Nullable="false" />
-    <Property Name="BirimID" Type="int" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="int" Nullable="false" />
     <Property Name="Yil" Type="int" Nullable="false" />
     <Property Name="AyID" Type="int" Nullable="false" />
     <Property Name="YevmiyeBelgeKodID" Type="int" Nullable="false" />
-    <Property Name="GelirVergisi" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="DamgaVergisi" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="Matrah" Type="decimal" Precision="18" Scale="2" Nullable="false" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
@@ -628,32 +623,52 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
-  <EntityType Name="YevmiyelerEslestirme">
+  <EntityType Name="YevmiyelerHarcamaBirimleri">
     <Key>
-      <PropertyRef Name="YevmiyeEslestirmeID" />
+      <PropertyRef Name="YevmiyeHarcamaBirimID" />
     </Key>
-    <Property Name="YevmiyeEslestirmeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="YevmiyeEslestirmeTurID" Type="int" Nullable="false" />
-    <Property Name="HesapKod" Type="nvarchar" MaxLength="64" Nullable="false" />
-    <Property Name="HesapAdi" Type="nvarchar" MaxLength="256" />
-    <Property Name="VergiKodu" Type="nvarchar" MaxLength="8" />
-    <Property Name="TevkifatOraniBolunen" Type="int" />
-    <Property Name="TevkifatOraniBolen" Type="int" />
-    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="11" />
-    <Property Name="AdSoyad" Type="nvarchar" MaxLength="256" />
-    <Property Name="IBanNo" Type="nvarchar" MaxLength="26" />
-    <Property Name="KisaAdi" Type="nvarchar" MaxLength="256" />
-    <Property Name="Aciklama" Type="nvarchar" MaxLength="512" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="BirimAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="IsUniversiteIsyeri" Type="bit" Nullable="false" />
+    <Property Name="IsyeriKodu" Type="nvarchar" MaxLength="64" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
-  <EntityType Name="YevmiyelerEslestirmeTurleri">
+  <EntityType Name="YevmiyelerHesapKodlari">
     <Key>
-      <PropertyRef Name="YevmiyeEslestirmeTurID" />
+      <PropertyRef Name="YevmiyeHesapKodID" />
     </Key>
-    <Property Name="YevmiyeEslestirmeTurID" Type="int" Nullable="false" />
-    <Property Name="EslestirmeTurAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="YevmiyeHesapKodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YevmiyeHesapKodTurID" Type="int" Nullable="false" />
+    <Property Name="HesapKod" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="HesapAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="VergiKodu" Type="nvarchar" MaxLength="8" />
+    <Property Name="TevkifatOranBolunen" Type="int" />
+    <Property Name="TevkifatOranBolen" Type="int" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YevmiyelerHesapKodTurleri">
+    <Key>
+      <PropertyRef Name="YevmiyeHesapKodTurID" />
+    </Key>
+    <Property Name="YevmiyeHesapKodTurID" Type="int" Nullable="false" />
+    <Property Name="HesapKodTurAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YevmiyelerKdvKodlari">
+    <Key>
+      <PropertyRef Name="YevmiyeKdvKodID" />
+    </Key>
+    <Property Name="YevmiyeKdvKodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KdvKodu" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="KdvAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="KdvOrani" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
   <EntityType Name="YevmiyelerProjeBankaHesapNumaralari">
     <Key>
@@ -668,6 +683,34 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <EntityType Name="YevmiyelerSendikaBilgileri">
+    <Key>
+      <PropertyRef Name="YevmiyeSendikaBilgiID" />
+    </Key>
+    <Property Name="YevmiyeSendikaBilgiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HesapKodu" Type="nvarchar" MaxLength="126" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="AdSoyad" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IBanNo" Type="nvarchar" MaxLength="26" Nullable="false" />
+    <Property Name="KisaAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YevmiyelerTasinirKontrolTifKaydi">
+    <Key>
+      <PropertyRef Name="YevmiyelerTasinirKontrolTifKayitID" />
+    </Key>
+    <Property Name="YevmiyelerTasinirKontrolTifKayitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YevmiyeID" Type="int" Nullable="false" />
+    <Property Name="TifNo" Type="nvarchar" MaxLength="32" Nullable="false" />
+    <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar" MaxLength="256" />
+    <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
+    <Property Name="IslemYapanID" Type="int" Nullable="false" />
+    <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Vw_BirimlerTree">
@@ -676,7 +719,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       <PropertyRef Name="BirimAdi" />
       <PropertyRef Name="IsVeriGirisiYapilabilir" />
       <PropertyRef Name="IsAyAsiriHesaplama" />
-      <PropertyRef Name="IsYevmiyeVeriGirisiYapilabilir" />
       <PropertyRef Name="IsAktif" />
       <PropertyRef Name="IslemTarihi" />
       <PropertyRef Name="IslemYapanID" />
@@ -697,8 +739,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <Property Name="IsAyAsiriHesaplama" Type="bit" Nullable="false" />
     <Property Name="AyBaslangicGun" Type="int" />
     <Property Name="GelecekAyBitisGun" Type="int" />
-    <Property Name="IsYevmiyeVeriGirisiYapilabilir" Type="bit" Nullable="false" />
-    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="10" />
     <Property Name="IsAktif" Type="bit" Nullable="false" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
@@ -1348,18 +1388,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Yevmiyeler_Birimler">
-    <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
-    <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Birimler">
-        <PropertyRef Name="BirimID" />
-      </Principal>
-      <Dependent Role="Yevmiyeler">
-        <PropertyRef Name="BirimID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Yevmiyeler_Kullanicilar">
     <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
     <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="*" />
@@ -1372,6 +1400,30 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleri">
+    <End Role="YevmiyelerHarcamaBirimleri" Type="Self.YevmiyelerHarcamaBirimleri" Multiplicity="1" />
+    <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHarcamaBirimleri">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek">
+    <End Role="YevmiyelerHarcamaBirimleri" Type="Self.YevmiyelerHarcamaBirimleri" Multiplicity="0..1" />
+    <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHarcamaBirimleri">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler">
+        <PropertyRef Name="EKYevmiyeHarcamaBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Yevmiyeler1003BAyristirmalari_Aylar">
     <End Role="Aylar" Type="Self.Aylar" Multiplicity="1" />
     <End Role="Yevmiyeler1003BAyristirmalari" Type="Self.Yevmiyeler1003BAyristirmalari" Multiplicity="*" />
@@ -1381,18 +1433,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Principal>
       <Dependent Role="Yevmiyeler1003BAyristirmalari">
         <PropertyRef Name="AyID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Yevmiyeler1003BAyristirmalari_Birimler">
-    <End Role="Birimler" Type="Self.Birimler" Multiplicity="1" />
-    <End Role="Yevmiyeler1003BAyristirmalari" Type="Self.Yevmiyeler1003BAyristirmalari" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Birimler">
-        <PropertyRef Name="BirimID" />
-      </Principal>
-      <Dependent Role="Yevmiyeler1003BAyristirmalari">
-        <PropertyRef Name="BirimID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1432,6 +1472,18 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri">
+    <End Role="YevmiyelerHarcamaBirimleri" Type="Self.YevmiyelerHarcamaBirimleri" Multiplicity="1" />
+    <End Role="Yevmiyeler1003BAyristirmalari" Type="Self.Yevmiyeler1003BAyristirmalari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHarcamaBirimleri">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BAyristirmalari">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_YevmiyelerBelgeKodlari_Kullanicilar">
     <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
     <End Role="YevmiyelerBelgeKodlari" Type="Self.YevmiyelerBelgeKodlari" Multiplicity="*" />
@@ -1444,27 +1496,51 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_YevmiyelerEslestirme_Kullanicilar">
+  <Association Name="FK_YevmiyelerHarcamaBirimleri_Kullanicilar">
     <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
-    <End Role="YevmiyelerEslestirme" Type="Self.YevmiyelerEslestirme" Multiplicity="*" />
+    <End Role="YevmiyelerHarcamaBirimleri" Type="Self.YevmiyelerHarcamaBirimleri" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Kullanicilar">
         <PropertyRef Name="KullaniciID" />
       </Principal>
-      <Dependent Role="YevmiyelerEslestirme">
+      <Dependent Role="YevmiyelerHarcamaBirimleri">
         <PropertyRef Name="IslemYapanID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_YevmiyelerEslestirme_YevmiyelerEslestirmeTurleri">
-    <End Role="YevmiyelerEslestirmeTurleri" Type="Self.YevmiyelerEslestirmeTurleri" Multiplicity="1" />
-    <End Role="YevmiyelerEslestirme" Type="Self.YevmiyelerEslestirme" Multiplicity="*" />
+  <Association Name="FK_YevmiyelerHesapKodlari_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="YevmiyelerHesapKodlari" Type="Self.YevmiyelerHesapKodlari" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="YevmiyelerEslestirmeTurleri">
-        <PropertyRef Name="YevmiyeEslestirmeTurID" />
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
       </Principal>
-      <Dependent Role="YevmiyelerEslestirme">
-        <PropertyRef Name="YevmiyeEslestirmeTurID" />
+      <Dependent Role="YevmiyelerHesapKodlari">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerHesapKodlari_YevmiyelerHesapKodTurleri">
+    <End Role="YevmiyelerHesapKodTurleri" Type="Self.YevmiyelerHesapKodTurleri" Multiplicity="1" />
+    <End Role="YevmiyelerHesapKodlari" Type="Self.YevmiyelerHesapKodlari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHesapKodTurleri">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
+      </Principal>
+      <Dependent Role="YevmiyelerHesapKodlari">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerKdvKodlari_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="YevmiyelerKdvKodlari" Type="Self.YevmiyelerKdvKodlari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="YevmiyelerKdvKodlari">
+        <PropertyRef Name="IslemYapanID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1477,6 +1553,42 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Principal>
       <Dependent Role="YevmiyelerProjeBankaHesapNumaralari">
         <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerSendikaBilgileri_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="YevmiyelerSendikaBilgileri" Type="Self.YevmiyelerSendikaBilgileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="YevmiyelerSendikaBilgileri">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="YevmiyelerTasinirKontrolTifKaydi" Type="Self.YevmiyelerTasinirKontrolTifKaydi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="YevmiyelerTasinirKontrolTifKaydi">
+        <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler">
+    <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="1" />
+    <End Role="YevmiyelerTasinirKontrolTifKaydi" Type="Self.YevmiyelerTasinirKontrolTifKaydi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Yevmiyeler">
+        <PropertyRef Name="YevmiyeID" />
+      </Principal>
+      <Dependent Role="YevmiyelerTasinirKontrolTifKaydi">
+        <PropertyRef Name="YevmiyeID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1525,9 +1637,13 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <EntitySet Name="Yevmiyeler" EntityType="Self.Yevmiyeler" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Yevmiyeler1003BAyristirmalari" EntityType="Self.Yevmiyeler1003BAyristirmalari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="YevmiyelerBelgeKodlari" EntityType="Self.YevmiyelerBelgeKodlari" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="YevmiyelerEslestirme" EntityType="Self.YevmiyelerEslestirme" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="YevmiyelerEslestirmeTurleri" EntityType="Self.YevmiyelerEslestirmeTurleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerHarcamaBirimleri" EntityType="Self.YevmiyelerHarcamaBirimleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerHesapKodlari" EntityType="Self.YevmiyelerHesapKodlari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerHesapKodTurleri" EntityType="Self.YevmiyelerHesapKodTurleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerKdvKodlari" EntityType="Self.YevmiyelerKdvKodlari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="YevmiyelerProjeBankaHesapNumaralari" EntityType="Self.YevmiyelerProjeBankaHesapNumaralari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerSendikaBilgileri" EntityType="Self.YevmiyelerSendikaBilgileri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YevmiyelerTasinirKontrolTifKaydi" EntityType="Self.YevmiyelerTasinirKontrolTifKaydi" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KullanicilarLog" EntityType="Self.KullanicilarLog" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [KullanicilarLog].[KullaniciID] AS [KullaniciID], 
@@ -1582,8 +1698,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     [Vw_BirimlerTree].[IsAyAsiriHesaplama] AS [IsAyAsiriHesaplama], 
     [Vw_BirimlerTree].[AyBaslangicGun] AS [AyBaslangicGun], 
     [Vw_BirimlerTree].[GelecekAyBitisGun] AS [GelecekAyBitisGun], 
-    [Vw_BirimlerTree].[IsYevmiyeVeriGirisiYapilabilir] AS [IsYevmiyeVeriGirisiYapilabilir], 
-    [Vw_BirimlerTree].[VergiKimlikNo] AS [VergiKimlikNo], 
     [Vw_BirimlerTree].[IsAktif] AS [IsAktif], 
     [Vw_BirimlerTree].[IslemTarihi] AS [IslemTarihi], 
     [Vw_BirimlerTree].[IslemYapanID] AS [IslemYapanID], 
@@ -1794,20 +1908,20 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       <End Role="YetkiGruplari" EntitySet="YetkiGruplari" />
       <End Role="YetkiGrupRolleri" EntitySet="YetkiGrupRolleri" />
     </AssociationSet>
-    <AssociationSet Name="FK_Yevmiyeler_Birimler" Association="Self.FK_Yevmiyeler_Birimler">
-      <End Role="Birimler" EntitySet="Birimler" />
-      <End Role="Yevmiyeler" EntitySet="Yevmiyeler" />
-    </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler_Kullanicilar" Association="Self.FK_Yevmiyeler_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />
       <End Role="Yevmiyeler" EntitySet="Yevmiyeler" />
     </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleri" Association="Self.FK_Yevmiyeler_YevmiyelerHarcamaBirimleri">
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleri" />
+      <End Role="Yevmiyeler" EntitySet="Yevmiyeler" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek" Association="Self.FK_Yevmiyeler_YevmiyelerHarcamaBirimleriEmekliKesenek">
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleri" />
+      <End Role="Yevmiyeler" EntitySet="Yevmiyeler" />
+    </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Aylar" Association="Self.FK_Yevmiyeler1003BAyristirmalari_Aylar">
       <End Role="Aylar" EntitySet="Aylar" />
-      <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Birimler" Association="Self.FK_Yevmiyeler1003BAyristirmalari_Birimler">
-      <End Role="Birimler" EntitySet="Birimler" />
       <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Kullanicilar" Association="Self.FK_Yevmiyeler1003BAyristirmalari_Kullanicilar">
@@ -1822,21 +1936,45 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       <End Role="YevmiyelerBelgeKodlari" EntitySet="YevmiyelerBelgeKodlari" />
       <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
     </AssociationSet>
+    <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri" Association="Self.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri">
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleri" />
+      <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
+    </AssociationSet>
     <AssociationSet Name="FK_YevmiyelerBelgeKodlari_Kullanicilar" Association="Self.FK_YevmiyelerBelgeKodlari_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />
       <End Role="YevmiyelerBelgeKodlari" EntitySet="YevmiyelerBelgeKodlari" />
     </AssociationSet>
-    <AssociationSet Name="FK_YevmiyelerEslestirme_Kullanicilar" Association="Self.FK_YevmiyelerEslestirme_Kullanicilar">
+    <AssociationSet Name="FK_YevmiyelerHarcamaBirimleri_Kullanicilar" Association="Self.FK_YevmiyelerHarcamaBirimleri_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />
-      <End Role="YevmiyelerEslestirme" EntitySet="YevmiyelerEslestirme" />
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleri" />
     </AssociationSet>
-    <AssociationSet Name="FK_YevmiyelerEslestirme_YevmiyelerEslestirmeTurleri" Association="Self.FK_YevmiyelerEslestirme_YevmiyelerEslestirmeTurleri">
-      <End Role="YevmiyelerEslestirmeTurleri" EntitySet="YevmiyelerEslestirmeTurleri" />
-      <End Role="YevmiyelerEslestirme" EntitySet="YevmiyelerEslestirme" />
+    <AssociationSet Name="FK_YevmiyelerHesapKodlari_Kullanicilar" Association="Self.FK_YevmiyelerHesapKodlari_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="YevmiyelerHesapKodlari" EntitySet="YevmiyelerHesapKodlari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerHesapKodlari_YevmiyelerHesapKodTurleri" Association="Self.FK_YevmiyelerHesapKodlari_YevmiyelerHesapKodTurleri">
+      <End Role="YevmiyelerHesapKodTurleri" EntitySet="YevmiyelerHesapKodTurleri" />
+      <End Role="YevmiyelerHesapKodlari" EntitySet="YevmiyelerHesapKodlari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerKdvKodlari_Kullanicilar" Association="Self.FK_YevmiyelerKdvKodlari_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="YevmiyelerKdvKodlari" EntitySet="YevmiyelerKdvKodlari" />
     </AssociationSet>
     <AssociationSet Name="FK_YevmiyelerProjeBankaHesapNumaralari_Kullanicilar" Association="Self.FK_YevmiyelerProjeBankaHesapNumaralari_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />
       <End Role="YevmiyelerProjeBankaHesapNumaralari" EntitySet="YevmiyelerProjeBankaHesapNumaralari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerSendikaBilgileri_Kullanicilar" Association="Self.FK_YevmiyelerSendikaBilgileri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="YevmiyelerSendikaBilgileri" EntitySet="YevmiyelerSendikaBilgileri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar" Association="Self.FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="YevmiyelerTasinirKontrolTifKaydi" EntitySet="YevmiyelerTasinirKontrolTifKaydi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler" Association="Self.FK_YevmiyelerTasinirKontrolTifKaydi_Yevmiyeler">
+      <End Role="Yevmiyeler" EntitySet="Yevmiyeler" />
+      <End Role="YevmiyelerTasinirKontrolTifKaydi" EntitySet="YevmiyelerTasinirKontrolTifKaydi" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

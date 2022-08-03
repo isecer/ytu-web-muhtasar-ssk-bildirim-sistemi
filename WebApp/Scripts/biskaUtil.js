@@ -9,8 +9,7 @@
         $(elem).removeClass('has-success');
         $(elem).removeClass('has-info');
     }); 
-    for (var i = 0; i < data.MessagesDialog.length; i++) { 
-
+    for (var i = 0; i < data.MessagesDialog.length; i++) {  
         var item = data.MessagesDialog[i];
         var Message = item.Message;
         var MessageType = item.MessageType;
@@ -27,13 +26,13 @@
         var IsDatetime = cls.indexOf('date-picker') >= 0;
         var $lbl = $('#lbl_' + pName);
         var chk = $inpt.is(':checkbox'); 
-        //$inpt.parents('div.form-group').first().attr('class', 'form-group');
+        //$inpt.parents('.form-group').first().attr('class', 'form-group');
         $inpt.parents('span').first().attr('class', '');
         if (type == 'text' && !IsDatetime) $inpt.find('i').remove();
         $lbl.attr('style', ''); 
         if (MessageType == 0) {
-            $inpt.parents('div.form-group').first().removeClass('has-error');
-            $inpt.parents('div.form-group').first().addClass('has-success');
+            $inpt.parents('.form-group').first().removeClass('has-error');
+            $inpt.parents('.form-group').first().addClass('has-success');
             $lbl.attr('style', 'color:#8bad4c');
             //if ((type == "INPUT" || type == "TEXTAREA" || type == "SELECT") && !IsDatetime && item.AddIcon) {
             //    var $icn = $inpt.prev();
@@ -42,8 +41,8 @@
             //}
         }
         else if (MessageType == 1) {
-            $inpt.parents('div.form-group').first().removeClass('has-success');
-            $inpt.parents('div.form-group').first().addClass('has-error');
+            $inpt.parents('.form-group').first().removeClass('has-success');
+            $inpt.parents('.form-group').first().addClass('has-error');
             $inpt.parents('span').first().addClass('block input-icon input-icon-left');
             $lbl.attr('style', 'color:#d68273');
 
@@ -54,8 +53,8 @@
             //}
         }
         else if (MessageType == 2) {
-            $inpt.parents('div.form-group').first().removeClass('has-success');
-            $inpt.parents('div.form-group').first().addClass('has-error');
+            $inpt.parents('.form-group').first().removeClass('has-success');
+            $inpt.parents('.form-group').first().addClass('has-error');
             $inpt.parents('span').first().addClass('block input-icon input-icon-left');
             $lbl.attr('style', 'color:#d68273');
             //if ((type == 'INPUT' || type == "password" || type == "TEXTAREA" || type == "SELECT") && !IsDatetime && item.AddIcon) {
@@ -65,7 +64,7 @@
             //}
         }
         else if (MessageType == 3) {
-            $inpt.parents('div.form-group').first().addClass('has-info');
+            $inpt.parents('.form-group').first().addClass('has-info');
             $inpt.parents('span').first().addClass('block input-icon input-icon-left');
             $lbl.attr('style', 'color:#4b89aa');
             //if ((type == 'INPUT' || type == "TEXTAREA" || type == "SELECT") && !IsDatetime && item.AddIcon) {
@@ -75,8 +74,8 @@
             //}
         }
         else {
-            $inpt.parents('div.form-group').first().removeClass('has-success');
-            $inpt.parents('div.form-group').first().removeClass('has-error');
+            $inpt.parents('.form-group').first().removeClass('has-success');
+            $inpt.parents('.form-group').first().removeClass('has-error');
            
         }
 

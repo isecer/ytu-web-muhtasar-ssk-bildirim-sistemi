@@ -17,10 +17,10 @@ namespace WebApp.Controllers
         // GET: YevmiyeBelgeKodlari
         public ActionResult Index()
         {
-            return Index(new FmYevmiyeProjeBankaHesaplari { });
+            return Index(new FmYevmiyelerProjeBankaHesapNumaralari { });
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiyeProjeBankaHesaplari model)
+        public ActionResult Index(FmYevmiyelerProjeBankaHesapNumaralari model)
         {
 
             var q = from s in db.YevmiyelerProjeBankaHesapNumaralaris
@@ -35,7 +35,7 @@ namespace WebApp.Controllers
             else q = q.OrderBy(o => o.HesapAdi);
             var PS = Management.SetStartRowInx(model.StartRowIndex, model.PageIndex, model.PageCount, model.RowCount, model.PageSize);
             model.PageIndex = PS.PageIndex;
-            model.Data = q.Select(s => new FrYevmiyeProjeBankaHesaplari
+            model.Data = q.Select(s => new FrYevmiyelerProjeBankaHesapNumaralari
             {
                 ProjeBankaHesapNoID = s.ProjeBankaHesapNoID,
                 HesapNo = s.HesapNo,
@@ -96,7 +96,14 @@ namespace WebApp.Controllers
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "ProjeAdi" });
             #endregion
-
+            if (!MmMessage.Messages.Any())
+            {
+                if (db.YevmiyelerProjeBankaHesapNumaralaris.Any(a => a.HesapNo == kModel.HesapNo && a.ProjeBankaHesapNoID != kModel.ProjeBankaHesapNoID))
+                {
+                    MmMessage.Messages.Add("Hesap Numarası daha önce tanımlanmıştır. Tekrar tanımlanamaz!");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "HesapNo" });
+                }
+            }
             if (MmMessage.Messages.Count == 0)
             {
                 kModel.IslemTarihi = DateTime.Now;

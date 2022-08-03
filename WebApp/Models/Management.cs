@@ -1816,10 +1816,10 @@ namespace WebApp.Models
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
-                var data = db.Birimlers.Where(p => p.Is1003BSskIsleri == true).OrderBy(o => o.BirimAdi).ToList();
+                var data = db.YevmiyelerHarcamaBirimleris.OrderBy(o => o.IsUniversiteIsyeri).ToList();
                 foreach (var item in data)
                 {
-                    dct.Add(new ComboModelInt { Value = item.BirimID, Caption = item.BirimAdi + " (" + item.VergiKimlikNo + ")" });
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHarcamaBirimID, Caption = item.BirimAdi + " (" + item.VergiKimlikNo + ")" });
                 }
             }
             return dct;
@@ -2110,6 +2110,23 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelInt> CmbYevmiyeHesapKodTurleri(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
+
+                var data = db.YevmiyelerHesapKodTurleris.ToList();
+
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi});
+                }
+            }
+            return dct;
+
+        }
         public static List<ComboModelInt> CmbYevmiyeBelgeKodlari(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
@@ -2117,7 +2134,7 @@ namespace WebApp.Models
             using (var db = new MusskDBEntities())
             {
 
-                var data = db.YevmiyelerBelgeKodlaris.OrderBy(p=>p.BelgeKodu).ToList();
+                var data = db.YevmiyelerBelgeKodlaris.OrderBy(p => p.BelgeKodu).ToList();
 
                 foreach (var item in data)
                 {
@@ -2127,7 +2144,7 @@ namespace WebApp.Models
             return dct;
 
         }
-        public static List<ComboModelInt> CmbYevmiyeGirisYil(bool bosSecimVar = true)
+        public static List<ComboModelInt> CmbYevmiylerYil(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
@@ -2139,22 +2156,21 @@ namespace WebApp.Models
             return dct;
 
         }
-        public static List<ComboModelInt> CmbYevmiyeGirisBirim(int? Yil, bool bosSecimVar = true)
+        public static List<ComboModelInt> CmbYevmiyelerBirim(int? Yil, bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
-                var BirimIDs = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == (Yil ?? p.YevmiyeTarih.Year)).Select(s => s.BirimID).Distinct().ToList();
 
-                var data = db.Birimlers.Where(p => BirimIDs.Contains(p.BirimID)).Select(s => new
+                var data = db.YevmiyelerHarcamaBirimleris.Select(s => new
                 {
-                    s.BirimID,
-                    BirimTreeAdi = s.BirimAdi + " (" + s.VergiKimlikNo + ")"
-                }).OrderBy(o => o.BirimTreeAdi).ToList();
+                    s.YevmiyeHarcamaBirimID,
+                    BirimAdi = s.BirimAdi + " (" + s.VergiKimlikNo + ")"
+                }).OrderBy(o => o.BirimAdi).ToList();
                 foreach (var item in data)
                 {
-                    dct.Add(new ComboModelInt { Value = item.BirimID, Caption = item.BirimTreeAdi });
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHarcamaBirimID, Caption = item.BirimAdi });
                 }
             }
             return dct;

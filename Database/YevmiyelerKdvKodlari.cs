@@ -12,25 +12,16 @@ namespace Database
     using System;
     using System.Collections.Generic;
     
-    public partial class YevmiyelerEslestirme
+    public partial class YevmiyelerKdvKodlari
     {
-        public int YevmiyeEslestirmeID { get; set; }
-        public int YevmiyeEslestirmeTurID { get; set; }
-        public string HesapKod { get; set; }
-        public string HesapAdi { get; set; }
-        public string VergiKodu { get; set; }
-        public Nullable<int> TevkifatOraniBolunen { get; set; }
-        public Nullable<int> TevkifatOraniBolen { get; set; }
-        public string VergiKimlikNo { get; set; }
-        public string AdSoyad { get; set; }
-        public string IBanNo { get; set; }
-        public string KisaAdi { get; set; }
-        public string Aciklama { get; set; }
+        public int YevmiyeKdvKodID { get; set; }
+        public string KdvKodu { get; set; }
+        public string KdvAdi { get; set; }
+        public string KdvOrani { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
-        public virtual YevmiyelerEslestirmeTurleri YevmiyelerEslestirmeTurleri { get; set; }
     }
 }

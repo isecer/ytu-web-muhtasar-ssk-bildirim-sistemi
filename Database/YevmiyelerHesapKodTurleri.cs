@@ -12,18 +12,18 @@ namespace Database
     using System;
     using System.Collections.Generic;
     
-    public partial class YevmiyelerEslestirmeTurleri
+    public partial class YevmiyelerHesapKodTurleri
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public YevmiyelerEslestirmeTurleri()
+        public YevmiyelerHesapKodTurleri()
         {
-            this.YevmiyelerEslestirmes = new HashSet<YevmiyelerEslestirme>();
+            this.YevmiyelerHesapKodlaris = new HashSet<YevmiyelerHesapKodlari>();
         }
     
-        public int YevmiyeEslestirmeTurID { get; set; }
-        public string EslestirmeTurAdi { get; set; }
+        public int YevmiyeHesapKodTurID { get; set; }
+        public string HesapKodTurAdi { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<YevmiyelerEslestirme> YevmiyelerEslestirmes { get; set; }
+        public virtual ICollection<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
     }
 }

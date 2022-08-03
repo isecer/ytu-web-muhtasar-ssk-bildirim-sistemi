@@ -220,9 +220,7 @@
             url: '@Url.Action("GetSubData", "SurecIslemleri")',
             data: { id: id, SelectDurumID: sDurumID, SelectAyID: sAyID, tbInx: tID },
             success: function (result) {
-                alert("Kullanıcı Hesabınız Sistemden Çıkış Yapmış Gözükmekte. Ana Sayfaya Yönlendirileceksiniz...");
-                window.location.href = '@Url.Action("Index", "Home")';
-
+               
                 var _nme = 'tab-' + id + '-' + tID;
                 insertHtml(_nme, result.page);
 

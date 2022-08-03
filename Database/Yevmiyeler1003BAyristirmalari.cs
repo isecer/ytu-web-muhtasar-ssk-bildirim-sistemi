@@ -14,23 +14,21 @@ namespace Database
     
     public partial class Yevmiyeler1003BAyristirmalari
     {
-        public int Yevmiyeler1003BAyristirmaID { get; set; }
+        public int Yevmiye1003BAyristirmaID { get; set; }
         public int YevmiyeID { get; set; }
-        public int BirimID { get; set; }
+        public int YevmiyeHarcamaBirimID { get; set; }
         public int Yil { get; set; }
         public int AyID { get; set; }
         public int YevmiyeBelgeKodID { get; set; }
-        public decimal GelirVergisi { get; set; }
-        public decimal DamgaVergisi { get; set; }
         public decimal Matrah { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
         public virtual Aylar Aylar { get; set; }
-        public virtual Birimler Birimler { get; set; }
         public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual Yevmiyeler Yevmiyeler { get; set; }
         public virtual YevmiyelerBelgeKodlari YevmiyelerBelgeKodlari { get; set; }
+        public virtual YevmiyelerHarcamaBirimleri YevmiyelerHarcamaBirimleri { get; set; }
     }
 }

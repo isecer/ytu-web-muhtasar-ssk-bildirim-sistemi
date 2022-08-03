@@ -48,11 +48,7 @@ namespace WebApp.Controllers
                          AltIsverenNumarasi = s.AltIsverenNumarasi,
                          IsAyAsiriHesaplama = s.IsAyAsiriHesaplama,
                          AyBaslangicGun = s.AyBaslangicGun,
-                         GelecekAyBitisGun = s.GelecekAyBitisGun,
-                         IsYevmiyeVeriGirisiYapilabilir = s.IsYevmiyeVeriGirisiYapilabilir,
-                         VergiKimlikNo = s.VergiKimlikNo,
-                         Is1003BSskIsleri = s.Is1003BSskIsleri,
-                         SskIsYeriKodu=s.SskIsYeriKodu
+                         GelecekAyBitisGun = s.GelecekAyBitisGun
 
                      }).AsQueryable();
             if (!model.Aranan.IsNullOrWhiteSpace()) q = q.Where(p => p.AltIsverenNumarasi == model.Aranan ||
@@ -60,14 +56,10 @@ namespace WebApp.Controllers
                                                                      p.YeniUniteKodu == model.Aranan ||
                                                                      p.EskiUniteKodu == model.Aranan ||
                                                                      p.IlKodu == model.Aranan ||
-                                                                     p.VergiKimlikNo == model.Aranan ||
-                                                                     p.SskIsYeriKodu == model.Aranan ||
                                                                      p.BirimTreeAdi.ToLower().Contains(model.Aranan.ToLower())
                                                                  );
 
             if (model.IsVeriGirisiYapilabilir.HasValue) q = q.Where(p => p.IsVeriGirisiYapilabilir == model.IsVeriGirisiYapilabilir.Value);
-            if (model.IsYevmiyeVeriGirisiYapilabilir.HasValue) q = q.Where(p => p.IsYevmiyeVeriGirisiYapilabilir == model.IsYevmiyeVeriGirisiYapilabilir.Value);
-            if (model.Is1003BSskIsleri.HasValue) q = q.Where(p => p.Is1003BSskIsleri == model.Is1003BSskIsleri.Value);
             if (model.IsAktif.HasValue) q = q.Where(p => p.IsAktif == model.IsAktif.Value);
             if (model.VeriGirisTipID > 0 || !model.VeriGirisTipID.HasValue) q = q.Where(p => p.VeriGirisTipID == model.VeriGirisTipID);
             model.RowCount = q.Count();
@@ -196,12 +188,7 @@ namespace WebApp.Controllers
                     kModel.AyBaslangicGun = null;
                     kModel.GelecekAyBitisGun = null;
                 }
-                if (!kModel.IsYevmiyeVeriGirisiYapilabilir)
-                {
-                    kModel.VergiKimlikNo = null;
-                    kModel.Is1003BSskIsleri = false;
-                    kModel.SskIsYeriKodu = null;
-                }
+
 
 
                 kModel.IslemTarihi = DateTime.Now;
@@ -228,10 +215,6 @@ namespace WebApp.Controllers
                     Table.IsAyAsiriHesaplama = kModel.IsAyAsiriHesaplama;
                     Table.AyBaslangicGun = kModel.AyBaslangicGun;
                     Table.GelecekAyBitisGun = kModel.GelecekAyBitisGun;
-                    Table.IsYevmiyeVeriGirisiYapilabilir = kModel.IsYevmiyeVeriGirisiYapilabilir;
-                    Table.VergiKimlikNo = kModel.VergiKimlikNo;
-                    Table.Is1003BSskIsleri = kModel.Is1003BSskIsleri;
-                    Table.SskIsYeriKodu = kModel.SskIsYeriKodu;
                     Table.IsAktif = kModel.IsAktif;
                     Table.IslemTarihi = kModel.IslemTarihi;
                     Table.IslemYapanID = kModel.IslemYapanID;

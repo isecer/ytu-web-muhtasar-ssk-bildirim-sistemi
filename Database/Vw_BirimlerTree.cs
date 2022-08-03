@@ -29,8 +29,6 @@ namespace Database
         public bool IsAyAsiriHesaplama { get; set; }
         public Nullable<int> AyBaslangicGun { get; set; }
         public Nullable<int> GelecekAyBitisGun { get; set; }
-        public bool IsYevmiyeVeriGirisiYapilabilir { get; set; }
-        public string VergiKimlikNo { get; set; }
         public bool IsAktif { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
