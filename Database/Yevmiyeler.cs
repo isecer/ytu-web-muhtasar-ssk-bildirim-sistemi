@@ -19,6 +19,7 @@ namespace Database
         {
             this.Yevmiyeler1003AGelirKayit = new HashSet<Yevmiyeler1003AGelirKayit>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
+            this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
             this.YevmiyelerTasinirKontrolTifKaydis = new HashSet<YevmiyelerTasinirKontrolTifKaydi>();
         }
     
@@ -34,16 +35,23 @@ namespace Database
         public decimal Borc { get; set; }
         public decimal Alacak { get; set; }
         public string Aciklama { get; set; }
+        public Nullable<int> EKYevmiyeHarcamaBirimID { get; set; }
+        public Nullable<int> ProjeBankaHesapNoID { get; set; }
+        public Nullable<int> YevmiyeSendikaBilgiID { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual YevmiyelerHarcamaBirimleri YevmiyelerHarcamaBirimleri { get; set; }
+        public virtual YevmiyelerProjeBankaHesapNumaralari YevmiyelerProjeBankaHesapNumaralari { get; set; }
+        public virtual YevmiyelerSendikaBilgileri YevmiyelerSendikaBilgileri { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerTasinirKontrolTifKaydi> YevmiyelerTasinirKontrolTifKaydis { get; set; }
     }

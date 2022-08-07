@@ -2123,11 +2123,45 @@ namespace WebApp.Models
             using (var db = new MusskDBEntities())
             {
 
-                var data = db.YevmiyelerHesapKodTurleris.ToList();
+                var data = db.YevmiyelerHesapKodTurleris.Where(p=>p.IsYevmiyedeGozuksun).ToList();
 
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi });
+                }
+            }
+            return dct;
+
+        }
+        public static List<ComboModelInt> CmbHesapKoduEslestirmeHesapKodTurleri(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
+
+                var data = db.YevmiyelerHesapKodTurleris.Where(p => p.IsHesapKoduEslestirmedeGozuksun).ToList();
+
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi });
+                }
+            }
+            return dct;
+
+        }
+        public static List<ComboModelInt> CmbYevmiyeKdvKodlari(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            using (var db = new MusskDBEntities())
+            {
+
+                var data = db.YevmiyelerKdvKodlaris.OrderBy(p => p.KdvKodu).ToList();
+
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeKdvKodID, Caption = item.KdvKodu + " " + item.KdvAdi });
                 }
             }
             return dct;
@@ -2150,6 +2184,16 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelInt> CmbKdvOranlari(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { });
+            dct.Add(new ComboModelInt { Value = 1, Caption = "1" });
+            dct.Add(new ComboModelInt { Value = 8, Caption = "8" });
+            dct.Add(new ComboModelInt { Value = 18, Caption = "18" });
+            return dct;
+
+        }
         public static List<ComboModelInt> CmbYevmiylerYil(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
@@ -2162,7 +2206,7 @@ namespace WebApp.Models
             return dct;
 
         }
-        public static List<ComboModelInt> CmbYevmiyelerBirim(int? Yil, bool bosSecimVar = true)
+        public static List<ComboModelInt> CmbYevmiyelerBirim(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
@@ -2172,7 +2216,7 @@ namespace WebApp.Models
                 var data = db.YevmiyelerHarcamaBirimleris.Select(s => new
                 {
                     s.YevmiyeHarcamaBirimID,
-                    BirimAdi = s.BirimAdi + " (" + s.VergiKimlikNo + ")"
+                    BirimAdi = s.VergiKimlikNo + " " + s.BirimAdi,
                 }).OrderBy(o => o.BirimAdi).ToList();
                 foreach (var item in data)
                 {
@@ -2193,7 +2237,7 @@ namespace WebApp.Models
                 {
                     s.YevmiyeHesapKodID,
                     s.VergiKodu,
-                    HesapAdi = s.VergiKodu + " " + s.HesapAdi + " (" + s.HesapKod + ")"
+                    HesapAdi = s.VergiKodu + " - " + s.HesapAdi + " (" + s.HesapKod + ")"
                 }).OrderBy(o => o.VergiKodu).ToList();
                 foreach (var item in data)
                 {
@@ -2203,6 +2247,7 @@ namespace WebApp.Models
             return dct;
 
         }
+
         public static List<ComboModelInt> CmbSurecBirimDurum()
         {
             var dct = new List<ComboModelInt>();

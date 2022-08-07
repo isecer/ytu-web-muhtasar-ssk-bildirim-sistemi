@@ -1,4 +1,5 @@
 ﻿@using Database
+@using WebApp.Models
 @model YevmiyelerTasinirKontrolTifKaydi
 @{
     Layout = null;
@@ -19,21 +20,21 @@
                                         <td id="lbl_TifNo" width="140">Tif Numarası</td>
                                         <td width="10">:</td>
                                         <td class="form-group">
-                                            @Html.TextBoxFor(p => p.TifNo, null, new { @class = "form-control" })
+                                            @Html.TextBoxFor(p => p.TifNo, null, new { @class = "form-control", autocomplete="off" })
                                         </td>
                                     </tr>
                                     <tr>
                                         <td id="lbl_Tutar">Tutar</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextBox("Tutar", Model.Tutar.ToString("n2"), new { @class = "form-control" })
+                                            @Html.TextBox("Tutar", Model.Tutar.ToEmptyStringZero(), new { @class = "form-control", autocomplete = "off" })
                                         </td>
                                     </tr>
                                     <tr>
                                         <td id="lbl_Aciklama">Açıklama</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextAreaFor(p => p.Aciklama,5,1, new { @class = "form-control", style = "resize:vertical;" })
+                                            @Html.TextAreaFor(p => p.Aciklama,5,1, new { @class = "form-control", style = "resize:vertical;", autocomplete = "off" })
                                         </td>
                                     </tr> 
                                    

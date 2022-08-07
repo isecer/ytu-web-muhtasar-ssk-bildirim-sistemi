@@ -581,6 +581,9 @@
           <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+          <ScalarProperty Name="YevmiyeSendikaBilgiID" ColumnName="YevmiyeSendikaBilgiID" />
+          <ScalarProperty Name="ProjeBankaHesapNoID" ColumnName="ProjeBankaHesapNoID" />
+          <ScalarProperty Name="EKYevmiyeHarcamaBirimID" ColumnName="EKYevmiyeHarcamaBirimID" />
           <ScalarProperty Name="Aciklama" ColumnName="Aciklama" />
           <ScalarProperty Name="Alacak" ColumnName="Alacak" />
           <ScalarProperty Name="Borc" ColumnName="Borc" />
@@ -660,6 +663,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="YevmiyelerHarcamaBirimleriTutarKayits">
+      <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerHarcamaBirimleriTutarKayit">
+        <MappingFragment StoreEntitySet="YevmiyelerHarcamaBirimleriTutarKayit">
+          <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+          <ScalarProperty Name="YevmiyeHarcamaBirimID" ColumnName="YevmiyeHarcamaBirimID" />
+          <ScalarProperty Name="Yil" ColumnName="Yil" />
+          <ScalarProperty Name="YevmiyeHarcamaBirimleriTutarKayitID" ColumnName="YevmiyeHarcamaBirimleriTutarKayitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="YevmiyelerHesapKodlaris">
       <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerHesapKodlari">
         <MappingFragment StoreEntitySet="YevmiyelerHesapKodlari">
@@ -680,6 +693,8 @@
     <EntitySetMapping Name="YevmiyelerHesapKodTurleris">
       <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerHesapKodTurleri">
         <MappingFragment StoreEntitySet="YevmiyelerHesapKodTurleri">
+          <ScalarProperty Name="IsHesapKoduEslestirmedeGozuksun" ColumnName="IsHesapKoduEslestirmedeGozuksun" />
+          <ScalarProperty Name="IsYevmiyedeGozuksun" ColumnName="IsYevmiyedeGozuksun" />
           <ScalarProperty Name="HesapKodTurAdi" ColumnName="HesapKodTurAdi" />
           <ScalarProperty Name="YevmiyeHesapKodTurID" ColumnName="YevmiyeHesapKodTurID" />
         </MappingFragment>
@@ -695,6 +710,29 @@
           <ScalarProperty Name="KdvAdi" ColumnName="KdvAdi" />
           <ScalarProperty Name="KdvKodu" ColumnName="KdvKodu" />
           <ScalarProperty Name="YevmiyeKdvKodID" ColumnName="YevmiyeKdvKodID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YevmiyelerKdvTevkifatKayitlaris">
+      <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerKdvTevkifatKayitlari">
+        <MappingFragment StoreEntitySet="YevmiyelerKdvTevkifatKayitlari">
+          <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
+          <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
+          <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+          <ScalarProperty Name="TevkifatTutari" ColumnName="TevkifatTutari" />
+          <ScalarProperty Name="KdvTutari" ColumnName="KdvTutari" />
+          <ScalarProperty Name="KdvOrani" ColumnName="KdvOrani" />
+          <ScalarProperty Name="Matrah" ColumnName="Matrah" />
+          <ScalarProperty Name="FaturaAyID" ColumnName="FaturaAyID" />
+          <ScalarProperty Name="FaturaYil" ColumnName="FaturaYil" />
+          <ScalarProperty Name="KdvKodOrani" ColumnName="KdvKodOrani" />
+          <ScalarProperty Name="KdvKodu" ColumnName="KdvKodu" />
+          <ScalarProperty Name="YevmiyeKdvKodID" ColumnName="YevmiyeKdvKodID" />
+          <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+          <ScalarProperty Name="VergiKimlikNo" ColumnName="VergiKimlikNo" />
+          <ScalarProperty Name="YeniYevmiyeHesapKodID" ColumnName="YeniYevmiyeHesapKodID" />
+          <ScalarProperty Name="YevmiyeID" ColumnName="YevmiyeID" />
+          <ScalarProperty Name="YevmiyeKdvTevkifatKayitID" ColumnName="YevmiyeKdvTevkifatKayitID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -723,7 +761,7 @@
           <ScalarProperty Name="IBanNo" ColumnName="IBanNo" />
           <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
           <ScalarProperty Name="VergiKimlikNo" ColumnName="VergiKimlikNo" />
-          <ScalarProperty Name="HesapKodu" ColumnName="HesapKodu" />
+          <ScalarProperty Name="HesapKod" ColumnName="HesapKod" />
           <ScalarProperty Name="YevmiyeSendikaBilgiID" ColumnName="YevmiyeSendikaBilgiID" />
         </MappingFragment>
       </EntityTypeMapping>

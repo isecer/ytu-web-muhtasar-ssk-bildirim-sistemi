@@ -31,16 +31,16 @@
                             <div class="form-group">
                                 <label class="col-md-3 col-xs-4 control-label">Hesap Kodu</label>
                                 <div class="col-md-9 col-xs-8">
-                                    <input type="text" name="HesapKod" id="HesapKod" maxlength="64" value="@Model.HesapKod" class="form-control" />
+                                    <input type="text" name="HesapKod" id="HesapKod" maxlength="64" value="@Model.HesapKod" class="form-control" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-md-3 col-xs-4 control-label">Hesap Adı</label>
                                 <div class="col-md-9 col-xs-8">
-                                    <input type="text" name="HesapAdi" id="HesapAdi" maxlength="256" value="@Model.HesapAdi" class="form-control" />
+                                    <input type="text" name="HesapAdi" id="HesapAdi" maxlength="256" value="@Model.HesapAdi" class="form-control" autocomplete="off"  />
                                 </div>
                             </div>
-                            <div class="form-group HKvergiOran @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
+                            <div class="form-group HKIsGelirKaydi @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
                                 <label class="col-md-3 col-xs-4 control-label">Gelir Kaydı Yapılacak Mı</label>
                                 <div class="col-md-9 col-xs-8">
                                     <select class="form-control" name="IsGelirKaydindaKullaniclacak" id="IsGelirKaydindaKullaniclacak">
@@ -53,7 +53,7 @@
                             <div class="form-group HKvergiKodu @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
                                 <label class="col-md-3 col-xs-4 control-label">Vergi Kodu</label>
                                 <div class="col-md-9 col-xs-8">
-                                    <input type="text" name="VergiKodu" id="VergiKodu" maxlength="8" value="@Model.VergiKodu" class="form-control" />
+                                    <input type="text" name="VergiKodu" id="VergiKodu" maxlength="8" value="@Model.VergiKodu" class="form-control"  autocomplete="off" />
                                 </div>
                             </div>
 
@@ -62,9 +62,9 @@
                                 <div class="col-md-9 col-xs-8">
                                     <table>
                                         <tr>
-                                            <td><input type="text" style="width:80px;" name="TevkifatOranBolunen" id="TevkifatOranBolunen" maxlength="3" value="@Model.TevkifatOranBolunen" placeholder="Bölünen Oran" class="form-control" /></td>
+                                            <td><input type="text" style="width:80px;" name="TevkifatOranBolunen" id="TevkifatOranBolunen" maxlength="3" value="@Model.TevkifatOranBolunen" placeholder="Bölünen Oran" class="form-control" autocomplete="off"  /></td>
                                             <td width="10" style="text-align:center;">/</td>
-                                            <td><input type="text" style="width:80px;" name="TevkifatOranBolen" id="TevkifatOranBolen" maxlength="3" value="@Model.TevkifatOranBolen" placeholder="Bölen Oran" class="form-control" /></td>
+                                            <td><input type="text" style="width:80px;" name="TevkifatOranBolen" id="TevkifatOranBolen" maxlength="3" value="@Model.TevkifatOranBolen" placeholder="Bölen Oran" class="form-control" autocomplete="off"  /></td>
                                         </tr>
                                     </table>
 
@@ -84,16 +84,19 @@
 <script>
 
     $(function () {
-        var model = '@Html.Raw(Json.Encode(MmMessage))'; 
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
         validateControl(model);
     });
     function HKoduChange(sndr) {
         var sndrVal = $(sndr).val();
-        if (sndrVal == "@HesapKoduTuru.SSKPrimHesapKodlari1003B") {
+        if (sndrVal == "@HesapKoduTuru.VergiTevkifatHesapKodlari1003A") {
             $('.HKvergiKodu').removeClass('hide');
+            $('.HKIsGelirKaydi').removeClass('hide');
+          
         }
         else {
             $('.HKvergiKodu').addClass('hide');
+            $('.HKIsGelirKaydi').addClass('hide');
         }
         if (sndrVal == "@HesapKoduTuru.KDVTevkifatHesapKodlari") {
             $('.HKvergiOran').removeClass('hide');

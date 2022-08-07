@@ -1,0 +1,138 @@
+﻿@using Database
+@using WebApp.Models
+@model YevmiyelerKdvTevkifatKayitlari
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("YevmiyeKdvTevkifatKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmKdvTevkifatKayit", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(h => h.YevmiyeID)
+    @Html.HiddenFor(h => h.YevmiyeKdvTevkifatKayitID)
+    <div class="col-md-12" style="overflow-x:auto; max-height:600px;">
+        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+            <table style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="padding-left:10px;text-align:left;">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td id="lbl_YeniYevmiyeHesapKodID" width="140">Yeni Hesap Kodu</td>
+                                        <td width="10">:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("YeniYevmiyeHesapKodID", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_VergiKimlikNo">Vergi Kimlik No</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            <input type="text" autocomplete="off" class="form-control" maxlength="11" name="VergiKimlikNo" id="VergiKimlikNoKdvTef" value="@Model.VergiKimlikNo" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_AdSoyad">Ad Soyad</td>
+                                        <td>:</td>
+                                        <td class="form-group">@Html.TextBox("AdSoyad", Model.AdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "AdSoyadKdvTef" })</td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_YevmiyeKdvKodID">Kdv Kodu</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("YevmiyeKdvKodID", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_FaturaYil">Fatura Yılı</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("FaturaYil", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_FaturaAyID">Fatura Ay</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("FaturaAyID", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td id="lbl_Matrah">Matrah</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.TextBox("Matrah", Model.Matrah.ToEmptyStringZero(), new { @class = "form-control", autocomplete = "off" })
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_KdvOrani">Kdv Oranı</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("KdvOrani", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+
+<script>
+
+        $("#VergiKimlikNoKdvTef").select2({
+            tags: true,
+            minimumInputLength: 2,
+            maximumInputLength: 11,
+            maximumSelectionSize: 1,
+            multiple: false,
+            ajax: {
+                url: '@Url.Action("GetVergiKimlikNo", "Yevmiyeler")',
+                dataType: "json",
+                data: function (term, page) {
+                    return {
+                        'term': term
+                    }
+
+                },
+                results: function (data, page) {
+                    return {
+                        results: data
+                    };
+                }
+            },
+            formatResult: function (result) {
+                var cont2 =
+                    "<table class='table table-striped' style='width:100%; margin:0px;'>" +
+                    "<tbody>" +
+                    "<tr>" +
+                    "<td style='vertical-align:middle;'>" +
+                    "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
+                    "<tbody>" +
+                    "<tr><td>" + result.AdSoyad + "</td></tr>" +
+                    "<tr><td>Vergi Kimlik No: " + result.VergiKimlikNo + "</td></tr>" +
+                    "</tbody> " +
+                    "</table> " +
+                    "</td>" +
+                    "</tr> " +
+                    "</tbody>" +
+                    "</table>";
+                return cont2;
+            }
+        }).on('change', function (e) {
+            $('#AdSoyadKdvTef').val(e.added == undefined ? "" : e.added.AdSoyad);
+        });
+
+
+</script>
+@if (Model.YevmiyeKdvTevkifatKayitID > 0)
+{
+    <script>
+        var VkSelectedVal = @Html.Raw(Json.Encode(new { id = Model.VergiKimlikNo, text = Model.VergiKimlikNo }));
+        $("#VergiKimlikNoKdvTef").select2('data', VkSelectedVal);
+    </script>
+}

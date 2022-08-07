@@ -39,7 +39,7 @@ namespace WebApp.Controllers
             return Json(k, "application/json", JsonRequestBehavior.AllowGet);
         }
         public ActionResult SetThemeSetting(string columnName, string value)
-        { 
+        {
             var k = db.Kullanicilars.Where(p => p.KullaniciID == UserIdentity.Current.Id).FirstOrDefault();
             if (columnName == "st_head_fixed") k.FixedHeader = value.ToBoolean().Value;
             if (columnName == "st_sb_fixed") k.FixedSidebar = value.ToBoolean().Value;
@@ -880,6 +880,8 @@ namespace WebApp.Controllers
             //return new JsonResult { Data = new { IsSuccess = mmMessage.IsSuccess, Message = strView } };
 
         }
+
+      
 
         [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult PdfViewer()

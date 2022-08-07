@@ -14,6 +14,12 @@ namespace Database
     
     public partial class YevmiyelerKdvKodlari
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public YevmiyelerKdvKodlari()
+        {
+            this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
+        }
+    
         public int YevmiyeKdvKodID { get; set; }
         public string KdvKodu { get; set; }
         public string KdvAdi { get; set; }
@@ -23,5 +29,7 @@ namespace Database
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
     }
 }

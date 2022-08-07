@@ -21,6 +21,7 @@ namespace Database
             this.VASurecleriBirimVerileris = new HashSet<VASurecleriBirimVerileri>();
             this.VASurecleriBirimVerileriAylikToplams = new HashSet<VASurecleriBirimVerileriAylikToplam>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
+            this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
         }
     
         public int AyID { get; set; }
@@ -34,5 +35,7 @@ namespace Database
         public virtual ICollection<VASurecleriBirimVerileriAylikToplam> VASurecleriBirimVerileriAylikToplams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
     }
 }

@@ -308,7 +308,7 @@ namespace WebApp.Models
                         }
                     }
 
-                } 
+                }
                 Worksheet worksheet1 = workbook.Worksheets.Item[1] as Worksheet;
 
                 foreach (var item in EklenmesiGerekenVeriler)
@@ -452,12 +452,12 @@ namespace WebApp.Models
                         YevmiyeNo = _YevmiyeNo,
                         VergiKimlikNo = _VergiKimlikNo,
                         HarcamaBirimAdi = _HarcamaBirimAdi,
-                        HarcamaBirimKod=_HarcamaBirimKod,
-                        HesapKod=_HesapKod,
-                        HesapAdi=_HesapAdi,
-                        Borc=_Borc,
-                        Alacak=_Alacak,
-                        Aciklama=_Aciklama, 
+                        HarcamaBirimKod = _HarcamaBirimKod,
+                        HesapKod = _HesapKod,
+                        HesapAdi = _HesapAdi,
+                        Borc = _Borc,
+                        Alacak = _Alacak,
+                        Aciklama = _Aciklama,
                     });
                 }
             }
@@ -484,17 +484,15 @@ namespace WebApp.Models
             try
             {
 
-                int BilgiYazimHucreNo = 9;
+                int BilgiYazimHucreNo = 10;
                 Application excel = new Application();
                 var path = System.Web.HttpContext.Current.Server.MapPath("~" + model.DosyaYolu);
                 Workbook workbook = excel.Workbooks.Open(path, ReadOnly: false, Editable: true);
-                var MaxRowNum = model.Data.Max(s => s.SatirNo);
-                int SNo = 0;
-                foreach (var itemRow in model.Data)
+                foreach (var itemRow in model.Data.Where(p => p.HataliHucreler.Any() || !p.HataAciklamasi.IsNullOrWhiteSpace()))
                 {
                     Worksheet worksheet = workbook.Worksheets.Item[itemRow.SayfaNo] as Worksheet;
 
-                   
+
                     Range AckCell = worksheet.Cells[itemRow.SatirNo, BilgiYazimHucreNo];
                     AckCell.Value = "";
 
@@ -515,7 +513,7 @@ namespace WebApp.Models
                         }
                     }
 
-                } 
+                }
                 excel.Application.ActiveWorkbook.Save();
                 excel.Application.Quit();
                 excel.Quit();

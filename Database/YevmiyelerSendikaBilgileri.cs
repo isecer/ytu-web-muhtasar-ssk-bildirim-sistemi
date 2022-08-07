@@ -14,8 +14,14 @@ namespace Database
     
     public partial class YevmiyelerSendikaBilgileri
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public YevmiyelerSendikaBilgileri()
+        {
+            this.Yevmiyelers = new HashSet<Yevmiyeler>();
+        }
+    
         public int YevmiyeSendikaBilgiID { get; set; }
-        public string HesapKodu { get; set; }
+        public string HesapKod { get; set; }
         public string VergiKimlikNo { get; set; }
         public string AdSoyad { get; set; }
         public string IBanNo { get; set; }
@@ -26,5 +32,7 @@ namespace Database
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
     }
 }

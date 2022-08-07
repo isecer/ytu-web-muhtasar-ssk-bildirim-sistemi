@@ -128,7 +128,7 @@
     }
     function Sil(sndr, id) {
         $.ajax({
-            url: '@Url.Action("Sil", "YevmiyeBankaHesapNumaralari")',
+            url: '@Url.Action("Sil", "YevmiyeProjeBankaHesaplari")',
             data: { id: id },
             success: function (result) {
                 toastr[result.success ? "success" : "error"](result.message, "Proje Banka Hesap Numarası Silme İşlemi")

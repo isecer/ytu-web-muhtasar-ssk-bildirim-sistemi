@@ -1109,6 +1109,35 @@ namespace WebApp.Models
         {
         }
     }
+    public class FmYevmiyeEkHbToplamlari : PagerOption
+    {
+        public int? Yil { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiyeEkHbToplamlari> Data { get; set; }
+
+    }
+    public class FrYevmiyeEkHbToplamlari : YevmiyelerHarcamaBirimleri
+    {
+        public decimal Alacak { get; set; }
+        public decimal Borc { get; set; }
+        public decimal Kalan { get; set; }
+        public decimal KayitEdilen { get; set; }
+        
+    }
+    public class FmYevmiyeSendikaToplamlari : PagerOption
+    {
+        public int? Yil { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiyeSendikaToplamlari> Data { get; set; }
+
+    }
+    public class FrYevmiyeSendikaToplamlari : YevmiyelerSendikaBilgileri
+    {
+        public decimal Alacak { get; set; }
+        public decimal Borc { get; set; }
+        public decimal Kalan { get; set; } 
+
+    }
     public class FmYevmiyeBelgeKodlari : PagerOption
     {
         public string BelgeKodu { get; set; }
@@ -1160,7 +1189,7 @@ namespace WebApp.Models
     }
     public class FmYevmiyeSendikaBilgileri : PagerOption
     {
-        public string HesapKodu { get; set; }
+        public string HesapKod { get; set; }
         public string VergiKimlikNo { get; set; }
         public string AdSoyad { get; set; }
         public string IBanNo { get; set; }
@@ -1194,6 +1223,8 @@ namespace WebApp.Models
     {
         public int? Yil { get; set; }
         public int? YevmiyeHarcamaBirimID { get; set; }
+        public int? YevmiyeHesapKodTurID { get; set; }
+        public bool? GelirKaydiOlacak { get; set; }
         public int? YevmiyeNo { get; set; }
         public string VergiKimlikNo { get; set; }
         public string HarcamaBirimKod { get; set; }
@@ -1211,7 +1242,17 @@ namespace WebApp.Models
     {
         public decimal? YevmiyeNoToplamGv { get; set; }
         public decimal? YevmiyeNoToplamDv { get; set; }
+        public bool Is1003BYevmiyeParcalamaOlacak { get; set; }
+        public bool Is1003AGelirKaydiOlacak { get; set; }
+        public bool Is1003A10_24GelirKaydiOlacak { get; set; }
+        public bool IsKdvVergiKaydiOlacak { get; set; }
+        public bool IsEmekliKesenekKaydiOlacak { get; set; }
+        public bool IsTasinirKontrolKaydiOlacak { get; set; }
+        public bool IsSendikaKaydiOlacak { get; set; }
+        public string EKHarcamaBirimAdi { get; set; }
+        public bool IsgelirVergisiDamgaVergisiVar { get; set; }
         public SelectList SHesapKodlari1003A { get; set; }
+        public SelectList EKHarcamaBirim { get; set; } 
     }
 
     public class RpModelToplamsalModel
@@ -1252,6 +1293,7 @@ namespace WebApp.Models
         public static byte KDVTevkifatHesapKodlari = 3;
         public static byte EmekliKesintiHesapKodlari = 4;
         public static byte TasinirKontrolHesapKodlari = 5;
+        public static byte SendikaIslemleriHesapKodlari = 6;
     }
     #endregion
 }

@@ -55,7 +55,7 @@ namespace WebApp.Controllers
             var IndexModel = new MIndexBilgi();
             IndexModel.Toplam = model.RowCount;
             ViewBag.IndexModel = IndexModel;
-            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true), "Value", "Caption", model.YevmiyeHesapKodTurID);
+            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbHesapKoduEslestirmeHesapKodTurleri(true), "Value", "Caption", model.YevmiyeHesapKodTurID);
             return View(model);
         }
 
@@ -70,7 +70,7 @@ namespace WebApp.Controllers
                 if (data != null) model = data;
             }
 
-            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true), "Value", "Caption", model.YevmiyeHesapKodTurID);
+            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbHesapKoduEslestirmeHesapKodTurleri(true), "Value", "Caption", model.YevmiyeHesapKodTurID);
             return View(model);
         }
         [HttpPost]
@@ -183,7 +183,7 @@ namespace WebApp.Controllers
                 MessageBox.Show("Uyarı", MessageBox.MessageType.Warning, MmMessage.Messages.ToArray());
             }
 
-            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true), "Value", "Caption", kModel.YevmiyeHesapKodTurID);
+            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbHesapKoduEslestirmeHesapKodTurleri(true), "Value", "Caption", kModel.YevmiyeHesapKodTurID);
             ViewBag.MmMessage = MmMessage;
             return View(kModel);
         }

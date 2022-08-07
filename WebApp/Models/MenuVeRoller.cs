@@ -68,18 +68,25 @@ namespace WebApp.Models
         [RoleAttribute(GorunurAdi = "Yevmiyeler Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyelerKayitYetkisi = "YevmiyelerKayıtYetkisi";
 
-        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimleri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHarcamaBirimleri/Index", DilCeviriYap = false, SiraNo = 2)]
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimi Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeHarcamaBirimiToplamlari/Index", DilCeviriYap = false, SiraNo = 2)]
+        [RoleAttribute(GorunurAdi = "Harcama Birimi Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyelerHarcamaBirimiToplamlari = "YevmiyeHarcamaBirimiToplamlari";
+
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Sendika Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeSendikaToplamlari/Index", DilCeviriYap = false, SiraNo = 3)]
+        [RoleAttribute(GorunurAdi = "Sendika Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyeSendikaToplamlari = "YevmiyeSendikaToplamlari";
+
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimleri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHarcamaBirimleri/Index", DilCeviriYap = false, SiraNo = 4)]
         [RoleAttribute(GorunurAdi = "Harcama Birimleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeHarcamaBirimleri = "YevmiyeHarcamaBirimleri";
 
-        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Hesap Kodu Eşleştirme", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHesapKoduEslestirme/Index", DilCeviriYap = false, SiraNo = 4)]
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Hesap Kodu Eşleştirme", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHesapKoduEslestirme/Index", DilCeviriYap = false, SiraNo = 6)]
         [RoleAttribute(GorunurAdi = "Hesap Kodu Eşleştirme", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeHesapKoduEslestirme = "HesapKoduEşleştirme";
 
-        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Belge Kodları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeBelgeKodlari/Index", DilCeviriYap = false, SiraNo = 6)]
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Belge Kodları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeBelgeKodlari/Index", DilCeviriYap = false, SiraNo = 8)]
         [RoleAttribute(GorunurAdi = "Belge Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string YevmiyeBegleKodlari = "BelgeKodlari";
- 
+        public const string YevmiyeBegleKodlari = "BelgeKodlari"; 
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "KDV Kodları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeKdvKodlari/Index", DilCeviriYap = false, SiraNo = 10)]
         [RoleAttribute(GorunurAdi = "KDV Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]

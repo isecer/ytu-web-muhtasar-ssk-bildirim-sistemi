@@ -26,7 +26,7 @@ namespace WebApp.Controllers
             var q = from s in db.YevmiyelerSendikaBilgileris
                     select s;
 
-            if (!model.HesapKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKodu == model.HesapKodu);
+            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod == model.HesapKod);
             if (!model.VergiKimlikNo.IsNullOrWhiteSpace()) q = q.Where(p => p.VergiKimlikNo == model.VergiKimlikNo);
             if (!model.AdSoyad.IsNullOrWhiteSpace()) q = q.Where(p => p.AdSoyad.Contains(model.AdSoyad));
             if (!model.IBanNo.IsNullOrWhiteSpace()) q = q.Where(p => p.IBanNo == model.IBanNo);
@@ -40,7 +40,7 @@ namespace WebApp.Controllers
             model.Data = q.Select(s => new FrYevmiyelerSendikaBilgileri
             {
                 YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
-                HesapKodu = s.HesapKodu,
+                HesapKod = s.HesapKod,
                 VergiKimlikNo = s.VergiKimlikNo,
                 AdSoyad = s.AdSoyad,
                 IBanNo = s.IBanNo,
@@ -75,12 +75,12 @@ namespace WebApp.Controllers
         {
             var MmMessage = new MmMessage() { IsDialog = !dlgid.IsNullOrWhiteSpace(), DialogID = dlgid };
             #region Kontrol  
-            if (kModel.HesapKodu.IsNullOrWhiteSpace())
+            if (kModel.HesapKod.IsNullOrWhiteSpace())
             {
                 MmMessage.Messages.Add("Hesap Kodu Boş Bırakılamaz.");
-                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "HesapKodu" });
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "HesapKod" });
             }
-            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "HesapKodu" });
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "HesapKod" });
             if (kModel.VergiKimlikNo.IsNullOrWhiteSpace())
             {
                 MmMessage.Messages.Add("Vergi Kimlik Numarası Boş Bırakılamaz.");
@@ -132,7 +132,7 @@ namespace WebApp.Controllers
                 else
                 {
                     var data = db.YevmiyelerSendikaBilgileris.Where(p => p.YevmiyeSendikaBilgiID == kModel.YevmiyeSendikaBilgiID).First();
-                    data.HesapKodu = kModel.HesapKodu;
+                    data.HesapKod = kModel.HesapKod;
                     data.VergiKimlikNo = kModel.VergiKimlikNo;
                     data.AdSoyad = kModel.AdSoyad;
                     data.IBanNo = kModel.IBanNo;

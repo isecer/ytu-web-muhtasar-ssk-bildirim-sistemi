@@ -54,9 +54,44 @@ namespace WebApp.Controllers
                          Aciklama = s.Aciklama,
                      }).AsQueryable();
             if (model.Yil.HasValue) q = q.Where(p => p.YevmiyeTarih.Year == model.Yil);
-            if (model.YevmiyeNo.HasValue) q = q.Where(p => p.YevmiyeNo == model.YevmiyeNo);
             if (model.YevmiyeHarcamaBirimID.HasValue) q = q.Where(p => p.YevmiyeHarcamaBirimID == model.YevmiyeHarcamaBirimID);
+            if (model.YevmiyeHesapKodTurID.HasValue)
+            {
+                if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
+                {
+                    var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID).Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod) && p.Alacak > 0);
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
+                {
+                    var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID && p.IsGelirKaydindaKullaniclacak == (model.GelirKaydiOlacak ?? p.IsGelirKaydindaKullaniclacak)).Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod) && p.Alacak > 0);
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                {
+                    var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID).Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari)
+                {
+                    var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID).Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari)
+                {
+                    var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID).Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SendikaIslemleriHesapKodlari)
+                {
+                    var HesapKods = db.YevmiyelerSendikaBilgileris.Select(s => s.HesapKod).ToList();
+                    q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                }
+
+            }
+            if (model.YevmiyeNo.HasValue) q = q.Where(p => p.YevmiyeNo == model.YevmiyeNo);
             if (!model.HarcamaBirimKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HarcamaBirimKod == model.HarcamaBirimKod);
+
             if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod == model.HesapKod || p.HesapAdi.Contains(model.HesapKod));
             if (!model.Aciklama.IsNullOrWhiteSpace()) q = q.Where(p => p.Aciklama == model.Aciklama);
 
@@ -69,7 +104,8 @@ namespace WebApp.Controllers
             var IndexModel = new MIndexBilgi() { Toplam = 0, Pasif = 0, Aktif = 0 };
             ViewBag.IndexModel = IndexModel;
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.Yil);
-            ViewBag.YevmiyeHarcamaBirimID = new SelectList(Management.CmbYevmiyelerBirim(model.Yil, true), "Value", "Caption", model.YevmiyeHarcamaBirimID);
+            ViewBag.YevmiyeHarcamaBirimID = new SelectList(Management.CmbYevmiyelerBirim(true), "Value", "Caption", model.YevmiyeHarcamaBirimID);
+            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true), "Value", "Caption", model.YevmiyeHesapKodTurID);
 
 
             return View(model);
@@ -123,25 +159,39 @@ namespace WebApp.Controllers
             if (mMessage.Messages.Count == 0)
             {
                 var model = DosyaEki.ToYevmiyeIterateRows(Yil);
-
-
-
-
                 if (model.Data.Count == 0)
                 {
                     mMessage.Messages.Add(DosyaEki.FileName + "  isimli excel dosyasında hiçbir veriye rastlanmadı!");
                 }
+                else
+                {
+                    //var DBMaxYevmiyeNo = db.Yevmiyelers.Where(p => p.IslemTarihi.Year == Yil).Max(m => (int?)m.YevmiyeNo);
+                    //if (DBMaxYevmiyeNo.HasValue)
+                    //{
+                    //    var ExcelMaxYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Min();
+                    //    if (ExcelMaxYevmiyeNo <= DBMaxYevmiyeNo)
+                    //    {
+                    //        mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin yevmiye numarası daha önce yüklenen en büyük yevmiye numarasından ("+ DBMaxYevmiyeNo + ") büyük olmalı.");
+                    //    }
+                    //}
+                }
+
 
                 if (mMessage.Messages.Count == 0)
                 {
                     var Birimler = db.YevmiyelerHarcamaBirimleris.ToList();
+                    var Sendikalar = db.YevmiyelerSendikaBilgileris.ToList();
+                    var EmekliKesenekHesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari).ToList();
+
 
                     try
                     {
                         #region BildirimData 
                         model.Data = (from s in model.Data
-                                      join b in Birimler on s.VergiKimlikNo equals b.VergiKimlikNo into defB
-                                      from B in defB.DefaultIfEmpty()
+                                      join Br in Birimler on s.VergiKimlikNo equals Br.VergiKimlikNo into defB
+                                      from Br in defB.DefaultIfEmpty()
+                                      join Sn in Sendikalar on s.YevmiyeSendikaBilgiID equals Sn.YevmiyeSendikaBilgiID into defSn
+                                      from Sn in defSn.DefaultIfEmpty()
                                       select new ExcelDataImportYevmiyeRow
                                       {
                                           SayfaNo = s.SayfaNo,
@@ -149,9 +199,11 @@ namespace WebApp.Controllers
                                           YevmiyeTarih = s.YevmiyeTarih,
                                           YevmiyeNo = s.YevmiyeNo,
                                           VergiKimlikNo = s.VergiKimlikNo,
-                                          YevmiyeHarcamaBirimID = (B != null ? (int?)B.YevmiyeHarcamaBirimID : null),
+                                          YevmiyeHarcamaBirimID = (Br != null ? (int?)Br.YevmiyeHarcamaBirimID : null),
+                                          YevmiyeSendikaBilgiID = (Br != null ? (int?)Sn.YevmiyeSendikaBilgiID : null),
                                           HarcamaBirimAdi = s.HarcamaBirimAdi,
                                           HarcamaBirimKod = s.HarcamaBirimKod,
+                                          EKYevmiyeHarcamaBirimID = EmekliKesenekHesapKods.Any(a => a.HesapKod == s.HesapKod) ? s.YevmiyeHarcamaBirimID : null,
                                           HesapKod = s.HesapKod,
                                           HesapAdi = s.HesapAdi,
                                           Borc = s.Borc,
@@ -165,6 +217,7 @@ namespace WebApp.Controllers
                         foreach (var item in model.Data)
                         {
                             List<string> hataTipi = new List<string>();
+
                             if (!item.YevmiyeTarih.HasValue)
                             {
                                 hataTipi.Add("Yevmiye tarihi boş");
@@ -233,7 +286,6 @@ namespace WebApp.Controllers
                         if (!model.Data.Any(a => a.HataliHucreler.Any()))
                         {
                             model.Data = model.Data.Where(p => !p.HataliHucreler.Any()).ToList();
-
                             var addYevmiyes = model.Data.Select(s => new Yevmiyeler
                             {
                                 YevmiyeTarih = s.YevmiyeTarih.Value,
@@ -252,7 +304,6 @@ namespace WebApp.Controllers
                                 IslemTarihi = s.IslemTarihi,
                             }).ToList();
                             db.Yevmiyelers.AddRange(addYevmiyes);
-                            db.Yevmiyelers.RemoveRange(db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yil));
                             db.SaveChanges();
                             mMessage.IsSuccess = true;
                             mMessage.Messages.Add("Yevmiye verileri yükleme işlemi başarılı. Toplam: " + model.Data.Count + " Kalem bilgi sisteme işlendi.");
@@ -260,6 +311,8 @@ namespace WebApp.Controllers
                         }
                         else
                         {
+
+
                             var excpt = model.YevmiyeAktarilanExcelHataKontrolu();
 
                             if (excpt == null)
@@ -295,37 +348,56 @@ namespace WebApp.Controllers
         }
 
         public ActionResult GetDetail(int id)
-        {
-            var mdl = db.Yevmiyelers.Where(p => p.YevmiyeID == id).Select(s => new YevmiyeDetayModel
-            {
+        { 
+            var mdl = (from s in db.Yevmiyelers.Where(p => p.YevmiyeID == id)
+                       join Ekh in db.YevmiyelerHarcamaBirimleris on s.EKYevmiyeHarcamaBirimID equals Ekh.YevmiyeHarcamaBirimID into defEkh
+                       from Ekh in defEkh.DefaultIfEmpty()
+                       select new YevmiyeDetayModel
+                       {
+                           YevmiyeID = s.YevmiyeID,
+                           YevmiyeTarih = s.YevmiyeTarih,
+                           YevmiyeNo = s.YevmiyeNo,
+                           VergiKimlikNo = s.VergiKimlikNo,
+                           HarcamaBirimKod = s.HarcamaBirimKod,
+                           HarcamaBirimAdi = s.HarcamaBirimAdi,
+                           HesapKod = s.HesapKod,
+                           HesapAdi = s.HesapAdi,
+                           Borc = s.Borc,
+                           Alacak = s.Alacak,
+                           Yevmiyeler1003BAyristirmalari = s.Yevmiyeler1003BAyristirmalari,
+                           Yevmiyeler1003AGelirKayit = s.Yevmiyeler1003AGelirKayit,
+                           YevmiyelerKdvTevkifatKayitlaris = s.YevmiyelerKdvTevkifatKayitlaris,
+                           YevmiyelerTasinirKontrolTifKaydis = s.YevmiyelerTasinirKontrolTifKaydis,
+                           ProjeBankaHesapNoID = s.ProjeBankaHesapNoID,
+                           YevmiyelerProjeBankaHesapNumaralari = s.YevmiyelerProjeBankaHesapNumaralari,
+                           YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
+                           YevmiyelerSendikaBilgileri = s.YevmiyelerSendikaBilgileri,
+                           Is1003BYevmiyeParcalamaOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B && a.HesapKod == s.HesapKod && s.Alacak > 0),
+                           Is1003AGelirKaydiOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && a.HesapKod == s.HesapKod),
+                           Is1003A10_24GelirKaydiOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && a.IsGelirKaydindaKullaniclacak == true && a.HesapKod == s.HesapKod),
+                           IsKdvVergiKaydiOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari && a.HesapKod == s.HesapKod && s.Alacak > 0),
+                           IsTasinirKontrolKaydiOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari && a.HesapKod == s.HesapKod),
+                           IsEmekliKesenekKaydiOlacak = db.YevmiyelerHesapKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari && a.HesapKod == s.HesapKod),
+                           IsSendikaKaydiOlacak = db.YevmiyelerSendikaBilgileris.Any(a => a.HesapKod == s.HesapKod),
+                           EKYevmiyeHarcamaBirimID = s.EKYevmiyeHarcamaBirimID,
+                           EKHarcamaBirimAdi = Ekh.BirimAdi,
 
-                YevmiyeID = s.YevmiyeID,
-                YevmiyeTarih = s.YevmiyeTarih,
-                YevmiyeNo = s.YevmiyeNo,
-                VergiKimlikNo = s.VergiKimlikNo,
-                HarcamaBirimKod = s.HarcamaBirimKod,
-                HarcamaBirimAdi = s.HarcamaBirimAdi,
-                HesapKod = s.HesapKod,
-                HesapAdi = s.HesapAdi,
-                Borc = s.Borc,
-                Alacak = s.Alacak,
-                Yevmiyeler1003BAyristirmalari = s.Yevmiyeler1003BAyristirmalari,
-                YevmiyelerTasinirKontrolTifKaydis = s.YevmiyelerTasinirKontrolTifKaydis,
-                Yevmiyeler1003AGelirKayit = s.Yevmiyeler1003AGelirKayit,
-            }).First();
+                       }).First();
             if (mdl.Yevmiyeler1003AGelirKayit.Count == 0) mdl.Yevmiyeler1003AGelirKayit.Add(new Yevmiyeler1003AGelirKayit());
 
+
             var GelirVergisiHesapKods = new List<string> { "360.01.01.01", "360.01.01.02" };
-            mdl.YevmiyeNoToplamGv = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == mdl.YevmiyeTarih.Year && p.YevmiyeNo == mdl.YevmiyeNo && GelirVergisiHesapKods.Contains(p.HesapKod)).Sum(s => (decimal?)s.Alacak);
             var DamgaVergisiHesapKods = new List<string> { "360.03.01" };
+
+            mdl.YevmiyeNoToplamGv = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == mdl.YevmiyeTarih.Year && p.YevmiyeNo == mdl.YevmiyeNo && GelirVergisiHesapKods.Contains(p.HesapKod)).Sum(s => (decimal?)s.Alacak);
             mdl.YevmiyeNoToplamDv = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == mdl.YevmiyeTarih.Year && p.YevmiyeNo == mdl.YevmiyeNo && DamgaVergisiHesapKods.Contains(p.HesapKod)).Sum(s => (decimal?)s.Alacak);
 
             var Yevmiyeler1003AGelirK = mdl.Yevmiyeler1003AGelirKayit.First();
             mdl.SHesapKodlari1003A = new SelectList(Management.CmbYevmiyelerHesapKodlari(HesapKoduTuru.VergiTevkifatHesapKodlari1003A), "Value", "Caption", Yevmiyeler1003AGelirK.YeniYevmiyeHesapKodID);
+            mdl.EKHarcamaBirim = new SelectList(Management.CmbYevmiyelerBirim(), "Value", "Caption", mdl.EKYevmiyeHarcamaBirimID);
 
             return View(mdl);
         }
-
         public ActionResult YevmiyeAyristir(int YevmiyeID, int? Yevmiye1003BAyristirmaID = null)
         {
             var model = new Yevmiyeler1003BAyristirmalari();
@@ -434,7 +506,385 @@ namespace WebApp.Controllers
             }
             return MmMessage.ToJsonResult();
         }
+        public ActionResult YevmiyeAyristirSil(int id)
+        {
+            var kayit = db.Yevmiyeler1003BAyristirmalari.Where(p => p.Yevmiye1003BAyristirmaID == id).FirstOrDefault();
+            string message = "";
+            bool success = true;
+            if (kayit != null)
+            {
+                try
+                {
+                    message = "'" + kayit.YevmiyelerHarcamaBirimleri.BirimAdi + "' İsimli Harcama Birimine Ait Yevmiye Ayrıştırma Kaydı Silindi!";
+                    db.Yevmiyeler1003BAyristirmalari.Remove(kayit);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    success = false;
+                    message = "'" + kayit.YevmiyelerHarcamaBirimleri.BirimAdi + "' İsimli Harcama Birimine Ait Yevmiye Ayrıştırma kaydıSilinemedi! <br/> Bilgi:" + ex.ToExceptionMessage();
+                    Management.SistemBilgisiKaydet(message, "YevmiyeAyristirSil/Sil<br/><br/>" + ex.ToExceptionStackTrace(), BilgiTipi.OnemsizHata);
+                }
+            }
+            else
+            {
+                success = false;
+                message = "Silmek istediğiniz Harcama Birimine Ait Yevmiye Ayrıştırma Kaydı Sistemde Bulunamadı!";
+            }
+            return Json(new { success = success, message = message }, "application/json", JsonRequestBehavior.AllowGet);
+        }
 
+
+        [HttpPost]
+        public ActionResult GelirKayit(Yevmiyeler1003AGelirKayit kModel)
+        {
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "1003A Gelir Kaydı";
+            MmMessage.MessageType = Msgtype.Warning;
+
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kModel.YevmiyeID).First();
+            var YevmiyeHesap = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && p.HesapKod == Yevmiye.HesapKod).FirstOrDefault();
+
+            if (YevmiyeHesap == null)
+            {
+                MmMessage.Messages.Add("Bu yevmiye için Gelir Kaydı işlemi yapılamaz");
+            }
+            else
+            {
+                if (!kModel.IsHesaplamayaGirecek.HasValue)
+                {
+                    MmMessage.Messages.Add("Bu yevmiye kaydının hesaplamaya girip girmeyeceğini seçiniz.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "IsHesaplamayaGirecek" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "IsHesaplamayaGirecek" });
+                if (YevmiyeHesap.IsGelirKaydindaKullaniclacak == true)
+                {
+                    if (!kModel.VergiKimlikNo.IsNullOrWhiteSpace() || !kModel.AdSoyad.IsNullOrWhiteSpace() || !kModel.Adres.IsNullOrWhiteSpace() || kModel.Matrah.HasValue || !kModel.BelgeninMahiyeti.IsNullOrWhiteSpace() || !kModel.FaturaTarihi.HasValue || !kModel.FaturaNo.IsNullOrWhiteSpace())
+                    {
+                        if (kModel.VergiKimlikNo.IsNullOrWhiteSpace())
+                        {
+                            MmMessage.Messages.Add("Vergi Kimlik Numarası seçiniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "VergiKimlikNo" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "VergiKimlikNo" });
+                        if (kModel.AdSoyad.IsNullOrWhiteSpace())
+                        {
+                            MmMessage.Messages.Add("Ad Soyad Giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "AdSoyad" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "AdSoyad" });
+                        if (kModel.Adres.IsNullOrWhiteSpace())
+                        {
+                            MmMessage.Messages.Add("Adres Giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Adres" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Adres" });
+                        if (!(kModel.Matrah > 0))
+                        {
+                            MmMessage.Messages.Add("Matrah bilgisi 0'Dan büyük olmalıdır.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Matrah" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Matrah" });
+                        if (kModel.BelgeninMahiyeti.IsNullOrWhiteSpace())
+                        {
+                            MmMessage.Messages.Add("Belge Mahiyeti Giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "BelgeninMahiyeti" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "BelgeninMahiyeti" });
+                        if (!kModel.FaturaTarihi.HasValue)
+                        {
+                            MmMessage.Messages.Add("Fatura Tarihi Giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaTarihi" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "FaturaTarihi" });
+                        if (kModel.FaturaNo.IsNullOrWhiteSpace())
+                        {
+                            MmMessage.Messages.Add("Fatura Numarası Giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaNo" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "FaturaNo" });
+
+                    }
+                }
+                if (!MmMessage.Messages.Any())
+                {
+                    if (kModel.YeniYevmiyeHesapKodID.HasValue)
+                    {
+                        var YeniHesapKodu = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodID == kModel.YeniYevmiyeHesapKodID).First();
+                        kModel.VergiKodu = YeniHesapKodu.VergiKodu;
+                    }
+                    else kModel.VergiKodu = null;
+
+                    kModel.IslemTarihi = DateTime.Now;
+                    kModel.IslemYapanID = UserIdentity.Current.Id;
+                    kModel.IslemYapanIP = UserIdentity.Ip;
+                    if (!Yevmiye.Yevmiyeler1003AGelirKayit.Any())
+                    {
+                        db.Yevmiyeler1003AGelirKayit.Add(kModel);
+                    }
+                    else
+                    {
+                        var data = Yevmiye.Yevmiyeler1003AGelirKayit.First();
+                        data.YeniYevmiyeHesapKodID = kModel.YeniYevmiyeHesapKodID;
+                        data.VergiKodu = kModel.VergiKodu;
+                        data.IsHesaplamayaGirecek = kModel.IsHesaplamayaGirecek;
+                        data.VergiKimlikNo = kModel.VergiKimlikNo;
+                        data.AdSoyad = kModel.AdSoyad;
+                        data.Adres = kModel.Adres;
+                        data.Matrah = kModel.Matrah;
+                        data.BelgeninMahiyeti = kModel.BelgeninMahiyeti;
+                        data.FaturaTarihi = kModel.FaturaTarihi;
+                        data.FaturaNo = kModel.FaturaNo;
+                        data.IslemTarihi = kModel.IslemTarihi;
+                        data.IslemYapanID = kModel.IslemYapanID;
+                        data.IslemYapanIP = kModel.IslemYapanIP;
+                    }
+                    if (!kModel.VergiKimlikNo.IsNullOrWhiteSpace())
+                    {
+                        var YevmiyeVKN = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.VergiKimlikNo).FirstOrDefault();
+                        if (YevmiyeVKN == null)
+                        {
+                            db.YevmiyelerVergiKimlikNumaralaris.Add(new YevmiyelerVergiKimlikNumaralari
+                            {
+                                VergiKimlikNo = kModel.VergiKimlikNo,
+                                AdSoyad = kModel.AdSoyad,
+                                Adres = kModel.Adres
+                            });
+                        }
+                        else
+                        {
+                            YevmiyeVKN.AdSoyad = kModel.AdSoyad;
+                            YevmiyeVKN.Adres = kModel.Adres;
+                        }
+                    }
+                    db.SaveChanges();
+
+                    MmMessage.Messages.Add("Gelir Kaydı İşlemi Yapıldı.");
+                    MmMessage.IsSuccess = true;
+                    MmMessage.MessageType = Msgtype.Success;
+
+                }
+            }
+
+            return MmMessage.ToJsonResult();
+        }
+        public ActionResult YevmiyeKdvTevkifatKayit(int YevmiyeID, int? YevmiyeKdvTevkifatKayitID = null)
+        {
+            var model = new YevmiyelerKdvTevkifatKayitlari();
+            if (YevmiyeKdvTevkifatKayitID > 0)
+            {
+                model = db.YevmiyelerKdvTevkifatKayitlaris.Where(p => p.YevmiyeID == YevmiyeID && p.YevmiyeKdvTevkifatKayitID == YevmiyeKdvTevkifatKayitID).First();
+            }
+            ViewBag.YeniYevmiyeHesapKodID = new SelectList(Management.CmbYevmiyelerHesapKodlari(HesapKoduTuru.KDVTevkifatHesapKodlari, true), "Value", "Caption", model.YeniYevmiyeHesapKodID);
+            ViewBag.FaturaYil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.FaturaYil);
+            ViewBag.FaturaAyID = new SelectList(Management.CmbAylar(true), "Value", "Caption", model.FaturaAyID);
+            ViewBag.YevmiyeKdvKodID = new SelectList(Management.CmbYevmiyeKdvKodlari(true), "Value", "Caption", model.YevmiyeKdvKodID);
+            ViewBag.KdvOrani = new SelectList(Management.CmbKdvOranlari(true), "Value", "Caption", model.KdvOrani);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult YevmiyeKdvTevkifatKayit(YevmiyelerKdvTevkifatKayitlari kModel)
+        {
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "1003B Kdv Tevkifat Kayıt İşlemi";
+            MmMessage.MessageType = Msgtype.Warning;
+
+
+            if (kModel.VergiKimlikNo.IsNullOrWhiteSpace())
+            {
+                MmMessage.Messages.Add("Vergi Kimlik Numarası Giriniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "VergiKimlikNo" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "VergiKimlikNo" });
+            if (kModel.AdSoyad.IsNullOrWhiteSpace())
+            {
+                MmMessage.Messages.Add("Ad Soyad Giriniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "AdSoyad" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "AdSoyad" });
+            if (kModel.YevmiyeKdvKodID <= 0)
+            {
+                MmMessage.Messages.Add("Kdv Kodu Seçiniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YevmiyeKdvKodID" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "YevmiyeKdvKodID" });
+            if (kModel.FaturaYil <= 0)
+            {
+                MmMessage.Messages.Add("Fatura Yılı Seçiniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaYil" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "FaturaYil" });
+            if (kModel.FaturaAyID <= 0)
+            {
+                MmMessage.Messages.Add("Fatura Ayı Seçiniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaAyID" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "FaturaAyID" });
+
+
+            if (kModel.Matrah <= 0)
+            {
+                MmMessage.Messages.Add("Matrah Bilgisi Giriniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Matrah" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Matrah" });
+            if (kModel.KdvOrani <= 0)
+            {
+                MmMessage.Messages.Add("Kdv oranı Seçiniz.");
+                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "KdvOrani" });
+            }
+            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "KdvOrani" });
+            if (!MmMessage.Messages.Any())
+            {
+                var YevmiyeAyniYilGirisi = db.YevmiyelerKdvTevkifatKayitlaris.Any(a => a.YevmiyeID == kModel.YevmiyeID && a.VergiKimlikNo == kModel.VergiKimlikNo && a.FaturaYil == kModel.FaturaYil && a.FaturaAyID == kModel.FaturaAyID && a.YevmiyeKdvTevkifatKayitID != kModel.YevmiyeKdvTevkifatKayitID);
+                if (false && YevmiyeAyniYilGirisi)
+                {
+                    MmMessage.Messages.Add("Seçilen Vergi Kimlik Numarası için Yıl ve Ay İçin Daha Önceden Ayrıştırma İşlemi Yapıldı!");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "VergiKimlikNo" });
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaYil" });
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "FaturaAyID" });
+                }
+                else
+                {
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "VergiKimlikNo" });
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "FaturaYil" });
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "FaturaAyID" });
+                    var Yevmiye = db.Yevmiyelers.Where(a => a.YevmiyeID == kModel.YevmiyeID).First();
+                    var KayitliTevkifatToplam = db.YevmiyelerKdvTevkifatKayitlaris.Where(a => a.YevmiyeID == kModel.YevmiyeID && a.YevmiyeKdvTevkifatKayitID != kModel.YevmiyeKdvTevkifatKayitID).Sum(s => (decimal?)s.TevkifatTutari);
+                    var YevmiyeAlacakToplam = Yevmiye.Alacak;
+
+                    YevmiyelerHesapKodlari YevmiyeHesapKodlari;
+                    if (kModel.YeniYevmiyeHesapKodID.HasValue)
+                    {
+                        YevmiyeHesapKodlari = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodID == kModel.YeniYevmiyeHesapKodID).First();
+                    }
+                    else YevmiyeHesapKodlari = db.YevmiyelerHesapKodlaris.Where(p => p.HesapKod == Yevmiye.HesapKod).First();
+
+                    kModel.KdvTutari = (kModel.Matrah * kModel.KdvOrani) / 100;
+                    kModel.TevkifatTutari = kModel.KdvTutari * ((kModel.KdvOrani / (((decimal)YevmiyeHesapKodlari.TevkifatOranBolunen.Value / (decimal)YevmiyeHesapKodlari.TevkifatOranBolen.Value))) / 100);
+
+                    KayitliTevkifatToplam = KayitliTevkifatToplam + kModel.TevkifatTutari;
+
+                    if (KayitliTevkifatToplam > YevmiyeAlacakToplam)
+                    {
+                        MmMessage.Messages.Add("Tüm Kdv Tevkifat Kayıtları Tevkifat Tutarı Toplamı Yevmiyenin Alacak Toplamını Geçemez!");
+                        MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "TevkifatTutari" });
+                    }
+
+
+                }
+            }
+            if (!MmMessage.Messages.Any())
+            {
+
+                kModel.IslemTarihi = DateTime.Now;
+                kModel.IslemYapanID = UserIdentity.Current.Id;
+                kModel.IslemYapanIP = UserIdentity.Ip;
+
+                var KdvKodlus = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == kModel.YevmiyeKdvKodID).First();
+                kModel.KdvKodu = KdvKodlus.KdvKodu;
+                kModel.KdvKodOrani = KdvKodlus.KdvOrani;
+
+                if (kModel.YevmiyeKdvTevkifatKayitID <= 0)
+                {
+                    db.YevmiyelerKdvTevkifatKayitlaris.Add(kModel);
+                }
+                else
+                {
+                    var data = db.YevmiyelerKdvTevkifatKayitlaris.Where(p => p.YevmiyeKdvTevkifatKayitID == kModel.YevmiyeKdvTevkifatKayitID).First();
+                    data.YeniYevmiyeHesapKodID = kModel.YeniYevmiyeHesapKodID;
+                    data.VergiKimlikNo = kModel.VergiKimlikNo;
+                    data.AdSoyad = kModel.AdSoyad;
+                    data.Matrah = kModel.Matrah;
+                    data.KdvOrani = kModel.KdvOrani;
+                    data.KdvTutari = kModel.KdvTutari;
+                    data.TevkifatTutari = kModel.TevkifatTutari;
+                    data.YevmiyeKdvKodID = kModel.YevmiyeKdvKodID;
+                    data.KdvKodu = kModel.KdvKodu;
+                    data.KdvKodOrani = kModel.KdvKodOrani;
+                    data.FaturaYil = kModel.FaturaYil;
+                    data.FaturaAyID = kModel.FaturaAyID;
+                    data.IslemTarihi = kModel.IslemTarihi;
+                    data.IslemYapanID = kModel.IslemYapanID;
+                    data.IslemYapanIP = kModel.IslemYapanIP;
+                }
+                if (!kModel.VergiKimlikNo.IsNullOrWhiteSpace())
+                {
+                    var YevmiyeVKN = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.VergiKimlikNo).FirstOrDefault();
+                    if (YevmiyeVKN == null)
+                    {
+                        db.YevmiyelerVergiKimlikNumaralaris.Add(new YevmiyelerVergiKimlikNumaralari
+                        {
+                            VergiKimlikNo = kModel.VergiKimlikNo,
+                            AdSoyad = kModel.AdSoyad
+                        });
+                    }
+                    else
+                    {
+                        YevmiyeVKN.AdSoyad = kModel.AdSoyad;
+                    }
+                }
+                db.SaveChanges();
+                MmMessage.Messages.Add("Tevkifat Kayıt İşlemi Yapıldı.");
+                MmMessage.IsSuccess = true;
+                MmMessage.MessageType = Msgtype.Success;
+
+            }
+            return MmMessage.ToJsonResult();
+        }
+
+        public ActionResult YevmiyeKdvTevkifatKayitSil(int id)
+        {
+            var kayit = db.YevmiyelerKdvTevkifatKayitlaris.Where(p => p.YevmiyeKdvTevkifatKayitID == id).FirstOrDefault();
+            string message = "";
+            bool success = true;
+            if (kayit != null)
+            {
+                try
+                {
+                    message = "'" + kayit.VergiKimlikNo + "' Vergi Kimlik Numarasına Ait Kdv Tefkifatı Kaydı Silindi!";
+                    db.YevmiyelerKdvTevkifatKayitlaris.Remove(kayit);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    success = false;
+                    message = "'" + kayit.VergiKimlikNo + "' Vergi Kimlik Numarasına Ait Kdv Tefkifatı Kaydı Silinemedi! <br/> Bilgi:" + ex.ToExceptionMessage();
+                    Management.SistemBilgisiKaydet(message, "YevmiyeKdvTevkifatKayitSil/Sil<br/><br/>" + ex.ToExceptionStackTrace(), BilgiTipi.OnemsizHata);
+                }
+            }
+            else
+            {
+                success = false;
+                message = "Silmek istediğiniz Kdv Tefkifatı Kaydı Sistemde Bulunamadı!";
+            }
+            return Json(new { success = success, message = message }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult YevmiyeEKHarcamaBirimKayit(int YevmiyeID, int? EKYevmiyeHarcamaBirimID)
+        {
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "Emekli Kesenek Harcama Birimi Değişikliği";
+            MmMessage.MessageType = Msgtype.Warning;
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+
+            if (!MmMessage.Messages.Any())
+            {
+                Yevmiye.EKYevmiyeHarcamaBirimID = EKYevmiyeHarcamaBirimID;
+                db.SaveChanges();
+                MmMessage.Messages.Add("Harcama Birimi Güncellendi.");
+                MmMessage.IsSuccess = true;
+                MmMessage.MessageType = Msgtype.Success;
+
+            }
+            return MmMessage.ToJsonResult();
+        }
         public ActionResult YevmiyeTasinirkontrolTifKayit(int YevmiyeID, int? YevmiyelerTasinirKontrolTifKayitID = null)
         {
             var model = new YevmiyelerTasinirKontrolTifKaydi();
@@ -451,7 +901,7 @@ namespace WebApp.Controllers
         {
             var MmMessage = new MmMessage();
             MmMessage.IsSuccess = false;
-            MmMessage.Title = "1003A Taşınır Kontrol Tif Kaydı";
+            MmMessage.Title = "Taşınır Kontrol Kaydı";
             MmMessage.MessageType = Msgtype.Warning;
 
             if (kModel.TifNo.IsNullOrWhiteSpace())
@@ -480,14 +930,14 @@ namespace WebApp.Controllers
                 {
                     MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "TifNo" });
 
-                    //var AyristirmaMatrahToplam = db.Yevmiyeler1003BAyristirmalari.Where(a => a.YevmiyeID == kModel.YevmiyeID && a.YevmiyelerTasinirKontrolTifKayitID != kModel.YevmiyelerTasinirKontrolTifKayitID).Sum(s => (decimal?)s.Matrah);
-                    //var YevmiyeBorcToplam = db.Yevmiyelers.Where(a => a.YevmiyeID == kModel.YevmiyeID).First().Borc;
-                    //AyristirmaMatrahToplam = AyristirmaMatrahToplam + kModel.Tutar;
-                    //if (AyristirmaMatrahToplam > YevmiyeBorcToplam)
-                    //{
-                    //    MmMessage.Messages.Add("Tüm Tif Girişleri Tutar Toplamı Yevmiyenin Alacak Toplamını Geçemez!");
-                    //    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Matrah" });
-                    //}
+                    var AyristirmaMatrahToplam = db.YevmiyelerTasinirKontrolTifKaydis.Where(a => a.YevmiyeID == kModel.YevmiyeID && a.YevmiyelerTasinirKontrolTifKayitID != kModel.YevmiyelerTasinirKontrolTifKayitID).Sum(s => (decimal?)s.Tutar) ?? 0;
+                    var YevmiyeBorcToplam = db.Yevmiyelers.Where(a => a.YevmiyeID == kModel.YevmiyeID).First().Borc;
+                    AyristirmaMatrahToplam = AyristirmaMatrahToplam + kModel.Tutar;
+                    if (AyristirmaMatrahToplam > YevmiyeBorcToplam)
+                    {
+                        MmMessage.Messages.Add("Tüm Tif Girişleri Tutar Toplamı Yevmiyenin Borç Toplamını Geçemez!");
+                        MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Tutar" });
+                    }
                 }
 
             }
@@ -519,6 +969,131 @@ namespace WebApp.Controllers
             }
 
             return MmMessage.ToJsonResult();
+        }
+        public ActionResult YevmiyeTasinirkontrolTifKayitSil(int id)
+        {
+            var kayit = db.YevmiyelerTasinirKontrolTifKaydis.Where(p => p.YevmiyelerTasinirKontrolTifKayitID == id).FirstOrDefault();
+            string message = "";
+            bool success = true;
+            if (kayit != null)
+            {
+                try
+                {
+                    message = "'" + kayit.TifNo + "' Tif Kaydı Silindi!";
+                    db.YevmiyelerTasinirKontrolTifKaydis.Remove(kayit);
+                    db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    success = false;
+                    message = "'" + kayit.TifNo + "' Tif Kaydı Silinemedi! <br/> Bilgi:" + ex.ToExceptionMessage();
+                    Management.SistemBilgisiKaydet(message, "YevmiyeTasinirkontrolTifKayitSil/Sil<br/><br/>" + ex.ToExceptionStackTrace(), BilgiTipi.OnemsizHata);
+                }
+            }
+            else
+            {
+                success = false;
+                message = "Silmek istediğiniz Tif Kaydı Sistemde Bulunamadı!";
+            }
+            return Json(new { success = success, message = message }, "application/json", JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        public ActionResult YevmiyeBankaHesapNoKayit(int YevmiyeID, int? ProjeBankaHesapNoID)
+        {
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "Hesap Numarası Değişikliği";
+            MmMessage.MessageType = Msgtype.Warning;
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+
+            var TumYevmiyeler = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yevmiye.YevmiyeTarih.Year && p.YevmiyeNo == Yevmiye.YevmiyeNo).ToList();
+            foreach (var item in TumYevmiyeler)
+            {
+                item.ProjeBankaHesapNoID = ProjeBankaHesapNoID;
+            }
+            db.SaveChanges();
+            MmMessage.Messages.Add("Yevmiye Banka Hesap Numarası Güncellendi.");
+            MmMessage.IsSuccess = true;
+            MmMessage.MessageType = Msgtype.Success;
+
+            return MmMessage.ToJsonResult();
+        }
+
+        [HttpPost]
+        public ActionResult YevmiyeSendikaBilgisiKayit(int YevmiyeID, int? YevmiyeSendikaBilgiID)
+        {
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "Sendika Bilgisi Değişikliği";
+            MmMessage.MessageType = Msgtype.Warning;
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+            Yevmiye.YevmiyeSendikaBilgiID = YevmiyeSendikaBilgiID;
+
+            db.SaveChanges();
+            MmMessage.Messages.Add("Yevmiye Sendika Bilgisi Güncellendi.");
+            MmMessage.IsSuccess = true;
+            MmMessage.MessageType = Msgtype.Success;
+
+            return MmMessage.ToJsonResult();
+        }
+
+
+
+        public ActionResult GetVergiKimlikNo(string term)
+        {
+            var VergiKimlikNos = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo.Contains(term) || p.AdSoyad.Contains(term)).Select(s => new
+            {
+                id = s.VergiKimlikNo,
+                text = s.VergiKimlikNo,
+                s.AdSoyad,
+                s.VergiKimlikNo,
+                s.Adres
+            }).OrderBy(o => o.AdSoyad).Take(25).ToList();
+            if (!VergiKimlikNos.Any())
+            {
+                var listData = new List<string> { term };
+                if (!term.IsNumber()) listData.Clear();
+                return listData.Select(s => new { id = s, text = s, AdSoyad = "", VergiKimlikNo = term, Adres = "" }).ToJsonResult();
+            }
+            else
+            {
+                return VergiKimlikNos.ToJsonResult();
+            }
+
+        }
+        public ActionResult GetBankaHesapNumaralari(string term)
+        {
+            var HesapNumaralari = db.YevmiyelerProjeBankaHesapNumaralaris.Where(p => p.HesapNo == term || p.HesapAdi.Contains(term) || p.ProjeNo.Contains(term) || p.ProjeAdi.Contains(term)).Select(s => new
+            {
+                id = s.ProjeBankaHesapNoID,
+                text = s.HesapNo + " " + s.HesapAdi + " (" + s.ProjeNo + "- " + s.ProjeAdi + ")",
+                s.HesapNo,
+                s.HesapAdi,
+                s.ProjeNo,
+                s.ProjeAdi,
+            }).OrderBy(o => o.HesapAdi).Take(25).ToList();
+
+            return HesapNumaralari.ToJsonResult();
+
+
+        }
+        public ActionResult GetSendikaBilgileri(string term)
+        {
+            var Sendikalar = db.YevmiyelerSendikaBilgileris.Where(p => p.HesapKod.StartsWith(term) || p.VergiKimlikNo.StartsWith(term) || p.AdSoyad.Contains(term) || p.KisaAdi.Contains(term)).Select(s => new
+            {
+                id = s.YevmiyeSendikaBilgiID,
+                text = s.HesapKod + " " + s.AdSoyad,
+                s.HesapKod,
+                s.VergiKimlikNo,
+                s.AdSoyad,
+                s.IBanNo,
+                s.KisaAdi,
+                s.Aciklama
+            }).OrderBy(o => o.AdSoyad).Take(25).ToList();
+
+            return Sendikalar.ToJsonResult();
+
+
         }
     }
 }

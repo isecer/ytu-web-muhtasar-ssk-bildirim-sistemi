@@ -1,8 +1,7 @@
 ﻿
 $(function () {
     $('.pgrIlk').click(function () {
-        $('#PageIndex').val(1);
-        debugger
+        $('#PageIndex').val(1); 
         frmSubmit();
 
     });
@@ -47,24 +46,23 @@ $(function () {
         }, 2000);
     });
     $('.filtrele').find("input").keypress(function () {
-        if (event.which == 13) {
+        if (event.which === 13) {
             frmSubmit();
         } 
     });
 });
 var sortVal = $('#Sort').val();
-$('.sirala').click(function () {
-   
-    var sortType = "";
+$('.sirala').click(function () { 
+    var sortType = ""; 
     var fieldName = $(this).attr("field");
-    if (sortVal != null && sortVal != "") {
+    if (sortVal !== null && sortVal !== "") {
         var sortArr = sortVal.split(' ');
 
-        if (sortArr.length == 1) {
-            if (sortArr[0] == fieldName) sortType = "DESC"
+        if (sortArr.length === 1) {
+            if (sortArr[0] === fieldName) sortType = "DESC";
         }
     } 
-    $('#Sort').val((fieldName + " " + sortType).trim())
+    $('#Sort').val((fieldName + " " + sortType).trim());
     frmSubmit();
 });
 setTimeout(function () { 
@@ -80,5 +78,6 @@ setTimeout(function () {
 }, 1000);
 function frmSubmit() {
     var $forms = $('#PageIndex').parents('form').first();
+    if ($forms.length === 0) $forms=$('#Sort').parents('form').first();
     $forms.submit();
 }

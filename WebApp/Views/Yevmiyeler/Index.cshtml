@@ -30,7 +30,7 @@
                 <div class="panel-body" style="padding-bottom:0px;">
                     <table>
                         <tr>
-                            <td>
+                            <td style="vertical-align:top;">
                                 <table class="table table-hover" style="table-layout:fixed;">
 
                                     <tr>
@@ -53,9 +53,19 @@
                                             </table>
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Hesap Kod Türü</td>
+                                                    <td>@Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();", id = "YevmiyeHesapKodTurID_" })</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
                                 </table>
                             </td>
-                            <td>
+                            <td style="vertical-align:top;">
                                 <table class="table table-hover" style="table-layout:fixed;">
                                     <tr>
                                         <td>
@@ -63,7 +73,7 @@
                                                 <tr>
                                                     <td width="120">Yevmiye No</td>
                                                     <td>
-                                                        <input name="YevmiyeNo" id="YevmiyeNo" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.VergiKimlikNo" class="form-control" />
+                                                        <input name="YevmiyeNo" id="YevmiyeNo" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.YevmiyeNo" class="form-control" />
                                                         @if (Model.YevmiyeNo.HasValue == false)
                                                         {
                                                             <script>
@@ -73,6 +83,23 @@
 
                                                             </script>
                                                         }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">22-31 Gelir Kaydı</td>
+                                                    <td>
+                                                        <select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
+                                                            <option></option>
+                                                            <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
+                                                            <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
+                                                        </select>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -253,9 +280,11 @@
 
                                     </tr>
                                     <tr class="cls-@item.YevmiyeID hide">
-                                        <td id="cls-@item.YevmiyeID" colspan="10" style="padding: 1px 1px 2px 75px;">
+                                        <td colspan="10" style="padding: 1px 1px 2px 75px;">
                                             <div id="yevmiyeDetayPanel_@item.YevmiyeID">
+                                                <div id="cls-@item.YevmiyeID">
 
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
@@ -292,16 +321,16 @@
     function GetDetail(id) {
          SubData(id,true);
     }
-    function SubData(id) { 
+    function SubData(id) {
         var _panel = $('#yevmiyeDetayPanel_' + id);
-        _pRefresh(_panel, false); 
+        _pRefresh(_panel, false);
          $.ajax({
             url: '@Url.Action("GetDetail", "Yevmiyeler")',
             data: { id: id },
             async: false,
-             success: function (result) { 
-                _pRefresh(_panel, true); 
-                    $('#yevmiyeDetayPanel_' + id).html(result); 
+             success: function (result) {
+                _pRefresh(_panel, true);
+                    $('#yevmiyeDetayPanel_' + id).html(result);
              },
             error: function (err) {
                 _pRefresh(_panel, true);
@@ -372,8 +401,202 @@
             }
         });
     }
+    function YevmiyeAyristirSil(id) {
+        var BirimAdi = $("#tdAyrUniAdi_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (BirimAdi)+"</td></tr>"+
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Harcama Birimine Ait Yevmiye Ayrıştırma kaydını Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Yevmiye Ayrıştırma Kaydı Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Yevmiye Ayrıştırma Kaydını Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            url: '@Url.Action("YevmiyeAyristirSil", "Yevmiyeler")',
+                            data: { id: id },
+                            success: function (result) {
+                                toastr[result.success ? "success" : "error"](result.message, "Yevmiye Ayrıştırma Kaydı Silme İşlemi")
+                                if (result.success) {
+                                    $(sndr).closest("tr").remove();
+                                    // $(".cls-" + id).remove();
+                                }
 
-    function TifKaydiOlustur(YevmiyeID, YevmiyelerTasinirKontrolTifKayitID) {
+                            },
+                            error: function (err) {
+                                alert(err.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function GelirKaydiOlustur(YevmiyeID) {
+        var _panel = $('#frmYevmiyeKayit_' + YevmiyeID);
+        _pRefresh(_panel, false);
+        $('#frmYevmiyeKayit_' + YevmiyeID).ajaxForm({
+            success: function (result) {
+                _pRefresh(_panel, true);
+                if (result.IsSuccess) {
+                    toastr["success"](result.Messages[0], result.Title);
+                    var _clsBtn = $('.modal-header').find('button').first();
+                    $(_clsBtn).click();
+                    SubData(YevmiyeID);
+                }
+                else {
+                    getMsg(result);
+                    return false;
+                }
+                _pRefresh(_panel, true);
+
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+            }
+
+        }).submit();
+    }
+    function YevmiyeKdvTevkifatKayit(YevmiyeID, YevmiyeKdvTevkifatKayitID) {
+        var _panel = $('#WdVergiKaydipanel_' + YevmiyeID);
+        _pRefresh(_panel, false);
+        $.ajax({
+            url: '@Url.Action("YevmiyeKdvTevkifatKayit", "Yevmiyeler")',
+            data: { YevmiyeID, YevmiyeKdvTevkifatKayitID },
+            async: false,
+            success: function (result) {
+                _pRefresh(_panel, false);
+                var btbxxFS = bootbox.dialog({
+                    message: result,
+                    title: "<i class='fa fa-user-o fa-lg'></i> " + (YevmiyeKdvTevkifatKayitID == null ? 'Yeni Yevmiye Kdv Tevkifat Kayıt İşlemi' : 'Yevmiye Kdv Tevkifat Güncelleme İşlemi'),
+                    buttons: {
+                        success: {
+                            label: 'Kaydet',
+                            className: "btn-success",
+                            callback: function (event) {
+                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                _pRefresh(pnlx, false);
+                                $('#frmKdvTevkifatKayit').ajaxForm({
+                                    success: function (result) {
+                                        if (result.IsSuccess) {
+                                            toastr["success"](result.Messages[0], result.Title);
+                                            var _clsBtn = $('.modal-header').find('button').first();
+                                            $(_clsBtn).click();
+                                            SubData(YevmiyeID);
+                                        }
+                                        else {
+                                            getMsg(result);
+                                            return false;
+                                        }
+                                        _pRefresh(pnlx, true);
+
+                                    },
+                                    complete: function (cmp) {
+                                        _pRefresh(pnlx, true);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh(pnlx, true);
+                                    }
+
+                                }).submit();
+
+                                return false;
+                            }
+                        },
+                        danger: {
+                            label: 'Kapat',
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+                alert(err.responseText);
+            }
+        });
+    }
+    function YevmiyeKdvTevkifatKayitSil(id) {
+        var Vkn = $("#tdTefVkn_" + id).html();
+        var AdSoyad = $("#tdTefAd_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (Vkn + ' - ' + AdSoyad)+"</td></tr>"+
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Kdv Tevkifat Kaydını Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Kdv Tevkifat kaydı Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Kdv Tevkifat Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            url: '@Url.Action("YevmiyeKdvTevkifatKayitSil", "Yevmiyeler")',
+                            data: { id: id },
+                            success: function (result) {
+                                toastr[result.success ? "success" : "error"](result.message, "Kdv Tevkifat kaydı Silme İşlemi")
+                                if (result.success) {
+                                    $(sndr).closest("tr").remove();
+                                    // $(".cls-" + id).remove();
+                                }
+
+                            },
+                            error: function (err) {
+                                alert(err.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function YevmiyeEKHarcamaBirimKayit(YevmiyeID) {
+        var _panel = $('#WgEmekliKesenekPanel_' + YevmiyeID);
+        _pRefresh(_panel, false);
+
+        $('#frmYevmiyeEKHarcamaBirimKayit_' + YevmiyeID).ajaxForm({
+            success: function (result) {
+                _pRefresh(_panel, true);
+                if (result.IsSuccess) {
+                    toastr["success"](result.Messages[0], result.Title);
+                    var _clsBtn = $('.modal-header').find('button').first();
+                    $(_clsBtn).click();
+                    SubData(YevmiyeID);
+                }
+                else {
+                    getMsg(result);
+                    return false;
+                }
+
+            },
+            complete: function (cmp) {
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+            }
+
+        }).submit();
+    }
+    function YevmiyeTasinirkontrolTifKayit(YevmiyeID, YevmiyelerTasinirKontrolTifKayitID) {
         var _panel = $('#yevmiyeDetayPanel_' + YevmiyeID);
         _pRefresh(_panel, false);
         $.ajax({
@@ -433,5 +656,101 @@
                 alert(err.responseText);
             }
         });
+    }
+    function YevmiyeTasinirkontrolTifKayitSil(id) {
+         var TifNo = $("#tdTfNo_" + id).html();
+         var TifAck = $("#tdTfAc_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (TifNo + ' - ' + TifAck)+"</td></tr>"+
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Taşınır Kontrol Tif Kaydını Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Taşınır Kontrol Tif kaydı Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Tif kaydını Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        $.ajax({
+                            url: '@Url.Action("YevmiyeTasinirkontrolTifKayitSil", "Yevmiyeler")',
+                            data: { id: id },
+                            success: function (result) {
+                                toastr[result.success ? "success" : "error"](result.message, "Taşınır Kontrol Tif kaydı Silme İşlemi")
+                                if (result.success) {
+                                    $(sndr).closest("tr").remove();
+                                    // $(".cls-" + id).remove();
+                                }
+
+                            },
+                            error: function (err) {
+                                alert(err.responseText);
+                            }
+                        });
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function YevmiyeBankaHesapNoKayit(YevmiyeID) {
+        var _panel = $('#WgBankaPanel_' + YevmiyeID);
+        _pRefresh(_panel, false);
+
+        $('#frmYevmiyeBankaHesapNoKayit_' + YevmiyeID).ajaxForm({
+            success: function (result) {
+                _pRefresh(_panel, true);
+                if (result.IsSuccess) {
+                    toastr["success"](result.Messages[0], result.Title);
+                    var _clsBtn = $('.modal-header').find('button').first();
+                    $(_clsBtn).click();
+                    SubData(YevmiyeID);
+                }
+                else {
+                    getMsg(result);
+                    return false;
+                }
+
+            },
+            complete: function (cmp) {
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+            }
+
+        }).submit();
+    }
+    function YevmiyeSendikaBilgisiKayit(YevmiyeID) {
+        var _panel = $('#WgSendikaPanel_' + YevmiyeID);
+        _pRefresh(_panel, false); 
+        $('#frmYevmiyeSendikaBilgisiKayit_' + YevmiyeID).ajaxForm({
+            success: function (result) {
+                _pRefresh(_panel, true);
+                if (result.IsSuccess) {
+                    toastr["success"](result.Messages[0], result.Title);
+                    var _clsBtn = $('.modal-header').find('button').first();
+                    $(_clsBtn).click();
+                    SubData(YevmiyeID);
+                }
+                else {
+                    getMsg(result);
+                    return false;
+                }
+
+            },
+            complete: function (cmp) {
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+            }
+
+        }).submit();
     }
 </script>

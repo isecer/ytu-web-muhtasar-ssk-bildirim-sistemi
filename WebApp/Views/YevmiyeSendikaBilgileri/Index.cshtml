@@ -25,7 +25,7 @@
                         <thead>
                             <tr>
                                 <th width="70">Sıra No</th>
-                                <th class="sirala sorting" field="HesapKodu">Hesap Kodu</th>
+                                <th class="sirala sorting" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" width="110" field="VergiKimlikNo">Vergi Kimlik No</th>
                                 <th class="sirala sorting" field="AdSoyad">Ad Soyad</th>
                                 <th class="sirala sorting" field="IbanNo">Iban No</th>
@@ -38,7 +38,7 @@
                             <tr class="filtrele">
                                 <th></th>
                                 <th>
-                                    <input name="HesapKodu" type="text" value="@Model.HesapKodu" class="form-control" />
+                                    <input name="HesapKod" type="text" value="@Model.HesapKod" class="form-control" />
                                 </th>
                                 <th>
                                     <input name="VergiKimlikNo" type="text" value="@Model.VergiKimlikNo" class="form-control" />
@@ -67,7 +67,7 @@
                             <tr class="@trCls">
                                 <td>@RowIndex</td>
                                 <td>
-                                    @item.HesapKodu
+                                    @item.HesapKod
                                 </td>
                                 <td id="tdVkn_@item.YevmiyeSendikaBilgiID">
                                     @item.VergiKimlikNo

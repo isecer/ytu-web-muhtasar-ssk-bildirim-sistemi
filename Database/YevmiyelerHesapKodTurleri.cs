@@ -22,6 +22,8 @@ namespace Database
     
         public int YevmiyeHesapKodTurID { get; set; }
         public string HesapKodTurAdi { get; set; }
+        public bool IsYevmiyedeGozuksun { get; set; }
+        public bool IsHesapKoduEslestirmedeGozuksun { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }

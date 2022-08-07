@@ -1,0 +1,167 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyeEkHbToplamlari
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "YevmiyeHarcamaBirimiToplamlari", FormMethod.Post, new { id = "frmYevmiyeHarcamaBirimiToplamlari" }))
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger" id="EkHbPanel">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> Emekli Kesenek Harcama Birimi Toplamları</h3>
+                    <ul class="panel-controls">
+                        <li>
+                            <span>Yevmiye Yılı:</span>
+                            <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
+                                @Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeHarcamaBirimiToplamlari').submit();", style = "color:black;min-width:220px;" })
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" field="BirimAdi">Harcama Birimi</th>
+                                <th width="160" class="sirala sorting" field="Borc" style="text-align:right;">Borç</th>
+                                <th width="160" class="sirala sorting" field="Alacak" style="text-align:right;">Alacak</th>
+                                <th width="160" class="sirala sorting" field="Kalan" style="text-align:right;">Kalan</th>
+                                <th width="160" class="sirala sorting" field="KayitEdilen" style="text-align:right;">Kayıt Edilen</th>
+                                <th width="40"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int RowIndex = 0;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr>
+                                        <td>
+                                            @RowIndex
+                                        </td>
+                                        <td>
+                                            @item.VergiKimlikNo - @item.BirimAdi
+                                        </td>
+                                        <td style="text-align:right;">
+                                            @item.Borc TL
+                                        </td>
+                                        <td style="text-align:right;">
+                                            @item.Alacak TL
+                                        </td>
+                                        <td style="text-align:right;">@item.Kalan TL</td>
+                                        <td style="text-align:right;">@item.KayitEdilen TL</td>
+                                        <td style="padding-left:10px;">
+                                            @if (item.Kalan > 0)
+                                            {
+                                                <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                                <tr class="info">
+
+                                    <td colspan="3" style="text-align:right;font-weight:bold;">
+                                        Genel Toplam: @Model.Data.Sum(s => s.Borc) TL
+                                    </td>
+                                    <td style="text-align:right;font-weight:bold;">
+                                        @Model.Data.Sum(s => s.Alacak) TL
+                                    </td>
+                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.Kalan) TL</td>
+                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.KayitEdilen) TL</td>
+                                    <td></td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table> 
+                    @Model.ToSortSring()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .btnleft{
+        float:left;
+    }
+</style>
+<script>
+    function TutarEkle(Yil, YevmiyeHarcamaBirimID) {
+          var _panel = $('#EkHbPanel');
+        _pRefresh(_panel, false);
+        $.ajax({
+            url: '@Url.Action("TutarEkle", "YevmiyeHarcamaBirimiToplamlari")',
+            data: { Yil, YevmiyeHarcamaBirimID },
+            async: false,
+            success: function (result) {
+                _pRefresh(_panel, false);
+                var btbxxFS = bootbox.dialog({
+                    message: result,
+                    title: "<i class='fa fa-user-o fa-lg'></i> Emekli Kesenek Birim Tutar Ekleme İşlemi",
+                    buttons: {
+                        info: {
+                            label: 'Kayıtları Temizle',
+                            className: "btn-info btnleft",
+                            callback: function () {
+                                $('#frmTutarKayit').find('input[name=Tutar]').each(function (inx,itmx) { 
+                                    $(itmx).val("");
+                                });
+                                return false;
+                            }
+                        },
+                        success: {
+                            label: 'Kaydet',
+                            className: "btn-success",
+                            callback: function (event) {
+                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                _pRefresh(pnlx, false);
+                                $('#frmTutarKayit').ajaxForm({
+                                    success: function (result) {
+                                        if (result.IsSuccess) {
+                                            toastr["success"](result.Messages[0], result.Title);
+                                            var _clsBtn = $('.modal-header').find('button').first();
+                                            $(_clsBtn).click();
+                                            setTimeout($('#frmYevmiyeHarcamaBirimiToplamlari').submit(), 200);
+                                        }
+                                        else {
+                                            getMsg(result);
+                                            return false;
+                                        }
+                                        _pRefresh(pnlx, true);
+
+                                    },
+                                    complete: function (cmp) {
+                                        _pRefresh(pnlx, true);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh(pnlx, true);
+                                    }
+
+                                }).submit();
+
+                                return false;
+                            }
+                        },
+                        danger: {
+                            label: 'Kapat',
+                            className: "btn-primary",
+                            callback: function () {
+                            }
+                        }
+                    }
+                });
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

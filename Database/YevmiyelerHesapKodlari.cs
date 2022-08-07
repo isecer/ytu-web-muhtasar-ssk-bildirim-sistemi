@@ -18,6 +18,7 @@ namespace Database
         public YevmiyelerHesapKodlari()
         {
             this.Yevmiyeler1003AGelirKayit = new HashSet<Yevmiyeler1003AGelirKayit>();
+            this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
         }
     
         public int YevmiyeHesapKodID { get; set; }
@@ -36,5 +37,7 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         public virtual YevmiyelerHesapKodTurleri YevmiyelerHesapKodTurleri { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
     }
 }

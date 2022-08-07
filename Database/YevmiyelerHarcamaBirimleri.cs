@@ -19,6 +19,7 @@ namespace Database
         {
             this.Yevmiyelers = new HashSet<Yevmiyeler>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
+            this.YevmiyelerHarcamaBirimleriTutarKayits = new HashSet<YevmiyelerHarcamaBirimleriTutarKayit>();
         }
     
         public int YevmiyeHarcamaBirimID { get; set; }
@@ -35,5 +36,7 @@ namespace Database
         public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
     }
 }
