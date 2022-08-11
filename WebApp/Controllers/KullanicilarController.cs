@@ -425,7 +425,7 @@ namespace WebApp.Controllers
         public ActionResult KullaniciBirimYetkileri(int? id)
         {
             if (id.HasValue == false) return RedirectToAction("Index");
-            var Birimlers = db.Birimlers.Where(p=>db.Birimlers.Any(a=>a.UstBirimID==p.BirimID) || p.IsVeriGirisiYapilabilir).OrderBy(o=>o.BirimAdi).ToList();
+            var Birimlers = db.Birimlers.Where(p => db.Birimlers.Any(a => a.UstBirimID == p.BirimID) || p.IsVeriGirisiYapilabilir).OrderBy(o => o.BirimAdi).ToList();
             var tBirimlers = Birimlers.ToOrderedList("BirimID", "UstBirimID", "BirimAdi");
             //var mAgacs = db.sp_MaddeAgaci().ToList();
             //foreach (var item in tMaddelers)
@@ -507,7 +507,42 @@ namespace WebApp.Controllers
 
         }
 
+        [Authorize(Roles = RoleNames.KullaniciKayit)]
+        public ActionResult KullaniciYevmiyeHesapKodTurYetkileri(int? id)
+        {
+            if (id.HasValue == false) return RedirectToAction("Index");
+            var HesapKodTurs = db.YevmiyelerHesapKodTurleris.ToList();
 
+            var Kullanici = Management.GetUser(id.Value);
+            ViewBag.YetkiliHesapKodTurleri = db.KullaniciYevmiyeHesapKodTurYetkileris.Where(p => p.KullaniciID == id.Value).ToList();
+            ViewBag.Kullanici = Kullanici;
+            return View(HesapKodTurs);
+        }
+        [HttpPost]
+        [Authorize(Roles = RoleNames.KullaniciKayit)]
+        public ActionResult KullaniciYevmiyeHesapKodTurYetkileri(List<int> YevmiyeHesapKodTurID, int KullaniciID, bool YetkilendirmeyeGit = false)
+        {
+            if (KullaniciID <= 0)
+            {
+                return RedirectToAction("Index");
+            }
+            YevmiyeHesapKodTurID = YevmiyeHesapKodTurID ?? new List<int>();
+            var kul = db.Kullanicilars.Where(p => p.KullaniciID == KullaniciID).First();
+            db.KullaniciYevmiyeHesapKodTurYetkileris.RemoveRange(kul.KullaniciYevmiyeHesapKodTurYetkileris);
+            kul.KullaniciYevmiyeHesapKodTurYetkileris = YevmiyeHesapKodTurID.Select(s => new KullaniciYevmiyeHesapKodTurYetkileri { YevmiyeHesapKodTurID = s }).ToList();
+            db.SaveChanges();
+            OnlineUsers.YetkiYenile(kul.KullaniciID);
+            if (YetkilendirmeyeGit)
+            {
+                return RedirectToAction("Yetkilendirme", new { id = kul.KullaniciID });
+            }
+            else
+            {
+                MessageBox.Show("Yevmiye Hesap Kod Yetkileri Kaydedildi", MessageBox.MessageType.Success);
+                return RedirectToAction("Index");
+            }
+
+        }
         public ActionResult ProfilBilgi(int KullaniciID, string dlgid)
         {
             var kulYet = RoleNames.Kullanicilar.InRole();

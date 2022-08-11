@@ -1,0 +1,65 @@
+﻿@using WebApp.Models
+@using Database
+@using BiskaUtil
+@model YevmiyeVeriGirisPopupExcelModel
+@{
+    Layout = null;
+
+
+}
+<div class="row">
+    @using (Ajax.BeginForm("MaasExcelYuklePost", null, new AjaxOptions() { HttpMethod = "POST", }, new { enctype = "multipart/form-data", id = "FrmMaasExcelYuklePost" }))
+    { 
+        <div class="panel panel-info">
+
+            <div class="panel-body" style="margin: 0px; padding: 0px;">
+                <div class="col-md-12">
+                    <table class="table" style="font-size:9pt;margin:0px;">
+                        <tbody>
+                            <tr>
+                                <td width="155">Excel Yükleme Şablonu</td>
+                                <td width="5">:</td>
+                                <td>
+                                    <a href="@Url.Content("~/TempDocumentFolder/AktarmaSablonlari/YevmiyeYuklemeSablonu.xlsx")"><img src="/Content/img/Excel-Icon.png" width="18" height="17"> Yevmiye Excel Yükleme Şablonunu İndir</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="panel panel-danger" style="padding-bottom: 0px;" id="pnlFileD">
+            <div class="panel-body" style="padding: 0px;">
+                <div class="panel panel-default form-horizontal" style="margin: 0px;">
+                    <div class="panel-body form-group-separated">
+
+                        <table class="table" style="margin:0px;padding:0px;width:100%;table-layout:fixed;">
+                            <tbody>
+                                <tr>
+                                    <td width="155">Maaş Excel Dosyası</td>
+                                    <td width="5">:</td>
+                                    <td>
+                                        <div class="form-group">
+                                            <div class="col-md-12 col-xs-12">
+                                                <input type="file" name="DosyaEki" id="DosyaEki" style="height:24px;">
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+
+<script>
+    $(function () {
+        $('.make-switch')['bootstrapSwitch']();
+    })
+</script>

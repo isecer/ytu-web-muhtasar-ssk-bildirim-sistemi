@@ -283,6 +283,14 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="RolID" Type="int" Nullable="false" />
     <Property Name="KullaniciID" Type="int" Nullable="false" />
   </EntityType>
+  <EntityType Name="KullaniciYevmiyeHesapKodTurYetkileri">
+    <Key>
+      <PropertyRef Name="KullaniciHesapkodTurYetkiID" />
+    </Key>
+    <Property Name="KullaniciHesapkodTurYetkiID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KullaniciID" Type="int" Nullable="false" />
+    <Property Name="YevmiyeHesapKodTurID" Type="int" Nullable="false" />
+  </EntityType>
   <EntityType Name="MailSablonlari">
     <Key>
       <PropertyRef Name="MailSablonlariID" />
@@ -594,6 +602,7 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="EKYevmiyeHarcamaBirimID" Type="int" />
     <Property Name="ProjeBankaHesapNoID" Type="int" />
     <Property Name="YevmiyeSendikaBilgiID" Type="int" />
+    <Property Name="BESYevmiyeHesapKodID" Type="int" />
     <Property Name="IslemTarihi" Type="datetime" Nullable="false" />
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
@@ -1120,6 +1129,30 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Principal>
       <Dependent Role="KullaniciRolleri">
         <PropertyRef Name="RolID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar">
+    <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+    <End Role="KullaniciYevmiyeHesapKodTurYetkileri" Type="Self.KullaniciYevmiyeHesapKodTurYetkileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="KullaniciYevmiyeHesapKodTurYetkileri">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri">
+    <End Role="YevmiyelerHesapKodTurleri" Type="Self.YevmiyelerHesapKodTurleri" Multiplicity="1" />
+    <End Role="KullaniciYevmiyeHesapKodTurYetkileri" Type="Self.KullaniciYevmiyeHesapKodTurYetkileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHesapKodTurleri">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
+      </Principal>
+      <Dependent Role="KullaniciYevmiyeHesapKodTurYetkileri">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -1799,6 +1832,7 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <EntitySet Name="KullaniciBirimleriRapor" EntityType="Self.KullaniciBirimleriRapor" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="KullaniciRolleri" EntityType="Self.KullaniciRolleri" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KullaniciYevmiyeHesapKodTurYetkileri" EntityType="Self.KullaniciYevmiyeHesapKodTurYetkileri" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MailSablonlari" EntityType="Self.MailSablonlari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MailSablonlariEkleri" EntityType="Self.MailSablonlariEkleri" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="MailSablonTipleri" EntityType="Self.MailSablonTipleri" Schema="dbo" store:Type="Tables" />
@@ -1992,6 +2026,14 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <AssociationSet Name="FK_KullaniciRolleri_Roller" Association="Self.FK_KullaniciRolleri_Roller">
       <End Role="Roller" EntitySet="Roller" />
       <End Role="KullaniciRolleri" EntitySet="KullaniciRolleri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar" Association="Self.FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+      <End Role="KullaniciYevmiyeHesapKodTurYetkileri" EntitySet="KullaniciYevmiyeHesapKodTurYetkileri" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri" Association="Self.FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri">
+      <End Role="YevmiyelerHesapKodTurleri" EntitySet="YevmiyelerHesapKodTurleri" />
+      <End Role="KullaniciYevmiyeHesapKodTurYetkileri" EntitySet="KullaniciYevmiyeHesapKodTurYetkileri" />
     </AssociationSet>
     <AssociationSet Name="FK_MailSablonlari_MailSablonTipleri" Association="Self.FK_MailSablonlari_MailSablonTipleri">
       <End Role="MailSablonTipleri" EntitySet="MailSablonTipleri" />

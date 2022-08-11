@@ -122,6 +122,9 @@
     <Compile Include="KullanicilarLog.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="KullaniciYevmiyeHesapKodTurYetkileri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="MailSablonlari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>

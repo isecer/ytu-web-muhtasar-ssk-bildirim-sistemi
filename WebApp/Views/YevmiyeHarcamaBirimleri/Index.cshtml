@@ -3,7 +3,7 @@
 @model FmYevmiyelerHarcamaBirimleri
 @{
     var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
 
 <div class="row">
@@ -45,8 +45,8 @@
                                     <select name="IsUniversiteIsyeri" class="form-control">
                                         <option></option>
                                         <option value="true" @Model.IsUniversiteIsyeri.ToSelected()>Evet</option>
-                                        <option value="false" @((Model.IsUniversiteIsyeri==false).ToSelected())>Hayır</option>
-                                    </select> 
+                                        <option value="false" @((Model.IsUniversiteIsyeri == false).ToSelected())>Hayır</option>
+                                    </select>
                                 </th>
                                 <th>
                                     <input name="IsyeriKodu" type="text" value="@Model.IsyeriKodu" class="form-control" />
@@ -75,8 +75,10 @@
                                             @item.IsyeriKodu
                                         </td>
                                         <td>
+
                                             <a href="@Url.Action("Kayit", "YevmiyeHarcamaBirimleri", new { id = item.YevmiyeHarcamaBirimID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
                                             <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+
                                         </td>
                                     </tr>
 

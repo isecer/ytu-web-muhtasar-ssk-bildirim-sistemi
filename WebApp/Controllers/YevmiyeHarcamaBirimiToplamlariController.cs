@@ -24,7 +24,7 @@ namespace WebApp.Controllers
         {
             var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari).Select(s => s.HesapKod).ToList();
             var q = (from Hb in db.YevmiyelerHarcamaBirimleris
-                     join Yb in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && HesapKods.Contains(p.HesapKod)) on new {Hb.YevmiyeHarcamaBirimID } equals new { YevmiyeHarcamaBirimID= Yb .EKYevmiyeHarcamaBirimID??Yb.YevmiyeHarcamaBirimID} into defYb
+                     join Yb in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && HesapKods.Contains(p.HesapKod)) on new { Hb.YevmiyeHarcamaBirimID } equals new { YevmiyeHarcamaBirimID = Yb.EKYevmiyeHarcamaBirimID ?? Yb.YevmiyeHarcamaBirimID } into defYb
                      from Yb in defYb.DefaultIfEmpty()
                      group new { Borc = (Yb == null ? 0 : Yb.Borc), Alacak = (Yb == null ? 0 : Yb.Alacak) } by new { Hb.YevmiyeHarcamaBirimID, Hb.VergiKimlikNo, Hb.BirimAdi } into g1
                      select new
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
                          g1.Key.BirimAdi,
                          Borc = g1.Sum(sm => sm.Borc),
                          Alacak = g1.Sum(sm => sm.Alacak),
-                         Kalan = g1.Sum(sm => sm.Alacak) - g1.Sum(sm => sm.Borc)
+                         KayitToplam = db.YevmiyelerHarcamaBirimleriTutarKayits.Where(p => p.Yil == model.Yil && p.YevmiyeHarcamaBirimID == g1.Key.YevmiyeHarcamaBirimID).Sum(s => (decimal?)s.Tutar) ?? 0
                      }).AsQueryable();
             if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
             else q = q.OrderBy(o => o.BirimAdi);
@@ -46,7 +46,9 @@ namespace WebApp.Controllers
                 Borc = s.Borc,
                 Alacak = s.Alacak,
                 Kalan = s.Alacak - s.Borc,
-                KayitEdilen = db.YevmiyelerHarcamaBirimleriTutarKayits.Where(p => p.Yil == model.Yil && p.YevmiyeHarcamaBirimID == s.YevmiyeHarcamaBirimID).Sum(sm => (decimal?)sm.Tutar) ?? 0
+                KayitToplam = s.KayitToplam,
+                KalanTutar = s.Alacak - s.Borc - s.KayitToplam
+
             }).ToArray();
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             return View(model);

@@ -29,6 +29,7 @@ namespace Database
             this.KullaniciBirimleris = new HashSet<KullaniciBirimleri>();
             this.KullaniciBirimleriRapors = new HashSet<KullaniciBirimleriRapor>();
             this.Mesajlars = new HashSet<Mesajlar>();
+            this.KullaniciYevmiyeHesapKodTurYetkileris = new HashSet<KullaniciYevmiyeHesapKodTurYetkileri>();
             this.MesajKategorileris = new HashSet<MesajKategorileri>();
             this.MeslekTurleris = new HashSet<MeslekTurleri>();
             this.SistemBilgilendirmes = new HashSet<SistemBilgilendirme>();
@@ -107,6 +108,8 @@ namespace Database
         public virtual ICollection<Mesajlar> Mesajlars { get; set; }
         public virtual Unvanlar Unvanlar { get; set; }
         public virtual YetkiGruplari YetkiGruplari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KullaniciYevmiyeHesapKodTurYetkileri> KullaniciYevmiyeHesapKodTurYetkileris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MesajKategorileri> MesajKategorileris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

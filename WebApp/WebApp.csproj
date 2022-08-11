@@ -237,6 +237,7 @@
     <Compile Include="Controllers\UnvanlarController.cs" />
     <Compile Include="Controllers\VeriGirisiController.cs" />
     <Compile Include="Controllers\YetkiGruplariController.cs" />
+    <Compile Include="Controllers\YevmiyeVergiKimlikNumaralariController.cs" />
     <Compile Include="Controllers\YevmiyeSendikaToplamlariController.cs" />
     <Compile Include="Controllers\YevmiyeHarcamaBirimiToplamlariController.cs" />
     <Compile Include="Controllers\YevmiyeSendikaBilgileriController.cs" />
@@ -1957,6 +1958,10 @@
     <Content Include="Views\YevmiyeHarcamaBirimiToplamlari\Index.cshtml" />
     <Content Include="Views\YevmiyeHarcamaBirimiToplamlari\TutarEkle.cshtml" />
     <Content Include="Views\YevmiyeSendikaToplamlari\Index.cshtml" />
+    <Content Include="Views\YevmiyeVergiKimlikNumaralari\Index.cshtml" />
+    <Content Include="Views\YevmiyeVergiKimlikNumaralari\Kayit.cshtml" />
+    <Content Include="Views\Kullanicilar\KullaniciYevmiyeHesapKodTurYetkileri.cshtml" />
+    <Content Include="Views\Yevmiyeler\MaasExcelYukle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -21,6 +21,7 @@
     <EntitySet Name="KullaniciBirimleris" EntityType="MusskDBModel.KullaniciBirimleri" />
     <EntitySet Name="KullaniciBirimleriRapors" EntityType="MusskDBModel.KullaniciBirimleriRapor" />
     <EntitySet Name="Kullanicilars" EntityType="MusskDBModel.Kullanicilar" />
+    <EntitySet Name="KullaniciYevmiyeHesapKodTurYetkileris" EntityType="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri" />
     <EntitySet Name="MailSablonlaris" EntityType="MusskDBModel.MailSablonlari" />
     <EntitySet Name="MailSablonlariEkleris" EntityType="MusskDBModel.MailSablonlariEkleri" />
     <EntitySet Name="MailSablonTipleris" EntityType="MusskDBModel.MailSablonTipleri" />
@@ -192,6 +193,10 @@
       <End Role="YetkiGruplari" EntitySet="YetkiGruplaris" />
       <End Role="Kullanicilar" EntitySet="Kullanicilars" />
     </AssociationSet>
+    <AssociationSet Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar" Association="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar">
+      <End Role="Kullanicilar" EntitySet="Kullanicilars" />
+      <End Role="KullaniciYevmiyeHesapKodTurYetkileri" EntitySet="KullaniciYevmiyeHesapKodTurYetkileris" />
+    </AssociationSet>
     <AssociationSet Name="FK_MesajKategorileri_Kullanicilar" Association="MusskDBModel.FK_MesajKategorileri_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilars" />
       <End Role="MesajKategorileri" EntitySet="MesajKategorileris" />
@@ -247,6 +252,10 @@
     <AssociationSet Name="FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar" Association="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilars" />
       <End Role="YevmiyelerTasinirKontrolTifKaydi" EntitySet="YevmiyelerTasinirKontrolTifKaydis" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri" Association="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri">
+      <End Role="YevmiyelerHesapKodTurleri" EntitySet="YevmiyelerHesapKodTurleris" />
+      <End Role="KullaniciYevmiyeHesapKodTurYetkileri" EntitySet="KullaniciYevmiyeHesapKodTurYetkileris" />
     </AssociationSet>
     <AssociationSet Name="FK_MailSablonlari_MailSablonTipleri" Association="MusskDBModel.FK_MailSablonlari_MailSablonTipleri">
       <End Role="MailSablonTipleri" EntitySet="MailSablonTipleris" />
@@ -659,6 +668,7 @@
     <NavigationProperty Name="Mesajlars" Relationship="MusskDBModel.FK_GelenMesajlar_Kullanicilar" FromRole="Kullanicilar" ToRole="Mesajlar" />
     <NavigationProperty Name="Unvanlar" Relationship="MusskDBModel.FK_Kullanicilar_Unvanlar" FromRole="Kullanicilar" ToRole="Unvanlar" />
     <NavigationProperty Name="YetkiGruplari" Relationship="MusskDBModel.FK_Kullanicilar_YetkiGruplari" FromRole="Kullanicilar" ToRole="YetkiGruplari" />
+    <NavigationProperty Name="KullaniciYevmiyeHesapKodTurYetkileris" Relationship="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar" FromRole="Kullanicilar" ToRole="KullaniciYevmiyeHesapKodTurYetkileri" />
     <NavigationProperty Name="MesajKategorileris" Relationship="MusskDBModel.FK_MesajKategorileri_Kullanicilar" FromRole="Kullanicilar" ToRole="MesajKategorileri" />
     <NavigationProperty Name="MeslekTurleris" Relationship="MusskDBModel.FK_MeslekTurleri_Kullanicilar" FromRole="Kullanicilar" ToRole="MeslekTurleri" />
     <NavigationProperty Name="SistemBilgilendirmes" Relationship="MusskDBModel.FK_SistemBilgilendirme_Kullanicilar" FromRole="Kullanicilar" ToRole="SistemBilgilendirme" />
@@ -674,6 +684,16 @@
     <NavigationProperty Name="YevmiyelerSendikaBilgileris" Relationship="MusskDBModel.FK_YevmiyelerSendikaBilgileri_Kullanicilar" FromRole="Kullanicilar" ToRole="YevmiyelerSendikaBilgileri" />
     <NavigationProperty Name="YevmiyelerTasinirKontrolTifKaydis" Relationship="MusskDBModel.FK_YevmiyelerTasinirKontrolTifKaydi_Kullanicilar" FromRole="Kullanicilar" ToRole="YevmiyelerTasinirKontrolTifKaydi" />
     <NavigationProperty Name="Rollers" Relationship="MusskDBModel.KullaniciRolleri" FromRole="Kullanicilar" ToRole="Roller" />
+  </EntityType>
+  <EntityType Name="KullaniciYevmiyeHesapKodTurYetkileri">
+    <Key>
+      <PropertyRef Name="KullaniciHesapkodTurYetkiID" />
+    </Key>
+    <Property Name="KullaniciHesapkodTurYetkiID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KullaniciID" Type="Int32" Nullable="false" />
+    <Property Name="YevmiyeHesapKodTurID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar" FromRole="KullaniciYevmiyeHesapKodTurYetkileri" ToRole="Kullanicilar" />
+    <NavigationProperty Name="YevmiyelerHesapKodTurleri" Relationship="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri" FromRole="KullaniciYevmiyeHesapKodTurYetkileri" ToRole="YevmiyelerHesapKodTurleri" />
   </EntityType>
   <EntityType Name="MailSablonlari">
     <Key>
@@ -1022,6 +1042,7 @@
     <Property Name="EKYevmiyeHarcamaBirimID" Type="Int32" />
     <Property Name="ProjeBankaHesapNoID" Type="Int32" />
     <Property Name="YevmiyeSendikaBilgiID" Type="Int32" />
+    <Property Name="BESYevmiyeHesapKodID" Type="Int32" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -1146,6 +1167,7 @@
     <Property Name="HesapKodTurAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="IsYevmiyedeGozuksun" Type="Boolean" Nullable="false" />
     <Property Name="IsHesapKoduEslestirmedeGozuksun" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="KullaniciYevmiyeHesapKodTurYetkileris" Relationship="MusskDBModel.FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri" FromRole="YevmiyelerHesapKodTurleri" ToRole="KullaniciYevmiyeHesapKodTurYetkileri" />
     <NavigationProperty Name="YevmiyelerHesapKodlaris" Relationship="MusskDBModel.FK_YevmiyelerHesapKodlari_YevmiyelerHesapKodTurleri" FromRole="YevmiyelerHesapKodTurleri" ToRole="YevmiyelerHesapKodlari" />
   </EntityType>
   <EntityType Name="YevmiyelerKdvKodlari">
@@ -1750,6 +1772,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_Kullanicilar">
+    <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+    <End Type="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri" Role="KullaniciYevmiyeHesapKodTurYetkileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kullanicilar">
+        <PropertyRef Name="KullaniciID" />
+      </Principal>
+      <Dependent Role="KullaniciYevmiyeHesapKodTurYetkileri">
+        <PropertyRef Name="KullaniciID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_MesajKategorileri_Kullanicilar">
     <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
     <End Type="MusskDBModel.MesajKategorileri" Role="MesajKategorileri" Multiplicity="*" />
@@ -1917,6 +1951,18 @@
       </Principal>
       <Dependent Role="YevmiyelerTasinirKontrolTifKaydi">
         <PropertyRef Name="IslemYapanID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KullaniciYevmiyeHesapKodTurYetkileri_YevmiyelerHesapKodTurleri">
+    <End Type="MusskDBModel.YevmiyelerHesapKodTurleri" Role="YevmiyelerHesapKodTurleri" Multiplicity="1" />
+    <End Type="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri" Role="KullaniciYevmiyeHesapKodTurYetkileri" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHesapKodTurleri">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
+      </Principal>
+      <Dependent Role="KullaniciYevmiyeHesapKodTurYetkileri">
+        <PropertyRef Name="YevmiyeHesapKodTurID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

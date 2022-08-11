@@ -56,24 +56,24 @@
                                             @item.Aciklama
                                         </td>
                                         <td style="text-align:right;">
-                                            @item.Borc TL
+                                            @item.Borc.ToString("n2") TL
                                         </td>
                                         <td style="text-align:right;">
-                                            @item.Alacak TL
+                                            @item.Alacak.ToString("n2") TL
                                         </td>
-                                        <td style="text-align:right;">@item.Kalan TL</td>
+                                        <td style="text-align:right;">@item.Kalan.ToString("n2") TL</td>
 
                                     </tr>
                                 }
                                 <tr class="info">
 
                                     <td colspan="5" style="text-align:right;font-weight:bold;">
-                                        Genel Toplam: @Model.Data.Sum(s => s.Borc) TL
+                                        Genel Toplam: @Model.Data.Sum(s => s.Borc).ToString("n2") TL
                                     </td>
                                     <td style="text-align:right;font-weight:bold;">
-                                        @Model.Data.Sum(s => s.Alacak) TL
+                                        @Model.Data.Sum(s => s.Alacak).ToString("n2") TL
                                     </td>
-                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.Kalan) TL</td>
+                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.Kalan).ToString("n2") TL</td>
 
                                 </tr>
 

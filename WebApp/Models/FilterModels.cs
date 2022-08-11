@@ -1121,7 +1121,8 @@ namespace WebApp.Models
         public decimal Alacak { get; set; }
         public decimal Borc { get; set; }
         public decimal Kalan { get; set; }
-        public decimal KayitEdilen { get; set; }
+        public decimal KayitToplam { get; set; }
+        public decimal KalanTutar { get; set; }
         
     }
     public class FmYevmiyeSendikaToplamlari : PagerOption
@@ -1153,7 +1154,20 @@ namespace WebApp.Models
         {
         }
     }
+    public class FmYevmiyelerVergiKimlikNumaralari : PagerOption
+    {
+        public string VergiKimlikNo { get; set; }
+        public string AdSoyad { get; set; }
+        public string Adres { get; set; } 
+        public IEnumerable<YevmiyelerVergiKimlikNumaralari> Data { get; set; }
 
+    }
+    public class FrYevmiyelerVergiKimlikNumaralari : YevmiyelerVergiKimlikNumaralari
+    { 
+        public FrYevmiyelerVergiKimlikNumaralari()
+        {
+        }
+    }
 
     public class FmYevmiyeKdvKodlari : PagerOption
     {
@@ -1240,6 +1254,8 @@ namespace WebApp.Models
     }
     public class YevmiyeDetayModel : Yevmiyeler
     {
+        public string BesHesapKod { get; set; }
+        public string BesHesapKodAdi { get; set; }
         public decimal? YevmiyeNoToplamGv { get; set; }
         public decimal? YevmiyeNoToplamDv { get; set; }
         public bool Is1003BYevmiyeParcalamaOlacak { get; set; }
@@ -1249,10 +1265,13 @@ namespace WebApp.Models
         public bool IsEmekliKesenekKaydiOlacak { get; set; }
         public bool IsTasinirKontrolKaydiOlacak { get; set; }
         public bool IsSendikaKaydiOlacak { get; set; }
+        public bool IsBireyselEmeklikKaydiOlacak { get; set; }
         public string EKHarcamaBirimAdi { get; set; }
         public bool IsgelirVergisiDamgaVergisiVar { get; set; }
+        public bool IsBankaIslemleriKaydiOlacak { get; set; }
         public SelectList SHesapKodlari1003A { get; set; }
-        public SelectList EKHarcamaBirim { get; set; } 
+        public SelectList EKHarcamaBirim { get; set; }
+        public SelectList SBesHesapKod { get; set; }
     }
 
     public class RpModelToplamsalModel
@@ -1294,6 +1313,8 @@ namespace WebApp.Models
         public static byte EmekliKesintiHesapKodlari = 4;
         public static byte TasinirKontrolHesapKodlari = 5;
         public static byte SendikaIslemleriHesapKodlari = 6;
+        public static byte BireyselEmeklilikHesapKodlari = 7;
+        public static byte BankaIslemleriHesapKodlari = 8;
     }
     #endregion
 }

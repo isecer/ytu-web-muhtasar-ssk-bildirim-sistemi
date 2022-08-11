@@ -51,6 +51,7 @@ namespace BiskaUtil
         public int BirimID { get; set; } 
         public List<int> BirimYetkileri { get; set; }
         public List<int> BirimYetkileriRapor { get; set; }
+        public List<int> YevmiyeHesapKodTurYetkileri { get; set; }
         public Dictionary<string, int?> SeciliBirimID { get; set; }
         public Dictionary<string, int?> SeciliVASurecID { get; set; }
         public Dictionary<string, int?> SeciliYil { get; set; }

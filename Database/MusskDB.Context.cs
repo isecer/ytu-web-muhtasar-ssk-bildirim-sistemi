@@ -43,6 +43,7 @@ namespace Database
         public virtual DbSet<KullaniciBirimleri> KullaniciBirimleris { get; set; }
         public virtual DbSet<KullaniciBirimleriRapor> KullaniciBirimleriRapors { get; set; }
         public virtual DbSet<Kullanicilar> Kullanicilars { get; set; }
+        public virtual DbSet<KullaniciYevmiyeHesapKodTurYetkileri> KullaniciYevmiyeHesapKodTurYetkileris { get; set; }
         public virtual DbSet<MailSablonlari> MailSablonlaris { get; set; }
         public virtual DbSet<MailSablonlariEkleri> MailSablonlariEkleris { get; set; }
         public virtual DbSet<MailSablonTipleri> MailSablonTipleris { get; set; }

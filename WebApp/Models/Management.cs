@@ -1364,6 +1364,7 @@ namespace WebApp.Models
             ui.BirimID = kull.BirimID;
             ui.BirimYetkileri = kull.BirimYetkileri.Select(s => s.BirimID).ToList();
             ui.BirimYetkileriRapor = kull.KullaniciBirimleriRapors.Select(s => s.BirimID).ToList();
+            ui.YevmiyeHesapKodTurYetkileri = kull.KullaniciYevmiyeHesapKodTurYetkileris.Select(s => s.YevmiyeHesapKodTurID).ToList();
             ui.SeciliBirimID = kull.SeciliBirimID;
             ui.SeciliVASurecID = kull.SeciliVASurecID;
             ui.SeciliAyID = kull.SeciliAyID;
@@ -1447,6 +1448,7 @@ namespace WebApp.Models
                              IslemTarihi = s.IslemTarihi,
                              IslemYapanIP = s.IslemYapanIP,
                              KullaniciBirimleriRapors = s.KullaniciBirimleriRapors,
+                             KullaniciYevmiyeHesapKodTurYetkileris = s.KullaniciYevmiyeHesapKodTurYetkileris
 
                          }).FirstOrDefault();
                 if (q != null)
@@ -2116,15 +2118,15 @@ namespace WebApp.Models
             return dct;
 
         }
-        public static List<ComboModelInt> CmbYevmiyeHesapKodTurleri(bool bosSecimVar = true)
+        public static List<ComboModelInt> CmbYevmiyeHesapKodTurleri(bool bosSecimVar = true, List<int> YevmiyeHesapKodTurIDs = null)
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
-
-                var data = db.YevmiyelerHesapKodTurleris.Where(p=>p.IsYevmiyedeGozuksun).ToList();
-
+                var q = db.YevmiyelerHesapKodTurleris.Where(p => p.IsYevmiyedeGozuksun);
+                if (YevmiyeHesapKodTurIDs != null && YevmiyeHesapKodTurIDs.Any()) q = q.Where(p => YevmiyeHesapKodTurIDs.Contains(p.YevmiyeHesapKodTurID)); 
+                var data = q.ToList(); 
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi });
@@ -2237,11 +2239,16 @@ namespace WebApp.Models
                 {
                     s.YevmiyeHesapKodID,
                     s.VergiKodu,
-                    HesapAdi = s.VergiKodu + " - " + s.HesapAdi + " (" + s.HesapKod + ")"
+                    s.HesapKod,
+                    s.HesapAdi
                 }).OrderBy(o => o.VergiKodu).ToList();
                 foreach (var item in data)
                 {
-                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodID, Caption = item.HesapAdi });
+                    var HesapAdi = "";
+                    if (!item.VergiKodu.IsNullOrWhiteSpace()) HesapAdi += item.VergiKodu + " - ";
+                    HesapAdi += item.HesapAdi;
+                    if (!item.HesapKod.IsNullOrWhiteSpace()) HesapAdi += " (" + item.HesapKod + ")";
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodID, Caption = HesapAdi });
                 }
             }
             return dct;

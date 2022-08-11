@@ -22,8 +22,9 @@
                         @if (Model.KullaniciID > 0 && ErisimYetki)
                         {
                             <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Yetkilendirme", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Erişim Yetkileri</span></li>
-                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> Birim Yetkileri</span></li> 
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> Birim Yetkileri</span></li>
                             <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciRaporBirimYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Rapor Birim Yetkileri</span></li>
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciYevmiyeHesapKodTurYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Yevmiye Hesap Tür Kod Yetkileri</span></li>
                         }
                         <li><a href="@Url.Action("Kayit", Model.KullaniciID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
                     </ul>

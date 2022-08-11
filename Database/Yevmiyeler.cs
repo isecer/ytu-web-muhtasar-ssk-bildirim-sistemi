@@ -38,6 +38,7 @@ namespace Database
         public Nullable<int> EKYevmiyeHarcamaBirimID { get; set; }
         public Nullable<int> ProjeBankaHesapNoID { get; set; }
         public Nullable<int> YevmiyeSendikaBilgiID { get; set; }
+        public Nullable<int> BESYevmiyeHesapKodID { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }

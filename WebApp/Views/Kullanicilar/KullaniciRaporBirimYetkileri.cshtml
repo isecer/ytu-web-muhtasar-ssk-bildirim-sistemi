@@ -3,12 +3,14 @@
 @using WebApp.Models;
 @model IEnumerable<Birimler>
 @{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+                /**/
 
-    var user = (Kullanicilar)ViewBag.Kullanici;
-    var YetkiliBirimleri = (List<KullaniciBirimleriRapor>)ViewBag.YetkiliBirimleri;
-    var allchecked = (YetkiliBirimleri.Count == Model.Where(p => p.IsVeriGirisiYapilabilir).Count());
-    var kullaniciKayit = RoleNames.KullaniciKayit.InRole();
+                Layout = "~/Views/Shared/_Layout.cshtml";
+
+                var user = (Kullanicilar)ViewBag.Kullanici;
+                var YetkiliBirimleri = (List<KullaniciBirimleriRapor>)ViewBag.YetkiliBirimleri;
+                var allchecked = (YetkiliBirimleri.Count == Model.Where(p => p.IsVeriGirisiYapilabilir).Count());
+                var kullaniciKayit = RoleNames.KullaniciKayit.InRole();
 }
 
 
@@ -20,7 +22,7 @@
             <div class="panel panel-default">
                 <div class="portlet-title">
                     <div class="panel-heading padding-0">
-                        <h3 class="panel-title"><i class="fa fa-home"></i>Rapor Birim Yetkileri: @user.Ad @user.Soyad [@user.KullaniciAdi] </h3>
+                        <h3 class="panel-title"><i class="fa fa-home"></i>İşçi İşlemleri Rapor Birim Yetkileri: @user.Ad @user.Soyad [@user.KullaniciAdi] </h3>
 
                         <ul class="panel-controls">
                             <li>
@@ -33,6 +35,7 @@
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Kayit", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-user"></i> Kullanıcı</span></li>
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Yetkilendirme", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Erişim Yetkileri</span></li>
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Birim Yetkileri</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciYevmiyeHesapKodTurYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Yevmiye Hesap Tür Kod Yetkileri</span></li>
                             }
 
 

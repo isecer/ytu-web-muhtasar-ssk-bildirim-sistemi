@@ -22,7 +22,7 @@ namespace WebApp.Models
         public const string KullaniciIslemleri = "KullaniciIslemleri";
 
         [MenuAttribute(MenuID = 85000, MenuAdi = "Tanımlamalar", MenuCssClass = "fa fa-gears", MenuUrl = "", DilCeviriYap = false, SiraNo = 18)]
-        public const string Tanimlamalar = "Tanımlamalar"; 
+        public const string Tanimlamalar = "Tanımlamalar";
 
         [MenuAttribute(MenuID = 100000, MenuAdi = "Sistem", MenuCssClass = "fa fa-desktop", MenuUrl = "", DilCeviriYap = false, SiraNo = 30)]
         public const string Sistem = "Sistem";
@@ -60,45 +60,53 @@ namespace WebApp.Models
 
         [MenuAttribute(BagliMenuID = 80000, MenuAdi = "Meslek Türleri", MenuCssClass = "fa fa-gear", MenuUrl = "MeslekTurleri/Index", DilCeviriYap = false, SiraNo = 19)]
         [RoleAttribute(GorunurAdi = "Meslek Türleri", Kategori = "İşçi İşlemleri", Aciklama = "")]
-        public const string MeslekTurleri = "Meslek Türleri"; 
+        public const string MeslekTurleri = "Meslek Türleri";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Yevmiyeler", MenuCssClass = "fa fa-file-text-o", MenuUrl = "Yevmiyeler/Index", DilCeviriYap = false, SiraNo = 1)]
         [RoleAttribute(GorunurAdi = "Yevmiyeler", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string Yevmiyeler = "YevmiyelerListesi";
         [RoleAttribute(GorunurAdi = "Yevmiyeler Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyelerKayitYetkisi = "YevmiyelerKayıtYetkisi";
+        [RoleAttribute(GorunurAdi = "Yevmiyeler Excel Yükleme", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyelerExcelYukleme = "YevmiyelerExcelYukleme";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimi Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeHarcamaBirimiToplamlari/Index", DilCeviriYap = false, SiraNo = 2)]
-        [RoleAttribute(GorunurAdi = "Harcama Birimi Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Yevmiye - Harcama Birimi Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyelerHarcamaBirimiToplamlari = "YevmiyeHarcamaBirimiToplamlari";
+        [RoleAttribute(GorunurAdi = "Yevmiye - Harcama Birimi Toplamları Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyelerHarcamaBirimiToplamlariKayitYetkisi = "YevmiyelerHarcamaBirimiToplamlariKayitYetkisi";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Sendika Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeSendikaToplamlari/Index", DilCeviriYap = false, SiraNo = 3)]
-        [RoleAttribute(GorunurAdi = "Sendika Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Yevmiye - Sendika Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeSendikaToplamlari = "YevmiyeSendikaToplamlari";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimleri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHarcamaBirimleri/Index", DilCeviriYap = false, SiraNo = 4)]
-        [RoleAttribute(GorunurAdi = "Harcama Birimleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Harcama Birimleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeHarcamaBirimleri = "YevmiyeHarcamaBirimleri";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Hesap Kodu Eşleştirme", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHesapKoduEslestirme/Index", DilCeviriYap = false, SiraNo = 6)]
-        [RoleAttribute(GorunurAdi = "Hesap Kodu Eşleştirme", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Hesap Kodu Eşleştirme", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeHesapKoduEslestirme = "HesapKoduEşleştirme";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Belge Kodları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeBelgeKodlari/Index", DilCeviriYap = false, SiraNo = 8)]
-        [RoleAttribute(GorunurAdi = "Belge Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string YevmiyeBegleKodlari = "BelgeKodlari"; 
+        [RoleAttribute(GorunurAdi = "Tanımlama - Belge Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyeBegleKodlari = "BelgeKodlari";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "KDV Kodları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeKdvKodlari/Index", DilCeviriYap = false, SiraNo = 10)]
-        [RoleAttribute(GorunurAdi = "KDV Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Tanımlama - KDV Kodları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeKDVKodlari = "KDVKodlari";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Proje Banka Hesapları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeProjeBankaHesaplari/Index", DilCeviriYap = false, SiraNo = 12)]
-        [RoleAttribute(GorunurAdi = "Proje Banka Hesapları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Proje Banka Hesapları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeProjeBankaHesaplari = "ProjeBankaHesapları";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Sendika Bilgileri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeSendikaBilgileri/Index", DilCeviriYap = false, SiraNo = 14)]
-        [RoleAttribute(GorunurAdi = "Sendika Bilgileri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Sendika Bilgileri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeSendikaBilgileri = "YevmiyeSendikaBilgileri";
+
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Vergi Kimlik Numaraları", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeVergiKimlikNumaralari/Index", DilCeviriYap = false, SiraNo = 16)]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Vergi Kimlik Numaraları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyeVergiKimlikNumaralari = "YevmiyeVergiKimlikNumaralari";
 
 
         [MenuAttribute(BagliMenuID = 84000, MenuAdi = "Birimlere Göre Toplamsal", MenuCssClass = "fa fa-bar-chart-o", MenuUrl = "RprBirimToplamsal/Index", DilCeviriYap = false, SiraNo = 1)]
@@ -106,18 +114,18 @@ namespace WebApp.Models
         public const string BirimToplamsalRapor = "Birimlere Göre Toplamsal";
         [MenuAttribute(BagliMenuID = 84000, MenuAdi = "Birim Veri Çıktılarını Al", MenuCssClass = "fa fa-list-alt", MenuUrl = "RprBirimExcelListExport/Index", DilCeviriYap = false, SiraNo = 2)]
         [RoleAttribute(GorunurAdi = "Birim Veri Çıktılarını Al", Kategori = "Rapor İşlemleri", Aciklama = "")]
-        public const string BirimVeriCiktilariniAl = "Birim Veri Çıktılarını Al"; 
+        public const string BirimVeriCiktilariniAl = "Birim Veri Çıktılarını Al";
 
         [MenuAttribute(BagliMenuID = 84000, MenuAdi = "Bildirgeye Göre Toplamsal", MenuCssClass = "fa fa-bar-chart-o", MenuUrl = "RprBildirgeToplamsal/Index", DilCeviriYap = false, SiraNo = 4)]
         [RoleAttribute(GorunurAdi = "Bildirgeye Göre Toplamsal", Kategori = "Rapor İşlemleri", Aciklama = "")]
-        public const string BildirgeToplamsalRapor = "Bildirgeye Göre Toplamsal"; 
+        public const string BildirgeToplamsalRapor = "Bildirgeye Göre Toplamsal";
 
 
         [MenuAttribute(BagliMenuID = 84500, MenuAdi = "Kullanıcılar", MenuCssClass = "fa fa-user-o", MenuUrl = "Kullanicilar/Index", DilCeviriYap = false, SiraNo = 1)]
         [RoleAttribute(GorunurAdi = "Kullanıcılar", Kategori = "Kullanıcı İşlemleri", Aciklama = "")]
         public const string Kullanicilar = "Kullanıcılar Listesi";
         [RoleAttribute(GorunurAdi = "Kullanıcılar Kayıt", Kategori = "Kullanıcı İşlemleri", Aciklama = "")]
-        public const string KullaniciKayit = "Kullanıcı Kayıt";  
+        public const string KullaniciKayit = "Kullanıcı Kayıt";
 
         [MenuAttribute(BagliMenuID = 84500, MenuAdi = "Yetki Grupları", MenuCssClass = "fa fa-lock", MenuUrl = "YetkiGruplari/Index", DilCeviriYap = false, SiraNo = 2)]
         [RoleAttribute(GorunurAdi = "Yetki Grupları", Kategori = "Kullanıcı İşlemleri", Aciklama = "")]
@@ -132,7 +140,7 @@ namespace WebApp.Models
         [RoleAttribute(GorunurAdi = "Ünvanlar", Kategori = "Tanımlamalar", Aciklama = "")]
         public const string Unvanlar = "Ünvanlar";
 
-      
+
 
 
 

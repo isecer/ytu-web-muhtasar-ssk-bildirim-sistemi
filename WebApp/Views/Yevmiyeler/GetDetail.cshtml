@@ -3,6 +3,8 @@
 @model YevmiyeDetayModel
 @{
     Layout = null;
+
+    var KayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
 }
 
 
@@ -21,18 +23,7 @@
             <tr>
                 <td colspan="2">
                     <br />
-                    <table>
-                        <tr>
-                            <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
-                            <td width="10">:</td>
-                            <td>@Model.YevmiyeNoToplamGv TL</td>
-                        </tr>
-                        <tr>
-                            <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
-                            <td width="10">:</td>
-                            <td>@Model.YevmiyeNoToplamDv TL</td>
-                        </tr>
-                    </table>
+
                     @if (Model.Is1003BYevmiyeParcalamaOlacak)
                     {
                         var AyristirmaDurum = "";
@@ -44,7 +35,7 @@
                             if (ToplamGirilen != Model.Alacak)
                             {
 
-                                AyristirmaDurum = "Ayrıştırma İşlemi Tamamlanmadı. "+ Kalan+" TL lik Giriş Yapılmalı.";
+                                AyristirmaDurum = "Ayrıştırma İşlemi Tamamlanmadı. " + Kalan + " TL lik Giriş Yapılmalı.";
                             }
                             else
                             {
@@ -64,12 +55,28 @@
                                     <tr>
                                         <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> 1003B Ssk <span>(@AyristirmaDurum)</span></td>
                                         <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
-                                            <a class="btn btn-info btn-sm" onclick="YevmiyeAyristir(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
+                                            @if (KayitYetkisi)
+                                            {
+                                                <a class="btn btn-info btn-sm" onclick="YevmiyeAyristir(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" >
+                                        <td colspan="2">
                                             <div style="min-height:80px;">
+                                                <table>
+                                                    <tr>
+                                                        <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
+                                                        <td width="10">:</td>
+                                                        <td>@Model.YevmiyeNoToplamGv TL</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
+                                                        <td width="10">:</td>
+                                                        <td>@Model.YevmiyeNoToplamDv TL</td>
+                                                    </tr>
+                                                </table>
+                                                <br />
                                                 @if (Model.Yevmiyeler1003BAyristirmalari.Any())
                                                 {
                                                     <table class="table table-hover" style="width:100%;">
@@ -88,17 +95,20 @@
                                                                 <td>@item.Yil</td>
                                                                 <td>@item.Aylar.AyAdi</td>
                                                                 <td>@item.YevmiyelerBelgeKodlari.BelgeKodu - @item.YevmiyelerBelgeKodlari.BelgeAdi</td>
-                                                                <td style="text-align:right;">@item.Matrah TL</td>
+                                                                <td style="text-align:right;">@item.Matrah.ToString("n2") TL</td>
                                                                 <td style="padding-left:5px;">
-                                                                    <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeAyristir(@Model.YevmiyeID,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
-                                                                    <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeAyristirSil(@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                    @if (KayitYetkisi)
+                                                                    {
+                                                                        <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeAyristir(@Model.YevmiyeID,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
+                                                                        <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeAyristirSil(@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                    }
                                                                 </td>
                                                             </tr>
                                                         }
 
                                                         <tr class="info">
-                                                            <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
-                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
+                                                            <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak.ToString("n2") TL</td>
+                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah).ToString("n2") TL</td>
                                                             <td></td>
                                                         </tr>
                                                     </table>
@@ -112,7 +122,7 @@
                     }
                     @if (Model.Is1003AGelirKaydiOlacak)
                     {
-                        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+                        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="Wg1003AKayitPanel_@Model.YevmiyeID">
                             <table style="width:100%;">
                                 <tbody>
                                     <tr>
@@ -120,30 +130,62 @@
                                     </tr>
                                     <tr>
                                         <td>
+                                            <table>
+                                                <tr>
+                                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
+                                                    <td width="10">:</td>
+                                                    <td>@Model.YevmiyeNoToplamGv TL</td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
+                                                    <td width="10">:</td>
+                                                    <td>@Model.YevmiyeNoToplamDv TL</td>
+                                                </tr>
+                                            </table>
+                                            <br />
                                             @using (Ajax.BeginForm("GelirKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
                                             {
                                                 var GelirKayit = Model.Yevmiyeler1003AGelirKayit.First();
                                                 @Html.Hidden("YevmiyeID", Model.YevmiyeID)
                                                 @Html.Hidden("Yevmiye1003AGelirKayitID", GelirKayit.Yevmiye1003AGelirKayitID)
                                                 var VergiKimlikNo = GelirKayit.VergiKimlikNo;
-                                                <table style="width:100%;">
-                                                    <tr>
-                                                        <td id="lbl_YeniYevmiyeHesapKodID" width="240">Yeni Hesap Kodu</td>
-                                                        <td width="10">:</td>
-                                                        <td class="form-group">@Html.DropDownList("YeniYevmiyeHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="lbl_IsHesaplamayaGirecek">Hesaplamaya Girecek Mi</td>
-                                                        <td>:</td>
-                                                        <td class="form-group">
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td id="lbl_YeniYevmiyeHesapKodID" width="240">Yeni Hesap Kodu</td>
+                                                    <td width="10">:</td>
+                                                    <td class="form-group">
+                                                        @if (KayitYetkisi)
+                                                        {
+                                                            @Html.DropDownList("YeniYevmiyeHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })
+                                                        }
+                                                        else
+                                                        {
+                                                            @(GelirKayit.YevmiyelerHesapKodlari != null ? (GelirKayit.YevmiyelerHesapKodlari.HesapKod + " - " + GelirKayit.YevmiyelerHesapKodlari.HesapAdi) : "Hesap Kodu Değişikliği Yapılmadı.");
+                                                        }
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="lbl_IsHesaplamayaGirecek">Hesaplamaya Girecek Mi</td>
+                                                    <td>:</td>
+                                                    <td class="form-group">
+                                                        @if (KayitYetkisi)
+                                                        {
                                                             <select class="form-control" name="IsHesaplamayaGirecek">
                                                                 <option></option>
                                                                 <option value="true" @GelirKayit.IsHesaplamayaGirecek.ToSelected()>Evet</option>
                                                                 <option value="false" @((GelirKayit.IsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
                                                             </select>
-                                                        </td>
-                                                    </tr>
-                                                    @if (Model.Is1003A10_24GelirKaydiOlacak)
+                                                        }
+                                                        else
+                                                        {
+                                                            @(GelirKayit.IsHesaplamayaGirecek != null ? (GelirKayit.IsHesaplamayaGirecek.Value ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek") : "Veri Girilmedi.");
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                                @if (Model.Is1003A10_24GelirKaydiOlacak)
+                                                {
+                                                    if (KayitYetkisi)
                                                     {
                                                         <tr>
                                                             <td id="lbl_VergiKimlikNo">Vergi Kimlik No</td>
@@ -155,94 +197,161 @@
                                                         <tr>
                                                             <td id="lbl_AdSoyad">Ad Soyad</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("AdSoyad", GelirKayit.AdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "KAdSoyad_" + Model.YevmiyeID })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("AdSoyad", GelirKayit.AdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "KAdSoyad_" + Model.YevmiyeID, @readonly = "readonly", style = "color:black;" })
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td id="lbl_Adres">Adres</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("Adres", GelirKayit.Adres, new { @class = "form-control", maxlength = "512", autocomplete = "off", id = "KAdres_" + Model.YevmiyeID })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Adres", GelirKayit.Adres, new { @class = "form-control", maxlength = "512", autocomplete = "off", id = "KAdres_" + Model.YevmiyeID ,@readonly="readonly",style="color:black;"})
+
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td id="lbl_Matrah">Matrah</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("Matrah", GelirKayit.Matrah, new { @class = "form-control", maxlength = "32", autocomplete = "off" })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Matrah", GelirKayit.Matrah, new { @class = "form-control", maxlength = "32", autocomplete = "off" })
+
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td id="lbl_BelgeninMahiyeti">Belgenin Mahiyeti</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("BelgeninMahiyeti", GelirKayit.BelgeninMahiyeti, new { @class = "form-control", maxlength = "128", autocomplete = "off" })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("BelgeninMahiyeti", GelirKayit.BelgeninMahiyeti, new { @class = "form-control", maxlength = "128", autocomplete = "off" })
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td id="lbl_FaturaTarihi">Fatura Tarihi</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("FaturaTarihi", GelirKayit.FaturaTarihi.ToFormatDate(), new { @class = "form-control date-picker" })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("FaturaTarihi", GelirKayit.FaturaTarihi.ToFormatDate(), new { @class = "form-control date-picker" })
+                                                            </td>
                                                         </tr>
                                                         <tr>
                                                             <td id="lbl_FaturaNo">Fatura No</td>
                                                             <td>:</td>
-                                                            <td class="form-group">@Html.TextBox("FaturaNo", GelirKayit.FaturaNo, new { @class = "form-control", maxlength = "64", autocomplete = "off" })</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("FaturaNo", GelirKayit.FaturaNo, new { @class = "form-control", maxlength = "64", autocomplete = "off" })
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr>
+                                                            <td>Vergi Kimlik No</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!GelirKayit.VergiKimlikNo.IsNullOrWhiteSpace() ? GelirKayit.VergiKimlikNo : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ad Soyad</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @(!GelirKayit.AdSoyad.IsNullOrWhiteSpace() ? GelirKayit.AdSoyad : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Adres</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!GelirKayit.Adres.IsNullOrWhiteSpace() ? GelirKayit.Adres : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Matrah</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(GelirKayit.Matrah.HasValue ? GelirKayit.Matrah.Value.ToString("n2") + " TL" : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Belgenin Mahiyeti</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!GelirKayit.BelgeninMahiyeti.IsNullOrWhiteSpace() ? GelirKayit.BelgeninMahiyeti : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura Tarihi</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(GelirKayit.FaturaTarihi.HasValue ? GelirKayit.FaturaTarihi.ToFormatDate() : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura No</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!GelirKayit.FaturaNo.IsNullOrWhiteSpace() ? GelirKayit.FaturaNo : "Veri Girilmedi");
+                                                            </td>
                                                         </tr>
                                                     }
+                                                }
+                                                @if (KayitYetkisi)
+                                                {
                                                     <tr>
                                                         <td></td>
                                                         <td></td>
                                                         <td>
                                                             <a class="btn btn-success btn-sm" onclick="GelirKaydiOlustur(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                            <script>
+                                                                        $("#VergiKimlikNo_@Model.YevmiyeID").select2({
+                                                                            tags: true,
+                                                                            minimumInputLength: 2,
+                                                                            maximumInputLength: 11,
+                                                                            maximumSelectionSize: 1,
+                                                                            multiple: false,
+                                                                            ajax: {
+                                                                                url: '@Url.Action("GetVergiKimlikNo", "Yevmiyeler")',
+                                                                                dataType: "json",
+                                                                                data: function (term, page) {
+                                                                                    return {
+                                                                                        'term': term
+                                                                                    }
+
+                                                                                },
+                                                                                results: function (data, page) {
+                                                                                    return {
+                                                                                        results: data
+                                                                                    };
+                                                                                }
+                                                                            },
+                                                                            formatResult: function (result) {
+                                                                                var cont2 =
+                                                                                    "<table class='table table-striped' style='width:100%; margin:0px;'>" +
+                                                                                    "<tbody>" +
+                                                                                    "<tr>" +
+                                                                                    "<td style='vertical-align:middle;'>" +
+                                                                                    "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
+                                                                                    "<tbody>" +
+                                                                                    "<tr><td>" + result.AdSoyad + "</td></tr>" +
+                                                                                    "<tr><td>Vergi Kimlik No: " + result.VergiKimlikNo + "</td></tr>" +
+                                                                                    "</tbody> " +
+                                                                                    "</table> " +
+                                                                                    "</td>" +
+                                                                                    "</tr> " +
+                                                                                    "</tbody>" +
+                                                                                    "</table>";
+                                                                                return cont2;
+                                                                            }
+                                                                        }).on('change', function (e) {
+                                                                            $('#KAdSoyad_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.AdSoyad);
+                                                                            $('#KAdres_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.Adres);
+                                                                        });
+                                                                        var secilen = @Html.Raw(Json.Encode(new { id = GelirKayit.VergiKimlikNo, text = GelirKayit.VergiKimlikNo }));
+                                                                        $("#VergiKimlikNo_@Model.YevmiyeID").select2('data', secilen);
+                                                            </script>
                                                         </td>
                                                     </tr>
-
-                                                </table>
-
-                                                <script>
-                                                    $("#VergiKimlikNo_@Model.YevmiyeID").select2({
-                                                        tags: true,
-                                                        minimumInputLength: 2,
-                                                        maximumInputLength: 11,
-                                                        maximumSelectionSize: 1,
-                                                        multiple: false,
-                                                        ajax: {
-                                                            url: '@Url.Action("GetVergiKimlikNo", "Yevmiyeler")',
-                                                            dataType: "json",
-                                                            data: function (term, page) {
-                                                                return {
-                                                                    'term': term
-                                                                }
-
-                                                            },
-                                                            results: function (data, page) {
-                                                                return {
-                                                                    results: data
-                                                                };
-                                                            }
-                                                        },
-                                                        formatResult: function (result) {
-                                                            var cont2 =
-                                                                "<table class='table table-striped' style='width:100%; margin:0px;'>" +
-                                                                "<tbody>" +
-                                                                "<tr>" +
-                                                                "<td style='vertical-align:middle;'>" +
-                                                                "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
-                                                                "<tbody>" +
-                                                                "<tr><td>" + result.AdSoyad + "</td></tr>" +
-                                                                "<tr><td>Vergi Kimlik No: " + result.VergiKimlikNo + "</td></tr>" +
-                                                                "</tbody> " +
-                                                                "</table> " +
-                                                                "</td>" +
-                                                                "</tr> " +
-                                                                "</tbody>" +
-                                                                "</table>";
-                                                            return cont2;
-                                                        }
-                                                    }).on('change', function (e) {
-                                                        $('#KAdSoyad_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.AdSoyad);
-                                                        $('#KAdres_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.Adres);
-                                                    });
-
-                                                    var secilen = @Html.Raw(Json.Encode(new { id = GelirKayit.VergiKimlikNo, text = GelirKayit.VergiKimlikNo }));
-                                                    $("#VergiKimlikNo_@Model.YevmiyeID").select2('data', secilen);
-
-
-                                                </script>
+                                                }
+                                            </table>
                                             }
                                         </td>
                                     </tr>
@@ -252,13 +361,36 @@
                     }
                     @if (Model.IsKdvVergiKaydiOlacak)
                     {
+                        var AyristirmaDurum = "";
+                        if (Model.YevmiyelerKdvTevkifatKayitlaris.Any())
+                        {
+
+                            var ToplamGirilen = Model.YevmiyelerKdvTevkifatKayitlaris.Sum(s => s.TevkifatTutari);
+                            var Kalan = (Model.Alacak - ToplamGirilen).ToString("n2");
+                            if (ToplamGirilen != Model.Alacak)
+                            {
+
+                                AyristirmaDurum = "Tevkifat Kayıtları Tamamlanmadı. " + Kalan + " TL lik Giriş Yapılmalı.";
+                            }
+                            else
+                            {
+                                AyristirmaDurum = "Tevkifak Kaydı Tamamlandı";
+                            }
+                        }
+                        else
+                        {
+                            AyristirmaDurum = "Tevkifat İşlemi Yapılmadı";
+                        }
                         <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="WgVergiKaydipanel_@Model.YevmiyeID">
                             <table style="width:100%;">
                                 <tbody>
                                     <tr>
-                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Kdv Vergi - Tevkifat Kayıt İşlemi</td>
+                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Kdv Vergi - Tevkifat Kayıt İşlemi (@AyristirmaDurum)</td>
                                         <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
-                                            <a class="btn btn-info btn-sm" onclick="YevmiyeKdvTevkifatKayit(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
+                                            @if (KayitYetkisi)
+                                            {
+                                                <a class="btn btn-info btn-sm" onclick="YevmiyeKdvTevkifatKayit(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
@@ -290,19 +422,22 @@
                                                             <td>@item.KdvKodOrani</td>
                                                             <td>@item.FaturaYil</td>
                                                             <td>@item.Aylar.AyAdi</td>
-                                                            <td style="text-align:right;">@item.Matrah TL</td>
-                                                            <td style="text-align:center;">@item.KdvOrani</td>
-                                                            <td style="text-align:right;">@item.KdvTutari TL</td>
-                                                            <td style="text-align:right;">@item.TevkifatTutari TL</td>
+                                                            <td style="text-align:right;">@item.Matrah.ToString("n2") TL</td>
+                                                            <td style="text-align:center;">@item.KdvOrani.ToString("n2")</td>
+                                                            <td style="text-align:right;">@item.KdvTutari.ToString("n2") TL</td>
+                                                            <td style="text-align:right;">@item.TevkifatTutari.ToString("n2") TL</td>
                                                             <td style="padding-left:5px;">
-                                                                <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeKdvTevkifatKayit(@Model.YevmiyeID,@item.YevmiyeKdvTevkifatKayitID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
-                                                                <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeKdvTevkifatKayitSil(@item.YevmiyeKdvTevkifatKayitID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                @if (KayitYetkisi)
+                                                                {
+                                                                    <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeKdvTevkifatKayit(@Model.YevmiyeID,@item.YevmiyeKdvTevkifatKayitID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
+                                                                    <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeKdvTevkifatKayitSil(@item.YevmiyeKdvTevkifatKayitID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                }
                                                             </td>
                                                         </tr>
                                                     }
                                                     <tr class="info">
-                                                        <td colspan="10" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
-                                                        <td style="text-align:right;font-weight:bold;">Tevkifat Toplam: @Model.YevmiyelerKdvTevkifatKayitlaris.Sum(s => s.TevkifatTutari) TL</td>
+                                                        <td colspan="10" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak.ToString("n2") TL</td>
+                                                        <td style="text-align:right;font-weight:bold;">Tevkifat Toplam: @Model.YevmiyelerKdvTevkifatKayitlaris.Sum(s => s.TevkifatTutari).ToString("n2") TL</td>
                                                         <td></td>
                                                     </tr>
                                                 </table>
@@ -316,7 +451,7 @@
                                 </tbody>
                             </table>
                         </div>
-                         
+
                     }
                     @if (Model.IsEmekliKesenekKaydiOlacak)
                     {
@@ -332,19 +467,29 @@
                                             {
                                                 @Html.Hidden("YevmiyeID", Model.YevmiyeID)
                                                 <table style="width:100%;">
-                                                    <tr>
-                                                        <td width="240">Harcama Birimi</td>
-                                                        <td width="10">:</td>
-                                                        <td class="form-group">@Html.DropDownList("EKYevmiyeHarcamaBirimID", Model.EKHarcamaBirim, new { @class = "form-control" })</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <a class="btn btn-success btn-sm" onclick="YevmiyeEKHarcamaBirimKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
-                                                        </td>
-                                                    </tr>
-
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td width="240">Harcama Birimi</td>
+                                                            <td width="10">:</td>
+                                                            <td class="form-group">@Html.DropDownList("EKYevmiyeHarcamaBirimID", Model.EKHarcamaBirim, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a class="btn btn-success btn-sm" onclick="YevmiyeEKHarcamaBirimKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td width="240">Harcama Birimi</td>
+                                                            <td width="10">:</td>
+                                                            <td class="form-group">@(Model.EKYevmiyeHarcamaBirimID.HasValue ? Model.HarcamaBirimAdi : "Harcama Birimi Seçilmedi.")</td>
+                                                        </tr>
+                                                    }
                                                 </table>
                                             }
                                         </td>
@@ -355,13 +500,36 @@
                     }
                     @if (Model.IsTasinirKontrolKaydiOlacak)
                     {
+                        var AyristirmaDurum = "";
+                        if (Model.YevmiyelerTasinirKontrolTifKaydis.Any())
+                        {
+
+                            var ToplamGirilen = Model.YevmiyelerTasinirKontrolTifKaydis.Sum(s => s.Tutar);
+                            var Kalan = (Model.Borc - ToplamGirilen).ToString("n2");
+                            if (ToplamGirilen != Model.Borc)
+                            {
+
+                                AyristirmaDurum = "Tif Kayıtları Tamamlanmadı. " + Kalan + " TL lik Giriş Yapılmalı.";
+                            }
+                            else
+                            {
+                                AyristirmaDurum = "Tif Kaydı Tamamlandı";
+                            }
+                        }
+                        else
+                        {
+                            AyristirmaDurum = "Tif İşlemi Yapılmadı";
+                        }
                         <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
                             <table style="width:100%;">
                                 <tbody>
                                     <tr>
-                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Taşınır Kontrol</td>
+                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Taşınır Kontrol (@AyristirmaDurum)</td>
                                         <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
-                                            <a class="btn btn-info btn-sm" onclick="YevmiyeTasinirkontrolTifKayit(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Tif Kaydı Oluştur</a>
+                                            @if (KayitYetkisi)
+                                            {
+                                                <a class="btn btn-info btn-sm" onclick="YevmiyeTasinirkontrolTifKayit(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Tif Kaydı Oluştur</a>
+                                            }
                                         </td>
                                     </tr>
                                     <tr>
@@ -380,17 +548,20 @@
                                                         <tr>
                                                             <td id="tdTfNo_@item.YevmiyelerTasinirKontrolTifKayitID">@item.TifNo</td>
                                                             <td id="tdTfAc_@item.YevmiyelerTasinirKontrolTifKayitID">@item.Aciklama</td>
-                                                            <td style="text-align:right;">@item.Tutar TL</td>
+                                                            <td style="text-align:right;">@item.Tutar.ToString("n2") TL</td>
                                                             <td style="padding-left:5px;">
-                                                                <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeTasinirkontrolTifKayit(@Model.YevmiyeID,@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
-                                                                <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeTasinirkontrolTifKayitSil(@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                @if (KayitYetkisi)
+                                                                {
+                                                                    <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeTasinirkontrolTifKayit(@Model.YevmiyeID,@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
+                                                                    <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeTasinirkontrolTifKayitSil(@item.YevmiyelerTasinirKontrolTifKayitID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                }
                                                             </td>
                                                         </tr>
                                                     }
 
                                                     <tr class="info">
-                                                        <td colspan="2" style="text-align:right;font-weight:bold;">Borç Toplam: @Model.Borc TL</td>
-                                                        <td style="text-align:right;font-weight:bold;">Tutar Toplam: @Model.YevmiyelerTasinirKontrolTifKaydis.Sum(s => s.Tutar) TL</td>
+                                                        <td colspan="2" style="text-align:right;font-weight:bold;">Borç Toplam: @Model.Borc.ToString("n2") TL</td>
+                                                        <td style="text-align:right;font-weight:bold;">Tutar Toplam: @Model.YevmiyelerTasinirKontrolTifKaydis.Sum(s => s.Tutar).ToString("n2") TL</td>
                                                         <td></td>
                                                     </tr>
                                                 </table>
@@ -405,128 +576,53 @@
                             </table>
                         </div>
                     }
-                    <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="WgBankaPanel_@Model.YevmiyeID">
-                        <table style="width:100%;">
-                            <tbody>
-                                <tr>
-                                    <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Banka İşlemleri</td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        @using (Ajax.BeginForm("YevmiyeBankaHesapNoKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeBankaHesapNoKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
-                                        {
-                                            @Html.Hidden("YevmiyeID", Model.YevmiyeID)
-                                            <table style="width:100%;">
-                                                <tr>
-                                                    <td width="240">Banka Hesap Numarası</td>
-                                                    <td width="10">:</td>
-                                                    <td class="form-group">
-                                                        <input type="text" autocomplete="off" class="form-control" name="ProjeBankaHesapNoID" id="SProjeBankaHesapNoID_@Model.YevmiyeID" />
-                                                    </td>
-                                                </tr>
-
-                                                <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue?"":"hide")">
-                                                    <td>Hesap No</td>
-                                                    <td>:</td>
-                                                    <td id="BhDetayHn_@Model.YevmiyeID">
-                                                        @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.HesapNo : "")
-                                                    </td>
-                                                </tr>
-                                                <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue?"":"hide")">
-                                                    <td>Hesap Adı</td>
-                                                    <td>:</td>
-                                                    <td id="BhDetayAs_@Model.YevmiyeID">
-                                                        @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.HesapAdi : "")
-                                                    </td>
-                                                </tr>
-                                                <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue?"":"hide")">
-                                                    <td>Proje No</td>
-                                                    <td>:</td>
-                                                    <td id="BhDetayPn_@Model.YevmiyeID">
-                                                        @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.ProjeNo : "")
-                                                    </td>
-                                                </tr>
-                                                <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue?"":"hide")">
-                                                    <td>Proje Adı</td>
-                                                    <td>:</td>
-                                                    <td id="BhDetayPa_@Model.YevmiyeID">
-                                                        @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.ProjeAdi : "")
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td>
-                                                        <a class="btn btn-success btn-sm" onclick="YevmiyeBankaHesapNoKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
-                                                    </td>
-                                                </tr>
-
-                                            </table>
-
-                                            <script>
-
-                                                $("#SProjeBankaHesapNoID_@Model.YevmiyeID").select2({
-                                                    tags: true,
-                                                    minimumInputLength: 2,
-                                                    multiple: false,
-                                                    ajax: {
-                                                        url: '@Url.Action("GetBankaHesapNumaralari", "Yevmiyeler")',
-                                                        dataType: "json",
-                                                        data: function (term, page) {
-                                                            return {
-                                                                'term': term
-                                                            }
-                                                        },
-                                                        results: function (data, page) {
-                                                            return {
-                                                                results: data
-                                                            };
-                                                        }
-                                                    },
-                                                    formatResult: function (result) {
-                                                        var cont2 =
-                                                            "<table class='table table-striped' style='width:100%; margin:0px;'>" +
-                                                            "<tbody>" +
-                                                            "<tr>" +
-                                                            "<td style='vertical-align:middle;'>" +
-                                                            "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
-                                                            "<tbody>" +
-                                                            "<tr><td>Hesap: " + result.HesapNo + " - " + result.HesapAdi + "</td></tr>" +
-                                                            "<tr><td>Proje: " + result.ProjeNo + " - " + result.ProjeAdi +"</td></tr>" +
-                                                            "</tbody> " +
-                                                            "</table> " +
-                                                            "</td>" +
-                                                            "</tr> " +
-                                                            "</tbody>" +
-                                                            "</table>";
-                                                        return cont2;
-                                                    }
-                                                }).on('change', function (e) {
-                                                    $('#BhDetayHn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapNo);
-                                                    $('#BhDetayHa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapAdi);
-                                                    $('#BhDetayPn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeNo);
-                                                    $('#BhDetayPa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeAdi);
-                                                    if (e.added == undefined) $('.BhDetay_@Model.YevmiyeID').addClass('hide');
-                                                    else $('.BhDetay_@Model.YevmiyeID').removeClass('hide');
-                                                });
-
-
-                                            </script>
-                                            if (Model.ProjeBankaHesapNoID.HasValue)
+                    else if (Model.IsBireyselEmeklikKaydiOlacak)
+                    {
+                        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="WgBesPanel_@Model.YevmiyeID">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Bireysel Emeklilik</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @using (Ajax.BeginForm("BESHesapKodKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmBireyselEmeklilikKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
                                             {
-                                                <script>
+                                                @Html.Hidden("YevmiyeID", Model.YevmiyeID)
+                                                <table style="width:100%;">
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td id="lbl_BESYevmiyeHesapKodID" width="240">Hesap Kodu</td>
+                                                            <td width="10">:</td>
+                                                            <td class="form-group">@Html.DropDownList("BESYevmiyeHesapKodID", Model.SBesHesapKod, new { @class = "form-control" })</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a class="btn btn-success btn-sm" onclick="BesHesapKodKaydet(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                            </td>
+                                                        </tr>
 
-                                                        var secilen = @Html.Raw(Json.Encode(new { id = Model.ProjeBankaHesapNoID, text = Model.ProjeBankaHesapNoID.HasValue ? ((Model.YevmiyelerProjeBankaHesapNumaralari.HesapNo + " " + Model.YevmiyelerProjeBankaHesapNumaralari.HesapAdi + " (" + Model.YevmiyelerProjeBankaHesapNumaralari.ProjeNo + " - " + Model.YevmiyelerProjeBankaHesapNumaralari.ProjeAdi + ")")) : "" }));
-                                                        $("#SProjeBankaHesapNoID_@Model.YevmiyeID").select2('data', secilen);
+                                                    }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td width="240">Hesap Kodu</td>
+                                                            <td width="10">:</td>
+                                                            <td>@(Model.BESYevmiyeHesapKodID.HasValue ? (Model.BesHesapKod + " - " + Model.BesHesapKodAdi) : "Hesap Kodu Seçilmedi.")</td>
+                                                        </tr>
 
-                                                </script>
+                                                    }
+                                                </table>
                                             }
-                                        }
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
                     @if (Model.IsSendikaKaydiOlacak)
                     {
                         <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="WgSendikaPanel_@Model.YevmiyeID">
@@ -541,16 +637,19 @@
                                             {
                                                 @Html.Hidden("YevmiyeID", Model.YevmiyeID)
                                                 <table style="width:100%;">
-                                                    <tr>
-                                                        <td width="240">Sendika Bilgisi</td>
-                                                        <td width="10">:</td>
-                                                        <td class="form-group">
-                                                            <input type="text" autocomplete="off" class="form-control" name="YevmiyeSendikaBilgiID" id="SYevmiyeSendikaBilgiID_@Model.YevmiyeID" />
-                                                        </td>
-                                                    </tr>
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td width="240">Sendika Bilgisi</td>
+                                                            <td width="10">:</td>
+                                                            <td class="form-group">
+                                                                <input type="text" autocomplete="off" class="form-control" name="YevmiyeSendikaBilgiID" id="SYevmiyeSendikaBilgiID_@Model.YevmiyeID" />
+                                                            </td>
+                                                        </tr>
+                                                    }
                                                     <tr class="SnDetay_@Model.YevmiyeID @(Model.YevmiyeSendikaBilgiID.HasValue?"":"hide")">
-                                                        <td>Hesap Kod</td>
-                                                        <td>:</td>
+                                                        <td width="240">Hesap Kod</td>
+                                                        <td width="10">:</td>
                                                         <td id="SnDetayHk_@Model.YevmiyeID">
                                                             @(Model.YevmiyeSendikaBilgiID.HasValue ? Model.YevmiyelerSendikaBilgileri.HesapKod : "")
                                                         </td>
@@ -590,76 +689,204 @@
                                                             @(Model.YevmiyeSendikaBilgiID.HasValue ? Model.YevmiyelerSendikaBilgileri.Aciklama : "")
                                                         </td>
                                                     </tr>
-                                                    <tr>
-                                                        <td></td>
-                                                        <td></td>
-                                                        <td>
-                                                            <a class="btn btn-success btn-sm" onclick="YevmiyeSendikaBilgisiKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
-                                                        </td>
-                                                    </tr>
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a class="btn btn-success btn-sm" onclick="YevmiyeSendikaBilgisiKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                                <script>
+
+                                                                    $("#SYevmiyeSendikaBilgiID_@Model.YevmiyeID").select2({
+                                                                        tags: true,
+                                                                        minimumInputLength: 2,
+                                                                        multiple: false,
+                                                                        ajax: {
+                                                                            url: '@Url.Action("GetSendikaBilgileri", "Yevmiyeler")',
+                                                                            dataType: "json",
+                                                                            data: function (term, page) {
+                                                                                return {
+                                                                                    'term': term
+                                                                                }
+                                                                            },
+                                                                            results: function (data, page) {
+                                                                                return {
+                                                                                    results: data
+                                                                                };
+                                                                            }
+                                                                        },
+                                                                        formatResult: function (result) {
+                                                                            var cont2 =
+                                                                                "<table class='table table-striped' style='width:100%; margin:0px;'>" +
+                                                                                "<tbody>" +
+                                                                                "<tr>" +
+                                                                                "<td style='vertical-align:middle;'>" +
+                                                                                "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
+                                                                                "<tbody>" +
+                                                                                "<tr><td>Hesap: " + result.HesapKod + " - " + result.AdSoyad + "</td></tr>" +
+                                                                                "<tr><td>IBan: " + result.IBanNo + "</td></tr>" +
+                                                                                "</tbody> " +
+                                                                                "</table> " +
+                                                                                "</td>" +
+                                                                                "</tr> " +
+                                                                                "</tbody>" +
+                                                                                "</table>";
+                                                                            return cont2;
+                                                                        }
+                                                                    }).on('change', function (e) {
+                                                                        $('#SnDetayHk_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapKod);
+                                                                        $('#SnDetayVk_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.VergiKimlikNo);
+                                                                        $('#SnDetayAs_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.AdSoyad);
+                                                                        $('#SnDetayIb_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.IBanNo);
+                                                                        $('#SnDetayKa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.KisaAdi);
+                                                                        $('#SnDetayAc_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.Aciklama);
+                                                                        if (e.added == undefined) $('.SnDetay_@Model.YevmiyeID').addClass('hide');
+                                                                        else $('.SnDetay_@Model.YevmiyeID').removeClass('hide');
+                                                                    });
+
+
+                                                                </script>
+                                                                @if (Model.YevmiyeSendikaBilgiID.HasValue)
+                                                                {
+                                                                    <script>
+
+                                                                        var secilen = @Html.Raw(Json.Encode(new { id = Model.YevmiyeSendikaBilgiID, text = Model.YevmiyeSendikaBilgiID.HasValue ? (Model.YevmiyelerSendikaBilgileri.HesapKod + " " + Model.YevmiyelerSendikaBilgileri.AdSoyad):"" }));
+                                                                        $("#SYevmiyeSendikaBilgiID_@Model.YevmiyeID").select2('data', secilen);
+                                                                    </script>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
 
                                                 </table>
 
-                                                <script>
 
-                                                    $("#SYevmiyeSendikaBilgiID_@Model.YevmiyeID").select2({
-                                                    tags: true,
-                                                    minimumInputLength: 2,
-                                                    multiple: false,
-                                                    ajax: {
-                                                        url: '@Url.Action("GetSendikaBilgileri", "Yevmiyeler")',
-                                                        dataType: "json",
-                                                        data: function (term, page) {
-                                                            return {
-                                                                'term': term
-                                                            }
-                                                        },
-                                                        results: function (data, page) {
-                                                            return {
-                                                                results: data
-                                                            };
-                                                        }
-                                                    },
-                                                    formatResult: function (result) {
-                                                        var cont2 =
-                                                            "<table class='table table-striped' style='width:100%; margin:0px;'>" +
-                                                            "<tbody>" +
-                                                            "<tr>" +
-                                                            "<td style='vertical-align:middle;'>" +
-                                                            "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
-                                                            "<tbody>" +
-                                                            "<tr><td>Hesap: " + result.HesapKod + " - " + result.AdSoyad + "</td></tr>" +
-                                                            "<tr><td>IBan: " + result.IBanNo + "</td></tr>" +
-                                                            "</tbody> " +
-                                                            "</table> " +
-                                                            "</td>" +
-                                                            "</tr> " +
-                                                            "</tbody>" +
-                                                            "</table>";
-                                                        return cont2;
+                                            }
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    @if (Model.IsBankaIslemleriKaydiOlacak)
+                    {
+                        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;" id="WgBankaPanel_@Model.YevmiyeID">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> Banka İşlemleri</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            @using (Ajax.BeginForm("YevmiyeBankaHesapNoKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeBankaHesapNoKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
+                                            {
+                                                @Html.Hidden("YevmiyeID", Model.YevmiyeID)
+                                                <table style="width:100%;">
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td width="240">Banka Hesap Numarası</td>
+                                                            <td width="10">:</td>
+                                                            <td class="form-group">
+                                                                <input type="text" autocomplete="off" class="form-control" name="ProjeBankaHesapNoID" id="SProjeBankaHesapNoID_@Model.YevmiyeID" />
+                                                            </td>
+                                                        </tr>
                                                     }
-                                                }).on('change', function (e) {
-                                                    $('#SnDetayHk_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapKod);
-                                                    $('#SnDetayVk_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.VergiKimlikNo);
-                                                    $('#SnDetayAs_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.AdSoyad);
-                                                    $('#SnDetayIb_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.IBanNo);
-                                                    $('#SnDetayKa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.KisaAdi);
-                                                    $('#SnDetayAc_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.Aciklama);
-                                                    if (e.added == undefined) $('.SnDetay_@Model.YevmiyeID').addClass('hide');
-                                                    else $('.SnDetay_@Model.YevmiyeID').removeClass('hide');
-                                                });
+                                                    <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue ? "" : "hide")">
+                                                        <td width="240">Hesap No</td>
+                                                        <td width="10">:</td>
+                                                        <td id="BhDetayHn_@Model.YevmiyeID">
+                                                            @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.HesapNo : "")
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue ? "" : "hide")">
+                                                        <td>Hesap Adı</td>
+                                                        <td>:</td>
+                                                        <td id="BhDetayAs_@Model.YevmiyeID">
+                                                            @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.HesapAdi : "")
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue ? "" : "hide")">
+                                                        <td>Proje No</td>
+                                                        <td>:</td>
+                                                        <td id="BhDetayPn_@Model.YevmiyeID">
+                                                            @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.ProjeNo : "")
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue ? "" : "hide")">
+                                                        <td>Proje Adı</td>
+                                                        <td>:</td>
+                                                        <td id="BhDetayPa_@Model.YevmiyeID">
+                                                            @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.ProjeAdi : "")
+                                                        </td>
+                                                    </tr>
+                                                    @if (KayitYetkisi)
+                                                    {
+                                                        <tr>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td>
+                                                                <a class="btn btn-success btn-sm" onclick="YevmiyeBankaHesapNoKayit(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                                <script>
 
+                                                                $("#SProjeBankaHesapNoID_@Model.YevmiyeID").select2({
+                                                                    tags: true,
+                                                                    minimumInputLength: 2,
+                                                                    multiple: false,
+                                                                    ajax: {
+                                                                        url: '@Url.Action("GetBankaHesapNumaralari", "Yevmiyeler")',
+                                                                        dataType: "json",
+                                                                        data: function (term, page) {
+                                                                            return {
+                                                                                'term': term
+                                                                            }
+                                                                        },
+                                                                        results: function (data, page) {
+                                                                            return {
+                                                                                results: data
+                                                                            };
+                                                                        }
+                                                                    },
+                                                                    formatResult: function (result) {
+                                                                        var cont2 =
+                                                                            "<table class='table table-striped' style='width:100%; margin:0px;'>" +
+                                                                            "<tbody>" +
+                                                                            "<tr>" +
+                                                                            "<td style='vertical-align:middle;'>" +
+                                                                            "<table class='table table-striped' style='margin:0px;border-top:none;font-size:8pt;'> " +
+                                                                            "<tbody>" +
+                                                                            "<tr><td>Hesap: " + result.HesapNo + " - " + result.HesapAdi + "</td></tr>" +
+                                                                            "<tr><td>Proje: " + result.ProjeNo + " - " + result.ProjeAdi + "</td></tr>" +
+                                                                            "</tbody> " +
+                                                                            "</table> " +
+                                                                            "</td>" +
+                                                                            "</tr> " +
+                                                                            "</tbody>" +
+                                                                            "</table>";
+                                                                        return cont2;
+                                                                    }
+                                                                }).on('change', function (e) {
+                                                                    $('#BhDetayHn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapNo);
+                                                                    $('#BhDetayHa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapAdi);
+                                                                    $('#BhDetayPn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeNo);
+                                                                    $('#BhDetayPa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeAdi);
+                                                                    if (e.added == undefined) $('.BhDetay_@Model.YevmiyeID').addClass('hide');
+                                                                    else $('.BhDetay_@Model.YevmiyeID').removeClass('hide');
+                                                                });
+                                                                </script>
+                                                                @if (Model.ProjeBankaHesapNoID.HasValue)
+                                                                {
+                                                                    <script>
 
-                                                </script>
-                                                if (Model.YevmiyeSendikaBilgiID.HasValue)
-                                                {
-                                                    <script>
-
-                                                        var secilen = @Html.Raw(Json.Encode(new { id = Model.YevmiyeSendikaBilgiID, text = Model.YevmiyeSendikaBilgiID.HasValue ? (Model.YevmiyelerSendikaBilgileri.HesapKod + " " + Model.YevmiyelerSendikaBilgileri.AdSoyad):"" }));
-                                                        $("#SYevmiyeSendikaBilgiID_@Model.YevmiyeID").select2('data', secilen);
-
-                                                    </script>
-                                                }
+                                                                var secilen = @Html.Raw(Json.Encode(new { id = Model.ProjeBankaHesapNoID, text = Model.ProjeBankaHesapNoID.HasValue ? ((Model.YevmiyelerProjeBankaHesapNumaralari.HesapNo + " " + Model.YevmiyelerProjeBankaHesapNumaralari.HesapAdi + " (" + Model.YevmiyelerProjeBankaHesapNumaralari.ProjeNo + " - " + Model.YevmiyelerProjeBankaHesapNumaralari.ProjeAdi + ")")) : "" }));
+                                                                $("#SProjeBankaHesapNoID_@Model.YevmiyeID").select2('data', secilen);
+                                                                    </script>
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                </table>
                                             }
                                         </td>
                                     </tr>

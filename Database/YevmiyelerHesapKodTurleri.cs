@@ -17,6 +17,7 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public YevmiyelerHesapKodTurleri()
         {
+            this.KullaniciYevmiyeHesapKodTurYetkileris = new HashSet<KullaniciYevmiyeHesapKodTurYetkileri>();
             this.YevmiyelerHesapKodlaris = new HashSet<YevmiyelerHesapKodlari>();
         }
     
@@ -25,6 +26,8 @@ namespace Database
         public bool IsYevmiyedeGozuksun { get; set; }
         public bool IsHesapKoduEslestirmedeGozuksun { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KullaniciYevmiyeHesapKodTurYetkileri> KullaniciYevmiyeHesapKodTurYetkileris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
     }

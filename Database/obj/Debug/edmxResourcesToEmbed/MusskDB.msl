@@ -272,6 +272,15 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="KullaniciYevmiyeHesapKodTurYetkileris">
+      <EntityTypeMapping TypeName="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri">
+        <MappingFragment StoreEntitySet="KullaniciYevmiyeHesapKodTurYetkileri">
+          <ScalarProperty Name="YevmiyeHesapKodTurID" ColumnName="YevmiyeHesapKodTurID" />
+          <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+          <ScalarProperty Name="KullaniciHesapkodTurYetkiID" ColumnName="KullaniciHesapkodTurYetkiID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="MailSablonlaris">
       <EntityTypeMapping TypeName="MusskDBModel.MailSablonlari">
         <MappingFragment StoreEntitySet="MailSablonlari">
@@ -581,6 +590,7 @@
           <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
+          <ScalarProperty Name="BESYevmiyeHesapKodID" ColumnName="BESYevmiyeHesapKodID" />
           <ScalarProperty Name="YevmiyeSendikaBilgiID" ColumnName="YevmiyeSendikaBilgiID" />
           <ScalarProperty Name="ProjeBankaHesapNoID" ColumnName="ProjeBankaHesapNoID" />
           <ScalarProperty Name="EKYevmiyeHarcamaBirimID" ColumnName="EKYevmiyeHarcamaBirimID" />

@@ -5,6 +5,7 @@ using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using BiskaUtil;
 using Database;
@@ -45,6 +46,32 @@ namespace WebApp.Models
         public VASurecleriBirimVerileri BirOncekiDurumVerisi { get; set; }
         public ExcelDataImportRow()
         {
+            HataliHucreler = new List<int>();
+        }
+    }
+    public class ExcelImportYevmiyeMaasModel
+    {
+        public List<string> ColumnValues { get; set; }
+        public string DosyaAdi { get; set; }
+        public string DosyaYolu { get; set; }
+        public List<ExcelDataImportYevmiyeMaasRow> Data { get; set; }
+        public ExcelImportYevmiyeMaasModel()
+        {
+            ColumnValues = new List<string>();
+            Data = new List<ExcelDataImportYevmiyeMaasRow>();
+        }
+    }
+    public class ExcelDataImportYevmiyeMaasRow
+    {
+
+        public List<string> ColumnValues { get; set; }
+        public int SatirNo { get; set; }
+        public int SayfaNo { get; set; }
+        public List<int> HataliHucreler { get; set; }
+        public string HataAciklamasi { get; set; }
+        public ExcelDataImportYevmiyeMaasRow()
+        {
+            ColumnValues = new List<string>();
             HataliHucreler = new List<int>();
         }
     }
@@ -366,7 +393,81 @@ namespace WebApp.Models
             return excpt;
         }
 
+        public static ExcelImportYevmiyeMaasModel ToMaasDonusturIterateRows(this HttpPostedFileBase item)
+        {
 
+            var unqCode = Guid.NewGuid().ToString().Substring(0, 6);
+            string extension = Path.GetExtension(item.FileName);
+
+            string fileName = unqCode.ReplaceSpecialCharacter() + "_" + item.FileName.Replace(extension, "").ReplaceSpecialCharacter() + extension;
+            var path = Path.Combine(System.Web.HttpContext.Current.Server.MapPath("~/TempDocumentFolder"), fileName);
+
+            item.SaveAs(path);
+            FileInfo file = new FileInfo(path);
+
+            var Model = new ExcelImportYevmiyeMaasModel();
+            Model.DosyaAdi = file.Name;
+            Model.DosyaYolu = "/TempDocumentFolder/" + fileName;
+            DataSet ds = new DataSet();
+            string fileExtension = System.IO.Path.GetExtension(item.FileName);
+            string ConnectionString = string.Empty;
+            if (fileExtension == ".xls") ConnectionString = path.ToConnectionStringXls();
+            else if (fileExtension == ".xlsx") ConnectionString = path.ToConnectionStringXlsx();
+            OleDbConnection excelConnection = new OleDbConnection(ConnectionString);
+            excelConnection.Open();
+            var dt = new System.Data.DataTable();
+
+            dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+            if (dt == null)
+            {
+                return null;
+            }
+            String[] excelSheets = new String[dt.Rows.Count];
+            int t = 0;
+            //excel data saves in temp file here.
+            foreach (DataRow row in dt.Rows)
+            {
+                excelSheets[t] = row["TABLE_NAME"].ToString();
+                t++;
+            }
+            OleDbConnection excelConnection1 = new OleDbConnection(ConnectionString);
+
+            for (int iSht = 0; iSht < excelSheets.Length; iSht++)
+            {
+                string query = string.Format("Select * from [{0}]", excelSheets[iSht]);
+                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                {
+                    if (ds.Tables.Count > 0) ds.Tables[0].Rows.Clear();
+                    dataAdapter.Fill(ds);
+                }
+                var tables = ds.Tables[0];
+                for (int i = 0; i < tables.Rows.Count; i++)
+                {
+                    var Row = new ExcelDataImportYevmiyeMaasRow();
+                    for (int ci = 0; ci < 12; ci++)
+                    {
+                        Row.ColumnValues.Add(tables.Rows[i][ci].ToStrObjEmptString());
+                    }
+
+                    Model.Data.Add(Row);
+                }
+            }
+
+
+
+            try
+            {
+                excelConnection.Close();
+                excelConnection1.Close();
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+
+            return Model;
+        }
 
         public static ExcelImportYevmiyeDataModel ToYevmiyeIterateRows(this HttpPostedFileBase item, int Yil)
         {
@@ -537,7 +638,59 @@ namespace WebApp.Models
             }
             return excpt;
         }
+      
+        //public static string MaasExcelOlustur(this ExcelImportYevmiyeMaasModel model)
+        //{
+        //    string path = "";
+        //    try
+        //    {
+        //        Application xlApp = new Application();
+        //        Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
+        //        Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
+        //        object misValue = System.Reflection.Missing.Value;
 
+        //        xlWorkBook = xlApp.Workbooks.Add(misValue);
+        //        xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+        //        int i = 1;
+        //        System.Data.DataTable dataTable = new System.Data.DataTable("MaasTable");
+
+        //        foreach (var item in model.ColumnValues)
+        //        {
+
+        //            xlWorkSheet.Cells[1, i] = item;
+        //            i++;
+        //        }
+        //        int iR = 2;
+        //        foreach (var itemRow in model.Data)
+        //        {
+        //            var dr = dataTable.NewRow();
+        //            dr[]
+        //            int Ic = 1;
+        //            foreach (var itemC in itemRow.ColumnValues)
+        //            {
+        //                xlWorkSheet.Cells[iR, Ic] = itemC;
+        //                Ic++;
+        //            }
+
+        //            iR++;
+        //        }
+        //        var unqCode = Guid.NewGuid().ToString().Substring(0, 6);
+        //        path = "/TempDocumentFolder/" + unqCode.ReplaceSpecialCharacter() + "_MaasExcel.xls";
+        //        var SavePath = System.Web.HttpContext.Current.Server.MapPath("~" + path);
+        //        xlWorkBook.SaveAs(SavePath, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+        //        xlWorkBook.Close(true, misValue, misValue);
+        //        xlApp.Quit();
+        //        Marshal.ReleaseComObject(xlWorkSheet);
+        //        Marshal.ReleaseComObject(xlWorkBook);
+        //        Marshal.ReleaseComObject(xlApp);
+
+
+        //    }
+        //    catch (Exception e)
+        //    {
+        //    }
+        //    return path;
+        //}
     }
 
 

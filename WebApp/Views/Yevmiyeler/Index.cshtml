@@ -4,6 +4,7 @@
 @{
     var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
     var KayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
+    var ExcelYuklemeYetki = RoleNames.YevmiyelerExcelYukleme.InRole();
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -23,7 +24,80 @@
                         <i class="glyphicon glyphicon-filter"></i> Filtre İşlemi
                     </h3>
                     <ul class="panel-controls">
+                        @if (true)
+                        {
+                            <li>
+                                <span class="label label-info" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
+                                <script> 
+                                    function MExcelYukle() { 
+                                        var _anaPnl = $('#pnlFltr');
+                                        _pRefresh(_anaPnl, false);
+                                        $.ajax({
+                                            url: '@Url.Action("MaasExcelYukle", "Yevmiyeler")', 
+                                            type: 'POST',
+                                            cache: false,
+                                            success: function (resultPv) { 
+                                                _pRefresh(_anaPnl, true); 
+                                                    var btbxxFS = bootbox.dialog({
+                                                        message: resultPv,
+                                                        title: "Excel'den Yevmiye yükleme işlemi",
+                                                        buttons: {
+                                                            success: {
+                                                                label: 'Yükle',
+                                                                className: "btn-primary",
+                                                                callback: function (event) {
+                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                                                    var saveOk = true;
+                                                                    if (saveOk) {
+                                                                        _pRefresh(pnlx, false);
+                                                                        $('#FrmMaasExcelYuklePost').ajaxForm({
+                                                                            success: function (result) {
+                                                                                _pRefresh(pnlx, true);
+                                                                                getMsg(result);
+                                                                                if (result.IsSuccess) {
+                                                                                    setTimeout(function () {
+                                                                                        var _clsBtn = $('.modal-header').find('button').first();
+                                                                                        $(_clsBtn).click(); 
+                                                                                    }, 3400)
+                                                                                }
+                                                                                else {
+                                                                                    return false;
+                                                                                }
+                                                                            },
+                                                                            complete: function (cmp) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            },
+                                                                            error: function (err) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            }
 
+                                                                        });
+                                                                        $('#FrmMaasExcelYuklePost').submit();
+                                                                    }
+                                                                    return false;
+                                                                }
+                                                            },
+                                                            danger: {
+                                                                label: 'Kapat',
+                                                                className: "btn-success",
+                                                                callback: function () {
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+
+                                            },
+                                            error: function (err) {
+                                                _pRefresh(_anaPnl, true);
+                                                alert(err.responseText);
+                                            }
+                                        });
+                                    };
+
+                                </script>
+
+                            </li>
+                        }
                         <li><a href="javasctipr:void(0)" onclick="$('#Expand').val(($('#pnlFltr').hasClass('panel-toggled') ? 'true' :'false' )); " class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                     </ul>
                 </div>
@@ -59,6 +133,20 @@
                                                 <tr>
                                                     <td width="120">Hesap Kod Türü</td>
                                                     <td>@Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();", id = "YevmiyeHesapKodTurID_" })</td>
+                                                    <td class="@(Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? "" : "hide")">
+                                                        <table style="width:100%;">
+                                                            <tr>
+                                                                <td width="100">22-31 Gelir Kaydı</td>
+                                                                <td>
+                                                                    <select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
+                                                                        <option></option>
+                                                                        <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
+                                                                        <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
+                                                                    </select>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -74,7 +162,7 @@
                                                     <td width="120">Yevmiye No</td>
                                                     <td>
                                                         <input name="YevmiyeNo" id="YevmiyeNo" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.YevmiyeNo" class="form-control" />
-                                                        @if (Model.YevmiyeNo.HasValue == false)
+                                                        @if (Model.YevmiyeNo.HasValue)
                                                         {
                                                             <script>
                                                                 $(function () {
@@ -88,40 +176,45 @@
                                             </table>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>
-                                            <table style="width:100%;table-layout:fixed;">
-                                                <tr>
-                                                    <td width="120">22-31 Gelir Kaydı</td>
-                                                    <td>
-                                                        <select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
-                                                            <option></option>
-                                                            <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
-                                                            <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
                                     <tr>
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
                                                     <td width="120">Harcama Birim Kodu</td>
                                                     <td>
-                                                        <table style="width:100%;table-layout:fixed;">
-                                                            <tr>
-                                                                <td><input name="HarcamaBirimKod" id="HarcamaBirimKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HarcamaBirimKod" class="form-control" /></td>
-                                                                <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmYevmiyeler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
-                                                            </tr>
-                                                        </table>
+                                                        <input name="HarcamaBirimKod" id="HarcamaBirimKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HarcamaBirimKod" class="form-control" />
                                                         @if (Model.HarcamaBirimKod.IsNullOrEmpty() == false)
                                                         {
                                                             <script>
                                                                 $(function () {
                                                                     SetCaretAtEnd(document.getElementById('HarcamaBirimKod'));
+                                                                });
+
+                                                            </script>
+                                                        }
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="120">Hesap Kodu</td>
+                                                    <td>
+                                                        <table style="width:100%;table-layout:fixed;">
+                                                            <tr>
+                                                                <td><input name="HesapKod" id="HesapKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HesapKod" class="form-control" /></td>
+                                                                <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmYevmiyeler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
+                                                            </tr>
+                                                        </table>
+                                                        @if (Model.HesapKod.IsNullOrEmpty() == false)
+                                                        {
+                                                            <script>
+                                                                $(function () {
+                                                                    SetCaretAtEnd(document.getElementById('HesapKod'));
                                                                 });
 
                                                             </script>
@@ -146,7 +239,7 @@
                     <h3 class="panel-title"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; Yevmiyeler</h3>
                     <ul class="panel-controls">
 
-                        @if (KayitYetkisi && Model.Yil.HasValue)
+                        @if (ExcelYuklemeYetki && Model.Yil.HasValue)
                         {
                             <li>
                                 <span class="label label-info" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
@@ -275,8 +368,8 @@
                                             @item.HesapKod
                                             <br />@item.HesapAdi
                                         </td>
-                                        <td style="text-align:right;">@item.Borc TL</td>
-                                        <td style="text-align:right;">@item.Alacak TL</td>
+                                        <td style="text-align:right;">@item.Borc.ToString("n2") TL</td>
+                                        <td style="text-align:right;">@item.Alacak.ToString("n2") TL</td>
 
                                     </tr>
                                     <tr class="cls-@item.YevmiyeID hide">
@@ -338,9 +431,11 @@
             }
         });
     }
-
-
-    function YevmiyeAyristir(YevmiyeID, Yevmiye1003BAyristirmaID) {
+</script>
+@if (KayitYetkisi)
+{
+    <script>
+         function YevmiyeAyristir(YevmiyeID, Yevmiye1003BAyristirmaID) {
         var _panel = $('#yevmiyeDetayPanel_' + YevmiyeID);
         _pRefresh(_panel, false);
         $.ajax({
@@ -441,7 +536,7 @@
         });
     }
     function GelirKaydiOlustur(YevmiyeID) {
-        var _panel = $('#frmYevmiyeKayit_' + YevmiyeID);
+        var _panel = $('#Wg1003AKayitPanel_' + YevmiyeID);
         _pRefresh(_panel, false);
         $('#frmYevmiyeKayit_' + YevmiyeID).ajaxForm({
             success: function (result) {
@@ -727,7 +822,7 @@
     }
     function YevmiyeSendikaBilgisiKayit(YevmiyeID) {
         var _panel = $('#WgSendikaPanel_' + YevmiyeID);
-        _pRefresh(_panel, false); 
+        _pRefresh(_panel, false);
         $('#frmYevmiyeSendikaBilgisiKayit_' + YevmiyeID).ajaxForm({
             success: function (result) {
                 _pRefresh(_panel, true);
@@ -752,4 +847,32 @@
 
         }).submit();
     }
-</script>
+    function BesHesapKodKaydet(YevmiyeID) {
+        var _panel = $('#WgBesPanel_' + YevmiyeID);
+        _pRefresh(_panel, false);
+        $('#frmBireyselEmeklilikKayit_' + YevmiyeID).ajaxForm({
+            success: function (result) {
+                _pRefresh(_panel, true);
+                if (result.IsSuccess) {
+                    toastr["success"](result.Messages[0], result.Title);
+                    var _clsBtn = $('.modal-header').find('button').first();
+                    $(_clsBtn).click();
+                    SubData(YevmiyeID);
+                }
+                else {
+                    getMsg(result);
+                    return false;
+                }
+
+            },
+            complete: function (cmp) {
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                _pRefresh(_panel, true);
+            }
+
+        }).submit();
+    }
+    </script>
+}
