@@ -35,56 +35,75 @@
                     </table>
                     @if (Model.Is1003BYevmiyeParcalamaOlacak)
                     {
+                        var AyristirmaDurum = "";
+                        if (Model.Yevmiyeler1003BAyristirmalari.Any())
+                        {
+
+                            var ToplamGirilen = Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah);
+                            var Kalan = (Model.Alacak - ToplamGirilen).ToString("n2");
+                            if (ToplamGirilen != Model.Alacak)
+                            {
+
+                                AyristirmaDurum = "Ayrıştırma İşlemi Tamamlanmadı. "+ Kalan+" TL lik Giriş Yapılmalı.";
+                            }
+                            else
+                            {
+                                AyristirmaDurum = "Ayrıştırma İşlemi Tamamlandı";
+                            }
+                        }
+                        else
+                        {
+                            AyristirmaDurum = "Ayrıştırma İşlemi Yapılmadı";
+                        }
+
                         <br />
                         <div class="widget widget-default" id="YaPanel_@Model.YevmiyeID" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
 
                             <table style="width:100%;">
                                 <tbody>
                                     <tr>
-                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> 1003B Ssk</td>
+                                        <td style="font-weight:bold;font-size:9pt; border-bottom:1px solid; border-bottom-color:lightgray;"> 1003B Ssk <span>(@AyristirmaDurum)</span></td>
                                         <td style="border-bottom:1px solid; border-bottom-color:lightgray;" width="200">
                                             <a class="btn btn-info btn-sm" onclick="YevmiyeAyristir(@Model.YevmiyeID,null);"><i class="fa fa-plus" aria-hidden="true"></i> Yeni Ayrıştırma Kaydı Oluştur</a>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2">
-                                            @if (Model.Yevmiyeler1003BAyristirmalari.Any())
-                                            {
-                                                <table class="table table-hover" style="width:100%;">
-                                                    <tr class="info">
-                                                        <th>Üniversite İş Yeri Adı</th>
-                                                        <th width="50">Yıl</th>
-                                                        <th width="50">Ay</th>
-                                                        <th>Belge Kodu</th>
-                                                        <th width="210" style="text-align:right;">Matrah</th>
-                                                        <th width="40"></th>
-                                                    </tr>
-                                                    @foreach (var item in Model.Yevmiyeler1003BAyristirmalari)
-                                                    {
-                                                        <tr>
-                                                            <td id="tdAyrUniAdi_@item.Yevmiye1003BAyristirmaID">@item.YevmiyelerHarcamaBirimleri.BirimAdi</td>
-                                                            <td>@item.Yil</td>
-                                                            <td>@item.Aylar.AyAdi</td>
-                                                            <td>@item.YevmiyelerBelgeKodlari.BelgeKodu - @item.YevmiyelerBelgeKodlari.BelgeAdi</td>
-                                                            <td style="text-align:right;">@item.Matrah TL</td>
-                                                            <td style="padding-left:5px;">
-                                                                <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeAyristir(@Model.YevmiyeID,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
-                                                                <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeAyristirSil(@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
-                                                            </td>
+                                        <td colspan="2" >
+                                            <div style="min-height:80px;">
+                                                @if (Model.Yevmiyeler1003BAyristirmalari.Any())
+                                                {
+                                                    <table class="table table-hover" style="width:100%;">
+                                                        <tr class="info">
+                                                            <th>Üniversite İş Yeri Adı</th>
+                                                            <th width="50">Yıl</th>
+                                                            <th width="50">Ay</th>
+                                                            <th>Belge Kodu</th>
+                                                            <th width="210" style="text-align:right;">Matrah</th>
+                                                            <th width="40"></th>
                                                         </tr>
-                                                    }
+                                                        @foreach (var item in Model.Yevmiyeler1003BAyristirmalari)
+                                                        {
+                                                            <tr>
+                                                                <td id="tdAyrUniAdi_@item.Yevmiye1003BAyristirmaID">@item.YevmiyelerHarcamaBirimleri.BirimAdi</td>
+                                                                <td>@item.Yil</td>
+                                                                <td>@item.Aylar.AyAdi</td>
+                                                                <td>@item.YevmiyelerBelgeKodlari.BelgeKodu - @item.YevmiyelerBelgeKodlari.BelgeAdi</td>
+                                                                <td style="text-align:right;">@item.Matrah TL</td>
+                                                                <td style="padding-left:5px;">
+                                                                    <a style="font-size:10pt;" href="Javascript:void(0);" onclick="YevmiyeAyristir(@Model.YevmiyeID,@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-edit fa-lg " title="Düzelt"></i></a>
+                                                                    <a style="float:right; font-size:10pt;" href="javascript:void(0)" onclick="YevmiyeAyristirSil(@item.Yevmiye1003BAyristirmaID)"><i class="fa fa-trash-o fa-lg " title="Sil"></i></a>
+                                                                </td>
+                                                            </tr>
+                                                        }
 
-                                                    <tr class="info">
-                                                        <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
-                                                        <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
-                                                        <td></td>
-                                                    </tr>
-                                                </table>
-                                            }
-                                            else
-                                            {
-                                                <div style="margin:50px auto;color:maroon;">Yevmiye Ayrıştırması Yapılmadı</div>
-                                            }
+                                                        <tr class="info">
+                                                            <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak TL</td>
+                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah) TL</td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </table>
+                                                }
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>

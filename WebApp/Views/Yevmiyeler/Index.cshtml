@@ -421,8 +421,7 @@
                             success: function (result) {
                                 toastr[result.success ? "success" : "error"](result.message, "Yevmiye Ayrıştırma Kaydı Silme İşlemi")
                                 if (result.success) {
-                                    $(sndr).closest("tr").remove();
-                                    // $(".cls-" + id).remove();
+                                    SubData(YevmiyeID);
                                 }
 
                             },

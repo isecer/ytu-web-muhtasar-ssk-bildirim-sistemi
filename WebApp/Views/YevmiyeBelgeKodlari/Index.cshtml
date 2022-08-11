@@ -124,7 +124,7 @@
             url: '@Url.Action("Sil", "YevmiyeBelgeKodlari")',
             data: { id: id },
             success: function (result) {
-                toastr[result.success ? "success" : "error"](result.message, "Belge Kodu Silme İşlemi")
+                toastr[result.success ? "success" : "error"](result.message, "Belge Kodu Silme İşlemi");
                 if (result.success) {
                     $(sndr).closest("tr").remove();
                     // $(".cls-" + id).remove();

@@ -1,4 +1,5 @@
 ﻿@using Database
+@using WebApp.Models
 @model Yevmiyeler1003BAyristirmalari
 @{
     Layout = null;
@@ -48,7 +49,7 @@
                                         <td id="lbl_Matrah">Matrah</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextBox("Matrah", Model.Matrah, new { @class = "form-control" })
+                                            @Html.TextBox("Matrah", Model.Matrah.ToEmptyStringZero(), new { @class = "form-control" })
                                         </td>
                                     </tr>
                                 </tbody>
