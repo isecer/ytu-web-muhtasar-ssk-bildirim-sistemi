@@ -168,3 +168,28 @@ C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Da
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.csproj.CopyComplete
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.dll
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\Database\obj\Release\Database.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\Database.dll.config
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\Database.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\Database.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\EntityFramework.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\EntityFramework.SqlServer.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Helpers.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Mvc.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.Deployment.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\EntityFramework.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\EntityFramework.SqlServer.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Helpers.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Mvc.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.Deployment.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\bin\Release\System.Web.WebPages.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.csprojAssemblyReference.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.csproj.CopyComplete
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.pdb

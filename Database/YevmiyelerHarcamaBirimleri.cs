@@ -26,6 +26,7 @@ namespace Database
         public string VergiKimlikNo { get; set; }
         public string BirimAdi { get; set; }
         public bool IsUniversiteIsyeri { get; set; }
+        public bool IsAltBirim { get; set; }
         public string IsyeriKodu { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }

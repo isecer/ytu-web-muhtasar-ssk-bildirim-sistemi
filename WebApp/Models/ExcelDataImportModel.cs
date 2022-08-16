@@ -542,7 +542,7 @@ namespace WebApp.Models
                     var _HesapAdi = tables.Rows[i][5].ToStrObjEmptString().Trim();
                     var _Borc = tables.Rows[i][6].ToDecimalObj();
                     var _Alacak = tables.Rows[i][7].ToDecimalObj();
-                    var _Aciklama = tables.Rows[i][5].ToStrObjEmptString().Trim();
+                    var _Aciklama = tables.Rows[i][8].ToStrObjEmptString().Trim();
 
 
                     Model.Data.Add(new ExcelDataImportYevmiyeRow
@@ -613,7 +613,6 @@ namespace WebApp.Models
                             HcAck.Merge();
                         }
                     }
-
                 }
                 excel.Application.ActiveWorkbook.Save();
                 excel.Application.Quit();

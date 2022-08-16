@@ -21,9 +21,13 @@ namespace Database
         }
     
         public int YevmiyeKdvKodID { get; set; }
+        public string HesapKod { get; set; }
         public string KdvKodu { get; set; }
         public string KdvAdi { get; set; }
         public string KdvOrani { get; set; }
+        public bool IsDigerKdvler { get; set; }
+        public Nullable<int> TevkifatOranBolunen { get; set; }
+        public Nullable<int> TevkifatOranBolen { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }

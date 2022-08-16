@@ -102,3 +102,23 @@ C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\B
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\Biska.Util.v1.dll
 C:\Users\iRfan\Desktop\Muhtasar Ve SSK Bildirimi\Proje\3\BiskaUtil\obj\Release\Biska.Util.v1.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\Biska.Util.v1.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\Biska.Util.v1.pdb
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\Microsoft.Web.Infrastructure.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Helpers.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Mvc.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.Razor.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Helpers.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Mvc.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.Deployment.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\bin\Release\System.Web.WebPages.Razor.xml
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Release\BiskaUtil.csprojAssemblyReference.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Release\BiskaUtil.csproj.CoreCompileInputs.cache
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Release\BiskaUtil.csproj.CopyComplete
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Release\Biska.Util.v1.dll
+E:\Yazılım\Ana Projeler\MUSSK\4\BiskaUtil\obj\Release\Biska.Util.v1.pdb

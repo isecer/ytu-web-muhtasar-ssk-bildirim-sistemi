@@ -29,6 +29,7 @@
                                 <th class="sirala sorting" field="BirimAdi">Birim Adı</th>
                                 <th class="sirala sorting" width="200" field="IsUniversiteIsyeri">Üniversite İşyeri Mi</th>
                                 <th class="sirala sorting" field="IsyeriKodu">İş Yeri Kodu</th>
+                                <th class="sirala sorting" field="IsAltBirim">Alt Birim Mi</th>
                                 <th width="35"></th>
                             </tr>
                         </thead>
@@ -39,7 +40,7 @@
                                     <input name="VergiKimlikNo" type="text" value="@Model.VergiKimlikNo" class="form-control" />
                                 </th>
                                 <th>
-                                    <input name="IsyeriAdi" type="text" value="@Model.BirimAdi" class="form-control" />
+                                    <input name="BirimAdi" type="text" value="@Model.BirimAdi" class="form-control" />
                                 </th>
                                 <th>
                                     <select name="IsUniversiteIsyeri" class="form-control">
@@ -51,6 +52,13 @@
                                 <th>
                                     <input name="IsyeriKodu" type="text" value="@Model.IsyeriKodu" class="form-control" />
                                 </th>
+                                <th>
+                                    <select name="IsAltBirim" class="form-control">
+                                        <option></option>
+                                        <option value="true" @Model.IsAltBirim.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsAltBirim == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </th>
                                 <th></th>
                             </tr>
                             @if (Model.RowCount > 0)
@@ -60,27 +68,30 @@
                                 {
                                     RowIndex++;
                                     trCls = RowIndex % 2 == 1 ? "" : "even";
-                                    <tr class="@trCls">
-                                        <td>@RowIndex</td>
-                                        <td id="tdVkn_@item.YevmiyeHarcamaBirimID">
-                                            @item.VergiKimlikNo
-                                        </td>
-                                        <td id="tdBa_@item.YevmiyeHarcamaBirimID">
-                                            @item.BirimAdi
-                                        </td>
-                                        <td>
-                                            @item.IsUniversiteIsyeri.ToEvetHayir()
-                                        </td>
-                                        <td>
-                                            @item.IsyeriKodu
-                                        </td>
-                                        <td>
+                            <tr class="@trCls">
+                                <td>@RowIndex</td>
+                                <td id="tdVkn_@item.YevmiyeHarcamaBirimID">
+                                    @item.VergiKimlikNo
+                                </td>
+                                <td id="tdBa_@item.YevmiyeHarcamaBirimID">
+                                    @item.BirimAdi
+                                </td>
+                                <td>
+                                    @item.IsUniversiteIsyeri.ToEvetHayir()
+                                </td>
+                                <td>
+                                    @item.IsyeriKodu
+                                </td>
+                                <td>
+                                    @item.IsAltBirim.ToEvetHayir()
+                                </td>
+                                <td>
 
-                                            <a href="@Url.Action("Kayit", "YevmiyeHarcamaBirimleri", new { id = item.YevmiyeHarcamaBirimID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
-                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                    <a href="@Url.Action("Kayit", "YevmiyeHarcamaBirimleri", new { id = item.YevmiyeHarcamaBirimID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                    <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
 
-                                        </td>
-                                    </tr>
+                                </td>
+                            </tr>
 
 
                                 }
@@ -88,7 +99,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="5" style="text-align: center;">
+                                    <td colspan="6" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
                                     </td>
                                 </tr>

@@ -3,6 +3,7 @@
 @model YevmiyelerKdvTevkifatKayitlari
 @{
     Layout = null;
+    var DigerKdvKodRwShow = (bool)ViewBag.DigerKdvKodRwShow;
 }
 @using (Ajax.BeginForm("YevmiyeKdvTevkifatKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmKdvTevkifatKayit", @class = "form-horizontal" }))
 {
@@ -24,10 +25,20 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td id="lbl_VergiKimlikNo">Vergi Kimlik No</td>
+                                        <td id="lbl_VergiKimlikNo">
+                                            Vergi Kimlik No
+                                        </td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            <input type="text" autocomplete="off" class="form-control" maxlength="11" name="VergiKimlikNo" id="VergiKimlikNoKdvTef" value="@Model.VergiKimlikNo" />
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td><input type="text" autocomplete="off" class="form-control" maxlength="11" name="VergiKimlikNo" id="VergiKimlikNoKdvTef" value="@Model.VergiKimlikNo" /></td>
+                                                    <td width="60">
+                                                        <a class="btn btn-info btn-sm" href="@Url.Action("Kayit","YevmiyeVergiKimlikNumaralari")" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> Ekle</a>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -35,13 +46,7 @@
                                         <td>:</td>
                                         <td class="form-group">@Html.TextBox("AdSoyad", Model.AdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "AdSoyadKdvTef", @readonly = "readonly", style = "color:black;" })</td>
                                     </tr>
-                                    <tr>
-                                        <td id="lbl_YevmiyeKdvKodID">Kdv Kodu</td>
-                                        <td>:</td>
-                                        <td class="form-group">
-                                            @Html.DropDownList("YevmiyeKdvKodID", null, new { @class = "form-control" })
-                                        </td>
-                                    </tr>
+
                                     <tr>
                                         <td id="lbl_FaturaYil">Fatura Yılı</td>
                                         <td>:</td>
@@ -56,7 +61,6 @@
                                             @Html.DropDownList("FaturaAyID", null, new { @class = "form-control" })
                                         </td>
                                     </tr>
-
                                     <tr>
                                         <td id="lbl_Matrah">Matrah</td>
                                         <td>:</td>
@@ -70,6 +74,20 @@
                                         <td>:</td>
                                         <td class="form-group">
                                             @Html.DropDownList("KdvOrani", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_YevmiyeKdvKodID">Kdv Kodu</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("YevmiyeKdvKodID", null, new { @class = "form-control",onchange="YKdvChange(this)" })
+                                        </td>
+                                    </tr>
+                                    <tr id="DigerKdvKodRw" class="@(DigerKdvKodRwShow?"":"hide")">
+                                        <td id="lbl_DigerYevmiyeKdvKodu">Diğer Kdv Oranları</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("DigerYevmiyeKdvKodu", null, new { @class = "form-control" })
                                         </td>
                                     </tr>
                                 </tbody>
@@ -127,7 +145,22 @@
             $('#AdSoyadKdvTef').val(e.added == undefined ? "" : e.added.AdSoyad);
         });
 
+    function YKdvChange(sndr) {
+        var SndrVar = $(sndr).val();
+         $.ajax({
+            url: '@Url.Action("YevmiyeKdvKodKontrol", "Yevmiyeler")',
+             data: { id: SndrVar },
+             success: function (result) {
+                 if (result.IsDigerKdvler) $('#DigerKdvKodRw').removeClass('hide');
+                 else $('#DigerKdvKodRw').addClass('hide');
+                 
 
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
 </script>
 @if (Model.YevmiyeKdvTevkifatKayitID > 0)
 {

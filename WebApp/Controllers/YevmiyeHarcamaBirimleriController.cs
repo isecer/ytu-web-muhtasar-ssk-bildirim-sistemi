@@ -17,7 +17,7 @@ namespace WebApp.Controllers
         // GET: YevmiyeBelgeKodlari
         public ActionResult Index()
         {
-            return Index(new FmYevmiyelerHarcamaBirimleri { });
+            return Index(new FmYevmiyelerHarcamaBirimleri { PageSize = 50 });
         }
         [HttpPost]
         public ActionResult Index(FmYevmiyelerHarcamaBirimleri model)
@@ -29,6 +29,7 @@ namespace WebApp.Controllers
             if (!model.VergiKimlikNo.IsNullOrWhiteSpace()) q = q.Where(p => p.VergiKimlikNo == model.VergiKimlikNo);
             if (!model.BirimAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.BirimAdi.Contains(model.BirimAdi));
             if (model.IsUniversiteIsyeri.HasValue) q = q.Where(p => p.IsUniversiteIsyeri == model.IsUniversiteIsyeri);
+            if (model.IsAltBirim.HasValue) q = q.Where(p => p.IsAltBirim == model.IsAltBirim);
             if (!model.IsyeriKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.IsyeriKodu == model.IsyeriKodu);
             model.RowCount = q.Count();
             if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
@@ -41,6 +42,7 @@ namespace WebApp.Controllers
                 VergiKimlikNo = s.VergiKimlikNo,
                 BirimAdi = s.BirimAdi,
                 IsUniversiteIsyeri = s.IsUniversiteIsyeri,
+                IsAltBirim = s.IsAltBirim,
                 IsyeriKodu = s.IsyeriKodu,
                 IslemTarihi = s.IslemTarihi,
                 IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
@@ -95,7 +97,7 @@ namespace WebApp.Controllers
             #endregion
             if (!MmMessage.Messages.Any())
             {
-                if (db.YevmiyelerHarcamaBirimleris.Any(a => a.VergiKimlikNo == kModel.VergiKimlikNo && a.YevmiyeHarcamaBirimID != kModel.YevmiyeHarcamaBirimID))
+                if (db.YevmiyelerHarcamaBirimleris.Any(a => a.VergiKimlikNo == kModel.VergiKimlikNo && a.IsyeriKodu == kModel.IsyeriKodu && a.YevmiyeHarcamaBirimID != kModel.YevmiyeHarcamaBirimID))
                 {
                     MmMessage.Messages.Add("Vergi Kimlik Numarası daha önce tanımlanmıştır. Tekrar tanımlanamaz!");
                     MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "VergiKimlikNo" });
@@ -106,7 +108,7 @@ namespace WebApp.Controllers
                 kModel.IslemTarihi = DateTime.Now;
                 kModel.IslemYapanID = UserIdentity.Current.Id;
                 kModel.IslemYapanIP = UserIdentity.Ip;
-                if (!kModel.IsUniversiteIsyeri) kModel.IsyeriKodu = null;
+                if (!kModel.IsUniversiteIsyeri) { kModel.IsyeriKodu = null; kModel.IsAltBirim = false; }
                 if (kModel.YevmiyeHarcamaBirimID <= 0)
                 {
                     db.YevmiyelerHarcamaBirimleris.Add(kModel);
@@ -117,6 +119,7 @@ namespace WebApp.Controllers
                     data.VergiKimlikNo = kModel.VergiKimlikNo;
                     data.BirimAdi = kModel.BirimAdi;
                     data.IsUniversiteIsyeri = kModel.IsUniversiteIsyeri;
+                    data.IsAltBirim = kModel.IsAltBirim;
                     data.IsyeriKodu = kModel.IsyeriKodu;
                     data.IslemTarihi = kModel.IslemTarihi;
                     data.IslemYapanID = kModel.IslemYapanID;

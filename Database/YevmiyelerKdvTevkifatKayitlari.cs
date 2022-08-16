@@ -19,14 +19,16 @@ namespace Database
         public Nullable<int> YeniYevmiyeHesapKodID { get; set; }
         public string VergiKimlikNo { get; set; }
         public string AdSoyad { get; set; }
-        public int YevmiyeKdvKodID { get; set; }
-        public string KdvKodu { get; set; }
-        public string KdvKodOrani { get; set; }
         public int FaturaYil { get; set; }
         public int FaturaAyID { get; set; }
         public decimal Matrah { get; set; }
         public int KdvOrani { get; set; }
         public decimal KdvTutari { get; set; }
+        public int YevmiyeKdvKodID { get; set; }
+        public string KdvKodu { get; set; }
+        public string KdvKodOrani { get; set; }
+        public int TevkifatOranBolunen { get; set; }
+        public int TevkifatOranBolen { get; set; }
         public decimal TevkifatTutari { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }

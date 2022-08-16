@@ -29,8 +29,7 @@
                                 <th class="sirala sorting" width="140" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" field="HesapAdi">Hesap Adı</th>
                                 <th class="sirala sorting" field="IsGelirKaydindaKullaniclacak">Gelir Kaydı Yapılacak Mı</th>
-                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
-                                <th class="sirala sorting" field="VergiKodu">Tevkifat Oranı</th>
+                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th> 
                                 <th width="35"></th>
                             </tr>
                         </thead>
@@ -55,8 +54,7 @@
                                 </th>
                                 <th>
                                     <input name="VergiKodu" type="text" value="@Model.VergiKodu" class="form-control" />
-                                </th>
-                                <th></th>
+                                </th> 
                                 <th></th>
                             </tr>
                             @if (Model.RowCount > 0)
@@ -84,10 +82,7 @@
                                         </td>
                                         <td>
                                             @item.VergiKodu
-                                        </td>
-                                        <td>
-                                            @(item.TevkifatOranBolen.HasValue ? (item.TevkifatOranBolunen + "/" + item.TevkifatOranBolen) : "")
-                                        </td>
+                                        </td> 
                                         <td>
                                             <a href="@Url.Action("Kayit", "YevmiyeHesapKoduEslestirme", new { id = item.YevmiyeHesapKodID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
                                             <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHesapKodID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
@@ -100,7 +95,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="8" style="text-align: center;">
+                                    <td colspan="7" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
                                     </td>
                                 </tr>

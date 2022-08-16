@@ -23,7 +23,7 @@ namespace WebApp.Controllers
         public ActionResult Index(FmYevmiyeEkHbToplamlari model)
         {
             var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari).Select(s => s.HesapKod).ToList();
-            var q = (from Hb in db.YevmiyelerHarcamaBirimleris
+            var q = (from Hb in db.YevmiyelerHarcamaBirimleris.Where(p=>!p.IsAltBirim)
                      join Yb in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && HesapKods.Contains(p.HesapKod)) on new { Hb.YevmiyeHarcamaBirimID } equals new { YevmiyeHarcamaBirimID = Yb.EKYevmiyeHarcamaBirimID ?? Yb.YevmiyeHarcamaBirimID } into defYb
                      from Yb in defYb.DefaultIfEmpty()
                      group new { Borc = (Yb == null ? 0 : Yb.Borc), Alacak = (Yb == null ? 0 : Yb.Alacak) } by new { Hb.YevmiyeHarcamaBirimID, Hb.VergiKimlikNo, Hb.BirimAdi } into g1

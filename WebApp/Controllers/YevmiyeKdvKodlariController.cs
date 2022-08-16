@@ -17,7 +17,7 @@ namespace WebApp.Controllers
         // GET: YevmiyeBelgeKodlari
         public ActionResult Index()
         {
-            return Index(new FmYevmiyeKdvKodlari { });
+            return Index(new FmYevmiyeKdvKodlari { PageSize = 50 });
         }
         [HttpPost]
         public ActionResult Index(FmYevmiyeKdvKodlari model)
@@ -26,6 +26,7 @@ namespace WebApp.Controllers
             var q = from s in db.YevmiyelerKdvKodlaris
                     select s;
 
+            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod == model.HesapKod);
             if (!model.KdvKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.KdvKodu == model.KdvKodu);
             if (!model.KdvAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.KdvAdi.Contains(model.KdvAdi));
             model.RowCount = q.Count();
@@ -36,9 +37,13 @@ namespace WebApp.Controllers
             model.Data = q.Select(s => new FrYevmiyelerKdvKodlari
             {
                 YevmiyeKdvKodID = s.YevmiyeKdvKodID,
+                HesapKod = s.HesapKod,
+                IsDigerKdvler = s.IsDigerKdvler,
                 KdvKodu = s.KdvKodu,
                 KdvAdi = s.KdvAdi,
-                KdvOrani=s.KdvOrani,
+                KdvOrani = s.KdvOrani,
+                TevkifatOranBolen = s.TevkifatOranBolen,
+                TevkifatOranBolunen = s.TevkifatOranBolunen,
                 IslemTarihi = s.IslemTarihi,
                 IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
                 IslemYapanID = s.IslemYapanID,
@@ -68,6 +73,15 @@ namespace WebApp.Controllers
         {
             var MmMessage = new MmMessage() { IsDialog = !dlgid.IsNullOrWhiteSpace(), DialogID = dlgid };
             #region Kontrol  
+            if (!kModel.IsDigerKdvler)
+            {
+                if (kModel.HesapKod.IsNullOrWhiteSpace())
+                {
+                    MmMessage.Messages.Add("Hesap Kodu Boş bırakılamaz.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "HesapKod" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "HesapKod" });
+            }
             if (kModel.KdvKodu.IsNullOrWhiteSpace())
             {
                 MmMessage.Messages.Add("Kdv Kodu Boş bırakılamaz.");
@@ -86,8 +100,21 @@ namespace WebApp.Controllers
                 MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "KdvOrani" });
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "KdvOrani" });
-
-
+            if (!kModel.IsDigerKdvler)
+            {
+                if (kModel.TevkifatOranBolunen <= 0)
+                {
+                    MmMessage.Messages.Add("Oran Bölünen 0 Dan  Büyük Olmalı.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "TevkifatOranBolunen" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "TevkifatOranBolunen" });
+                if (kModel.TevkifatOranBolen <= 0)
+                {
+                    MmMessage.Messages.Add("Oran Bölen 0 Dan  Büyük Olmalı.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "TevkifatOranBolen" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "TevkifatOranBolen" });
+            }
             #endregion
             if (!MmMessage.Messages.Any())
             {
@@ -102,6 +129,7 @@ namespace WebApp.Controllers
                 kModel.IslemTarihi = DateTime.Now;
                 kModel.IslemYapanID = UserIdentity.Current.Id;
                 kModel.IslemYapanIP = UserIdentity.Ip;
+                if (kModel.IsDigerKdvler) { kModel.TevkifatOranBolen = null; kModel.TevkifatOranBolunen = null; }
                 if (kModel.YevmiyeKdvKodID <= 0)
                 {
                     db.YevmiyelerKdvKodlaris.Add(kModel);
@@ -109,9 +137,13 @@ namespace WebApp.Controllers
                 else
                 {
                     var data = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == kModel.YevmiyeKdvKodID).First();
+                    data.HesapKod = kModel.HesapKod;
                     data.KdvKodu = kModel.KdvKodu;
                     data.KdvAdi = kModel.KdvAdi;
-                    data.KdvOrani = kModel.KdvOrani; 
+                    data.KdvOrani = kModel.KdvOrani;
+                    data.IsDigerKdvler = kModel.IsDigerKdvler;
+                    data.TevkifatOranBolunen = kModel.TevkifatOranBolunen;
+                    data.TevkifatOranBolen = kModel.TevkifatOranBolen;
                     data.IslemTarihi = kModel.IslemTarihi;
                     data.IslemYapanID = kModel.IslemYapanID;
                     data.IslemYapanIP = kModel.IslemYapanIP;
@@ -129,7 +161,7 @@ namespace WebApp.Controllers
         }
         public ActionResult Sil(int id)
         {
-            var kayit = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID== id).FirstOrDefault();
+            var kayit = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == id).FirstOrDefault();
             string message = "";
             bool success = true;
             if (kayit != null)

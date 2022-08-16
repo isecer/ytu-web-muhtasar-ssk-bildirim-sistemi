@@ -77,12 +77,7 @@ namespace WebApp.Controllers
                 MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "AdSoyad" });
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "AdSoyad" });
-            if (kModel.Adres.IsNullOrWhiteSpace())
-            {
-                MmMessage.Messages.Add("Adres Boş bırakılamaz.");
-                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Adres" });
-            }
-            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Adres" });
+           
             #endregion
             if (!MmMessage.Messages.Any())
             {

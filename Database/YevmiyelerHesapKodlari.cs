@@ -17,7 +17,7 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public YevmiyelerHesapKodlari()
         {
-            this.Yevmiyeler1003AGelirKayit = new HashSet<Yevmiyeler1003AGelirKayit>();
+            this.Yevmiyelers = new HashSet<Yevmiyeler>();
             this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
         }
     
@@ -27,15 +27,13 @@ namespace Database
         public string HesapAdi { get; set; }
         public string VergiKodu { get; set; }
         public Nullable<bool> IsGelirKaydindaKullaniclacak { get; set; }
-        public Nullable<int> TevkifatOranBolunen { get; set; }
-        public Nullable<int> TevkifatOranBolen { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
+        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
         public virtual YevmiyelerHesapKodTurleri YevmiyelerHesapKodTurleri { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }

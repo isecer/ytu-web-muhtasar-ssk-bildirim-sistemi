@@ -25,6 +25,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Xml;
 using System.Web.Script.Serialization;
+using System.Data.Entity.Validation;
 
 namespace WebApp.Models
 {
@@ -334,7 +335,26 @@ namespace WebApp.Models
                 ix++;
                 msgs.Add(ix, innException.Message);
             }
-            return string.Join("\r\n", msgs.Select(s => s.Key + "- " + s.Value).ToArray());
+            var returnMsg = string.Join("\r\n", msgs.Select(s => s.Key + "- " + s.Value).ToArray());
+
+            if (ex is DbEntityValidationException)
+            {
+                var msgsVex = new List<string>();
+                var exV = (DbEntityValidationException)ex;
+                foreach (var eve in exV.EntityValidationErrors)
+                {
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        msgsVex.Add(string.Format("State: {0} Property: {1}, Error: {2}", eve.Entry.State, ve.PropertyName, ve.ErrorMessage));
+                    }
+                }
+                if (msgsVex.Any())
+                {
+                    msgsVex.Insert(0, "Veri Giriş Hataları:");
+                    returnMsg += "\r\n" + string.Join("\r\n", msgsVex);
+                }
+            }
+            return returnMsg;
         }
         public static string ToExceptionStackTrace(this Exception ex)
         {
@@ -1824,7 +1844,7 @@ namespace WebApp.Models
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
-                var data = db.YevmiyelerHarcamaBirimleris.OrderBy(o => o.IsUniversiteIsyeri).ToList();
+                var data = db.YevmiyelerHarcamaBirimleris.OrderBy(o => o.BirimAdi).ToList();
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.YevmiyeHarcamaBirimID, Caption = item.BirimAdi + " (" + item.VergiKimlikNo + ")" });
@@ -2125,8 +2145,8 @@ namespace WebApp.Models
             using (var db = new MusskDBEntities())
             {
                 var q = db.YevmiyelerHesapKodTurleris.Where(p => p.IsYevmiyedeGozuksun);
-                if (YevmiyeHesapKodTurIDs != null && YevmiyeHesapKodTurIDs.Any()) q = q.Where(p => YevmiyeHesapKodTurIDs.Contains(p.YevmiyeHesapKodTurID)); 
-                var data = q.ToList(); 
+                if (YevmiyeHesapKodTurIDs != null && YevmiyeHesapKodTurIDs.Any()) q = q.Where(p => YevmiyeHesapKodTurIDs.Contains(p.YevmiyeHesapKodTurID));
+                var data = q.ToList();
                 foreach (var item in data)
                 {
                     dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodTurID, Caption = item.HesapKodTurAdi });
@@ -2152,18 +2172,38 @@ namespace WebApp.Models
             return dct;
 
         }
-        public static List<ComboModelInt> CmbYevmiyeKdvKodlari(bool bosSecimVar = true)
+        public static List<ComboModelInt> CmbYevmiyeKdvKodlari(string HesapKodu, bool bosSecimVar = true)
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
 
-                var data = db.YevmiyelerKdvKodlaris.OrderBy(p => p.KdvKodu).ToList();
+                var data = db.YevmiyelerKdvKodlaris.Where(p => p.HesapKod == HesapKodu || p.HesapKod == "" || p.HesapKod == null).OrderBy(p => p.KdvKodu).ToList();
 
                 foreach (var item in data)
                 {
-                    dct.Add(new ComboModelInt { Value = item.YevmiyeKdvKodID, Caption = item.KdvKodu + " " + item.KdvAdi });
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeKdvKodID, Caption = item.KdvKodu + " - " + item.KdvOrani + " - " + item.KdvAdi });
+                }
+            }
+            return dct;
+        }
+        public static List<ComboModelString> CmbYevmiyeDigerKdvKodlari(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelString>();
+            if (bosSecimVar) dct.Add(new ComboModelString { });
+            using (var db = new MusskDBEntities())
+            {
+
+                var data = db.YevmiyelerKdvKodlaris.Where(p => p.IsDigerKdvler).FirstOrDefault();
+                if (data != null && !data.KdvOrani.IsNullOrWhiteSpace())
+                {
+                    var Kods = data.KdvOrani.Split(',').Select(s => s.Trim()).ToList();
+                    foreach (var item in Kods)
+                    {
+
+                        dct.Add(new ComboModelString { Value = item, Caption = item });
+                    }
                 }
             }
             return dct;

@@ -28,16 +28,17 @@
                         {
                             <li>
                                 <span class="label label-info" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
-                                <script> 
-                                    function MExcelYukle() { 
+                                <script>
+
+                                    function MExcelYukle() {
                                         var _anaPnl = $('#pnlFltr');
                                         _pRefresh(_anaPnl, false);
                                         $.ajax({
-                                            url: '@Url.Action("MaasExcelYukle", "Yevmiyeler")', 
+                                            url: '@Url.Action("MaasExcelYukle", "Yevmiyeler")',
                                             type: 'POST',
                                             cache: false,
-                                            success: function (resultPv) { 
-                                                _pRefresh(_anaPnl, true); 
+                                            success: function (resultPv) {
+                                                _pRefresh(_anaPnl, true);
                                                     var btbxxFS = bootbox.dialog({
                                                         message: resultPv,
                                                         title: "Excel'den Yevmiye yükleme işlemi",
@@ -57,7 +58,7 @@
                                                                                 if (result.IsSuccess) {
                                                                                     setTimeout(function () {
                                                                                         var _clsBtn = $('.modal-header').find('button').first();
-                                                                                        $(_clsBtn).click(); 
+                                                                                        $(_clsBtn).click();
                                                                                     }, 3400)
                                                                                 }
                                                                                 else {
@@ -321,15 +322,16 @@
                     </ul>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover" style="width:100%;table-layout:fixed;">
                         <thead>
                             <tr>
                                 <th width="75" class="sirala sorting" field="BirimAdi"></th>
-                                <th>Yevmiye Tarih</th>
+                                <th width="120">Yevmiye Tarih</th>
                                 <th class="sirala sorting" field="BirimAdi">Harcama Birim</th>
                                 <th>Hesap Kod/Ad</th>
-                                <th style="text-align:right;">Borç</th>
-                                <th style="text-align:right;">Alacak</th>
+                                <th width="120" style="text-align:right;">Borç</th>
+                                <th width="120" style="text-align:right;">Alacak</th>
+                                <th style="padding-left:15px;">Açıklama</th>
 
                             </tr>
                         </thead>
@@ -370,10 +372,11 @@
                                         </td>
                                         <td style="text-align:right;">@item.Borc.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.Alacak.ToString("n2") TL</td>
+                                        <td style="padding-left:15px;" title="@item.Aciklama">@(item.Aciklama.Length>200?item.Aciklama.Substring(0,200):item.Aciklama)</td>
 
                                     </tr>
                                     <tr class="cls-@item.YevmiyeID hide">
-                                        <td colspan="10" style="padding: 1px 1px 2px 75px;">
+                                        <td colspan="7" style="padding: 1px 1px 2px 75px;">
                                             <div id="yevmiyeDetayPanel_@item.YevmiyeID">
                                                 <div id="cls-@item.YevmiyeID">
 
@@ -386,7 +389,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="6" style="text-align: center;">
+                                    <td colspan="7" style="text-align: center;">
                                         [ Listelenen Kayıt Yok ]
                                     </td>
                                 </tr>

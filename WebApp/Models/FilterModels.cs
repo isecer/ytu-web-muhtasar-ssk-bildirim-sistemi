@@ -1079,6 +1079,7 @@ namespace WebApp.Models
         public string VergiKimlikNo { get; set; }
         public string BirimAdi { get; set; }
         public bool? IsUniversiteIsyeri { get; set; }
+        public bool? IsAltBirim { get; set; }
         public string IsyeriKodu { get; set; }
         public bool? IsAktif { get; set; }
         public IEnumerable<FrYevmiyelerHarcamaBirimleri> Data { get; set; }
@@ -1171,9 +1172,10 @@ namespace WebApp.Models
 
     public class FmYevmiyeKdvKodlari : PagerOption
     {
+        public string HesapKod { get; set; }
         public string KdvKodu { get; set; }
         public string KdvAdi { get; set; }
-        public bool? IsAktif { get; set; }
+        public bool? IsDigerKdvler { get; set; } 
         public IEnumerable<FrYevmiyelerKdvKodlari> Data { get; set; }
 
     }
@@ -1217,6 +1219,28 @@ namespace WebApp.Models
     {
         public string IslemYapan { get; set; }
         public FrYevmiyelerSendikaBilgileri()
+        {
+        }
+    }
+    public class FmYevmiyelerBesBankaHesapNumaralari : PagerOption
+    {
+        public int? Yil { get; set; }
+        public bool? IsYevmiyeDokumuAyriOlabilir { get; set; }
+        public string HesapKod { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string FirmaAdi { get; set; }
+        public string IBanNo { get; set; } 
+        public string Aciklama { get; set; } 
+        public List<FrYevmiyelerBesBankaHesapNumaralari> Data { get; set; }
+
+    }
+    public class FrYevmiyelerBesBankaHesapNumaralari : YevmiyelerBesBankaHesapNumaralari
+    {
+        public decimal Alacak { get; set; }
+        public decimal Borc { get; set; }
+        public decimal Kalan { get; set; }
+        public string IslemYapan { get; set; }
+        public FrYevmiyelerBesBankaHesapNumaralari()
         {
         }
     }

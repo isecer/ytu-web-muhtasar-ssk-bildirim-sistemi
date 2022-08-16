@@ -44,9 +44,7 @@ namespace WebApp.Controllers
                 HesapKod = s.HesapKod,
                 HesapAdi = s.HesapAdi,
                 VergiKodu = s.VergiKodu,
-                IsGelirKaydindaKullaniclacak=s.IsGelirKaydindaKullaniclacak,
-                TevkifatOranBolunen=s.TevkifatOranBolunen,
-                TevkifatOranBolen=s.TevkifatOranBolen,
+                IsGelirKaydindaKullaniclacak=s.IsGelirKaydindaKullaniclacak, 
                 IslemTarihi = s.IslemTarihi,
                 IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
                 IslemYapanID = s.IslemYapanID,
@@ -117,21 +115,7 @@ namespace WebApp.Controllers
                 else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "VergiKodu" });
 
             }
-            if (kModel.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
-            {
-                if (!(kModel.TevkifatOranBolunen > 0))
-                {
-                    MmMessage.Messages.Add("Tevkifat Oranı Bölünen Kısmı Giriniz");
-                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "TevkifatOranBolunen" });
-                }
-                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "TevkifatOranBolunen" });
-                if (!(kModel.TevkifatOranBolen > 0))
-                {
-                    MmMessage.Messages.Add("Tevkifat Oranı Bölen Kısmı Giriniz");
-                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "TevkifatOranBolen" });
-                }
-                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "TevkifatOranBolen" });
-            }
+           
 
             #endregion
             if (!MmMessage.Messages.Any())
@@ -151,12 +135,7 @@ namespace WebApp.Controllers
                 {
                     kModel.VergiKodu = null;
                     kModel.IsGelirKaydindaKullaniclacak = null;
-                }
-                if (kModel.YevmiyeHesapKodTurID != HesapKoduTuru.KDVTevkifatHesapKodlari)
-                {
-                    kModel.TevkifatOranBolen = null;
-                    kModel.TevkifatOranBolunen = null;
-                }
+                } 
                 if (kModel.YevmiyeHesapKodID <= 0)
                 {
                     db.YevmiyelerHesapKodlaris.Add(kModel);
@@ -168,9 +147,7 @@ namespace WebApp.Controllers
                     data.HesapKod = kModel.HesapKod;
                     data.HesapAdi = kModel.HesapAdi;
                     data.IsGelirKaydindaKullaniclacak = kModel.IsGelirKaydindaKullaniclacak;
-                    data.VergiKodu = kModel.VergiKodu;
-                    data.TevkifatOranBolen = kModel.TevkifatOranBolen;
-                    data.TevkifatOranBolunen = kModel.TevkifatOranBolunen;
+                    data.VergiKodu = kModel.VergiKodu; 
                     data.IslemTarihi = kModel.IslemTarihi;
                     data.IslemYapanID = kModel.IslemYapanID;
                     data.IslemYapanIP = kModel.IslemYapanIP;

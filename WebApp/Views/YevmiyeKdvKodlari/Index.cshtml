@@ -25,9 +25,11 @@
                         <thead>
                             <tr>
                                 <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="110" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" width="110" field="KdvKodu">Kdv Kodu</th>
                                 <th class="sirala sorting" field="KdvAdi">KdvAdi</th>
-                                <th class="sirala sorting" width="80">Kdv Oranı</th>
+                                <th width="80">Kdv Oranı</th>
+                                <th class="sirala sorting" width="80" field="IsDigerKdvler">Diğer Kdvler</th>
                                 <th width="35"></th>
                             </tr>
                         </thead>
@@ -35,12 +37,22 @@
                             <tr class="filtrele">
                                 <th></th>
                                 <th>
+                                    <input name="HesapKod" type="text" value="@Model.HesapKod" class="form-control" />
+                                </th>
+                                <th>
                                     <input name="KdvKodu" type="text" value="@Model.KdvKodu" class="form-control" />
                                 </th>
                                 <th>
                                     <input name="KdvAdi" type="text" value="@Model.KdvAdi" class="form-control" />
                                 </th>
                                 <th></th>
+                                <th>
+                                    <select name="IsDigerKdvler" class="form-control">
+                                        <option></option>
+                                        <option value="true" @Model.IsDigerKdvler.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsDigerKdvler == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </th>
                                 <th></th>
                             </tr>
                             @if (Model.RowCount > 0)
@@ -54,6 +66,7 @@
                                         <td>
                                             @RowIndex
                                         </td>
+                                        <td>@item.HesapKod</td>
                                         <td id="tdKk_@item.YevmiyeKdvKodID">
                                             @item.KdvKodu
                                         </td>
@@ -63,6 +76,7 @@
                                         <td>
                                             @item.KdvOrani
                                         </td>
+                                        <td>@item.IsDigerKdvler.ToEvetHayir()</td>
                                         <td>
                                             <a href="@Url.Action("Kayit", "YevmiyeKdvKodlari", new { id = item.YevmiyeKdvKodID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
                                             <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeKdvKodID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
@@ -75,7 +89,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="5" style="text-align: center;">
+                                    <td colspan="6" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
                                     </td>
                                 </tr>
@@ -126,8 +140,7 @@
             success: function (result) {
                 toastr[result.success ? "success" : "error"](result.message, "Kdv Kodu Silme İşlemi")
                 if (result.success) {
-                    $(sndr).closest("tr").remove();
-                    // $(".cls-" + id).remove();
+                    $(sndr).closest("tr").remove(); 
                 }
 
             },

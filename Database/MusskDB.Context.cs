@@ -67,6 +67,7 @@ namespace Database
         public virtual DbSet<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         public virtual DbSet<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         public virtual DbSet<YevmiyelerBelgeKodlari> YevmiyelerBelgeKodlaris { get; set; }
+        public virtual DbSet<YevmiyelerBesBankaHesapNumaralari> YevmiyelerBesBankaHesapNumaralaris { get; set; }
         public virtual DbSet<YevmiyelerHarcamaBirimleri> YevmiyelerHarcamaBirimleris { get; set; }
         public virtual DbSet<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
         public virtual DbSet<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }

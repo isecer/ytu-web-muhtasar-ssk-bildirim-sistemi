@@ -34,7 +34,6 @@ namespace Database
             this.MeslekTurleris = new HashSet<MeslekTurleri>();
             this.SistemBilgilendirmes = new HashSet<SistemBilgilendirme>();
             this.Yevmiyelers = new HashSet<Yevmiyeler>();
-            this.Yevmiyeler1003AGelirKayit = new HashSet<Yevmiyeler1003AGelirKayit>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
             this.YevmiyelerBelgeKodlaris = new HashSet<YevmiyelerBelgeKodlari>();
             this.YevmiyelerHarcamaBirimleris = new HashSet<YevmiyelerHarcamaBirimleri>();
@@ -118,8 +117,6 @@ namespace Database
         public virtual ICollection<SistemBilgilendirme> SistemBilgilendirmes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

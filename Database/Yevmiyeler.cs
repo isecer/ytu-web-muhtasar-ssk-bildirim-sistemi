@@ -35,16 +35,29 @@ namespace Database
         public decimal Borc { get; set; }
         public decimal Alacak { get; set; }
         public string Aciklama { get; set; }
+        public Nullable<int> Y1003AHesapKodID { get; set; }
+        public string Y1003AVergiKodu { get; set; }
+        public Nullable<bool> Y1003AIsHesaplamayaGirecek { get; set; }
+        public string Y1003AVergiKimlikNo { get; set; }
+        public string Y1003AAdSoyad { get; set; }
+        public string Y1003AAdres { get; set; }
+        public Nullable<decimal> Y1003AMatrah { get; set; }
+        public string Y1003ABelgeninMahiyeti { get; set; }
+        public Nullable<System.DateTime> Y1003AFaturaTarihi { get; set; }
+        public string Y1003AFaturaNo { get; set; }
         public Nullable<int> EKYevmiyeHarcamaBirimID { get; set; }
         public Nullable<int> ProjeBankaHesapNoID { get; set; }
         public Nullable<int> YevmiyeSendikaBilgiID { get; set; }
         public Nullable<int> BESYevmiyeHesapKodID { get; set; }
+        public Nullable<bool> BESIsYevmiyeDokumuAyri { get; set; }
+        public Nullable<bool> BESIsYevmiyeOdendi { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
         public virtual YevmiyelerHarcamaBirimleri YevmiyelerHarcamaBirimleri { get; set; }
+        public virtual YevmiyelerHesapKodlari YevmiyelerHesapKodlari { get; set; }
         public virtual YevmiyelerProjeBankaHesapNumaralari YevmiyelerProjeBankaHesapNumaralari { get; set; }
         public virtual YevmiyelerSendikaBilgileri YevmiyelerSendikaBilgileri { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
