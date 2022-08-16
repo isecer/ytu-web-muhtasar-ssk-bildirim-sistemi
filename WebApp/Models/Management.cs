@@ -2243,10 +2243,8 @@ namespace WebApp.Models
             for (int i = DateTime.Now.Year + 1; i >= 2022; i--)
             {
                 dct.Add(new ComboModelInt { Value = i, Caption = i + " Yılı" });
-            }
-
-            return dct;
-
+            } 
+            return dct; 
         }
         public static List<ComboModelInt> CmbYevmiyelerBirim(bool bosSecimVar = true)
         {
