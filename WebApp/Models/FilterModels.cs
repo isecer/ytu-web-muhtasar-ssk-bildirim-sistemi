@@ -1274,6 +1274,7 @@ namespace WebApp.Models
 
     public class FrYevmiyeler : Yevmiyeler
     {
+        public bool IsIslemGordu { get; set; }
         public string BirimAdi { get; set; }
     }
     public class YevmiyeDetayModel : Yevmiyeler

@@ -2255,7 +2255,7 @@ namespace WebApp.Models
             using (var db = new MusskDBEntities())
             {
 
-                var data = db.YevmiyelerHarcamaBirimleris.Select(s => new
+                var data = db.YevmiyelerHarcamaBirimleris.Where(p=>!p.IsAltBirim).Select(s => new
                 {
                     s.YevmiyeHarcamaBirimID,
                     BirimAdi = s.VergiKimlikNo + " " + s.BirimAdi,

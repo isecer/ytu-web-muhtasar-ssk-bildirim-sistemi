@@ -101,7 +101,7 @@
                                                     }
                                                     @if (Model.Yevmiyeler1003BAyristirmalari.Any())
                                                     {
-                                                        <tr class="info">
+                                                        <tr class="warning">
                                                             <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak.ToString("n2") TL</td>
                                                             <td style="text-align:right;font-weight:bold;">SSK Prim Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.SskPrimTutar).ToString("n2") TL</td>
                                                             <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah).ToString("n2") TL</td>
@@ -109,7 +109,7 @@
                                                         </tr>
                                                     }
                                                     <tr class="@(IsSuccess?"success":"danger")">
-                                                        <td colspan="7" style="text-align:center;">@AyristirmaDurum</td>
+                                                        <td colspan="7" style="text-align:center;font-weight:bold;">@AyristirmaDurum</td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -431,7 +431,7 @@
                                                 }
                                                 @if (Model.YevmiyelerKdvTevkifatKayitlaris.Any())
                                                 {
-                                                    <tr class="info">
+                                                    <tr class="warning">
                                                         <td colspan="10" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak.ToString("n2") TL</td>
                                                         <td style="text-align:right;font-weight:bold;">Tevkifat Toplam: @Model.YevmiyelerKdvTevkifatKayitlaris.Sum(s => s.TevkifatTutari).ToString("n2") TL</td>
                                                         <td></td>
@@ -549,7 +549,7 @@
 
                                                 @if (Model.YevmiyelerTasinirKontrolTifKaydis.Any())
                                                 {
-                                                    <tr class="info">
+                                                    <tr class="warning">
                                                         <td colspan="2" style="text-align:right;font-weight:bold;">Borç Toplam: @Model.Borc.ToString("n2") TL</td>
                                                         <td style="text-align:right;font-weight:bold;">Tutar Toplam: @Model.YevmiyelerTasinirKontrolTifKaydis.Sum(s => s.Tutar).ToString("n2") TL</td>
                                                         <td></td>
@@ -815,7 +815,7 @@
                                                     <tr class="BhDetay_@Model.YevmiyeID @(Model.ProjeBankaHesapNoID.HasValue ? "" : "hide")">
                                                         <td>Hesap Adı</td>
                                                         <td>:</td>
-                                                        <td id="BhDetayAs_@Model.YevmiyeID">
+                                                        <td id="BhDetayHa_@Model.YevmiyeID">
                                                             @(Model.ProjeBankaHesapNoID.HasValue ? Model.YevmiyelerProjeBankaHesapNumaralari.HesapAdi : "")
                                                         </td>
                                                     </tr>

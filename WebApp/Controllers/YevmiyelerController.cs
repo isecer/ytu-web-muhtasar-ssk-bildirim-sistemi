@@ -38,10 +38,7 @@ namespace WebApp.Controllers
             var BirimIDs = UserIdentity.Current.BirimYetkileri;
             var HesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
-            UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
-
-
-
+            UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil; 
 
             var q = (from s in db.Yevmiyelers
                      join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
@@ -60,6 +57,7 @@ namespace WebApp.Controllers
                          Borc = s.Borc,
                          Alacak = s.Alacak,
                          Aciklama = s.Aciklama,
+                         IsIslemGordu=s.Y1003AHesapKodID.HasValue || s.Yevmiyeler1003BAyristirmalari.Any() || s.YevmiyelerKdvTevkifatKayitlaris.Any() || s.EKYevmiyeHarcamaBirimID.HasValue || s.YevmiyelerTasinirKontrolTifKaydis.Any() || s.YevmiyeSendikaBilgiID.HasValue || s.BESYevmiyeHesapKodID.HasValue|| s.ProjeBankaHesapNoID.HasValue
                      }).AsQueryable();
             if (HesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
             {
