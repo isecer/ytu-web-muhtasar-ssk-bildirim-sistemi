@@ -26,7 +26,7 @@ namespace Database
         public string HesapKod { get; set; }
         public string HesapAdi { get; set; }
         public string VergiKodu { get; set; }
-        public Nullable<bool> IsGelirKaydindaKullaniclacak { get; set; }
+        public Nullable<bool> IsGelirKaydindaKullanilacak { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }

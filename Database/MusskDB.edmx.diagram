@@ -4,65 +4,67 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="920f8be708cc4a05840b42f6cf7ff9cc" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="MusskDBModel.Ayarlar" Width="1.5" PointX="7.5" PointY="27.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.AyDurumlari" Width="1.5" PointX="8.25" PointY="2.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Aylar" Width="1.5" PointX="8.25" PointY="8.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.BelgeMahiyetTipleri" Width="1.5" PointX="7.5" PointY="23.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.BelgeTurleri" Width="1.5" PointX="7.5" PointY="24.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Birimler" Width="1.5" PointX="3" PointY="17.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.DuyuruEkleri" Width="1.5" PointX="9.75" PointY="32.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Duyurular" Width="1.5" PointX="7.5" PointY="32.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.EksikGunNedenleri" Width="1.5" PointX="7.5" PointY="13.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailEkleri" Width="1.5" PointX="12.75" PointY="20.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailKullanicilar" Width="1.5" PointX="12.75" PointY="18.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailler" Width="1.5" PointX="10.5" PointY="19.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.IstenCikisNedenleri" Width="1.5" PointX="7.5" PointY="28.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.KullaniciBirimleri" Width="1.5" PointX="7.5" PointY="17.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.KullaniciBirimleriRapor" Width="1.5" PointX="7.5" PointY="15.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Kullanicilar" Width="1.5" PointX="5.25" PointY="17.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri" Width="1.5" PointX="10.5" PointY="21.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MailSablonlari" Width="1.5" PointX="3" PointY="0.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MailSablonlariEkleri" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MailSablonTipleri" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Menuler" Width="1.5" PointX="8.25" PointY="6.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MesajEkleri" Width="1.5" PointX="12" PointY="24.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MesajKategorileri" Width="1.5" PointX="7.5" PointY="29.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Mesajlar" Width="1.5" PointX="9.75" PointY="24.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.MeslekTurleri" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Roller" Width="1.5" PointX="10.5" PointY="13.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.SistemBilgilendirme" Width="1.5" PointX="7.5" PointY="11" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Unvanlar" Width="1.5" PointX="3" PointY="18.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VASurecleri" Width="1.5" PointX="3" PointY="14.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VASurecleriAylar" Width="1.5" PointX="10.5" PointY="10.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirim" Width="1.5" PointX="5.25" PointY="15.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirimVerileri" Width="1.5" PointX="9.75" PointY="22.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirimVerileriAylikToplam" Width="1.5" PointX="10.5" PointY="15.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.VeriGirisTipleri" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YetkiGruplari" Width="1.5" PointX="3" PointY="15.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YetkiGrupRolleri" Width="1.5" PointX="12.75" PointY="13.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler" Width="1.5" PointX="12.75" PointY="21.875" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler1003AGelirKayit" Width="1.5" PointX="15" PointY="25.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler1003BAyristirmalari" Width="1.5" PointX="15" PointY="17" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerBelgeKodlari" Width="1.5" PointX="7.5" PointY="21.375" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerBesBankaHesapNumaralari" Width="1.5" PointX="0.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHarcamaBirimleri" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHarcamaBirimleriTutarKayit" Width="1.5" PointX="9.75" PointY="12.125" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHesapKodlari" Width="1.5" PointX="10.5" PointY="17.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHesapKodTurleri" Width="1.5" PointX="8.25" PointY="4.25" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerKdvKodlari" Width="1.5" PointX="7.5" PointY="18.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerKdvTevkifatKayitlari" Width="1.5" PointX="15" PointY="19.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerProjeBankaHesapNumaralari" Width="1.5" PointX="7.5" PointY="30.5" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerSendikaBilgileri" Width="1.5" PointX="7.5" PointY="31.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerTasinirKontrolTifKaydi" Width="1.5" PointX="15" PointY="21.625" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerVergiKimlikNumaralari" Width="1.5" PointX="2.75" PointY="2.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.KullanicilarLog" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="false" />
-        <EntityTypeShape EntityType="MusskDBModel.Vw_BirimlerTree" Width="1.5" PointX="4.75" PointY="2.75" IsExpanded="false" />
+      <Diagram DiagramId="920f8be708cc4a05840b42f6cf7ff9cc" Name="Diagram1" ZoomLevel="18">
+        <EntityTypeShape EntityType="MusskDBModel.Ayarlar" Width="1.5" PointX="10.5" PointY="107.125" />
+        <EntityTypeShape EntityType="MusskDBModel.AyDurumlari" Width="1.5" PointX="11.25" PointY="36.25" />
+        <EntityTypeShape EntityType="MusskDBModel.Aylar" Width="1.5" PointX="8.25" PointY="55.25" />
+        <EntityTypeShape EntityType="MusskDBModel.BelgeMahiyetTipleri" Width="1.5" PointX="10.5" PointY="67.75" />
+        <EntityTypeShape EntityType="MusskDBModel.BelgeTurleri" Width="1.5" PointX="10.5" PointY="50.625" />
+        <EntityTypeShape EntityType="MusskDBModel.Birimler" Width="1.5" PointX="3" PointY="62.625" />
+        <EntityTypeShape EntityType="MusskDBModel.DuyuruEkleri" Width="1.5" PointX="12.75" PointY="73.5" />
+        <EntityTypeShape EntityType="MusskDBModel.Duyurular" Width="1.5" PointX="10.5" PointY="72.625" />
+        <EntityTypeShape EntityType="MusskDBModel.EksikGunNedenleri" Width="1.5" PointX="10.5" PointY="122.625" />
+        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailEkleri" Width="1.5" PointX="15.75" PointY="69.5" />
+        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailKullanicilar" Width="1.5" PointX="13.5" PointY="60.375" />
+        <EntityTypeShape EntityType="MusskDBModel.GonderilenMailler" Width="1.5" PointX="13.5" PointY="68.5" />
+        <EntityTypeShape EntityType="MusskDBModel.IstenCikisNedenleri" Width="1.5" PointX="10.5" PointY="115.625" />
+        <EntityTypeShape EntityType="MusskDBModel.KullaniciBirimleri" Width="1.5" PointX="5.25" PointY="64.5" />
+        <EntityTypeShape EntityType="MusskDBModel.KullaniciBirimleriRapor" Width="1.5" PointX="10.5" PointY="64.5" />
+        <EntityTypeShape EntityType="MusskDBModel.Kullanicilar" Width="1.5" PointX="8.25" PointY="58.875" />
+        <EntityTypeShape EntityType="MusskDBModel.KullaniciYevmiyeHesapKodTurYetkileri" Width="1.5" PointX="16.5" PointY="64.5" />
+        <EntityTypeShape EntityType="MusskDBModel.MailSablonlari" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="MusskDBModel.MailSablonlariEkleri" Width="1.5" PointX="5.25" PointY="1.5" />
+        <EntityTypeShape EntityType="MusskDBModel.MailSablonTipleri" Width="1.5" PointX="0.75" PointY="1.5" />
+        <EntityTypeShape EntityType="MusskDBModel.Menuler" Width="1.5" PointX="11.25" PointY="54.875" />
+        <EntityTypeShape EntityType="MusskDBModel.MesajEkleri" Width="1.5" PointX="18" PointY="91.375" />
+        <EntityTypeShape EntityType="MusskDBModel.MesajKategorileri" Width="1.5" PointX="10.5" PointY="119.125" />
+        <EntityTypeShape EntityType="MusskDBModel.Mesajlar" Width="1.5" PointX="15.75" PointY="89.75" />
+        <EntityTypeShape EntityType="MusskDBModel.MeslekTurleri" Width="1.5" PointX="10.5" PointY="77" />
+        <EntityTypeShape EntityType="MusskDBModel.Roller" Width="1.5" PointX="13.5" PointY="64.25" />
+        <EntityTypeShape EntityType="MusskDBModel.SistemBilgilendirme" Width="1.5" PointX="10.5" PointY="97.625" />
+        <EntityTypeShape EntityType="MusskDBModel.Unvanlar" Width="1.5" PointX="6" PointY="70.875" />
+        <EntityTypeShape EntityType="MusskDBModel.VASurecleri" Width="1.5" PointX="3" PointY="58" />
+        <EntityTypeShape EntityType="MusskDBModel.VASurecleriAylar" Width="1.5" PointX="13.5" PointY="53.625" />
+        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirim" Width="1.5" PointX="5.25" PointY="57.875" />
+        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirimVerileri" Width="1.5" PointX="12.75" PointY="81.625" />
+        <EntityTypeShape EntityType="MusskDBModel.VASurecleriBirimVerileriAylikToplam" Width="1.5" PointX="10.5" PointY="58.875" />
+        <EntityTypeShape EntityType="MusskDBModel.VeriGirisTipleri" Width="1.5" PointX="0.75" PointY="64.375" />
+        <EntityTypeShape EntityType="MusskDBModel.YetkiGruplari" Width="1.5" PointX="6" PointY="67.75" />
+        <EntityTypeShape EntityType="MusskDBModel.YetkiGrupRolleri" Width="1.5" PointX="18.75" PointY="64.5" />
+        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler" Width="1.5" PointX="18.75" PointY="72.625" />
+        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler1003AGelirKayit" Width="1.5" PointX="21" PointY="90" />
+        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler1003AMuhtasarKayitlari" Width="1.5" PointX="10.5" PointY="80.75" />
+        <EntityTypeShape EntityType="MusskDBModel.Yevmiyeler1003BAyristirmalari" Width="1.5" PointX="21" PointY="84.875" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerBelgeKodlari" Width="1.5" PointX="10.5" PointY="90" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerBesBankaHesapNumaralari" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHarcamaBirimleri" Width="1.5" PointX="10.5" PointY="111.125" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHarcamaBirimleriTutarKayit" Width="1.5" PointX="12.75" PointY="112" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHesapKodlari" Width="1.5" PointX="16.5" PointY="59.75" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerHesapKodTurleri" Width="1.5" PointX="14.25" PointY="57.375" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerKdvKodlari" Width="1.5" PointX="10.5" PointY="43" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerKdvTevkifatKayitlari" Width="1.5" PointX="21" PointY="59.5" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerProjeBankaHesapNumaralari" Width="1.5" PointX="10.5" PointY="39.375" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerSendikaBilgileri" Width="1.5" PointX="10.5" PointY="93.5" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerTasinirKontrolTifKaydi" Width="1.5" PointX="21" PointY="68.75" />
+        <EntityTypeShape EntityType="MusskDBModel.YevmiyelerVergiKimlikNumaralari" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="MusskDBModel.KullanicilarLog" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="MusskDBModel.Vw_BirimlerTree" Width="1.5" PointX="7.75" PointY="0.75" />
         <AssociationConnector Association="MusskDBModel.FK_Ayarlar_Kullanicilar" />
         <AssociationConnector Association="MusskDBModel.FK_VASurecleriAylar_AyDurumlari" />
         <AssociationConnector Association="MusskDBModel.FK_VASurecleriAylar_Aylar" />
         <AssociationConnector Association="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar" />
         <AssociationConnector Association="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar" />
+        <AssociationConnector Association="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar" />
         <AssociationConnector Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Aylar" />
         <AssociationConnector Association="MusskDBModel.FK_YevmiyelerKdvTevkifatKayitlari_Aylar" />
         <AssociationConnector Association="MusskDBModel.FK_BelgeMahiyetTipleri_Kullanicilar" />

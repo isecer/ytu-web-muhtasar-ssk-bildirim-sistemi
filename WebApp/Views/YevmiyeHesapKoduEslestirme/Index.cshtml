@@ -28,8 +28,8 @@
                                 <th class="sirala sorting" width="220" field="HesapKodTurAdi">Hesap Kodu Türü</th>
                                 <th class="sirala sorting" width="140" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" field="HesapAdi">Hesap Adı</th>
-                                <th class="sirala sorting" field="IsGelirKaydindaKullaniclacak">Gelir Kaydı Yapılacak Mı</th>
-                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th> 
+                                <th class="sirala sorting" field="IsGelirKaydindaKullanilacak">Gelir Kaydı Yapılacak Mı</th> 
+                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
                                 <th width="35"></th>
                             </tr>
                         </thead>
@@ -46,15 +46,15 @@
                                     <input name="HesapAdi" type="text" value="@Model.HesapAdi" class="form-control" />
                                 </th>
                                 <th>
-                                    <select class="form-control" name="IsGelirKaydindaKullaniclacak" id="IsGelirKaydindaKullaniclacak">
+                                    <select class="form-control" name="IsGelirKaydindaKullanilacak" id="IsGelirKaydindaKullanilacak">
                                         <option></option>
-                                        <option value="true" @Model.IsGelirKaydindaKullaniclacak.ToSelected()>Evet</option>
-                                        <option value="false" @((!Model.IsGelirKaydindaKullaniclacak).ToSelected())>Hayır</option>
+                                        <option value="true" @Model.IsGelirKaydindaKullanilacak.ToSelected()>Evet</option>
+                                        <option value="false" @((!Model.IsGelirKaydindaKullanilacak).ToSelected())>Hayır</option>
                                     </select>
-                                </th>
+                                </th> 
                                 <th>
                                     <input name="VergiKodu" type="text" value="@Model.VergiKodu" class="form-control" />
-                                </th> 
+                                </th>
                                 <th></th>
                             </tr>
                             @if (Model.RowCount > 0)
@@ -78,11 +78,11 @@
                                             @item.HesapAdi
                                         </td>
                                         <td>
-                                            @(item.IsGelirKaydindaKullaniclacak.HasValue ? item.IsGelirKaydindaKullaniclacak.Value.ToEvetHayir().ToString() : "")
-                                        </td>
+                                            @(item.IsGelirKaydindaKullanilacak.HasValue ? item.IsGelirKaydindaKullanilacak.Value.ToEvetHayir().ToString() : "")
+                                        </td> 
                                         <td>
                                             @item.VergiKodu
-                                        </td> 
+                                        </td>
                                         <td>
                                             <a href="@Url.Action("Kayit", "YevmiyeHesapKoduEslestirme", new { id = item.YevmiyeHesapKodID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
                                             <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHesapKodID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>

@@ -43,6 +43,7 @@
     <EntitySet Name="YetkiGrupRolleris" EntityType="MusskDBModel.YetkiGrupRolleri" />
     <EntitySet Name="Yevmiyelers" EntityType="MusskDBModel.Yevmiyeler" />
     <EntitySet Name="Yevmiyeler1003AGelirKayit" EntityType="MusskDBModel.Yevmiyeler1003AGelirKayit" />
+    <EntitySet Name="Yevmiyeler1003AMuhtasarKayitlari" EntityType="MusskDBModel.Yevmiyeler1003AMuhtasarKayitlari" />
     <EntitySet Name="Yevmiyeler1003BAyristirmalari" EntityType="MusskDBModel.Yevmiyeler1003BAyristirmalari" />
     <EntitySet Name="YevmiyelerBelgeKodlaris" EntityType="MusskDBModel.YevmiyelerBelgeKodlari" />
     <EntitySet Name="YevmiyelerBesBankaHesapNumaralaris" EntityType="MusskDBModel.YevmiyelerBesBankaHesapNumaralari" />
@@ -77,6 +78,10 @@
     <AssociationSet Name="FK_VASurecleriBirimVerileriAylikToplam_Aylar" Association="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar">
       <End Role="Aylar" EntitySet="Aylars" />
       <End Role="VASurecleriBirimVerileriAylikToplam" EntitySet="VASurecleriBirimVerileriAylikToplams" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003AMuhtasarKayitlari_Aylar" Association="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar">
+      <End Role="Aylar" EntitySet="Aylars" />
+      <End Role="Yevmiyeler1003AMuhtasarKayitlari" EntitySet="Yevmiyeler1003AMuhtasarKayitlari" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Aylar" Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Aylar">
       <End Role="Aylar" EntitySet="Aylars" />
@@ -432,6 +437,7 @@
     <NavigationProperty Name="VASurecleriAylars" Relationship="MusskDBModel.FK_VASurecleriAylar_Aylar" FromRole="Aylar" ToRole="VASurecleriAylar" />
     <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileri" />
     <NavigationProperty Name="VASurecleriBirimVerileriAylikToplams" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileriAylikToplam" />
+    <NavigationProperty Name="Yevmiyeler1003AMuhtasarKayitlari" Relationship="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar" FromRole="Aylar" ToRole="Yevmiyeler1003AMuhtasarKayitlari" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Aylar" FromRole="Aylar" ToRole="Yevmiyeler1003BAyristirmalari" />
     <NavigationProperty Name="YevmiyelerKdvTevkifatKayitlaris" Relationship="MusskDBModel.FK_YevmiyelerKdvTevkifatKayitlari_Aylar" FromRole="Aylar" ToRole="YevmiyelerKdvTevkifatKayitlari" />
   </EntityType>
@@ -1037,7 +1043,7 @@
     <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
     <Property Name="Y1003AHesapKodID" Type="Int32" />
     <Property Name="Y1003AVergiKodu" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-    <Property Name="Y1003AIsHesaplamayaGirecek" Type="Boolean" />
+    <Property Name="Y1003AIsHesaplamayaGirecek" Type="Boolean" Nullable="false" />
     <Property Name="Y1003AVergiKimlikNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
     <Property Name="Y1003AAdSoyad" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="Y1003AAdres" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
@@ -1049,6 +1055,7 @@
     <Property Name="ProjeBankaHesapNoID" Type="Int32" />
     <Property Name="YevmiyeSendikaBilgiID" Type="Int32" />
     <Property Name="BESYevmiyeHesapKodID" Type="Int32" />
+    <Property Name="BESHesapKod" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="BESIsYevmiyeDokumuAyri" Type="Boolean" />
     <Property Name="BESIsYevmiyeOdendi" Type="Boolean" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
@@ -1085,6 +1092,21 @@
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Yevmiyeler" Relationship="MusskDBModel.FK_Yevmiyeler1003AGelirKayit_Yevmiyeler" FromRole="Yevmiyeler1003AGelirKayit" ToRole="Yevmiyeler" />
   </EntityType>
+  <EntityType Name="Yevmiyeler1003AMuhtasarKayitlari">
+    <Key>
+      <PropertyRef Name="Yevmiye1003AMuhtasarKayitID" />
+    </Key>
+    <Property Name="Yevmiye1003AMuhtasarKayitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Yil" Type="Int32" Nullable="false" />
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="VergiKodu" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="SksVergiTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ImidVergiTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="GenelMatrahTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="SksMatrahTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="ImidMatrahTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Aylar" Relationship="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar" FromRole="Yevmiyeler1003AMuhtasarKayitlari" ToRole="Aylar" />
+  </EntityType>
   <EntityType Name="Yevmiyeler1003BAyristirmalari">
     <Key>
       <PropertyRef Name="Yevmiye1003BAyristirmaID" />
@@ -1096,7 +1118,7 @@
     <Property Name="AyID" Type="Int32" Nullable="false" />
     <Property Name="YevmiyeBelgeKodID" Type="Int32" Nullable="false" />
     <Property Name="SskPrimTutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-    <Property Name="Matrah" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Matrah" Type="Decimal" Precision="18" Scale="2" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -1144,6 +1166,7 @@
     <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="IsUniversiteIsyeri" Type="Boolean" Nullable="false" />
     <Property Name="IsAltBirim" Type="Boolean" Nullable="false" />
+    <Property Name="SaymanlikKod" Type="String" MaxLength="24" FixedLength="false" Unicode="true" />
     <Property Name="IsyeriKodu" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
@@ -1172,7 +1195,7 @@
     <Property Name="HesapKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
     <Property Name="HesapAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <Property Name="VergiKodu" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
-    <Property Name="IsGelirKaydindaKullaniclacak" Type="Boolean" />
+    <Property Name="IsGelirKaydindaKullanilacak" Type="Boolean" />
     <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
@@ -1293,7 +1316,7 @@
     <Property Name="YevmiyeVergiKimlikNoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="VergiKimlikNo" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
     <Property Name="AdSoyad" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-    <Property Name="Adres" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="Adres" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
   </EntityType>
   <EntityType Name="KullanicilarLog">
     <Key>
@@ -1438,6 +1461,18 @@
         <PropertyRef Name="AyID" />
       </Principal>
       <Dependent Role="VASurecleriBirimVerileriAylikToplam">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003AMuhtasarKayitlari_Aylar">
+    <End Type="MusskDBModel.Aylar" Role="Aylar" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003AMuhtasarKayitlari" Role="Yevmiyeler1003AMuhtasarKayitlari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003AMuhtasarKayitlari">
         <PropertyRef Name="AyID" />
       </Dependent>
     </ReferentialConstraint>

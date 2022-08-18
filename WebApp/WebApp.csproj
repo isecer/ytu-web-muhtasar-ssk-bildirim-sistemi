@@ -237,11 +237,15 @@
     <Compile Include="Controllers\UnvanlarController.cs" />
     <Compile Include="Controllers\VeriGirisiController.cs" />
     <Compile Include="Controllers\YetkiGruplariController.cs" />
+    <Compile Include="Controllers\YevmiyeKdvTevkifatiDokumuController.cs" />
+    <Compile Include="Controllers\YevmiyeTasinirKontrolDokumuController .cs" />
     <Compile Include="Controllers\YevmiyeBesBankaHesapNumaralariController.cs" />
     <Compile Include="Controllers\YevmiyeBesToplamlariController.cs" />
+    <Compile Include="Controllers\Yevmiye1003BSskPrimleriController.cs" />
+    <Compile Include="Controllers\YevmiyeHarcamaBirimiToplamlariController .cs" />
     <Compile Include="Controllers\YevmiyeVergiKimlikNumaralariController.cs" />
     <Compile Include="Controllers\YevmiyeSendikaToplamlariController.cs" />
-    <Compile Include="Controllers\YevmiyeHarcamaBirimiToplamlariController.cs" />
+    <Compile Include="Controllers\Yevmiye1003AMuhatasarDokumuController.cs" />
     <Compile Include="Controllers\YevmiyeSendikaBilgileriController.cs" />
     <Compile Include="Controllers\YevmiyeKdvKodlariController.cs" />
     <Compile Include="Controllers\YevmiyeHarcamaBirimleriController.cs" />
@@ -1967,6 +1971,12 @@
     <Content Include="Views\YevmiyeBesBankaHesapNumaralari\Index.cshtml" />
     <Content Include="Views\YevmiyeBesBankaHesapNumaralari\Kayit.cshtml" />
     <Content Include="Views\YevmiyeBesToplamlari\Index.cshtml" />
+    <Content Include="Views\Yevmiye1003BSskPrimleri\Index.cshtml" />
+    <Content Include="Views\Yevmiye1003BSskPrimleri\TutarEkle.cshtml" />
+    <Content Include="Views\Yevmiye1003AMuhatasarDokumu\Index.cshtml" />
+    <Content Include="Views\Yevmiye1003AMuhatasarDokumu\TutarEkle.cshtml" />
+    <Content Include="Views\YevmiyeKdvTevkifatiDokumu\Index.cshtml" />
+    <Content Include="Views\YevmiyeTasinirKontrolDokumu\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2053,7 +2063,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>35082</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:34227/</IISUrl>
+          <IISUrl>http://localhost:34229/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

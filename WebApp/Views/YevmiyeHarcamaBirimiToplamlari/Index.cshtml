@@ -29,6 +29,7 @@
                             <tr>
                                 <th width="70">Sıra No</th>
                                 <th class="sirala sorting" field="BirimAdi">Harcama Birimi</th>
+                                <th class="sirala sorting" field="SaymanlikKod">Saymanlık Kodu</th>
                                 <th width="160" class="sirala sorting" field="Borc" style="text-align:right;">Yevmiye Borç</th>
                                 <th width="160" class="sirala sorting" field="Alacak" style="text-align:right;">Yevmiye Alacak</th>
                                 <th width="160" style="text-align:right;">Yevmiye Kalan</th>
@@ -43,33 +44,36 @@
                                 foreach (var item in Model.Data)
                                 {
                                     RowIndex++;
-                                    <tr>
-                                        <td>
-                                            @RowIndex
-                                        </td>
-                                        <td>
-                                            @item.VergiKimlikNo - @item.BirimAdi
-                                        </td>
-                                        <td style="text-align:right;">
-                                            @item.Borc.ToString("n2") TL
-                                        </td>
-                                        <td style="text-align:right;">
-                                            @item.Alacak.ToString("n2") TL
-                                        </td>
-                                        <td style="text-align:right;">@item.Kalan.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.KayitToplam.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.KalanTutar.ToString("n2") TL</td>
-                                        <td style="padding-left:10px;">
-                                            @if (KayitYetki)
-                                            {
-                                                <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
-                                            }
-                                        </td>
-                                    </tr>
+                            <tr>
+                                <td>
+                                    @RowIndex
+                                </td>
+                                <td>
+                                    @item.VergiKimlikNo - @item.BirimAdi
+                                </td>
+                                <td>
+                                    @item.SaymanlikKod
+                                </td>
+                                <td style="text-align:right;">
+                                    @item.Borc.ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;">
+                                    @item.Alacak.ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;">@item.Kalan.ToString("n2") TL</td>
+                                <td style="text-align:right;">@item.KayitToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;">@item.KalanTutar.ToString("n2") TL</td>
+                                <td style="padding-left:10px;">
+                                    @if (KayitYetki)
+                                    {
+                                        <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
+                                    }
+                                </td>
+                            </tr>
                                 }
                                 <tr class="info">
 
-                                    <td colspan="3" style="text-align:right;font-weight:bold;">
+                                    <td colspan="4" style="text-align:right;font-weight:bold;">
                                         Genel Toplam: @Model.Data.Sum(s => s.Borc).ToString("n2") TL
                                     </td>
                                     <td style="text-align:right;font-weight:bold;">

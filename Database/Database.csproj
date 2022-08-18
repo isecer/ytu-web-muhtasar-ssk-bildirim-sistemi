@@ -213,6 +213,9 @@
     <Compile Include="Yevmiyeler1003AGelirKayit.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Yevmiyeler1003AMuhtasarKayitlari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Yevmiyeler1003BAyristirmalari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>

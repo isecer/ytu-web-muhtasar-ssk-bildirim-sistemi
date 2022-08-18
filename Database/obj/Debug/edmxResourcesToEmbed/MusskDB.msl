@@ -592,6 +592,7 @@
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
           <ScalarProperty Name="BESIsYevmiyeOdendi" ColumnName="BESIsYevmiyeOdendi" />
           <ScalarProperty Name="BESIsYevmiyeDokumuAyri" ColumnName="BESIsYevmiyeDokumuAyri" />
+          <ScalarProperty Name="BESHesapKod" ColumnName="BESHesapKod" />
           <ScalarProperty Name="BESYevmiyeHesapKodID" ColumnName="BESYevmiyeHesapKodID" />
           <ScalarProperty Name="YevmiyeSendikaBilgiID" ColumnName="YevmiyeSendikaBilgiID" />
           <ScalarProperty Name="ProjeBankaHesapNoID" ColumnName="ProjeBankaHesapNoID" />
@@ -639,6 +640,21 @@
           <ScalarProperty Name="YeniYevmiyeHesapKodID" ColumnName="YeniYevmiyeHesapKodID" />
           <ScalarProperty Name="YevmiyeID" ColumnName="YevmiyeID" />
           <ScalarProperty Name="Yevmiye1003AGelirKayitID" ColumnName="Yevmiye1003AGelirKayitID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Yevmiyeler1003AMuhtasarKayitlari">
+      <EntityTypeMapping TypeName="MusskDBModel.Yevmiyeler1003AMuhtasarKayitlari">
+        <MappingFragment StoreEntitySet="Yevmiyeler1003AMuhtasarKayitlari">
+          <ScalarProperty Name="ImidMatrahTutar" ColumnName="ImidMatrahTutar" />
+          <ScalarProperty Name="SksMatrahTutar" ColumnName="SksMatrahTutar" />
+          <ScalarProperty Name="GenelMatrahTutar" ColumnName="GenelMatrahTutar" />
+          <ScalarProperty Name="ImidVergiTutar" ColumnName="ImidVergiTutar" />
+          <ScalarProperty Name="SksVergiTutar" ColumnName="SksVergiTutar" />
+          <ScalarProperty Name="VergiKodu" ColumnName="VergiKodu" />
+          <ScalarProperty Name="AyID" ColumnName="AyID" />
+          <ScalarProperty Name="Yil" ColumnName="Yil" />
+          <ScalarProperty Name="Yevmiye1003AMuhtasarKayitID" ColumnName="Yevmiye1003AMuhtasarKayitID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -695,6 +711,7 @@
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
           <ScalarProperty Name="IsyeriKodu" ColumnName="IsyeriKodu" />
+          <ScalarProperty Name="SaymanlikKod" ColumnName="SaymanlikKod" />
           <ScalarProperty Name="IsAltBirim" ColumnName="IsAltBirim" />
           <ScalarProperty Name="IsUniversiteIsyeri" ColumnName="IsUniversiteIsyeri" />
           <ScalarProperty Name="BirimAdi" ColumnName="BirimAdi" />
@@ -719,7 +736,7 @@
           <ScalarProperty Name="IslemYapanIP" ColumnName="IslemYapanIP" />
           <ScalarProperty Name="IslemYapanID" ColumnName="IslemYapanID" />
           <ScalarProperty Name="IslemTarihi" ColumnName="IslemTarihi" />
-          <ScalarProperty Name="IsGelirKaydindaKullaniclacak" ColumnName="IsGelirKaydindaKullaniclacak" />
+          <ScalarProperty Name="IsGelirKaydindaKullanilacak" ColumnName="IsGelirKaydindaKullanilacak" />
           <ScalarProperty Name="VergiKodu" ColumnName="VergiKodu" />
           <ScalarProperty Name="HesapAdi" ColumnName="HesapAdi" />
           <ScalarProperty Name="HesapKod" ColumnName="HesapKod" />

@@ -1081,6 +1081,7 @@ namespace WebApp.Models
         public bool? IsUniversiteIsyeri { get; set; }
         public bool? IsAltBirim { get; set; }
         public string IsyeriKodu { get; set; }
+        public string SaymanlikKod { get; set; }
         public bool? IsAktif { get; set; }
         public IEnumerable<FrYevmiyelerHarcamaBirimleri> Data { get; set; }
 
@@ -1097,7 +1098,7 @@ namespace WebApp.Models
         public int? YevmiyeHesapKodTurID { get; set; }
         public string HesapKod { get; set; }
         public string HesapAdi { get; set; }
-        public bool? IsGelirKaydindaKullaniclacak { get; set; }
+        public bool? IsGelirKaydindaKullanilacak { get; set; }
         public string VergiKodu { get; set; }
         public IEnumerable<FrYevmiyelerHesapKodlari> Data { get; set; }
 
@@ -1109,6 +1110,29 @@ namespace WebApp.Models
         public FrYevmiyelerHesapKodlari()
         {
         }
+    }
+    public class FmYevmiye1003BSskPrimleri : PagerOption
+    {
+        public int? Yil { get; set; }
+        public int? AyID { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiye1003BSskPrimleri> Data { get; set; }
+
+    }
+    public class FrYevmiye1003BSskPrimleri : YevmiyelerHarcamaBirimleri
+    {
+        public string BelgeKodu { get; set; }
+        public decimal SskPrimTutarToplam { get; set; }
+        public decimal YevmiyeAlacakToplam { get; set; }
+        public decimal YevmiyeDvToplam { get; set; }
+        public decimal YevmiyeMatrahToplam { get; set; }
+
+        public decimal HakEdilenUcret { get; set; }
+        public decimal GvKesintiToplam { get; set; }
+        public decimal DvKesintiToplam { get; set; }
+        public decimal MatrahToplam { get; set; }
+        public decimal SskTutarToplam { get; set; }
+
     }
     public class FmYevmiyeEkHbToplamlari : PagerOption
     {
@@ -1124,7 +1148,63 @@ namespace WebApp.Models
         public decimal Kalan { get; set; }
         public decimal KayitToplam { get; set; }
         public decimal KalanTutar { get; set; }
-        
+
+    }
+    public class FmYevmiye1003AMuhatasarDokumu : PagerOption
+    {
+        public int? Yil { get; set; }
+        public int? AyID { get; set; }
+        public bool? IsAktif { get; set; }
+        public IEnumerable<FrYevmiye1003AMuhatasarDokumu> Data { get; set; }
+
+    }
+    public class FrYevmiye1003AMuhatasarDokumu
+    {
+        public int Yil { get; set; }
+        public int AyID { get; set; }
+        public string VergiKodu { get; set; }
+        public decimal Tutar { get; set; }
+        public decimal SksVergiTutar { get; set; }
+        public decimal ImidVergiTutar { get; set; }
+        public decimal SksMatrahTutar { get; set; }
+        public decimal ImidMatrahTutar { get; set; }
+        public decimal GenelMatrahTutar { get; set; }
+        public decimal KalanTutar { get; set; }
+        public decimal KalanMatrah { get; set; }
+
+    }
+    public class FmTasinirKontrolDokumu : PagerOption
+    {
+        public int? Yil { get; set; }
+        public int? YevmiyeHarcamaBirimID { get; set; }  
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public decimal BorcToplam { get; set; }
+        public decimal AlacakToplam { get; set; }
+        public decimal KalanToplam { get; set; }
+
+        public IEnumerable<FrTasinirKontrolDokumu> Data { get; set; }
+
+    }
+    public class FrTasinirKontrolDokumu : Yevmiyeler
+    {
+
+        public string BirimAdi { get; set; }
+        public decimal Kalan { get; set; }
+
+    }
+    public class FmKdvTevkifatiDokumu : PagerOption
+    {
+        public int? Yil { get; set; }
+        public int? AyID { get; set; } 
+        public IEnumerable<FrKdvTevkifatiDokumu> Data { get; set; }
+
+    }
+    public class FrKdvTevkifatiDokumu : YevmiyelerKdvTevkifatKayitlari
+    {
+        public string KdvAdi { get; set; }
+        public string BolumOran { get; set; }
+
     }
     public class FmYevmiyeSendikaToplamlari : PagerOption
     {
@@ -1137,7 +1217,7 @@ namespace WebApp.Models
     {
         public decimal Alacak { get; set; }
         public decimal Borc { get; set; }
-        public decimal Kalan { get; set; } 
+        public decimal Kalan { get; set; }
 
     }
     public class FmYevmiyeBelgeKodlari : PagerOption
@@ -1159,12 +1239,12 @@ namespace WebApp.Models
     {
         public string VergiKimlikNo { get; set; }
         public string AdSoyad { get; set; }
-        public string Adres { get; set; } 
+        public string Adres { get; set; }
         public IEnumerable<YevmiyelerVergiKimlikNumaralari> Data { get; set; }
 
     }
     public class FrYevmiyelerVergiKimlikNumaralari : YevmiyelerVergiKimlikNumaralari
-    { 
+    {
         public FrYevmiyelerVergiKimlikNumaralari()
         {
         }
@@ -1175,7 +1255,7 @@ namespace WebApp.Models
         public string HesapKod { get; set; }
         public string KdvKodu { get; set; }
         public string KdvAdi { get; set; }
-        public bool? IsDigerKdvler { get; set; } 
+        public bool? IsDigerKdvler { get; set; }
         public IEnumerable<FrYevmiyelerKdvKodlari> Data { get; set; }
 
     }
@@ -1229,8 +1309,8 @@ namespace WebApp.Models
         public string HesapKod { get; set; }
         public string VergiKimlikNo { get; set; }
         public string FirmaAdi { get; set; }
-        public string IBanNo { get; set; } 
-        public string Aciklama { get; set; } 
+        public string IBanNo { get; set; }
+        public string Aciklama { get; set; }
         public List<FrYevmiyelerBesBankaHesapNumaralari> Data { get; set; }
 
     }
@@ -1260,21 +1340,51 @@ namespace WebApp.Models
     public class FmYevmiyeler : PagerOption
     {
         public int? Yil { get; set; }
+        public int? FYil { get; set; }
+        public int? FAyID { get; set; }
+        public DateTime? BaslangicTarihi { get; set; }
+        public DateTime? BitisTarihi { get; set; }
         public int? YevmiyeHarcamaBirimID { get; set; }
         public int? YevmiyeHesapKodTurID { get; set; }
-        public bool? GelirKaydiOlacak { get; set; }
+        public bool? IsY1003BVeriGirisiTamamlandi { get; set; }
+        public bool? Is1003AHesaplamayaGirecek { get; set; }
+        public bool? Is1003AGelirKaydiYapildi { get; set; }
+        public bool? IsKdvTevkifatVeriGirisiTamamlandi { get; set; }
+        public bool? IsEKHarcamaBirimiDegisti { get; set; }
+        public bool? IsTifVeriGirisiTamamlandi { get; set; }
+        public bool? IsSendikaBilgisiDegisti { get; set; }
+        public bool? IsBesBilgisiDegisti { get; set; }
+        public bool? IsBankaHesapNumarasiGirildi { get; set; }
         public int? YevmiyeNo { get; set; }
         public string VergiKimlikNo { get; set; }
         public string HarcamaBirimKod { get; set; }
         public string HesapKod { get; set; }
         public string Aciklama { get; set; }
 
+        public decimal BorcToplam { get; set; }
+        public decimal AlacakToplam { get; set; }
+        public decimal KalanToplam { get; set; }
+
         public List<FrYevmiyeler> Data = new List<FrYevmiyeler>();
     }
-
+    public class FrYilAyModel
+    {
+        public int Yil { get; set; }
+        public int AyID { get; set; }
+    }
     public class FrYevmiyeler : Yevmiyeler
     {
-        public bool IsIslemGordu { get; set; }
+        public bool? IsY1003BVeriGirisiTamamlandi { get; set; }
+        public bool? Is1003AHesaplamayaGirecek { get; set; }
+        public bool? Is1003AGelirKaydiYapildi { get; set; }
+        public bool? IsKdvTevkifatVeriGirisiTamamlandi { get; set; }
+        public bool? IsEKHarcamaBirimiDegisti { get; set; }
+        public bool? IsTifVeriGirisiTamamlandi { get; set; }
+        public bool? IsSendikaBilgisiDegisti { get; set; }
+        public bool? IsBesBilgisiDegisti { get; set; }
+        public bool? IsBankaHesapNumarasiGirildi { get; set; }
+        public List<FrYilAyModel> Y1003BYilAyModels { get; set; }
+        public List<FrYilAyModel> KdvTevkifatYilAyModels { get; set; }
         public string BirimAdi { get; set; }
     }
     public class YevmiyeDetayModel : Yevmiyeler

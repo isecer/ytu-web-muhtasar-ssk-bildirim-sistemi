@@ -29,6 +29,7 @@
                                 <th class="sirala sorting" field="BirimAdi">Birim Adı</th>
                                 <th class="sirala sorting" width="200" field="IsUniversiteIsyeri">Üniversite İşyeri Mi</th>
                                 <th class="sirala sorting" field="IsyeriKodu">İş Yeri Kodu</th>
+                                <th class="sirala sorting" field="SaymanlikKodu">Saymanlık Kodu</th>
                                 <th class="sirala sorting" field="IsAltBirim">Alt Birim Mi</th>
                                 <th width="35"></th>
                             </tr>
@@ -51,6 +52,9 @@
                                 </th>
                                 <th>
                                     <input name="IsyeriKodu" type="text" value="@Model.IsyeriKodu" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="IsyeriKodu" type="text" value="@Model.SaymanlikKod" class="form-control" />
                                 </th>
                                 <th>
                                     <select name="IsAltBirim" class="form-control">
@@ -83,6 +87,9 @@
                                     @item.IsyeriKodu
                                 </td>
                                 <td>
+                                    @item.SaymanlikKod
+                                </td>
+                                <td>
                                     @item.IsAltBirim.ToEvetHayir()
                                 </td>
                                 <td>
@@ -99,7 +106,7 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="6" style="text-align: center;">
+                                    <td colspan="7" style="text-align: center;">
                                         [Listelenen Kayıt Yok]
                                     </td>
                                 </tr>

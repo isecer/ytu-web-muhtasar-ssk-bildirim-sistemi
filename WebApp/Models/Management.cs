@@ -2004,6 +2004,60 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelBool> CmbHarcamaBirimiDegistiData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Harcama Birimi Değişti" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Harcama Birimi Değişmedi" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbSendikaBilgisiDegistiData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Sendika Bilgisi Değişti" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Sendika Bilgisi Değişmedi" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbBesBilgisiDegistiData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Bes Bilgisi Değişti" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Bes Bilgisi Değişmedi" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbVeriGirisiTamamlandiData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Veri Girişi Tamamlandı" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Veri Girişi Tamamlanmadı" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbHesaplamayaGirmeDurumData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Hesaplamaya Girecek Kayıtlar" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Hesaplamaya Girecek Kayıtlar" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbHesapKoduHesapKoduDegistirildiData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "Hesap Kodu Değiştirildi" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Hesap Kodu Değiştirilmedi" });
+            return dct;
+
+        }
         public static List<ComboModelBool> CmbEvetHayirData(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelBool>();

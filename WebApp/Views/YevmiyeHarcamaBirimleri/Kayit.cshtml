@@ -53,14 +53,19 @@
                             <div class="form-group ShowIsYeriKodu @(Model.IsUniversiteIsyeri==true?"":"hide")">
                                 <label class="col-md-3 col-xs-4 control-label">Alt Birim mi?</label>
                                 <div class="col-md-9 col-xs-8">
-                                    <select name="IsAltBirim" class="form-control">
+                                    <select name="IsAltBirim" class="form-control" onchange="if ($(this).val() != 'true') { $('.ShowSaymanlikKodu').removeClass('hide'); } else { $('.ShowSaymanlikKodu').addClass('hide'); }">
                                         <option></option>
                                         <option value="true" @Model.IsAltBirim.ToSelected()>Evet</option>
                                         <option value="false" @((Model.IsAltBirim == false).ToSelected())>Hayır</option>
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="form-group ShowSaymanlikKodu @(Model.IsAltBirim==true?"hide":"")">
+                                <label class="col-md-3 col-xs-4 control-label">Saymanlık Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="SaymanlikKod" id="SaymanlikKod" maxlength="24" value="@Model.SaymanlikKod" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

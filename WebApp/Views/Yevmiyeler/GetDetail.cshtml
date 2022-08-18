@@ -57,19 +57,6 @@
                                     <tr>
                                         <td colspan="2">
                                             <div style="min-height:80px;">
-                                                <table>
-                                                    <tr>
-                                                        <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
-                                                        <td width="10">:</td>
-                                                        <td>@Model.YevmiyeNoToplamGv TL</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
-                                                        <td width="10">:</td>
-                                                        <td>@Model.YevmiyeNoToplamDv TL</td>
-                                                    </tr>
-                                                </table>
-                                                <br />
 
                                                 <table class="table table-hover" style="width:100%;">
                                                     <tr class="info">
@@ -89,7 +76,7 @@
                                                             <td>@item.Aylar.AyAdi</td>
                                                             <td>@item.YevmiyelerBelgeKodlari.BelgeKodu - @item.YevmiyelerBelgeKodlari.BelgeAdi</td>
                                                             <td style="text-align:right;">@item.SskPrimTutar.ToString("n2") TL</td>
-                                                            <td style="text-align:right;">@item.Matrah.ToString("n2") TL</td>
+                                                            <td style="text-align:right;">@((item.Matrah ?? 0).ToString("n2")) TL</td>
                                                             <td style="padding-left:5px;">
                                                                 @if (KayitYetkisi)
                                                                 {
@@ -104,7 +91,7 @@
                                                         <tr class="warning">
                                                             <td colspan="4" style="text-align:right;font-weight:bold;">Alacak Toplam: @Model.Alacak.ToString("n2") TL</td>
                                                             <td style="text-align:right;font-weight:bold;">SSK Prim Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.SskPrimTutar).ToString("n2") TL</td>
-                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah).ToString("n2") TL</td>
+                                                            <td style="text-align:right;font-weight:bold;">Matrah Toplam: @Model.Yevmiyeler1003BAyristirmalari.Sum(s => s.Matrah ?? 0).ToString("n2") TL</td>
                                                             <td></td>
                                                         </tr>
                                                     }
@@ -129,19 +116,6 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <table>
-                                                <tr>
-                                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Gelir Vergisi Toplamı</td>
-                                                    <td width="10">:</td>
-                                                    <td>@Model.YevmiyeNoToplamGv TL</td>
-                                                </tr>
-                                                <tr>
-                                                    <td width="240">@Model.YevmiyeNo Numaralı Yevmi Damga Vergisi Toplamı</td>
-                                                    <td width="10">:</td>
-                                                    <td>@Model.YevmiyeNoToplamDv TL</td>
-                                                </tr>
-                                            </table>
-                                            <br />
                                             @using (Ajax.BeginForm("GelirKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
                                             {
                                                 @Html.Hidden("YevmiyeID", Model.YevmiyeID)
@@ -155,7 +129,7 @@
                                                                 @Html.DropDownList("Y1003AHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })
                                                             }
                                                             else
-                                                            { 
+                                                            {
                                                                 @*@(Model.Y1003AHesapKodID != null ? (Model.Y1003AHesapKodID ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek") : "Veri Girilmedi.");*@
                                                             }
                                                         </td>
@@ -166,15 +140,14 @@
                                                         <td class="form-group">
                                                             @if (KayitYetkisi)
                                                             {
-                                                                <select class="form-control" name="Y1003AIsHesaplamayaGirecek">
-                                                                    <option></option>
+                                                                <select class="form-control" name="Y1003AIsHesaplamayaGirecek"> 
                                                                     <option value="true" @Model.Y1003AIsHesaplamayaGirecek.ToSelected()>Evet</option>
                                                                     <option value="false" @((Model.Y1003AIsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
                                                                 </select>
                                                             }
                                                             else
                                                             {
-                                                                @(Model.Y1003AIsHesaplamayaGirecek != null ? (Model.Y1003AIsHesaplamayaGirecek.Value ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek") : "Veri Girilmedi.");
+                                                                @(Model.Y1003AIsHesaplamayaGirecek ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek");
                                                             }
 
                                                         </td>
@@ -400,9 +373,9 @@
                                                     <th width="95">Kdv Kod oranı</th>
                                                     <th width="80">Fatura Yıl</th>
                                                     <th width="80">Fatura Ay</th>
-                                                    <th style="text-align:right;" width="80">Matrah</th>
+                                                    <th style="text-align:right;" width="110">Matrah</th>
                                                     <th style="text-align:center;" width="80">Kdv Oranı</th>
-                                                    <th style="text-align:right;" width="80">Kdv Tutarı</th>
+                                                    <th style="text-align:right;" width="110">Kdv Tutarı</th>
                                                     <th style="text-align:right;" width="220">Tevkifat Tutarı</th>
                                                     <th width="40"></th>
                                                 </tr>

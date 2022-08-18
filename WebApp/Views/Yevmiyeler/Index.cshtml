@@ -6,6 +6,7 @@
     var KayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
     var ExcelYuklemeYetki = RoleNames.YevmiyelerExcelYukleme.InRole();
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var SelectName = (string)ViewBag.SelectName;
 }
 
 
@@ -27,7 +28,7 @@
                         @if (true)
                         {
                             <li>
-                                <span class="label label-info" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
+                                <span class="label label-success" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
                                 <script>
 
                                     function MExcelYukle() {
@@ -112,18 +113,21 @@
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td width="120">Yıl</td>
+                                                    <td width="120">Yıl / Tarih Aralığı</td>
                                                     <td>@Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeler').submit();", id = "Yil_" })</td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table style="width:100%;table-layout:fixed;">
-                                                <tr>
-                                                    <td width="120">Birim</td>
-                                                    <td>@Html.DropDownList("YevmiyeHarcamaBirimID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();", id = "YevmiyeHarcamaBirimID_" })</td>
+                                                    <td width="220">
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    <input name="BaslangicTarihi" id="BaslangicTarihi" class="form-control" type="text" autocomplete="off" placeholder="Baş Ör: @DateTime.Now.AddDays(-30).ToFormatDate()" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.BaslangicTarihi.ToFormatDate()" />
+
+                                                                </td>
+                                                                <td>
+                                                                    <input name="BitisTarihi" id="BitisTarihi" class="form-control" type="text" autocomplete="off" placeholder="Bit Ör: @DateTime.Now.ToFormatDate()" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.BitisTarihi.ToFormatDate()" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -139,11 +143,11 @@
                                                             <tr>
                                                                 <td width="100">22-31 Gelir Kaydı</td>
                                                                 <td>
-                                                                    <select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
-                                                                        <option></option>
-                                                                        <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
-                                                                        <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
-                                                                    </select>
+                                                                    @*<select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
+                                                                            <option></option>
+                                                                            <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
+                                                                            <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
+                                                                        </select>*@
                                                                 </td>
                                                             </tr>
                                                         </table>
@@ -152,15 +156,54 @@
                                             </table>
                                         </td>
                                     </tr>
+                                    @if (Model.YevmiyeHesapKodTurID.HasValue && SelectName != "")
+                                    {
+                                        <tr>
+                                            <td>
+                                                <table style="width:100%;table-layout:fixed;">
+                                                    <tr>
+                                                        <td width="120">Kayıt Durumu</td>
+                                                        <td colspan="2">
+                                                            @Html.DropDownList(SelectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+                                                        </td>
+
+                                                    </tr>
+                                                    @if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B || Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                                                    {
+                                                        <tr>
+                                                            <td width="120">Fatura Yıl / Ay</td>
+                                                            <td>
+                                                                @Html.DropDownList("FYil", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+
+                                                            </td>
+                                                            <td> @Html.DropDownList("FAyID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })</td>
+                                                        </tr>
+                                                    }
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    }
+
                                 </table>
                             </td>
                             <td style="vertical-align:top;">
                                 <table class="table table-hover" style="table-layout:fixed;">
+
                                     <tr>
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td width="120">Yevmiye No</td>
+                                                    <td width="160">Birim</td>
+                                                    <td>@Html.DropDownList("YevmiyeHarcamaBirimID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();", id = "YevmiyeHarcamaBirimID_" })</td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td width="160">Yevmiye No / Hesap Kodu</td>
                                                     <td>
                                                         <input name="YevmiyeNo" id="YevmiyeNo" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.YevmiyeNo" class="form-control" />
                                                         @if (Model.YevmiyeNo.HasValue)
@@ -173,22 +216,13 @@
                                                             </script>
                                                         }
                                                     </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <table style="width:100%;table-layout:fixed;">
-                                                <tr>
-                                                    <td width="120">Harcama Birim Kodu</td>
                                                     <td>
-                                                        <input name="HarcamaBirimKod" id="HarcamaBirimKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HarcamaBirimKod" class="form-control" />
-                                                        @if (Model.HarcamaBirimKod.IsNullOrEmpty() == false)
+                                                        <input name="HesapKod" id="HesapKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HesapKod" class="form-control" />
+                                                        @if (Model.HesapKod.IsNullOrEmpty() == false)
                                                         {
                                                             <script>
                                                                 $(function () {
-                                                                    SetCaretAtEnd(document.getElementById('HarcamaBirimKod'));
+                                                                    SetCaretAtEnd(document.getElementById('HesapKod'));
                                                                 });
 
                                                             </script>
@@ -197,25 +231,25 @@
                                                 </tr>
                                             </table>
                                         </td>
-
                                     </tr>
+
                                     <tr>
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td width="120">Hesap Kodu</td>
+                                                    <td width="160">Açıklama</td>
                                                     <td>
                                                         <table style="width:100%;table-layout:fixed;">
                                                             <tr>
-                                                                <td><input name="HesapKod" id="HesapKod" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.HesapKod" class="form-control" /></td>
+                                                                <td><input name="Aciklama" id="Aciklama" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.Aciklama" class="form-control" /></td>
                                                                 <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmYevmiyeler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
                                                             </tr>
                                                         </table>
-                                                        @if (Model.HesapKod.IsNullOrEmpty() == false)
+                                                        @if (Model.Aciklama.IsNullOrEmpty() == false)
                                                         {
                                                             <script>
                                                                 $(function () {
-                                                                    SetCaretAtEnd(document.getElementById('HesapKod'));
+                                                                    SetCaretAtEnd(document.getElementById('Aciklama'));
                                                                 });
 
                                                             </script>
@@ -243,7 +277,7 @@
                         @if (ExcelYuklemeYetki && Model.Yil.HasValue)
                         {
                             <li>
-                                <span class="label label-info" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
+                                <span class="label label-success" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
                                 <script>
 
 
@@ -329,8 +363,8 @@
                                 <th width="120">Yevmiye Tarih</th>
                                 <th class="sirala sorting" field="BirimAdi">Harcama Birim</th>
                                 <th>Hesap Kod/Ad</th>
-                                <th width="120" style="text-align:right;">Borç</th>
-                                <th width="120" style="text-align:right;">Alacak</th>
+                                <th width="140" style="text-align:right;">Borç</th>
+                                <th width="140" style="text-align:right;">Alacak</th>
                                 <th style="padding-left:15px;">Açıklama</th>
 
                             </tr>
@@ -342,7 +376,7 @@
                                 foreach (var item in Model.Data)
                                 {
                                     RowIndex++;
-                                    <tr class="@(item.IsIslemGordu?"danger":"")">
+                                    <tr class="@(item.IsBankaHesapNumarasiGirildi==true?"warning":"")">
                                         <td>
                                             <table>
                                                 <tr>
@@ -372,7 +406,7 @@
                                         </td>
                                         <td style="text-align:right;">@item.Borc.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.Alacak.ToString("n2") TL</td>
-                                        <td style="padding-left:15px;" title="@item.Aciklama">@(item.Aciklama.Length>200?item.Aciklama.Substring(0,200):item.Aciklama)</td>
+                                        <td style="padding-left:15px;" title="@item.Aciklama">@(item.Aciklama.Length > 200 ? item.Aciklama.Substring(0, 200) : item.Aciklama)</td>
 
                                     </tr>
                                     <tr class="cls-@item.YevmiyeID hide">
@@ -384,7 +418,13 @@
                                             </div>
                                         </td>
                                     </tr>
+
                                 }
+                                <tr class="info">
+                                    <td colspan="5" style="text-align:right;font-weight:bold;">@Model.BorcToplam.ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;">@Model.AlacakToplam.ToString("n2") TL</td>
+                                    <td style="font-weight:bold;padding-left:15px;">@Model.KalanToplam.ToString("n2") TL</td>
+                                </tr>
                             }
                             else
                             {

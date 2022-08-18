@@ -1,0 +1,145 @@
+﻿using BiskaUtil;
+using Database;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using WebApp.Models;
+
+namespace WebApp.Controllers
+{
+    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+    [Authorize(Roles = RoleNames.Yevmiyeler1003AMuhtasarDokumu)]
+    public class Yevmiye1003AMuhatasarDokumuController : Controller
+    {
+        private MusskDBEntities db = new MusskDBEntities();
+        // GET: YevmiyeBelgeKodlari
+        public ActionResult Index()
+        {
+            return Index(new FmYevmiye1003AMuhatasarDokumu { Yil = DateTime.Now.Year, AyID = DateTime.Now.Month });
+        }
+        [HttpPost]
+        public ActionResult Index(FmYevmiye1003AMuhatasarDokumu model)
+        {
+
+
+            var q = (from yv in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && p.YevmiyeTarih.Month == model.AyID && p.Y1003AIsHesaplamayaGirecek == true)
+                     join hk in db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A) on yv.HesapKod equals hk.HesapKod
+                     join mk in db.Yevmiyeler1003AMuhtasarKayitlari.Where(p => p.Yil == model.Yil && p.AyID == model.AyID) on hk.VergiKodu equals mk.VergiKodu into defmk
+                     from mk in defmk.DefaultIfEmpty()
+                     group new
+                     {
+                         yv.Alacak,
+                         yv.Borc
+                     } by new
+                     {
+                         hk.VergiKodu,
+                         GenelMatrahTutar = mk != null ? mk.GenelMatrahTutar : 0,
+                         SksVergiTutar = mk != null ? mk.SksVergiTutar : 0,
+                         ImidVergiTutar = mk != null ? mk.ImidVergiTutar : 0,
+                         SksMatrahTutar = mk != null ? mk.SksMatrahTutar : 0,
+                         ImidMatrahTutar = mk != null ? mk.ImidMatrahTutar : 0
+                     } into g1
+                     select new
+                     {
+                         g1.Key.VergiKodu,
+                         Tutar = g1.Sum(sm => sm.Alacak) - g1.Sum(sm => sm.Borc),
+                         g1.Key.SksVergiTutar,
+                         g1.Key.ImidVergiTutar,
+                         g1.Key.SksMatrahTutar,
+                         g1.Key.ImidMatrahTutar,
+                         g1.Key.GenelMatrahTutar,
+                         KalanTutar = (g1.Sum(sm => sm.Alacak) - g1.Sum(sm => sm.Borc)) - (g1.Key.SksVergiTutar + g1.Key.ImidVergiTutar),
+                         KalanMatrah = g1.Key.GenelMatrahTutar - (g1.Key.SksMatrahTutar + g1.Key.ImidMatrahTutar)
+
+                     });
+
+            if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
+            else q = q.OrderBy(o => o.VergiKodu);
+            model.Data = q.Select(s => new FrYevmiye1003AMuhatasarDokumu
+            {
+
+                VergiKodu = s.VergiKodu,
+                Tutar = s.Tutar,
+                SksVergiTutar = s.SksVergiTutar,
+                ImidVergiTutar = s.ImidVergiTutar,
+                KalanTutar = s.KalanTutar,
+                ImidMatrahTutar = s.ImidMatrahTutar,
+                SksMatrahTutar = s.SksMatrahTutar,
+                GenelMatrahTutar = s.GenelMatrahTutar,
+                KalanMatrah = s.KalanMatrah
+
+            }).ToArray();
+            ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
+            ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);
+            return View(model);
+        }
+
+
+        public ActionResult TutarEkle(int Yil, int AyID, string VergiKodu)
+        {
+            var model = new Yevmiyeler1003AMuhtasarKayitlari() { Yil = Yil, AyID = AyID, VergiKodu = VergiKodu };
+            var Kayit = db.Yevmiyeler1003AMuhtasarKayitlari.Where(p => p.Yil == Yil && p.AyID == AyID && p.VergiKodu == VergiKodu).FirstOrDefault();
+            if (Kayit != null) model = Kayit;
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult TutarEkle(Yevmiyeler1003AMuhtasarKayitlari kModel)
+        {
+            
+            var MmMessage = new MmMessage();
+            MmMessage.IsSuccess = false;
+            MmMessage.Title = "Harcama Birimi Tutar Ekleme İşlemi";
+            MmMessage.MessageType = Msgtype.Warning;
+
+            if (kModel.SksVergiTutar < 0)
+            {
+                MmMessage.Messages.Add("Sks Vergi Tutarı 0 dan küçük olamaz.");
+            }
+            if (kModel.ImidVergiTutar < 0)
+            {
+                MmMessage.Messages.Add("İmid Vergi Tutarı 0 dan küçük olamaz.");
+            }
+            if (kModel.SksMatrahTutar < 0)
+            {
+                MmMessage.Messages.Add("Sks Matrah Tutarı 0 dan küçük olamaz.");
+            }
+            if (kModel.ImidMatrahTutar < 0)
+            {
+                MmMessage.Messages.Add("İmid Matrah Tutarı 0 dan küçük olamaz.");
+            }
+            if (kModel.GenelMatrahTutar < 0)
+            {
+                MmMessage.Messages.Add("Genel Matrah Tutarı 0 dan küçük olamaz.");
+            }
+            if (MmMessage.Messages.Any() == false)
+            {
+                var Kayit = db.Yevmiyeler1003AMuhtasarKayitlari.Where(p => p.Yil == kModel.Yil && p.AyID == kModel.AyID && p.VergiKodu == kModel.VergiKodu).FirstOrDefault();
+                if (Kayit == null)
+                {
+                    db.Yevmiyeler1003AMuhtasarKayitlari.Add(kModel);
+                }
+                else
+                {
+                    Kayit.SksVergiTutar = kModel.SksVergiTutar;
+                    Kayit.ImidVergiTutar = kModel.ImidVergiTutar;
+                    Kayit.SksMatrahTutar = kModel.SksMatrahTutar;
+                    Kayit.ImidMatrahTutar = kModel.ImidMatrahTutar;
+                    Kayit.GenelMatrahTutar = kModel.GenelMatrahTutar;
+                }
+                db.SaveChanges(); 
+                MmMessage.Messages.Add("Tutar Bilgileri Kayıt Edildi.");
+            }  
+
+            db.SaveChanges();
+            MmMessage.IsSuccess = true;
+            MmMessage.MessageType = Msgtype.Success; 
+
+            return MmMessage.ToJsonResult();
+        }
+
+
+    }
+}

@@ -37,7 +37,7 @@ namespace Database
         public string Aciklama { get; set; }
         public Nullable<int> Y1003AHesapKodID { get; set; }
         public string Y1003AVergiKodu { get; set; }
-        public Nullable<bool> Y1003AIsHesaplamayaGirecek { get; set; }
+        public bool Y1003AIsHesaplamayaGirecek { get; set; }
         public string Y1003AVergiKimlikNo { get; set; }
         public string Y1003AAdSoyad { get; set; }
         public string Y1003AAdres { get; set; }
@@ -49,6 +49,7 @@ namespace Database
         public Nullable<int> ProjeBankaHesapNoID { get; set; }
         public Nullable<int> YevmiyeSendikaBilgiID { get; set; }
         public Nullable<int> BESYevmiyeHesapKodID { get; set; }
+        public string BESHesapKod { get; set; }
         public Nullable<bool> BESIsYevmiyeDokumuAyri { get; set; }
         public Nullable<bool> BESIsYevmiyeOdendi { get; set; }
         public System.DateTime IslemTarihi { get; set; }

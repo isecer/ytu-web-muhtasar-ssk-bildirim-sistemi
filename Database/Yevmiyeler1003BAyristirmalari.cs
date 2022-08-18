@@ -21,7 +21,7 @@ namespace Database
         public int AyID { get; set; }
         public int YevmiyeBelgeKodID { get; set; }
         public decimal SskPrimTutar { get; set; }
-        public decimal Matrah { get; set; }
+        public Nullable<decimal> Matrah { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }

@@ -26,11 +26,12 @@ namespace WebApp.Controllers
             var q = (from Hb in db.YevmiyelerHarcamaBirimleris.Where(p=>!p.IsAltBirim)
                      join Yb in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && HesapKods.Contains(p.HesapKod)) on new { Hb.YevmiyeHarcamaBirimID } equals new { YevmiyeHarcamaBirimID = Yb.EKYevmiyeHarcamaBirimID ?? Yb.YevmiyeHarcamaBirimID } into defYb
                      from Yb in defYb.DefaultIfEmpty()
-                     group new { Borc = (Yb == null ? 0 : Yb.Borc), Alacak = (Yb == null ? 0 : Yb.Alacak) } by new { Hb.YevmiyeHarcamaBirimID, Hb.VergiKimlikNo, Hb.BirimAdi } into g1
+                     group new { Borc = (Yb == null ? 0 : Yb.Borc), Alacak = (Yb == null ? 0 : Yb.Alacak) } by new { Hb.YevmiyeHarcamaBirimID, Hb.SaymanlikKod, Hb.VergiKimlikNo, Hb.BirimAdi } into g1
                      select new
                      {
                          g1.Key.YevmiyeHarcamaBirimID,
                          g1.Key.VergiKimlikNo,
+                         g1.Key.SaymanlikKod,
                          g1.Key.BirimAdi,
                          Borc = g1.Sum(sm => sm.Borc),
                          Alacak = g1.Sum(sm => sm.Alacak),
@@ -42,6 +43,7 @@ namespace WebApp.Controllers
             {
                 YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
                 VergiKimlikNo = s.VergiKimlikNo,
+                SaymanlikKod=s.SaymanlikKod,
                 BirimAdi = s.BirimAdi,
                 Borc = s.Borc,
                 Alacak = s.Alacak,

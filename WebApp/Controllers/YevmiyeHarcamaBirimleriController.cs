@@ -31,6 +31,7 @@ namespace WebApp.Controllers
             if (model.IsUniversiteIsyeri.HasValue) q = q.Where(p => p.IsUniversiteIsyeri == model.IsUniversiteIsyeri);
             if (model.IsAltBirim.HasValue) q = q.Where(p => p.IsAltBirim == model.IsAltBirim);
             if (!model.IsyeriKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.IsyeriKodu == model.IsyeriKodu);
+            if (!model.SaymanlikKod.IsNullOrWhiteSpace()) q = q.Where(p => p.SaymanlikKod == model.SaymanlikKod);
             model.RowCount = q.Count();
             if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
             else q = q.OrderBy(o => o.IsyeriKodu);
@@ -44,6 +45,7 @@ namespace WebApp.Controllers
                 IsUniversiteIsyeri = s.IsUniversiteIsyeri,
                 IsAltBirim = s.IsAltBirim,
                 IsyeriKodu = s.IsyeriKodu,
+                SaymanlikKod=s.SaymanlikKod,
                 IslemTarihi = s.IslemTarihi,
                 IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
                 IslemYapanID = s.IslemYapanID,
@@ -94,6 +96,15 @@ namespace WebApp.Controllers
                 }
                 else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "IsyeriKodu" });
             }
+            if (!kModel.IsAltBirim)
+            {
+                if (kModel.SaymanlikKod.IsNullOrWhiteSpace())
+                {
+                    MmMessage.Messages.Add("Saymanlık Kodu Boş Bırakılamaz.");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "SaymanlikKod" });
+                }
+                else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "SaymanlikKod" });
+            }
             #endregion
             if (!MmMessage.Messages.Any())
             {
@@ -109,6 +120,7 @@ namespace WebApp.Controllers
                 kModel.IslemYapanID = UserIdentity.Current.Id;
                 kModel.IslemYapanIP = UserIdentity.Ip;
                 if (!kModel.IsUniversiteIsyeri) { kModel.IsyeriKodu = null; kModel.IsAltBirim = false; }
+                if (kModel.IsAltBirim) kModel.SaymanlikKod = null;
                 if (kModel.YevmiyeHarcamaBirimID <= 0)
                 {
                     db.YevmiyelerHarcamaBirimleris.Add(kModel);
@@ -121,6 +133,7 @@ namespace WebApp.Controllers
                     data.IsUniversiteIsyeri = kModel.IsUniversiteIsyeri;
                     data.IsAltBirim = kModel.IsAltBirim;
                     data.IsyeriKodu = kModel.IsyeriKodu;
+                    data.SaymanlikKod = kModel.SaymanlikKod;
                     data.IslemTarihi = kModel.IslemTarihi;
                     data.IslemYapanID = kModel.IslemYapanID;
                     data.IslemYapanIP = kModel.IslemYapanIP;
