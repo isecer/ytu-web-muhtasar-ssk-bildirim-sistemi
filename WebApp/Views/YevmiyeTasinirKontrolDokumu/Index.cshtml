@@ -17,9 +17,13 @@
                         <li>
                             <span>Yevmiye Yılı:</span>
                             <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
-                                @Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeTasinirKontrolDokumu').submit();", style = "color:black;min-width:220px;" })
+                                @Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeTasinirKontrolDokumu').submit();", style = "color:black;min-width:220px;height:24px;" })
                             </span>
                         </li>
+                        @if (Model.Data.Any())
+                        {
+                            <li><span class="label label-success" style="cursor:pointer;" onclick="window.location.href='@Url.Action("Index", "YevmiyeTasinirKontrolDokumu", new { Yil = Model.Yil, export = true })'"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel Olarak İndir</span></li>
+                        }
                     </ul>
                 </div>
                 <div class="panel-body">
@@ -65,7 +69,7 @@
                                             @RowIndex
                                         </td>
                                         <td>
-                                          @item.VergiKimlikNo -  @item.BirimAdi
+                                            @item.VergiKimlikNo -  @item.BirimAdi
                                         </td>
                                         <td>
                                             @item.HesapKod

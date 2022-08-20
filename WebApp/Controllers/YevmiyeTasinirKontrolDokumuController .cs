@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,16 +18,17 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, bool export = false)
         {
-            return Index(new FmTasinirKontrolDokumu { Yil = DateTime.Now.Year ,PageSize=50});
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            return Index(new FmTasinirKontrolDokumu { Yil = Yil, PageSize = 50 },   export);
         }
         [HttpPost]
-        public ActionResult Index(FmTasinirKontrolDokumu model)
+        public ActionResult Index(FmTasinirKontrolDokumu model, bool export = false)
         {
             var TasinirKontrolKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari).Select(s => s.HesapKod).ToList();
 
-            var q = (from yv in db.Yevmiyelers.Where(p => TasinirKontrolKods.Contains(p.HesapKod) && p.YevmiyeTarih.Year==model.Yil)
+            var q = (from yv in db.Yevmiyelers.Where(p => TasinirKontrolKods.Contains(p.HesapKod) && p.YevmiyeTarih.Year == model.Yil)
                      join hb in db.YevmiyelerHarcamaBirimleris on yv.YevmiyeHarcamaBirimID equals hb.YevmiyeHarcamaBirimID
                      group new
                      {
@@ -56,9 +60,39 @@ namespace WebApp.Controllers
             if (!model.HesapAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapAdi == model.HesapAdi);
 
             model.RowCount = q.Count();
-            model.BorcToplam = q.Sum(s => s.Borc);
-            model.AlacakToplam = q.Sum(s => s.Alacak);
+
+            #region export
+            if (export && model.RowCount > 0)
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.VergiKimlikNo,
+                    s.BirimAdi,
+                    s.HesapKod,
+                    s.HesapAdi,
+                    s.Alacak,
+                    s.Borc,
+                    s.Kalan,
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_TasinirKontrolDokumu_" + model.Yil + ".xls");
+            }
+            #endregion
+
+            model.BorcToplam = q.Sum(s => (decimal?)s.Borc) ?? 0;
+            model.AlacakToplam = q.Sum(s => (decimal?)s.Alacak) ?? 0;
             model.KalanToplam = model.BorcToplam - model.AlacakToplam;
+
+
+
             if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
             else q = q.OrderBy(o => o.BirimAdi).ThenBy(t => t.HesapAdi);
             var PS = Management.SetStartRowInx(model.StartRowIndex, model.PageIndex, model.PageCount, model.RowCount, model.PageSize);
@@ -70,7 +104,7 @@ namespace WebApp.Controllers
                 HesapAdi = s.HesapAdi,
                 Alacak = s.Alacak,
                 Borc = s.Borc,
-                Kalan = s.Kalan, 
+                Kalan = s.Kalan,
             }).ToArray();
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             ViewBag.YevmiyeHarcamaBirimID = new SelectList(Management.CmbYevmiyelerBirim(true), "Value", "Caption", model.YevmiyeHarcamaBirimID);

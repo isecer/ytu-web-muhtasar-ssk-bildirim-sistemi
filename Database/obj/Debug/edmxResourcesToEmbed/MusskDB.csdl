@@ -45,6 +45,7 @@
     <EntitySet Name="Yevmiyeler1003AGelirKayit" EntityType="MusskDBModel.Yevmiyeler1003AGelirKayit" />
     <EntitySet Name="Yevmiyeler1003AMuhtasarKayitlari" EntityType="MusskDBModel.Yevmiyeler1003AMuhtasarKayitlari" />
     <EntitySet Name="Yevmiyeler1003BAyristirmalari" EntityType="MusskDBModel.Yevmiyeler1003BAyristirmalari" />
+    <EntitySet Name="Yevmiyeler1003BSskPrimBoclari" EntityType="MusskDBModel.Yevmiyeler1003BSskPrimBoclari" />
     <EntitySet Name="YevmiyelerBelgeKodlaris" EntityType="MusskDBModel.YevmiyelerBelgeKodlari" />
     <EntitySet Name="YevmiyelerBesBankaHesapNumaralaris" EntityType="MusskDBModel.YevmiyelerBesBankaHesapNumaralari" />
     <EntitySet Name="YevmiyelerHarcamaBirimleris" EntityType="MusskDBModel.YevmiyelerHarcamaBirimleri" />
@@ -82,6 +83,10 @@
     <AssociationSet Name="FK_Yevmiye1003AMuhtasarKayitlari_Aylar" Association="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar">
       <End Role="Aylar" EntitySet="Aylars" />
       <End Role="Yevmiyeler1003AMuhtasarKayitlari" EntitySet="Yevmiyeler1003AMuhtasarKayitlari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_Aylar" Association="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_Aylar">
+      <End Role="Aylar" EntitySet="Aylars" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler1003BAyristirmalari_Aylar" Association="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Aylar">
       <End Role="Aylar" EntitySet="Aylars" />
@@ -347,6 +352,14 @@
       <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleris" />
       <End Role="Yevmiyeler1003BAyristirmalari" EntitySet="Yevmiyeler1003BAyristirmalari" />
     </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari" Association="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari">
+      <End Role="YevmiyelerBelgeKodlari" EntitySet="YevmiyelerBelgeKodlaris" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri" Association="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri">
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleris" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
+    </AssociationSet>
     <AssociationSet Name="FK_YevmiyelerHarcamaBirimleriTutarKayit_YevmiyelerHarcamaBirimleri" Association="MusskDBModel.FK_YevmiyelerHarcamaBirimleriTutarKayit_YevmiyelerHarcamaBirimleri">
       <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleris" />
       <End Role="YevmiyelerHarcamaBirimleriTutarKayit" EntitySet="YevmiyelerHarcamaBirimleriTutarKayits" />
@@ -438,6 +451,7 @@
     <NavigationProperty Name="VASurecleriBirimVerileris" Relationship="MusskDBModel.FK_VASurecleriBirimVerileri_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileri" />
     <NavigationProperty Name="VASurecleriBirimVerileriAylikToplams" Relationship="MusskDBModel.FK_VASurecleriBirimVerileriAylikToplam_Aylar" FromRole="Aylar" ToRole="VASurecleriBirimVerileriAylikToplam" />
     <NavigationProperty Name="Yevmiyeler1003AMuhtasarKayitlari" Relationship="MusskDBModel.FK_Yevmiye1003AMuhtasarKayitlari_Aylar" FromRole="Aylar" ToRole="Yevmiyeler1003AMuhtasarKayitlari" />
+    <NavigationProperty Name="Yevmiyeler1003BSskPrimBoclari" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_Aylar" FromRole="Aylar" ToRole="Yevmiyeler1003BSskPrimBoclari" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_Aylar" FromRole="Aylar" ToRole="Yevmiyeler1003BAyristirmalari" />
     <NavigationProperty Name="YevmiyelerKdvTevkifatKayitlaris" Relationship="MusskDBModel.FK_YevmiyelerKdvTevkifatKayitlari_Aylar" FromRole="Aylar" ToRole="YevmiyelerKdvTevkifatKayitlari" />
   </EntityType>
@@ -1128,6 +1142,20 @@
     <NavigationProperty Name="YevmiyelerBelgeKodlari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerBelgeKodlari" FromRole="Yevmiyeler1003BAyristirmalari" ToRole="YevmiyelerBelgeKodlari" />
     <NavigationProperty Name="YevmiyelerHarcamaBirimleri" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri" FromRole="Yevmiyeler1003BAyristirmalari" ToRole="YevmiyelerHarcamaBirimleri" />
   </EntityType>
+  <EntityType Name="Yevmiyeler1003BSskPrimBoclari">
+    <Key>
+      <PropertyRef Name="Yevmiye1003BSskPrimBocID" />
+    </Key>
+    <Property Name="Yevmiye1003BSskPrimBocID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Yil" Type="Int32" Nullable="false" />
+    <Property Name="AyID" Type="Int32" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="Int32" Nullable="false" />
+    <Property Name="YevmiyeBelgeKodID" Type="Int32" Nullable="false" />
+    <Property Name="Tutar" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <NavigationProperty Name="Aylar" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_Aylar" FromRole="Yevmiyeler1003BSskPrimBoclari" ToRole="Aylar" />
+    <NavigationProperty Name="YevmiyelerBelgeKodlari" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari" FromRole="Yevmiyeler1003BSskPrimBoclari" ToRole="YevmiyelerBelgeKodlari" />
+    <NavigationProperty Name="YevmiyelerHarcamaBirimleri" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri" FromRole="Yevmiyeler1003BSskPrimBoclari" ToRole="YevmiyelerHarcamaBirimleri" />
+  </EntityType>
   <EntityType Name="YevmiyelerBelgeKodlari">
     <Key>
       <PropertyRef Name="YevmiyeBelgeKodID" />
@@ -1141,6 +1169,7 @@
     <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_YevmiyelerBelgeKodlari_Kullanicilar" FromRole="YevmiyelerBelgeKodlari" ToRole="Kullanicilar" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerBelgeKodlari" FromRole="YevmiyelerBelgeKodlari" ToRole="Yevmiyeler1003BAyristirmalari" />
+    <NavigationProperty Name="Yevmiyeler1003BSskPrimBoclari" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari" FromRole="YevmiyelerBelgeKodlari" ToRole="Yevmiyeler1003BSskPrimBoclari" />
   </EntityType>
   <EntityType Name="YevmiyelerBesBankaHesapNumaralari">
     <Key>
@@ -1174,6 +1203,7 @@
     <NavigationProperty Name="Kullanicilar" Relationship="MusskDBModel.FK_YevmiyelerHarcamaBirimleri_Kullanicilar" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Kullanicilar" />
     <NavigationProperty Name="Yevmiyelers" Relationship="MusskDBModel.FK_Yevmiyeler_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler" />
     <NavigationProperty Name="Yevmiyeler1003BAyristirmalari" Relationship="MusskDBModel.FK_Yevmiyeler1003BAyristirmalari_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler1003BAyristirmalari" />
+    <NavigationProperty Name="Yevmiyeler1003BSskPrimBoclari" Relationship="MusskDBModel.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="Yevmiyeler1003BSskPrimBoclari" />
     <NavigationProperty Name="YevmiyelerHarcamaBirimleriTutarKayits" Relationship="MusskDBModel.FK_YevmiyelerHarcamaBirimleriTutarKayit_YevmiyelerHarcamaBirimleri" FromRole="YevmiyelerHarcamaBirimleri" ToRole="YevmiyelerHarcamaBirimleriTutarKayit" />
   </EntityType>
   <EntityType Name="YevmiyelerHarcamaBirimleriTutarKayit">
@@ -1473,6 +1503,18 @@
         <PropertyRef Name="AyID" />
       </Principal>
       <Dependent Role="Yevmiyeler1003AMuhtasarKayitlari">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_Aylar">
+    <End Type="MusskDBModel.Aylar" Role="Aylar" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003BSskPrimBoclari" Role="Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
         <PropertyRef Name="AyID" />
       </Dependent>
     </ReferentialConstraint>
@@ -2297,6 +2339,30 @@
         <PropertyRef Name="YevmiyeHarcamaBirimID" />
       </Principal>
       <Dependent Role="Yevmiyeler1003BAyristirmalari">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari">
+    <End Type="MusskDBModel.YevmiyelerBelgeKodlari" Role="YevmiyelerBelgeKodlari" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003BSskPrimBoclari" Role="Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerBelgeKodlari">
+        <PropertyRef Name="YevmiyeBelgeKodID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
+        <PropertyRef Name="YevmiyeBelgeKodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri">
+    <End Type="MusskDBModel.YevmiyelerHarcamaBirimleri" Role="YevmiyelerHarcamaBirimleri" Multiplicity="1" />
+    <End Type="MusskDBModel.Yevmiyeler1003BSskPrimBoclari" Role="Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHarcamaBirimleri">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
         <PropertyRef Name="YevmiyeHarcamaBirimID" />
       </Dependent>
     </ReferentialConstraint>

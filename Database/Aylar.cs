@@ -21,6 +21,7 @@ namespace Database
             this.VASurecleriBirimVerileris = new HashSet<VASurecleriBirimVerileri>();
             this.VASurecleriBirimVerileriAylikToplams = new HashSet<VASurecleriBirimVerileriAylikToplam>();
             this.Yevmiyeler1003AMuhtasarKayitlari = new HashSet<Yevmiyeler1003AMuhtasarKayitlari>();
+            this.Yevmiyeler1003BSskPrimBoclari = new HashSet<Yevmiyeler1003BSskPrimBoclari>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
             this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
         }
@@ -36,6 +37,8 @@ namespace Database
         public virtual ICollection<VASurecleriBirimVerileriAylikToplam> VASurecleriBirimVerileriAylikToplams { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003AMuhtasarKayitlari> Yevmiyeler1003AMuhtasarKayitlari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler1003BSskPrimBoclari> Yevmiyeler1003BSskPrimBoclari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

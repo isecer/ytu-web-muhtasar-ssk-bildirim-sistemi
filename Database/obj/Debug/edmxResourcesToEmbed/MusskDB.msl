@@ -675,6 +675,18 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Yevmiyeler1003BSskPrimBoclari">
+      <EntityTypeMapping TypeName="MusskDBModel.Yevmiyeler1003BSskPrimBoclari">
+        <MappingFragment StoreEntitySet="Yevmiyeler1003BSskPrimBoclari">
+          <ScalarProperty Name="Tutar" ColumnName="Tutar" />
+          <ScalarProperty Name="YevmiyeBelgeKodID" ColumnName="YevmiyeBelgeKodID" />
+          <ScalarProperty Name="YevmiyeHarcamaBirimID" ColumnName="YevmiyeHarcamaBirimID" />
+          <ScalarProperty Name="AyID" ColumnName="AyID" />
+          <ScalarProperty Name="Yil" ColumnName="Yil" />
+          <ScalarProperty Name="Yevmiye1003BSskPrimBocID" ColumnName="Yevmiye1003BSskPrimBocID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="YevmiyelerBelgeKodlaris">
       <EntityTypeMapping TypeName="MusskDBModel.YevmiyelerBelgeKodlari">
         <MappingFragment StoreEntitySet="YevmiyelerBelgeKodlari">

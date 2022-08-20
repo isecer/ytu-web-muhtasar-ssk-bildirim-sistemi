@@ -82,19 +82,15 @@ namespace WebApp.Models
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Kdv Tevkifat Dökümü", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeKdvTevkifatiDokumu/Index", DilCeviriYap = false, SiraNo = 4)]
         [RoleAttribute(GorunurAdi = "Yevmiye - Kdv Tevkifat Dökümü", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string YevmiyelerKdvTevkifatDokumu = "YevmiyelerKdvTevkifatDokumu";
+        public const string YevmiyelerKdvTevkifatDokumu = "YevmiyelerKdvTevkifatDokumu"; 
 
-
-        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "E.Kesenek Birim Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeHarcamaBirimiToplamlari/Index", DilCeviriYap = false, SiraNo = 5)]
-        [RoleAttribute(GorunurAdi = "Yevmiye - E.Kesenek Birim Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string YevmiyelerHarcamaBirimiToplamlari = "YevmiyeHarcamaBirimiToplamlari";
-        [RoleAttribute(GorunurAdi = "Yevmiye - E.Kesenek Birim Toplamları Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string YevmiyelerHarcamaBirimiToplamlariKayitYetkisi = "YevmiyelerHarcamaBirimiToplamlariKayitYetkisi";
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "E.Kesenek Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeEmekliKesenekToplamlari/Index", DilCeviriYap = false, SiraNo = 5)]
+        [RoleAttribute(GorunurAdi = "Yevmiye - E.Kesenek Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyelerEmekliKesenekToplamlari = "YevmiyelerEmekliKesenekToplamlari"; 
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Taşınır Kontrol Dökümü", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeTasinirKontrolDokumu/Index", DilCeviriYap = false, SiraNo = 4)]
         [RoleAttribute(GorunurAdi = "Yevmiye - Taşınır Kontrol Dökümü", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string  YevmiyelerTasinirKontrolDokumu = "YevmiyelerTasinirKontrolDokumu";
-
+        public const string  YevmiyelerTasinirKontrolDokumu = "YevmiyelerTasinirKontrolDokumu"; 
 
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Sendika Toplamları", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeSendikaToplamlari/Index", DilCeviriYap = false, SiraNo = 9)]

@@ -107,7 +107,7 @@ namespace WebApp.Controllers
             }).OrderByDescending(o => o.Tarih).ToList();
 
             string htmlDuyuru = Management.RenderPartialView("KDuyurular", "DuyuruHtml", fModel);
-            return Json(new { ShowMessage = fModel.Data.Count() > 0, HtmlMessage = htmlDuyuru });
+            return Json(new { ShowMessage = fModel.Data.Any(), HtmlMessage = htmlDuyuru });
         }
         public ActionResult DuyuruHtml(FmDuyurular model)
         {

@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,12 +18,14 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, int? AyID = null, bool export = false)
         {
-            return Index(new FmYevmiye1003AMuhatasarDokumu { Yil = DateTime.Now.Year, AyID = DateTime.Now.Month });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            if (!AyID.HasValue) Yil = DateTime.Now.Month;
+            return Index(new FmYevmiye1003AMuhatasarDokumu { Yil = Yil, AyID = AyID }, export);
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiye1003AMuhatasarDokumu model)
+        public ActionResult Index(FmYevmiye1003AMuhatasarDokumu model, bool export = false)
         {
 
 
@@ -71,6 +76,33 @@ namespace WebApp.Controllers
                 KalanMatrah = s.KalanMatrah
 
             }).ToArray();
+            #region export
+            if (export && model.Data.Any())
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.VergiKodu,
+                    s.Tutar,
+                    s.SksVergiTutar,
+                    s.ImidVergiTutar,
+                    s.KalanTutar,
+                    s.ImidMatrahTutar,
+                    s.SksMatrahTutar,
+                    s.GenelMatrahTutar,
+                    s.KalanMatrah
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_1003AMuhtasarDokumu_" + model.Yil + "_" + model.AyID + ".xls");
+            }
+            #endregion
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);
             return View(model);
@@ -88,7 +120,7 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult TutarEkle(Yevmiyeler1003AMuhtasarKayitlari kModel)
         {
-            
+
             var MmMessage = new MmMessage();
             MmMessage.IsSuccess = false;
             MmMessage.Title = "Harcama Birimi Tutar Ekleme İşlemi";
@@ -129,13 +161,13 @@ namespace WebApp.Controllers
                     Kayit.ImidMatrahTutar = kModel.ImidMatrahTutar;
                     Kayit.GenelMatrahTutar = kModel.GenelMatrahTutar;
                 }
-                db.SaveChanges(); 
+                db.SaveChanges();
                 MmMessage.Messages.Add("Tutar Bilgileri Kayıt Edildi.");
-            }  
+            }
 
             db.SaveChanges();
             MmMessage.IsSuccess = true;
-            MmMessage.MessageType = Msgtype.Success; 
+            MmMessage.MessageType = Msgtype.Success;
 
             return MmMessage.ToJsonResult();
         }

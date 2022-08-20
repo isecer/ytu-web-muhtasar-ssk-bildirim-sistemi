@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,12 +18,14 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, int? AyID = null, bool export = false)
         {
-            return Index(new FmKdvTevkifatiDokumu { Yil = DateTime.Now.Year, AyID = DateTime.Now.Month });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            if (!AyID.HasValue) Yil = DateTime.Now.Month;
+            return Index(new FmKdvTevkifatiDokumu { Yil = Yil, AyID = AyID }, export);
         }
         [HttpPost]
-        public ActionResult Index(FmKdvTevkifatiDokumu model)
+        public ActionResult Index(FmKdvTevkifatiDokumu model, bool export = false)
         {
             var KdvTevkifatKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari).Select(s => s.HesapKod).ToList();
 
@@ -68,6 +73,32 @@ namespace WebApp.Controllers
                 TevkifatTutari = s.TevkifatTutari,
 
             }).ToArray();
+            #region export
+            if (export && model.Data.Any())
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.FaturaYil,
+                    FaturaAy = s.FaturaAyID,
+                    s.KdvAdi,
+                    s.KdvKodu,
+                    s.KdvOrani,
+                    s.BolumOran,
+                    s.Matrah,
+                    s.TevkifatTutari,
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_KdvTevkifatDokumu_" + model.Yil + "_" + model.AyID + ".xls");
+            }
+            #endregion
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);
             return View(model);

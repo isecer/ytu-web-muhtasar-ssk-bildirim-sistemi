@@ -1121,6 +1121,7 @@ namespace WebApp.Models
     }
     public class FrYevmiye1003BSskPrimleri : YevmiyelerHarcamaBirimleri
     {
+        public int YevmiyeBelgeKodID { get; set; }
         public string BelgeKodu { get; set; }
         public decimal SskPrimTutarToplam { get; set; }
         public decimal YevmiyeAlacakToplam { get; set; }
@@ -1132,6 +1133,9 @@ namespace WebApp.Models
         public decimal DvKesintiToplam { get; set; }
         public decimal MatrahToplam { get; set; }
         public decimal SskTutarToplam { get; set; }
+
+        public decimal SskBorcTutar { get; set; }
+        public decimal KalanSskBorcTutar { get; set; }
 
     }
     public class FmYevmiyeEkHbToplamlari : PagerOption
@@ -1176,7 +1180,7 @@ namespace WebApp.Models
     public class FmTasinirKontrolDokumu : PagerOption
     {
         public int? Yil { get; set; }
-        public int? YevmiyeHarcamaBirimID { get; set; }  
+        public int? YevmiyeHarcamaBirimID { get; set; }
         public string HesapKod { get; set; }
         public string HesapAdi { get; set; }
         public decimal BorcToplam { get; set; }
@@ -1196,7 +1200,7 @@ namespace WebApp.Models
     public class FmKdvTevkifatiDokumu : PagerOption
     {
         public int? Yil { get; set; }
-        public int? AyID { get; set; } 
+        public int? AyID { get; set; }
         public IEnumerable<FrKdvTevkifatiDokumu> Data { get; set; }
 
     }

@@ -670,6 +670,17 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <EntityType Name="Yevmiyeler1003BSskPrimBoclari">
+    <Key>
+      <PropertyRef Name="Yevmiye1003BSskPrimBocID" />
+    </Key>
+    <Property Name="Yevmiye1003BSskPrimBocID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Yil" Type="int" Nullable="false" />
+    <Property Name="AyID" Type="int" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="int" Nullable="false" />
+    <Property Name="YevmiyeBelgeKodID" Type="int" Nullable="false" />
+    <Property Name="Tutar" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+  </EntityType>
   <EntityType Name="YevmiyelerBelgeKodlari">
     <Key>
       <PropertyRef Name="YevmiyeBelgeKodID" />
@@ -1547,6 +1558,42 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_Aylar">
+    <End Role="Aylar" Type="Self.Aylar" Multiplicity="1" />
+    <End Role="Yevmiyeler1003BSskPrimBoclari" Type="Self.Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Aylar">
+        <PropertyRef Name="AyID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
+        <PropertyRef Name="AyID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari">
+    <End Role="YevmiyelerBelgeKodlari" Type="Self.YevmiyelerBelgeKodlari" Multiplicity="1" />
+    <End Role="Yevmiyeler1003BSskPrimBoclari" Type="Self.Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerBelgeKodlari">
+        <PropertyRef Name="YevmiyeBelgeKodID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
+        <PropertyRef Name="YevmiyeBelgeKodID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri">
+    <End Role="YevmiyelerHarcamaBirimleri" Type="Self.YevmiyelerHarcamaBirimleri" Multiplicity="1" />
+    <End Role="Yevmiyeler1003BSskPrimBoclari" Type="Self.Yevmiyeler1003BSskPrimBoclari" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YevmiyelerHarcamaBirimleri">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Principal>
+      <Dependent Role="Yevmiyeler1003BSskPrimBoclari">
+        <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Yevmiyeler_Kullanicilar">
     <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
     <End Role="Yevmiyeler" Type="Self.Yevmiyeler" Multiplicity="*" />
@@ -1914,6 +1961,7 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <EntitySet Name="Yevmiyeler1003AGelirKayit" EntityType="Self.Yevmiyeler1003AGelirKayit" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Yevmiyeler1003AMuhtasarKayitlari" EntityType="Self.Yevmiyeler1003AMuhtasarKayitlari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Yevmiyeler1003BAyristirmalari" EntityType="Self.Yevmiyeler1003BAyristirmalari" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Yevmiyeler1003BSskPrimBoclari" EntityType="Self.Yevmiyeler1003BSskPrimBoclari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="YevmiyelerBelgeKodlari" EntityType="Self.YevmiyelerBelgeKodlari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="YevmiyelerBesBankaHesapNumaralari" EntityType="Self.YevmiyelerBesBankaHesapNumaralari" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="YevmiyelerHarcamaBirimleri" EntityType="Self.YevmiyelerHarcamaBirimleri" Schema="dbo" store:Type="Tables" />
@@ -2201,6 +2249,18 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <AssociationSet Name="FK_Yevmiye1003AMuhtasarKayitlari_Aylar" Association="Self.FK_Yevmiye1003AMuhtasarKayitlari_Aylar">
       <End Role="Aylar" EntitySet="Aylar" />
       <End Role="Yevmiyeler1003AMuhtasarKayitlari" EntitySet="Yevmiyeler1003AMuhtasarKayitlari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_Aylar" Association="Self.FK_Yevmiye1003BSskPrimBoclari_Aylar">
+      <End Role="Aylar" EntitySet="Aylar" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari" Association="Self.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerBelgeKodlari">
+      <End Role="YevmiyelerBelgeKodlari" EntitySet="YevmiyelerBelgeKodlari" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri" Association="Self.FK_Yevmiye1003BSskPrimBoclari_YevmiyelerHarcamaBirimleri">
+      <End Role="YevmiyelerHarcamaBirimleri" EntitySet="YevmiyelerHarcamaBirimleri" />
+      <End Role="Yevmiyeler1003BSskPrimBoclari" EntitySet="Yevmiyeler1003BSskPrimBoclari" />
     </AssociationSet>
     <AssociationSet Name="FK_Yevmiyeler_Kullanicilar" Association="Self.FK_Yevmiyeler_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />

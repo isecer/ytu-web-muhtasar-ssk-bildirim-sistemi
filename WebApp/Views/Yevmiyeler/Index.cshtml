@@ -375,8 +375,42 @@
                                 int RowIndex = Model.StartRowIndex;
                                 foreach (var item in Model.Data)
                                 {
+                                    var ClassRow = "";
+                                    if (Model.YevmiyeHesapKodTurID==HesapKoduTuru.SSKPrimHesapKodlari1003B)
+                                    {
+                                        ClassRow = item.IsY1003BVeriGirisiTamamlandi == true?"success":"danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
+                                    {
+                                        ClassRow = item.Is1003AHesaplamayaGirecek == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                                    {
+                                        ClassRow = item.IsKdvTevkifatVeriGirisiTamamlandi == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari)
+                                    {
+                                        ClassRow = item.IsEKHarcamaBirimiDegisti == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari)
+                                    {
+                                        ClassRow = item.IsTifVeriGirisiTamamlandi == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari)
+                                    {
+                                        ClassRow = item.IsBesBilgisiDegisti == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SendikaIslemleriHesapKodlari)
+                                    {
+                                        ClassRow = item.IsSendikaBilgisiDegisti == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
+                                    {
+                                        ClassRow = item.IsBankaHesapNumarasiGirildi == true ? "success" : "danger";
+                                    }
+
                                     RowIndex++;
-                                    <tr class="@(item.IsBankaHesapNumarasiGirildi==true?"warning":"")">
+                                    <tr class="@ClassRow">
                                         <td>
                                             <table>
                                                 <tr>

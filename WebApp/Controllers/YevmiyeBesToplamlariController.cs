@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,12 +18,13 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, bool export = false)
         {
-            return Index(new FmYevmiyelerBesBankaHesapNumaralari { Yil = DateTime.Now.Year });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            return Index(new FmYevmiyelerBesBankaHesapNumaralari { Yil = Yil }, export);
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiyelerBesBankaHesapNumaralari model)
+        public ActionResult Index(FmYevmiyelerBesBankaHesapNumaralari model, bool export = false)
         {
             var IsYevmiyeDokumuAyriOlabilirHk = db.YevmiyelerBesBankaHesapNumaralaris.Where(p => p.IsYevmiyeDokumuAyriOlabilir).Select(s => s.HesapKod).ToList();
             var q = (from bs in db.YevmiyelerBesBankaHesapNumaralaris
@@ -84,6 +88,33 @@ namespace WebApp.Controllers
                 Kalan = s.Alacak - s.Borc
             }).ToList();
             model.Data.AddRange(HaricEklenecekler);
+
+            #region export
+            if (export && model.Data.Count > 0)
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s=>new {
+                    s.HesapKod,
+                    s.VergiKimlikNo,
+                    s.FirmaAdi,
+                    s.IBanNo,
+                    s.Aciklama,
+                    s.Borc,
+                    s.Alacak,
+                    s.Kalan 
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_BireyselEmeklilikToplamlari_" + model.Yil + ".xls");
+            }
+            #endregion
+
 
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             return View(model);

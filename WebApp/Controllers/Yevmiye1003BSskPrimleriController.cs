@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,12 +18,14 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, int? AyID = null, bool export = false)
         {
-            return Index(new FmYevmiye1003BSskPrimleri { Yil = DateTime.Now.Year, AyID = DateTime.Now.Month });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            if (!AyID.HasValue) Yil = DateTime.Now.Month;
+            return Index(new FmYevmiye1003BSskPrimleri { Yil = Yil, AyID = AyID }, export);
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiye1003BSskPrimleri model)
+        public ActionResult Index(FmYevmiye1003BSskPrimleri model, bool export = false)
         {
             var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B).Select(s => s.HesapKod).ToList();
             var YevmiyeAlacakHesapKods = new List<string> { "360.01.01.01", "360.01.01.02" };
@@ -29,6 +34,8 @@ namespace WebApp.Controllers
                      join yba in db.Yevmiyeler1003BAyristirmalari.Where(p => p.Yil == model.Yil && p.AyID == model.AyID) on yb.YevmiyeID equals yba.YevmiyeID
                      join hb in db.YevmiyelerHarcamaBirimleris on yba.YevmiyeHarcamaBirimID equals hb.YevmiyeHarcamaBirimID
                      join bk in db.YevmiyelerBelgeKodlaris on yba.YevmiyeBelgeKodID equals bk.YevmiyeBelgeKodID
+                     join be in db.Yevmiyeler1003BSskPrimBoclari on new { yba.Yil, yba.AyID, yba.YevmiyeHarcamaBirimID, yba.YevmiyeBelgeKodID } equals new { be.Yil, be.AyID, be.YevmiyeHarcamaBirimID, be.YevmiyeBelgeKodID } into defbe
+                     from be in defbe.DefaultIfEmpty()
                      group new
                      {
                          SskPrimTutarToplam = yba.SskPrimTutar,
@@ -40,25 +47,31 @@ namespace WebApp.Controllers
                      {
                          yb.IslemTarihi.Year,
                          yb.IslemTarihi.Month,
-                         hb.YevmiyeHarcamaBirimID,
+                         YBAYevmiyeHarcamaBirimID = hb.YevmiyeHarcamaBirimID,
+                         yb.YevmiyeHarcamaBirimID,
                          hb.BirimAdi,
                          hb.VergiKimlikNo,
                          hb.IsyeriKodu,
-                         bk.BelgeKodu
+                         bk.BelgeKodu,
+                         bk.YevmiyeBelgeKodID,
+                         SskBorcTutar = be != null ? be.Tutar : 0,
                      } into g1
                      select new
                      {
                          g1.Key.Year,
                          g1.Key.Month,
+                         g1.Key.YBAYevmiyeHarcamaBirimID,
                          g1.Key.YevmiyeHarcamaBirimID,
                          g1.Key.BirimAdi,
                          g1.Key.VergiKimlikNo,
                          g1.Key.IsyeriKodu,
                          g1.Key.BelgeKodu,
+                         g1.Key.YevmiyeBelgeKodID,
                          SskPrimTutarToplam = g1.Sum(s => s.SskPrimTutarToplam),
                          //YevmiyeAlacakToplam = g1.Sum(s => s.YevmiyeAlacakToplam),
                          //YevmiyeDvToplam = g1.Sum(s => s.YevmiyeDvToplam),
                          YevmiyeMatrahToplam = g1.Sum(s => s.YevmiyeMatrahToplam),
+                         g1.Key.SskBorcTutar,
                          YevmiyeNos = g1.Select(g => g.YevmiyeNo).ToList()
 
                      }).ToList();
@@ -85,7 +98,7 @@ namespace WebApp.Controllers
             var qDataL = (from s in q
                           join yvd in Yevmiyes on s.YevmiyeHarcamaBirimID equals yvd.YevmiyeHarcamaBirimID into defyvd
                           from yvd in defyvd.DefaultIfEmpty()
-                          where s.YevmiyeNos.Contains(yvd.YevmiyeNo)
+                          where s.YevmiyeNos.Contains(yvd != null ? yvd.YevmiyeNo : 0)
                           group new
                           {
                               YevmiyeAlacakToplam = (yvd != null && (YevmiyeAlacakHesapKods.Contains(yvd.HesapKod)) ? yvd.Alacak : 0),
@@ -93,28 +106,32 @@ namespace WebApp.Controllers
                           } by new
                           {
 
-                              s.YevmiyeHarcamaBirimID,
+                              s.YBAYevmiyeHarcamaBirimID,
                               s.BirimAdi,
                               s.VergiKimlikNo,
                               s.IsyeriKodu,
                               s.BelgeKodu,
+                              s.YevmiyeBelgeKodID,
                               s.SskPrimTutarToplam,
-                              s.YevmiyeMatrahToplam
+                              s.YevmiyeMatrahToplam,
+                              s.SskBorcTutar
 
                           } into g1
 
                           select new
                           {
-                              g1.Key.YevmiyeHarcamaBirimID,
+                              g1.Key.YBAYevmiyeHarcamaBirimID,
                               g1.Key.BirimAdi,
                               g1.Key.VergiKimlikNo,
                               g1.Key.IsyeriKodu,
                               g1.Key.BelgeKodu,
+                              g1.Key.YevmiyeBelgeKodID,
                               g1.Key.SskPrimTutarToplam,
                               YevmiyeMatrahToplam = g1.Key.YevmiyeMatrahToplam ?? 0,
                               YevmiyeAlacakToplam = g1.Sum(s => s.YevmiyeAlacakToplam),
-                              YevmiyeDvToplam = g1.Sum(s => s.YevmiyeDvToplam)
-
+                              YevmiyeDvToplam = g1.Sum(s => s.YevmiyeDvToplam),
+                              g1.Key.SskBorcTutar,
+                              KalanSskBorcTutar = g1.Key.SskPrimTutarToplam - g1.Key.SskBorcTutar
                           }).ToList();
 
             var qDataLx = (from s in qDataL
@@ -130,26 +147,30 @@ namespace WebApp.Controllers
                            } by new
                            {
 
-                               s.YevmiyeHarcamaBirimID,
+                               s.YBAYevmiyeHarcamaBirimID,
                                s.BirimAdi,
                                s.VergiKimlikNo,
                                s.IsyeriKodu,
                                s.BelgeKodu,
+                               s.YevmiyeBelgeKodID,
                                s.SskPrimTutarToplam,
                                s.YevmiyeMatrahToplam,
                                s.YevmiyeAlacakToplam,
                                s.YevmiyeDvToplam,
-                               bk.PrimYuzdesi
+                               bk.PrimYuzdesi,
+                               s.SskBorcTutar,
+                               s.KalanSskBorcTutar
 
                            } into g1
 
                            select new
                            {
-                               g1.Key.YevmiyeHarcamaBirimID,
+                               g1.Key.YBAYevmiyeHarcamaBirimID,
                                g1.Key.BirimAdi,
                                g1.Key.VergiKimlikNo,
                                g1.Key.IsyeriKodu,
                                g1.Key.BelgeKodu,
+                               g1.Key.YevmiyeBelgeKodID,
                                g1.Key.SskPrimTutarToplam,
                                g1.Key.YevmiyeMatrahToplam,
                                g1.Key.YevmiyeAlacakToplam,
@@ -160,6 +181,8 @@ namespace WebApp.Controllers
                                DvKesintiToplam = g1.Key.YevmiyeDvToplam - g1.Sum(s => s.DvKesintisi ?? 0),
                                SskTutarToplam = g1.Key.SskPrimTutarToplam - g1.Sum(s => s.UcretIkramiyeToplam) * (g1.Key.PrimYuzdesi / 100),
 
+                               g1.Key.SskBorcTutar,
+                               g1.Key.KalanSskBorcTutar
                            }).ToList();
 
             var qData = qDataLx.AsQueryable();
@@ -168,11 +191,12 @@ namespace WebApp.Controllers
             else qData = qData.OrderBy(o => o.BirimAdi);
             model.Data = qData.Select(s => new FrYevmiye1003BSskPrimleri
             {
-                YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
+                YevmiyeHarcamaBirimID = s.YBAYevmiyeHarcamaBirimID,
                 BirimAdi = s.BirimAdi,
                 VergiKimlikNo = s.VergiKimlikNo,
                 IsyeriKodu = s.IsyeriKodu,
                 BelgeKodu = s.BelgeKodu,
+                YevmiyeBelgeKodID = s.YevmiyeBelgeKodID,
                 SskPrimTutarToplam = s.SskPrimTutarToplam,
                 YevmiyeAlacakToplam = s.YevmiyeAlacakToplam,
                 YevmiyeDvToplam = s.YevmiyeDvToplam,
@@ -180,37 +204,95 @@ namespace WebApp.Controllers
                 MatrahToplam = s.MatrahToplam,
                 GvKesintiToplam = s.GvKesintiToplam,
                 DvKesintiToplam = s.DvKesintiToplam,
-                SskTutarToplam = s.SskTutarToplam
+                SskTutarToplam = s.SskTutarToplam,
+                SskBorcTutar = s.SskBorcTutar,
+                KalanSskBorcTutar = s.KalanSskBorcTutar
+
 
             }).ToArray();
+            #region export
+            if (export && model.Data.Any())
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.BirimAdi,
+                    s.VergiKimlikNo,
+                    s.IsyeriKodu,
+                    s.BelgeKodu,
+                    s.YevmiyeBelgeKodID,
+                    s.SskPrimTutarToplam,
+                    s.YevmiyeAlacakToplam,
+                    s.YevmiyeDvToplam,
+                    s.YevmiyeMatrahToplam,
+                    s.MatrahToplam,
+                    s.GvKesintiToplam,
+                    s.DvKesintiToplam,
+                    s.SskTutarToplam,
+                    s.SskBorcTutar,
+                    s.KalanSskBorcTutar
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_1003BSskPrimDokumu_" + model.Yil + "_" + model.AyID + ".xls");
+            }
+            #endregion
+
+
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);
             return View(model);
         }
 
-        public ActionResult TutarEkle(int Yil, int YevmiyeHarcamaBirimID)
+        public ActionResult TutarEkle(int Yil, int AyID, int YevmiyeHarcamaBirimID, int YevmiyeBelgeKodID)
         {
-            var HarcamaBirim = db.YevmiyelerHarcamaBirimleris.Where(p => p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID).First();
-            ViewBag.HarcamaBirim = HarcamaBirim;
-            ViewBag.Yil = Yil;
-            var Kayitlar = db.YevmiyelerHarcamaBirimleriTutarKayits.Where(p => p.Yil == Yil && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID).ToList();
-            return View(Kayitlar);
+
+
+            var Kayit = db.Yevmiyeler1003BSskPrimBoclari.Where(p => p.Yil == Yil && p.AyID == AyID && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID && p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).FirstOrDefault();
+            if (Kayit == null)
+            {
+                Kayit = new Yevmiyeler1003BSskPrimBoclari();
+                var Ay = db.Aylars.Where(p => p.AyID == AyID).First();
+                var HarcamaBirimi = db.YevmiyelerHarcamaBirimleris.Where(p => p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID).First();
+                var BelgeKodu = db.YevmiyelerBelgeKodlaris.Where(p => p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).First();
+                Kayit.Yil = Yil;
+                Kayit.AyID = AyID;
+                Kayit.Aylar = Ay;
+                Kayit.YevmiyeHarcamaBirimID = YevmiyeHarcamaBirimID;
+                Kayit.YevmiyelerHarcamaBirimleri = HarcamaBirimi;
+                Kayit.YevmiyeBelgeKodID = YevmiyeBelgeKodID;
+                Kayit.YevmiyelerBelgeKodlari = BelgeKodu;
+            }
+            return View(Kayit);
         }
 
         [HttpPost]
-        public ActionResult TutarEkle(int Yil, int YevmiyeHarcamaBirimID, List<decimal?> Tutar)
+        public ActionResult TutarEkle(int Yil, int AyID, int YevmiyeHarcamaBirimID, int YevmiyeBelgeKodID, decimal? Tutar)
         {
-            Tutar = Tutar ?? new List<decimal?>();
             var MmMessage = new MmMessage();
             MmMessage.IsSuccess = false;
-            MmMessage.Title = "Harcama Birimi Tutar Ekleme İşlemi";
+            MmMessage.Title = "SSk Prim Borç Tutar Ekleme İşlemi";
             MmMessage.MessageType = Msgtype.Warning;
-            var Kayitlar = db.YevmiyelerHarcamaBirimleriTutarKayits.Where(p => p.Yil == Yil && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID).ToList();
-            db.YevmiyelerHarcamaBirimleriTutarKayits.RemoveRange(Kayitlar);
-            foreach (var item in Tutar.Where(p => p.HasValue && p.Value > 0))
+            var Kayitlar = db.Yevmiyeler1003BSskPrimBoclari.Where(p => p.Yil == Yil && p.AyID == AyID && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID && p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).ToList();
+            if (Kayitlar.Any())
             {
-                db.YevmiyelerHarcamaBirimleriTutarKayits.Add(new YevmiyelerHarcamaBirimleriTutarKayit { Yil = Yil, YevmiyeHarcamaBirimID = YevmiyeHarcamaBirimID, Tutar = item.Value });
+                db.Yevmiyeler1003BSskPrimBoclari.RemoveRange(Kayitlar);
             }
+            if (Tutar != null && Tutar >= 0)
+                db.Yevmiyeler1003BSskPrimBoclari.Add(new Yevmiyeler1003BSskPrimBoclari
+                {
+                    Yil = Yil,
+                    AyID = AyID,
+                    YevmiyeHarcamaBirimID = YevmiyeHarcamaBirimID,
+                    YevmiyeBelgeKodID = YevmiyeBelgeKodID,
+                    Tutar = Tutar.Value
+                });
 
             db.SaveChanges();
             MmMessage.Messages.Add("Tutar Bilgileri Kayıt Edildi");

@@ -13,7 +13,7 @@
 
             <div class="panel panel-danger" id="EkHbPanel">
                 <div class="panel-heading padding-0">
-                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> Emekli Kesenek Harcama Birimi Toplamları</h3>
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> 1003A Muhtasar Dökümü</h3>
                     <ul class="panel-controls">
                         <li>
                             <span>Yevmiye Yılı:</span>
@@ -24,9 +24,13 @@
                         <li>
                             <span>Yevmiye Ay:</span>
                             <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
-                                @Html.DropDownList("AyID", null, new { @class = "form-control", onchange = "$('#frmYevmiye1003AMuhatasarDokumu').submit();", style = "color:black;min-width:220px;" })
+                                @Html.DropDownList("AyID", null, new { @class = "form-control", onchange = "$('#frmYevmiye1003AMuhatasarDokumu').submit();", style = "color:black;min-width:220px;height:24px;" })
                             </span>
                         </li>
+                        @if (Model.Data.Any())
+                        {
+                            <li><span class="label label-success" style="cursor:pointer;" onclick="window.location.href='@Url.Action("Index", "Yevmiye1003AMuhatasarDokumu", new {  Model.Yil, Model.AyID, export = true })'"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel Olarak İndir</span></li>
+                        }
                     </ul>
                 </div>
                 <div class="panel-body">

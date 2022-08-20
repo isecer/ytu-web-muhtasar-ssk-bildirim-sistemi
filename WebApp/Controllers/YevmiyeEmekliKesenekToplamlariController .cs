@@ -2,28 +2,32 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
     [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
-    [Authorize(Roles = RoleNames.YevmiyelerHarcamaBirimiToplamlari)]
-    public class YevmiyeHarcamaBirimiToplamlariController : Controller
+    [Authorize(Roles = RoleNames.YevmiyelerEmekliKesenekToplamlari)]
+    public class YevmiyeEmekliKesenekToplamlariController : Controller
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, bool export = false)
         {
-            return Index(new FmYevmiyeEkHbToplamlari { Yil = DateTime.Now.Year });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            return Index(new FmYevmiyeEkHbToplamlari { Yil = DateTime.Now.Year },   export);
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiyeEkHbToplamlari model)
+        public ActionResult Index(FmYevmiyeEkHbToplamlari model, bool export = false)
         {
             var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari).Select(s => s.HesapKod).ToList();
-            var q = (from Hb in db.YevmiyelerHarcamaBirimleris.Where(p=>!p.IsAltBirim)
+            var q = (from Hb in db.YevmiyelerHarcamaBirimleris.Where(p => !p.IsAltBirim)
                      join Yb in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && HesapKods.Contains(p.HesapKod)) on new { Hb.YevmiyeHarcamaBirimID } equals new { YevmiyeHarcamaBirimID = Yb.EKYevmiyeHarcamaBirimID ?? Yb.YevmiyeHarcamaBirimID } into defYb
                      from Yb in defYb.DefaultIfEmpty()
                      group new { Borc = (Yb == null ? 0 : Yb.Borc), Alacak = (Yb == null ? 0 : Yb.Alacak) } by new { Hb.YevmiyeHarcamaBirimID, Hb.SaymanlikKod, Hb.VergiKimlikNo, Hb.BirimAdi } into g1
@@ -43,7 +47,7 @@ namespace WebApp.Controllers
             {
                 YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
                 VergiKimlikNo = s.VergiKimlikNo,
-                SaymanlikKod=s.SaymanlikKod,
+                SaymanlikKod = s.SaymanlikKod,
                 BirimAdi = s.BirimAdi,
                 Borc = s.Borc,
                 Alacak = s.Alacak,
@@ -52,6 +56,32 @@ namespace WebApp.Controllers
                 KalanTutar = s.Alacak - s.Borc - s.KayitToplam
 
             }).ToArray();
+            #region export
+            if (export && model.Data.Any())
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.VergiKimlikNo,
+                    s.SaymanlikKod,
+                    s.BirimAdi,
+                    s.Borc,
+                    s.Alacak,
+                    s.Kalan,
+                    HesapKayitEdilen = s.KayitToplam,
+                    HesapKalanNet = s.KalanTutar
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_EmekliKesenekToplamlari_" + model.Yil + ".xls");
+            }
+            #endregion
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             return View(model);
         }

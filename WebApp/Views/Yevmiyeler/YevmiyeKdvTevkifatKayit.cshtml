@@ -9,7 +9,7 @@
 {
     @Html.HiddenFor(h => h.YevmiyeID)
     @Html.HiddenFor(h => h.YevmiyeKdvTevkifatKayitID)
-    <div class="col-md-12" style="overflow-x:auto; max-height:600px;">
+    <div class="col-md-12" style="overflow-x:auto; max-height:600px;" id="pnlYkt">
         <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
             <table style="width:100%;">
                 <tbody>
@@ -21,7 +21,7 @@
                                         <td id="lbl_YeniYevmiyeHesapKodID" width="140">Yeni Hesap Kodu</td>
                                         <td width="10">:</td>
                                         <td class="form-group">
-                                            @Html.DropDownList("YeniYevmiyeHesapKodID", null, new { @class = "form-control" })
+                                            @Html.DropDownList("YeniYevmiyeHesapKodID", null, new { @class = "form-control",onchange= "YkdvKodChange()" })
                                         </td>
                                     </tr>
                                     <tr>
@@ -80,7 +80,7 @@
                                         <td id="lbl_YevmiyeKdvKodID">Kdv Kodu</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.DropDownList("YevmiyeKdvKodID", null, new { @class = "form-control",onchange="YKdvChange(this)" })
+                                            @Html.DropDownList("YevmiyeKdvKodID", null, new { @class = "form-control",onchange="YKdvChange()" })
                                         </td>
                                     </tr>
                                     <tr id="DigerKdvKodRw" class="@(DigerKdvKodRwShow?"":"hide")">
@@ -145,19 +145,49 @@
             $('#AdSoyadKdvTef').val(e.added == undefined ? "" : e.added.AdSoyad);
         });
 
-    function YKdvChange(sndr) {
-        var SndrVar = $(sndr).val();
+    function YkdvKodChange() {
+        var pID = $('#pnlYkt');
+        var YeniYevmiyeHesapKodID = $('#YeniYevmiyeHesapKodID').val(); 
+        if (YeniYevmiyeHesapKodID != "") {
+            _pRefresh(pID, false);
+            $.ajax({
+                url: '@Url.Action("YevmiyeKdvHesapKod", "Yevmiyeler")',
+                data: { id: YeniYevmiyeHesapKodID },
+                success: function (result) {
+                    $('#YevmiyeKdvKodID').empty();
+                    var opt = "<option></option>"; 
+                    for (var i = 0; i < result.length; i++) {
+                        var Item = result[i];
+                        opt += "<option value='" + Item.Value + "'>" + Item.Caption + "</option>";
+                    }
+                    $('#YevmiyeKdvKodID').html(opt);
+                 
+                    YKdvChange();
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                    _pRefresh(pID, false);
+                }
+            });
+        }
+    }
+    function YKdvChange() {
+        var pID = $('#pnlYkt');
+        _pRefresh(pID, false);
+        var YevmiyeKdvKodID = $('#YevmiyeKdvKodID').val();
          $.ajax({
             url: '@Url.Action("YevmiyeKdvKodKontrol", "Yevmiyeler")',
-             data: { id: SndrVar },
-             success: function (result) {
+             data: { id: YevmiyeKdvKodID },
+             success: function (result) { 
                  if (result.IsDigerKdvler) $('#DigerKdvKodRw').removeClass('hide');
                  else $('#DigerKdvKodRw').addClass('hide');
-                 
+
+                 _pRefresh(pID, true); 
 
             },
             error: function (err) {
                 alert(err.responseText);
+                _pRefresh(pID, false);
             }
         });
     }

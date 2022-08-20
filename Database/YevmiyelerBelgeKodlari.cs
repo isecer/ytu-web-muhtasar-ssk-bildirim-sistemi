@@ -18,6 +18,7 @@ namespace Database
         public YevmiyelerBelgeKodlari()
         {
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
+            this.Yevmiyeler1003BSskPrimBoclari = new HashSet<Yevmiyeler1003BSskPrimBoclari>();
         }
     
         public int YevmiyeBelgeKodID { get; set; }
@@ -31,5 +32,7 @@ namespace Database
         public virtual Kullanicilar Kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler1003BSskPrimBoclari> Yevmiyeler1003BSskPrimBoclari { get; set; }
     }
 }

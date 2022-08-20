@@ -2058,6 +2058,15 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelBool> CmbBankaVeriGirisDurumData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "İşlem Gördü" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "İşlem Görmedi" });
+            return dct;
+
+        }
         public static List<ComboModelBool> CmbEvetHayirData(bool bosSecimVar = true)
         {
             var dct = new List<ComboModelBool>();
@@ -2297,8 +2306,8 @@ namespace WebApp.Models
             for (int i = DateTime.Now.Year + 1; i >= 2022; i--)
             {
                 dct.Add(new ComboModelInt { Value = i, Caption = i + " Yılı" });
-            } 
-            return dct; 
+            }
+            return dct;
         }
         public static List<ComboModelInt> CmbYevmiyelerBirim(bool bosSecimVar = true)
         {
@@ -2307,10 +2316,10 @@ namespace WebApp.Models
             using (var db = new MusskDBEntities())
             {
 
-                var data = db.YevmiyelerHarcamaBirimleris.Where(p=>!p.IsAltBirim).Select(s => new
+                var data = db.YevmiyelerHarcamaBirimleris.Where(p => !p.IsAltBirim).Select(s => new
                 {
                     s.YevmiyeHarcamaBirimID,
-                    BirimAdi = s.VergiKimlikNo + " " + s.BirimAdi,
+                    BirimAdi = s.BirimAdi + " " + s.VergiKimlikNo,
                 }).OrderBy(o => o.BirimAdi).ToList();
                 foreach (var item in data)
                 {

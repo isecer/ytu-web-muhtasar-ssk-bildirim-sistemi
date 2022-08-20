@@ -242,7 +242,7 @@
     <Compile Include="Controllers\YevmiyeBesBankaHesapNumaralariController.cs" />
     <Compile Include="Controllers\YevmiyeBesToplamlariController.cs" />
     <Compile Include="Controllers\Yevmiye1003BSskPrimleriController.cs" />
-    <Compile Include="Controllers\YevmiyeHarcamaBirimiToplamlariController .cs" />
+    <Compile Include="Controllers\YevmiyeEmekliKesenekToplamlariController .cs" />
     <Compile Include="Controllers\YevmiyeVergiKimlikNumaralariController.cs" />
     <Compile Include="Controllers\YevmiyeSendikaToplamlariController.cs" />
     <Compile Include="Controllers\Yevmiye1003AMuhatasarDokumuController.cs" />
@@ -1961,8 +1961,8 @@
     <Content Include="Views\YevmiyeSendikaBilgileri\Kayit.cshtml" />
     <Content Include="Views\Yevmiyeler\YevmiyeTasinirkontrolTifKayit.cshtml" />
     <Content Include="Views\Yevmiyeler\YevmiyeKdvTevkifatKayit.cshtml" />
-    <Content Include="Views\YevmiyeHarcamaBirimiToplamlari\Index.cshtml" />
-    <Content Include="Views\YevmiyeHarcamaBirimiToplamlari\TutarEkle.cshtml" />
+    <Content Include="Views\YevmiyeEmekliKesenekToplamlari\Index.cshtml" />
+    <Content Include="Views\YevmiyeEmekliKesenekToplamlari\TutarEkle.cshtml" />
     <Content Include="Views\YevmiyeSendikaToplamlari\Index.cshtml" />
     <Content Include="Views\YevmiyeVergiKimlikNumaralari\Index.cshtml" />
     <Content Include="Views\YevmiyeVergiKimlikNumaralari\Kayit.cshtml" />

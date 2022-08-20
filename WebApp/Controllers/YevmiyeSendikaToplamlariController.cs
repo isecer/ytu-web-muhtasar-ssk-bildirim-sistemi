@@ -2,9 +2,12 @@
 using Database;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
@@ -15,12 +18,13 @@ namespace WebApp.Controllers
     {
         private MusskDBEntities db = new MusskDBEntities();
         // GET: YevmiyeBelgeKodlari
-        public ActionResult Index()
+        public ActionResult Index(int? Yil = null, bool export = false)
         {
-            return Index(new FmYevmiyeSendikaToplamlari { Yil = DateTime.Now.Year });
+            if (!Yil.HasValue) Yil = DateTime.Now.Year;
+            return Index(new FmYevmiyeSendikaToplamlari { Yil = Yil },  export);
         }
         [HttpPost]
-        public ActionResult Index(FmYevmiyeSendikaToplamlari model)
+        public ActionResult Index(FmYevmiyeSendikaToplamlari model, bool export = false)
         {
             var HesapKods = db.YevmiyelerSendikaBilgileris.Select(s => s.HesapKod).ToList();
             var q = (from sb in db.YevmiyelerSendikaBilgileris
@@ -55,6 +59,33 @@ namespace WebApp.Controllers
                 Alacak = s.Alacak,
                 Kalan = s.Alacak - s.Borc
             }).ToArray();
+            #region export
+            if (export && model.Data.Any())
+            {
+                var gv = new GridView();
+                gv.DataSource = model.Data.Select(s => new
+                {
+                    s.HesapKod,
+                    s.VergiKimlikNo,
+                    s.AdSoyad,
+                    s.IBanNo,
+                    s.KisaAdi,
+                    s.Aciklama,
+                    s.Borc,
+                    s.Alacak,
+                    s.Kalan
+                });
+                gv.DataBind();
+                Response.ContentType = "application/ms-excel";
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                StringWriter sw = new StringWriter();
+                HtmlTextWriter htw = new HtmlTextWriter(sw);
+                gv.RenderControl(htw);
+
+                return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_SendikaToplamlari_" + model.Yil + ".xls");
+            }
+            #endregion
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             return View(model);
         }

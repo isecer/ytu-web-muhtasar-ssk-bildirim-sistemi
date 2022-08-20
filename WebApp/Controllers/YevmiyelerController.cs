@@ -165,6 +165,13 @@ namespace WebApp.Controllers
                     ViewBag.IsBesBilgisiDegisti = new SelectList(Management.CmbBesBilgisiDegistiData(true), "Value", "Caption", model.IsBesBilgisiDegisti);
                     SelectName = "IsBesBilgisiDegisti";
                 }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
+                {
+                    if (model.IsBankaHesapNumarasiGirildi.HasValue) q = q.Where(p => p.IsBankaHesapNumarasiGirildi == model.IsBankaHesapNumarasiGirildi);
+                    ViewBag.IsBankaHesapNumarasiGirildi = new SelectList(Management.CmbBankaVeriGirisDurumData(true), "Value", "Caption", model.IsBankaHesapNumarasiGirildi);
+                    SelectName = "IsBankaHesapNumarasiGirildi";
+                }
+
             }
 
             if (model.YevmiyeNo.HasValue) q = q.Where(p => p.YevmiyeNo == model.YevmiyeNo);
@@ -240,7 +247,6 @@ namespace WebApp.Controllers
             {
                 mMessage.Messages.Add("Excel Yüklemek İçin Yetkili Değilsiniz.");
             }
-
             if (mMessage.Messages.Count == 0)
             {
                 var model = DosyaEki.ToYevmiyeIterateRows(Yil);
@@ -251,22 +257,57 @@ namespace WebApp.Controllers
                 }
                 else
                 {
-                    var DBMaxYevmiyeNo = db.Yevmiyelers.Where(p => p.IslemTarihi.Year == Yil).Max(m => (int?)m.YevmiyeNo);
-                    if (DBMaxYevmiyeNo.HasValue)
+                    var DBMaxYevmiyeNo = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yil).Max(m => (int?)m.YevmiyeNo);
+                    var DBMinYevmiyeNo = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yil).Min(m => (int?)m.YevmiyeNo);
+                    var ExcelMinYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Min();
+                    var ExcelMaxYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Max();
+                    if (!DBMinYevmiyeNo.HasValue)
                     {
-                        var ExcelMinYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Min();
-                        var ExcelMaxYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Max();
-                        if (ExcelMinYevmiyeNo <= DBMaxYevmiyeNo)
+                        if (ExcelMinYevmiyeNo != 4 && ExcelMinYevmiyeNo != 1)
                         {
-                            mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin yevmiye numarası daha önce yüklenen en büyük yevmiye numarasından (" + DBMaxYevmiyeNo + ") büyük olmalı.");
-                        }
-                        else if (((ExcelMaxYevmiyeNo - ExcelMinYevmiyeNo) + 1) != model.Data.Select(s => s.YevmiyeNo).Distinct().Count())
-                        {
-                            mMessage.Messages.Add("Excel de yevmiye numarası atlaması bulunuyor. Yevmiye numaraları sıra ile gitmeli ve eksik olmamalı.");
+                            mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin yevmiye numarası dört yada bir ile başlamalı.");
                         }
                     }
-                }
+                    else
+                    {
+                        if (ExcelMinYevmiyeNo >= 4)
+                        {
+                            if (ExcelMinYevmiyeNo <= DBMaxYevmiyeNo)
+                            {
+                                mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin yevmiye numarası daha önce yüklenen en büyük yevmiye numarasından (" + DBMaxYevmiyeNo + ") büyük olmalı.");
+                            }
+                            else
+                            {
+                                var ExcelYevmiyeNos = model.Data.Select(s => s.YevmiyeNo).Distinct().ToList();
+                                if (DBMinYevmiyeNo < 4)
+                                {
+                                    mMessage.Messages.Add("Yüklemek istediğiniz 1,2,3 yevmiye numaraları daha önce yüklenmiştir.");
+                                }
+                                else
+                                {
+                                    if (ExcelYevmiyeNos.Where(a => new List<int> { 1, 2, 3 }.Contains(a.Value)).Count() != ExcelYevmiyeNos.Count)
+                                    {
+                                        mMessage.Messages.Add("Yükleyeceğiniz yevmiye numarası 4 ten daha küçük olacaksa sadece 1,2,3 yevmiye numaraları olması gerekmetkedir.");
+                                    }
+                                }
 
+                            }
+                        }
+                        else
+                        {
+                            if (DBMinYevmiyeNo < 4)
+                            {
+                                mMessage.Messages.Add("Yüklemek istediğiniz 1,2,3 yevmiye numaraları daha önce yüklenmiştir.");
+                            }
+
+                        }
+                    }
+                    if (((ExcelMaxYevmiyeNo - ExcelMinYevmiyeNo) + 1) != model.Data.Select(s => s.YevmiyeNo).Distinct().Count())
+                    {
+                        mMessage.Messages.Add("Excel de yevmiye numarası atlaması bulunuyor. Yevmiye numaraları sıra ile gitmeli ve eksik olmamalı.");
+                    }
+
+                }
 
                 if (mMessage.Messages.Count == 0)
                 {
@@ -315,125 +356,138 @@ namespace WebApp.Controllers
                                           IslemYapanIP = UserIdentity.Ip,
                                           IslemTarihi = DateTime.Now,
                                       }).ToList();
-
-                        foreach (var item in model.Data)
+                        var qGrup = model.Data.Where(p=>p.YevmiyeTarih.HasValue && p.YevmiyeNo.HasValue && p.YevmiyeHarcamaBirimID.HasValue).GroupBy(g => new { g.YevmiyeTarih, g.YevmiyeNo, g.VergiKimlikNo, g.YevmiyeHarcamaBirimID, g.HarcamaBirimAdi, g.HarcamaBirimKod, g.HesapKod, g.HesapAdi, g.Borc, g.Alacak, g.Aciklama }).Select(s => new
                         {
-                            List<string> hataTipi = new List<string>();
-
-                            if (!item.YevmiyeTarih.HasValue)
-                            {
-                                hataTipi.Add("Yevmiye tarihi boş");
-                                item.HataliHucreler.Add(0);
-                            }
-                            else if (item.YevmiyeTarih.Value.Year != Yil)
-                            {
-                                hataTipi.Add("Yevmiye tarihi yüklenecek yıl ile uyuşmuyor");
-                                item.HataliHucreler.Add(0);
-                            }
-
-                            if (!item.YevmiyeNo.HasValue)
-                            {
-                                hataTipi.Add("Yevmiye no boş");
-                                item.HataliHucreler.Add(1);
-                            }
-
-                            if (item.VergiKimlikNo.IsNullOrWhiteSpace())
-                            {
-                                hataTipi.Add("Vergi kimlik numarası boş");
-                                item.HataliHucreler.Add(2);
-                            }
-                            else if (!item.YevmiyeHarcamaBirimID.HasValue || item.HarcamaBirimAdi.IsNullOrWhiteSpace())
-                            {
-                                var msg = "";
-                                if (!item.YevmiyeHarcamaBirimID.HasValue) msg = "Harcama Birimi Vergi kimlik numarası sistemdeki hiçbir harcama Birim ile uyuşmuyor";
-                                if (item.HarcamaBirimAdi.IsNullOrWhiteSpace()) msg += (msg.IsNullOrWhiteSpace() ? "" : ",") + "Harcama birim adı boş";
-                                hataTipi.Add(msg);
-                                item.HataliHucreler.Add(2);
-                            }
-                            if (item.HarcamaBirimKod.IsNullOrWhiteSpace())
-                            {
-                                hataTipi.Add("Harcama Birim Kodu boş");
-                                item.HataliHucreler.Add(3);
-                            }
-                            if (item.HesapKod.IsNullOrWhiteSpace())
-                            {
-                                hataTipi.Add("Hesap Kodu boş");
-                                item.HataliHucreler.Add(4);
-                            }
-                            if (item.HesapAdi.IsNullOrWhiteSpace())
-                            {
-                                hataTipi.Add("Hesap Adı boş");
-                                item.HataliHucreler.Add(5);
-                            }
-                            if (!(item.Borc > 0) && !(item.Alacak > 0))
-                            {
-                                hataTipi.Add("Borç ve Alacak aynı anda boş veya 0 olamaz olamaz");
-                                item.HataliHucreler.Add(6);
-                                item.HataliHucreler.Add(7);
-                            }
-                            else if ((item.Borc > 0) && (item.Alacak > 0))
-                            {
-                                hataTipi.Add("Borç ve Alacak aynı anda dolu olamaz");
-                                item.HataliHucreler.Add(6);
-                                item.HataliHucreler.Add(7);
-                            }
-
-                            if (hataTipi.Count > 0)
-                            {
-                                var Hatalar = string.Join(", ", hataTipi);
-                                item.HataAciklamasi = Hatalar;
-                            }
+                            s.Key.YevmiyeNo,
+                            Count = s.Count(),
+                            Satirlar = s.Select(s2 => s2.SatirNo).ToList()
+                        }).ToList();
+                        var GrupMukerrer = qGrup.Where(p => p.Count > 1).ToList();
+                        foreach (var item in GrupMukerrer)
+                        {
+                            mMessage.Messages.Add("Excel Verilerinde Mukerrer Kayıt.Yevmiye No: " + item.YevmiyeNo + " Satırlar:" + string.Join(",", item.Satirlar));
                         }
-
-                        if (!model.Data.Any(a => a.HataliHucreler.Any()))
+                        if (!mMessage.Messages.Any())
                         {
-                            model.Data = model.Data.Where(p => !p.HataliHucreler.Any()).ToList();
-                            var addYevmiyes = model.Data.Select(s => new Yevmiyeler
+                            foreach (var item in model.Data)
                             {
-                                YevmiyeTarih = s.YevmiyeTarih.Value,
-                                YevmiyeNo = s.YevmiyeNo.Value,
-                                VergiKimlikNo = s.VergiKimlikNo,
-                                YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID.Value,
-                                HarcamaBirimAdi = s.HarcamaBirimAdi,
-                                HarcamaBirimKod = s.HarcamaBirimAdi,
-                                HesapKod = s.HesapKod,
-                                HesapAdi = s.HesapAdi,
-                                Y1003AHesapKodID = s.Y1003AHesapKodID,
-                                Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
-                                EKYevmiyeHarcamaBirimID = s.EKYevmiyeHarcamaBirimID,
-                                YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
-                                BESYevmiyeHesapKodID = s.BESYevmiyeHesapKodID,
-                                Borc = s.Borc.Value,
-                                Alacak = s.Alacak.Value,
-                                Aciklama = s.Aciklama,
-                                IslemYapanID = s.IslemYapanID,
-                                IslemYapanIP = s.IslemYapanIP,
-                                IslemTarihi = s.IslemTarihi,
-                            }).ToList();
-                            db.Yevmiyelers.AddRange(addYevmiyes);
-                            db.SaveChanges();
-                            mMessage.IsSuccess = true;
-                            mMessage.Messages.Add("Yevmiye verileri yükleme işlemi başarılı. Toplam: " + model.Data.Count + " Kalem bilgi sisteme işlendi.");
-                            mMessage.MessageType = Msgtype.Success;
-                        }
-                        else
-                        {
+                                List<string> hataTipi = new List<string>();
 
-                            var excpt = model.YevmiyeAktarilanExcelHataKontrolu();
+                                if (!item.YevmiyeTarih.HasValue)
+                                {
+                                    hataTipi.Add("Yevmiye tarihi boş");
+                                    item.HataliHucreler.Add(0);
+                                }
+                                else if (item.YevmiyeTarih.Value.Year != Yil)
+                                {
+                                    hataTipi.Add("Yevmiye tarihi yüklenecek yıl ile uyuşmuyor");
+                                    item.HataliHucreler.Add(0);
+                                }
 
-                            if (excpt == null)
+                                if (!item.YevmiyeNo.HasValue)
+                                {
+                                    hataTipi.Add("Yevmiye no boş");
+                                    item.HataliHucreler.Add(1);
+                                }
+
+                                if (item.VergiKimlikNo.IsNullOrWhiteSpace())
+                                {
+                                    hataTipi.Add("Vergi kimlik numarası boş");
+                                    item.HataliHucreler.Add(2);
+                                }
+                                else if (!item.YevmiyeHarcamaBirimID.HasValue || item.HarcamaBirimAdi.IsNullOrWhiteSpace())
+                                {
+                                    var msg = "";
+                                    if (!item.YevmiyeHarcamaBirimID.HasValue) msg = "Harcama Birimi Vergi kimlik numarası sistemdeki hiçbir harcama Birim ile uyuşmuyor";
+                                    if (item.HarcamaBirimAdi.IsNullOrWhiteSpace()) msg += (msg.IsNullOrWhiteSpace() ? "" : ",") + "Harcama birim adı boş";
+                                    hataTipi.Add(msg);
+                                    item.HataliHucreler.Add(2);
+                                }
+                                if (item.HarcamaBirimKod.IsNullOrWhiteSpace())
+                                {
+                                    hataTipi.Add("Harcama Birim Kodu boş");
+                                    item.HataliHucreler.Add(3);
+                                }
+                                if (item.HesapKod.IsNullOrWhiteSpace())
+                                {
+                                    hataTipi.Add("Hesap Kodu boş");
+                                    item.HataliHucreler.Add(4);
+                                }
+                                if (item.HesapAdi.IsNullOrWhiteSpace())
+                                {
+                                    hataTipi.Add("Hesap Adı boş");
+                                    item.HataliHucreler.Add(5);
+                                }
+                                if (!(item.Borc > 0) && !(item.Alacak > 0))
+                                {
+                                    hataTipi.Add("Borç ve Alacak aynı anda boş veya 0 olamaz olamaz");
+                                    item.HataliHucreler.Add(6);
+                                    item.HataliHucreler.Add(7);
+                                }
+                                else if ((item.Borc > 0) && (item.Alacak > 0))
+                                {
+                                    hataTipi.Add("Borç ve Alacak aynı anda dolu olamaz");
+                                    item.HataliHucreler.Add(6);
+                                    item.HataliHucreler.Add(7);
+                                }
+
+                                if (hataTipi.Count > 0)
+                                {
+                                    var Hatalar = string.Join(", ", hataTipi);
+                                    item.HataAciklamasi = Hatalar;
+                                }
+                            }
+
+                            if (!model.Data.Any(a => a.HataliHucreler.Any()))
                             {
-
-                                mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir. Aşağıdaki dosyayı indirip kontrol ediniz lütfen.</span>");
-
-                                mMessage.Messages.Add("<a style='color:red;' href='" + model.DosyaYolu + "' target='_blank;'><img src='/Content/img/Excel-Icon.png' width='18' height='17'> " + model.DosyaAdi + "</a>");
-
+                                model.Data = model.Data.Where(p => !p.HataliHucreler.Any()).ToList();
+                                var addYevmiyes = model.Data.Select(s => new Yevmiyeler
+                                {
+                                    YevmiyeTarih = s.YevmiyeTarih.Value,
+                                    YevmiyeNo = s.YevmiyeNo.Value,
+                                    VergiKimlikNo = s.VergiKimlikNo,
+                                    YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID.Value,
+                                    HarcamaBirimAdi = s.HarcamaBirimAdi,
+                                    HarcamaBirimKod = s.HarcamaBirimKod,
+                                    HesapKod = s.HesapKod,
+                                    HesapAdi = s.HesapAdi,
+                                    Y1003AHesapKodID = s.Y1003AHesapKodID,
+                                    Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
+                                    EKYevmiyeHarcamaBirimID = s.EKYevmiyeHarcamaBirimID,
+                                    YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
+                                    BESYevmiyeHesapKodID = s.BESYevmiyeHesapKodID,
+                                    Borc = s.Borc.Value,
+                                    Alacak = s.Alacak.Value,
+                                    Aciklama = s.Aciklama,
+                                    IslemYapanID = s.IslemYapanID,
+                                    IslemYapanIP = s.IslemYapanIP,
+                                    IslemTarihi = s.IslemTarihi,
+                                }).ToList();
+                                db.Yevmiyelers.AddRange(addYevmiyes);
+                                db.SaveChanges();
+                                mMessage.IsSuccess = true;
+                                mMessage.Messages.Add("Yevmiye verileri yükleme işlemi başarılı. Toplam: " + model.Data.Count + " Kalem bilgi sisteme işlendi.");
+                                mMessage.MessageType = Msgtype.Success;
                             }
                             else
                             {
-                                var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
-                                mMessage.Messages.Add(msg);
-                                Management.SistemBilgisiKaydet(msg, "DersIslemleri/FileDataDEOSave", BilgiTipi.Hata);
+
+                                var excpt = model.YevmiyeAktarilanExcelHataKontrolu();
+
+                                if (excpt == null)
+                                {
+
+                                    mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir. Aşağıdaki dosyayı indirip kontrol ediniz lütfen.</span>");
+
+                                    mMessage.Messages.Add("<a style='color:red;' href='" + model.DosyaYolu + "' target='_blank;'><img src='/Content/img/Excel-Icon.png' width='18' height='17'> " + model.DosyaAdi + "</a>");
+
+                                }
+                                else
+                                {
+                                    var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
+                                    mMessage.Messages.Add(msg);
+                                    Management.SistemBilgisiKaydet(msg, "DersIslemleri/FileDataDEOSave", BilgiTipi.Hata);
+                                }
                             }
                         }
 
@@ -915,7 +969,12 @@ namespace WebApp.Controllers
             var KdvKod = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == id).Select(s => new { s.YevmiyeKdvKodID, s.HesapKod, s.KdvAdi, s.KdvOrani, s.IsDigerKdvler, s.TevkifatOranBolen, s.TevkifatOranBolunen }).First();
             return KdvKod.ToJsonResult();
         }
-
+        public ActionResult YevmiyeKdvHesapKod(int id)
+        {
+            var YvHk = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodID == id).First();
+            var KdvKodList = Management.CmbYevmiyeKdvKodlari(YvHk.HesapKod, false);
+            return KdvKodList.ToJsonResult();
+        }
         [HttpPost]
         public ActionResult YevmiyeKdvTevkifatKayit(YevmiyelerKdvTevkifatKayitlari kModel, string DigerYevmiyeKdvKodu = null)
         {

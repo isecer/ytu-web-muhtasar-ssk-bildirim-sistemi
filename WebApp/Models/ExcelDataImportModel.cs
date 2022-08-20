@@ -468,7 +468,7 @@ namespace WebApp.Models
 
             return Model;
         }
-
+      
         public static ExcelImportYevmiyeDataModel ToYevmiyeIterateRows(this HttpPostedFileBase item, int Yil)
         {
 
@@ -575,7 +575,7 @@ namespace WebApp.Models
             {
             }
 
-
+           
             return Model;
         }
 
@@ -638,58 +638,7 @@ namespace WebApp.Models
             return excpt;
         }
       
-        //public static string MaasExcelOlustur(this ExcelImportYevmiyeMaasModel model)
-        //{
-        //    string path = "";
-        //    try
-        //    {
-        //        Application xlApp = new Application();
-        //        Microsoft.Office.Interop.Excel.Workbook xlWorkBook;
-        //        Microsoft.Office.Interop.Excel.Worksheet xlWorkSheet;
-        //        object misValue = System.Reflection.Missing.Value;
-
-        //        xlWorkBook = xlApp.Workbooks.Add(misValue);
-        //        xlWorkSheet = (Microsoft.Office.Interop.Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-        //        int i = 1;
-        //        System.Data.DataTable dataTable = new System.Data.DataTable("MaasTable");
-
-        //        foreach (var item in model.ColumnValues)
-        //        {
-
-        //            xlWorkSheet.Cells[1, i] = item;
-        //            i++;
-        //        }
-        //        int iR = 2;
-        //        foreach (var itemRow in model.Data)
-        //        {
-        //            var dr = dataTable.NewRow();
-        //            dr[]
-        //            int Ic = 1;
-        //            foreach (var itemC in itemRow.ColumnValues)
-        //            {
-        //                xlWorkSheet.Cells[iR, Ic] = itemC;
-        //                Ic++;
-        //            }
-
-        //            iR++;
-        //        }
-        //        var unqCode = Guid.NewGuid().ToString().Substring(0, 6);
-        //        path = "/TempDocumentFolder/" + unqCode.ReplaceSpecialCharacter() + "_MaasExcel.xls";
-        //        var SavePath = System.Web.HttpContext.Current.Server.MapPath("~" + path);
-        //        xlWorkBook.SaveAs(SavePath, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-        //        xlWorkBook.Close(true, misValue, misValue);
-        //        xlApp.Quit();
-        //        Marshal.ReleaseComObject(xlWorkSheet);
-        //        Marshal.ReleaseComObject(xlWorkBook);
-        //        Marshal.ReleaseComObject(xlApp);
-
-
-        //    }
-        //    catch (Exception e)
-        //    {
-        //    }
-        //    return path;
-        //}
+         
     }
 
 
