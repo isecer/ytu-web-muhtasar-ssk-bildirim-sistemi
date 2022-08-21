@@ -2045,7 +2045,25 @@ namespace WebApp.Models
             var dct = new List<ComboModelBool>();
             if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
             dct.Add(new ComboModelBool { Value = true, Caption = "Hesaplamaya Girecek Kayıtlar" });
-            dct.Add(new ComboModelBool { Value = false, Caption = "Hesaplamaya Girecek Kayıtlar" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "Hesaplamaya Girmeyecek Kayıtlar" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbGelirKaydiListeDurumData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "22-31 Gelir Yevmiyelerini Getir" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "22-31 Gelir Yevmiyeleri Harcindekilerini Getir" });
+            return dct;
+
+        }
+        public static List<ComboModelBool> CmbGelirKaydiDurumData(bool bosSecimVar = true)
+        {
+            var dct = new List<ComboModelBool>();
+            if (bosSecimVar) dct.Add(new ComboModelBool { Value = null, Caption = "" });
+            dct.Add(new ComboModelBool { Value = true, Caption = "22-31 Gelir Kaydı Yapıldı" });
+            dct.Add(new ComboModelBool { Value = false, Caption = "22-31 Gelir Kaydı Yapılmadı" });
             return dct;
 
         }

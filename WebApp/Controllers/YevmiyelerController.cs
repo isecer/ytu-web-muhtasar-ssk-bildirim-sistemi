@@ -40,7 +40,6 @@ namespace WebApp.Controllers
             var HesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
-
             var q = (from s in db.Yevmiyelers
                      join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
                      join hk in db.YevmiyelerHesapKodlaris on s.HesapKod equals hk.HesapKod into defhk
@@ -63,10 +62,26 @@ namespace WebApp.Controllers
                          Alacak = s.Alacak,
                          Aciklama = s.Aciklama,
                          Y1003BYilAyModels = s.Yevmiyeler1003BAyristirmalari.Select(sy => new FrYilAyModel { Yil = sy.Yil, AyID = sy.AyID }).ToList(),
+                         Y1003AHesapKodID = s.Y1003AHesapKodID,
+                         Y1003AVergiKodu = s.Y1003AVergiKodu,
+                         Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
+                         Y1003AVergiKimlikNo = s.Y1003AVergiKimlikNo,
+                         Y1003AAdSoyad = s.Y1003AAdSoyad,
+                         Y1003AAdres = s.Y1003AAdres,
+                         Y1003AMatrah = s.Y1003AMatrah,
+                         Y1003ABelgeninMahiyeti = s.Y1003ABelgeninMahiyeti,
+                         Y1003AFaturaTarihi = s.Y1003AFaturaTarihi,
+                         Y1003AFaturaNo = s.Y1003AFaturaNo,
+                         YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
+                         BESYevmiyeHesapKodID=s.BESYevmiyeHesapKodID,
+                         BESIsYevmiyeDokumuAyri=s.BESIsYevmiyeDokumuAyri,
+                         BESIsYevmiyeOdendi=s.BESIsYevmiyeOdendi, 
+                         ProjeBankaHesapNoID=s.ProjeBankaHesapNoID,
                          KdvTevkifatYilAyModels = s.YevmiyelerKdvTevkifatKayitlaris.Select(sy => new FrYilAyModel { Yil = sy.FaturaYil, AyID = sy.FaturaAyID }).ToList(),
                          IsY1003BVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.Yevmiyeler1003BAyristirmalari.Sum(sm => sm.SskPrimTutar) == s.Alacak : (bool?)null,
                          Is1003AHesaplamayaGirecek = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
-                         Is1003AGelirKaydiYapildi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && hk.IsGelirKaydindaKullanilacak == true ? s.Y1003AVergiKimlikNo != "" : (bool?)null,
+                         Is1003AGelirKaydiListesi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? hk.IsGelirKaydindaKullanilacak == true : false,
+                         Is1003AGelirKaydiYapildi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? (s.Y1003AVergiKimlikNo != "" && s.Y1003AVergiKimlikNo != null) : (bool?)null,
                          IsKdvTevkifatVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari ? s.YevmiyelerKdvTevkifatKayitlaris.Sum(sm => sm.TevkifatTutari) == s.Alacak : (bool?)null,
                          IsEKHarcamaBirimiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari ? s.EKYevmiyeHarcamaBirimID.HasValue && s.YevmiyeHarcamaBirimID != s.EKYevmiyeHarcamaBirimID : (bool?)null,
                          IsTifVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.YevmiyelerTasinirKontrolTifKaydis.Sum(sm => sm.Tutar) == s.Borc : (bool?)null,
@@ -113,10 +128,22 @@ namespace WebApp.Controllers
                 }
                 else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                 {
-                    var HesapKods = HesapTurKods.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID && p.IsGelirKaydindaKullanilacak == (model.Is1003AGelirKaydiYapildi ?? p.IsGelirKaydindaKullanilacak)).Select(s => s.HesapKod).ToList();
+                    var HesapKods = HesapTurKods.Where(p => p.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID).Select(s => s.HesapKod).ToList();
                     q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                    if (model.Is1003AGelirKaydiListesi.HasValue)
+                    {
+                        q = q.Where(p => p.Is1003AGelirKaydiListesi == model.Is1003AGelirKaydiListesi);
+                        if (model.Is1003AGelirKaydiYapildi.HasValue) q = q.Where(p => p.Is1003AGelirKaydiYapildi == model.Is1003AGelirKaydiYapildi);
+                        if (model.Is1003AGelirKaydiListesi == true)
+                        {
+                            ViewBag.Is1003AGelirKaydiYapildi = new SelectList(Management.CmbGelirKaydiDurumData(true), "Value", "Caption", model.Is1003AGelirKaydiYapildi);
+                        }
+                    }
                     if (model.Is1003AHesaplamayaGirecek.HasValue) q = q.Where(p => p.Is1003AHesaplamayaGirecek == model.Is1003AHesaplamayaGirecek);
+
+
                     ViewBag.Is1003AHesaplamayaGirecek = new SelectList(Management.CmbHesaplamayaGirmeDurumData(true), "Value", "Caption", model.Is1003AHesaplamayaGirecek);
+                    ViewBag.Is1003AGelirKaydiListesi = new SelectList(Management.CmbGelirKaydiListeDurumData(true), "Value", "Caption", model.Is1003AGelirKaydiListesi);
                     SelectName = "Is1003AHesaplamayaGirecek";
                 }
                 else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
@@ -178,12 +205,586 @@ namespace WebApp.Controllers
             if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod.StartsWith(model.HesapKod) || p.HesapAdi.Contains(model.HesapKod));
             if (!model.Aciklama.IsNullOrWhiteSpace()) q = q.Where(p => p.Aciklama.Contains(model.Aciklama));
 
+
+            if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
+            else q = q.OrderBy(o => o.YevmiyeNo).ThenBy(t => t.YevmiyeTarih).ThenBy(t => t.BirimAdi);
+
+
+            #region Export
+            if (export)
+            {
+                if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
+                {
+                    var gv = new GridView();
+                    var Yevmiyes = q.ToList();
+                    var YevmiyeIDs = q.Select(s => s.YevmiyeID).ToList();
+                    var YevmiyeDetays = db.Yevmiyeler1003BAyristirmalari.Where(p => YevmiyeIDs.Contains(p.YevmiyeID)).ToList();
+
+                    var YevmiyeIDsstr = string.Join(",", YevmiyeIDs);
+                    var GroupData = (from y in Yevmiyes
+                                     join yd in YevmiyeDetays on y.YevmiyeID equals yd.YevmiyeID into defyd
+                                     from yd in defyd.DefaultIfEmpty()
+                                     group new
+                                     {
+                                         Yevmiye1003BAyristirmaID = yd != null ? yd.Yevmiye1003BAyristirmaID : (int?)null,
+                                         BirimAdi = yd != null ? yd.YevmiyelerHarcamaBirimleri.VergiKimlikNo + " " + yd.YevmiyelerHarcamaBirimleri.BirimAdi : "",
+                                         Yil = yd != null ? yd.Yil : (int?)null,
+                                         Ay = yd != null ? yd.AyID : (int?)null,
+                                         BelgeKodu = yd != null ? yd.YevmiyelerBelgeKodlari.BelgeKodu + " - " + yd.YevmiyelerBelgeKodlari.BelgeAdi : "",
+                                         SskPrimTutar = yd != null ? yd.SskPrimTutar : (decimal?)null,
+                                         Matrah = yd != null ? yd.Matrah : (decimal?)null
+
+                                     } by new
+                                     {
+                                         y.YevmiyeID,
+                                         y.YevmiyeTarih,
+                                         y.YevmiyeNo,
+                                         y.VergiKimlikNo,
+                                         y.HarcamaBirimAdi,
+                                         y.HarcamaBirimKod,
+                                         y.HesapKod,
+                                         y.HesapAdi,
+                                         y.Borc,
+                                         y.Alacak,
+                                         y.Aciklama
+                                     } into g1
+                                     select new
+                                     {
+                                         g1.Key.YevmiyeID,
+                                         g1.Key.YevmiyeTarih,
+                                         g1.Key.YevmiyeNo,
+                                         g1.Key.VergiKimlikNo,
+                                         g1.Key.HarcamaBirimAdi,
+                                         g1.Key.HarcamaBirimKod,
+                                         g1.Key.HesapKod,
+                                         g1.Key.HesapAdi,
+                                         g1.Key.Borc,
+                                         g1.Key.Alacak,
+                                         g1.Key.Aciklama,
+                                         data = g1.Where(p => p.Yevmiye1003BAyristirmaID.HasValue).OrderBy(o => o.Yil).ThenBy(t => t.Ay).ToList()
+                                     }).OrderBy(o => o.YevmiyeNo).ThenBy(t => t.YevmiyeTarih).ThenBy(t => t.HarcamaBirimAdi).ThenBy(t => t.HesapKod).ToList();
+
+                    var Data = new List<DrYevmiyePrimKayitExcelModel>();
+
+                    foreach (var item in GroupData)
+                    {
+
+                        if (item.data.Any())
+                        {
+                            var SubData = new List<DrYevmiyePrimKayitExcelModel>();
+                            foreach (var pItem in item.data)
+                            {
+
+                                SubData.Add(new DrYevmiyePrimKayitExcelModel()
+                                {
+                                    YevmiyeTarih = item.YevmiyeTarih,
+                                    YevmiyeNo = item.YevmiyeNo,
+                                    VergiKimlikNo = item.VergiKimlikNo,
+                                    HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                    HarcamaBirimKod = item.HarcamaBirimKod,
+                                    HesapKod = item.HesapKod,
+                                    HesapAdi = item.HesapAdi,
+                                    Borc = item.Borc,
+                                    Alacak = item.Alacak,
+                                    Aciklama = item.Aciklama,
+                                    P_BirimAdi = pItem.BirimAdi,
+                                    P_Yil = pItem.Yil,
+                                    P_Ay = pItem.Yil,
+                                    P_BelgeKodu = pItem.BelgeKodu,
+                                    P_SskPrimTutar = pItem.SskPrimTutar,
+                                    P_Matrah = pItem.Matrah
+                                });
+                            }
+                            Data.AddRange(SubData);
+
+                            Data.Add(new DrYevmiyePrimKayitExcelModel()
+                            {
+                                P_BelgeKodu = "Toplam:",
+                                P_SskPrimTutar = SubData.Sum(s => s.P_SskPrimTutar ?? 0),
+                                P_Matrah = SubData.Sum(s => s.P_Matrah ?? 0)
+                            });
+
+                        }
+                        else
+                        {
+                            Data.Add(new DrYevmiyePrimKayitExcelModel()
+                            {
+                                YevmiyeTarih = item.YevmiyeTarih,
+                                YevmiyeNo = item.YevmiyeNo,
+                                VergiKimlikNo = item.VergiKimlikNo,
+                                HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                HarcamaBirimKod = item.HarcamaBirimKod,
+                                HesapKod = item.HesapKod,
+                                HesapAdi = item.HesapAdi,
+                                Borc = item.Borc,
+                                Alacak = item.Alacak,
+                                Aciklama = item.Aciklama,
+                            });
+
+                        }
+                    }
+                    gv.DataSource = Data;
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye1003BSSKPrimDetayListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
+                {
+                    var gv = new GridView();
+                    var Data = q.ToList();
+                    var HesapKodlaris = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A).Select(s => new { s.YevmiyeHesapKodID, s.HesapKod }).ToList();
+                    gv.DataSource = (from s in Data
+                                     join hk in HesapKodlaris on s.Y1003AHesapKodID equals hk.YevmiyeHesapKodID into defhk
+                                     from hk in defhk.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         Tv_HesapKod = hk != null ? hk.HesapKod : "",
+                                         Tv_HesaplamayaGirmeDurum = s.Is1003AHesaplamayaGirecek.HasValue ? s.Y1003AIsHesaplamayaGirecek ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek" : "",
+                                         Tv_VergiKodu = s.Y1003AVergiKodu,
+                                         Tv_VergiKimlikNo = s.Y1003AVergiKimlikNo,
+                                         Tv_AdSoyad = s.Y1003AAdSoyad,
+                                         Tv_Adres = s.Y1003AAdres,
+                                         Tv_Matrah = s.Y1003AMatrah,
+                                         Tv_BelgeninMahiyeti = s.Y1003ABelgeninMahiyeti,
+                                         Tv_FaturaTarihi = s.Y1003AFaturaTarihi,
+                                         Tv_FaturaNo = s.Y1003AFaturaNo,
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye1003ATevkifatListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Yevmiyes = q.ToList();
+                    var YevmiyeIDs = q.Select(s => s.YevmiyeID).ToList();
+                    var YevmiyeDetays = db.YevmiyelerKdvTevkifatKayitlaris.Where(p => YevmiyeIDs.Contains(p.YevmiyeID)).ToList();
+                    var GroupData = (from y in Yevmiyes
+                                     join yd in YevmiyeDetays on y.YevmiyeID equals yd.YevmiyeID into defyd
+                                     from yd in defyd.DefaultIfEmpty()
+                                     group new
+                                     {
+                                         YevmiyeKdvTevkifatKayitID = yd != null ? yd.YevmiyeKdvTevkifatKayitID : (int?)null,
+                                         HesapKod = yd != null ? yd.YevmiyelerHesapKodlari.HesapKod : "",
+                                         VergiKimlikNo = yd != null ? yd.VergiKimlikNo : "",
+                                         AdSoyad = yd != null ? yd.AdSoyad : "",
+                                         KdvKodu = yd != null ? yd.KdvKodu : "",
+                                         KdvKodOrani = yd != null ? yd.KdvKodOrani : "",
+                                         FaturaYil = yd != null ? yd.FaturaYil : (int?)null,
+                                         FaturaAy = yd != null ? yd.FaturaAyID : (int?)null,
+                                         Matrah = yd != null ? yd.Matrah : (decimal?)null,
+                                         KdvOrani = yd != null ? yd.KdvOrani : (int?)null,
+                                         KdvTutari = yd != null ? yd.KdvTutari : (decimal?)null,
+                                         TevkifatTutari = yd != null ? yd.TevkifatTutari : (decimal?)null,
+
+                                     } by new
+                                     {
+                                         y.YevmiyeID,
+                                         y.YevmiyeTarih,
+                                         y.YevmiyeNo,
+                                         y.VergiKimlikNo,
+                                         y.HarcamaBirimAdi,
+                                         y.HarcamaBirimKod,
+                                         y.HesapKod,
+                                         y.HesapAdi,
+                                         y.Borc,
+                                         y.Alacak,
+                                         y.Aciklama
+                                     } into g1
+                                     select new
+                                     {
+                                         g1.Key.YevmiyeID,
+                                         g1.Key.YevmiyeTarih,
+                                         g1.Key.YevmiyeNo,
+                                         g1.Key.VergiKimlikNo,
+                                         g1.Key.HarcamaBirimAdi,
+                                         g1.Key.HarcamaBirimKod,
+                                         g1.Key.HesapKod,
+                                         g1.Key.HesapAdi,
+                                         g1.Key.Borc,
+                                         g1.Key.Alacak,
+                                         g1.Key.Aciklama,
+                                         data = g1.Where(p => p.YevmiyeKdvTevkifatKayitID.HasValue).OrderBy(o => o.FaturaYil).ThenBy(t => t.FaturaAy).ToList()
+                                     }).OrderBy(o => o.YevmiyeNo).ThenBy(t => t.YevmiyeTarih).ThenBy(t => t.HarcamaBirimAdi).ThenBy(t => t.HesapKod).ToList();
+                    var Data = new List<DrYevmiyeKdvTevkifatExcelModel>();
+
+                    foreach (var item in GroupData)
+                    {
+
+                        if (item.data.Any())
+                        {
+                            foreach (var pItem in item.data)
+                            {
+                                var Row = new DrYevmiyeKdvTevkifatExcelModel()
+                                {
+                                    YevmiyeTarih = item.YevmiyeTarih,
+                                    YevmiyeNo = item.YevmiyeNo,
+                                    VergiKimlikNo = item.VergiKimlikNo,
+                                    HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                    HarcamaBirimKod = item.HarcamaBirimKod,
+                                    HesapKod = item.HesapKod,
+                                    HesapAdi = item.HesapAdi,
+                                    Borc = item.Borc,
+                                    Alacak = item.Alacak,
+                                    Aciklama = item.Aciklama,
+                                    Kt_HesapKod = pItem.HesapKod,
+                                    Kt_VergiKimlikNo = pItem.VergiKimlikNo,
+                                    Kt_AdSoyad = pItem.AdSoyad,
+                                    Kt_KdvKodu = pItem.KdvKodu,
+                                    Kt_KdvOrani = pItem.KdvOrani,
+                                    Kt_FaturaYil = pItem.FaturaYil,
+                                    Kt_FaturaAy = pItem.FaturaAy,
+                                    Kt_Matrah = pItem.Matrah,
+                                    Kt_KdvTutari = pItem.KdvTutari,
+                                    Kt_TevkifatTutari = pItem.TevkifatTutari,
+
+                                };
+                                Data.Add(Row);
+                            }
+                            if (item.data.Count > 1) Data.Add(new DrYevmiyeKdvTevkifatExcelModel());
+                        }
+                        else
+                        {
+                            Data.Add(new DrYevmiyeKdvTevkifatExcelModel()
+                            {
+                                YevmiyeTarih = item.YevmiyeTarih,
+                                YevmiyeNo = item.YevmiyeNo,
+                                VergiKimlikNo = item.VergiKimlikNo,
+                                HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                HarcamaBirimKod = item.HarcamaBirimKod,
+                                HesapKod = item.HesapKod,
+                                HesapAdi = item.HesapAdi,
+                                Borc = item.Borc,
+                                Alacak = item.Alacak,
+                                Aciklama = item.Aciklama,
+                            });
+
+                        }
+                    }
+                    gv.DataSource = Data;
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeKdvTevkifatListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Data = q.ToList();
+                    var HarcamaBirims = db.YevmiyelerHarcamaBirimleris.Select(s => new { s.YevmiyeHarcamaBirimID, s.VergiKimlikNo, s.BirimAdi }).ToList();
+                    gv.DataSource = (from s in Data
+                                     join hb in HarcamaBirims on s.EKYevmiyeHarcamaBirimID equals hb.YevmiyeHarcamaBirimID into defhb
+                                     from hb in defhb.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         Ek_VergiKimlikNo = hb != null ? hb.VergiKimlikNo : "",
+                                         Ek_HarcamaBirimAdi = hb != null ? hb.BirimAdi : ""
+
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeEmekliKesenekListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Yevmiyes = q.ToList();
+                    var YevmiyeIDs = q.Select(s => s.YevmiyeID).ToList();
+                    var YevmiyeDetays = db.YevmiyelerTasinirKontrolTifKaydis.Where(p => YevmiyeIDs.Contains(p.YevmiyeID)).ToList();
+                    var GroupData = (from y in Yevmiyes
+                                     join yd in YevmiyeDetays on y.YevmiyeID equals yd.YevmiyeID into defyd
+                                     from yd in defyd.DefaultIfEmpty()
+                                     group new
+                                     {
+                                         YevmiyelerTasinirKontrolTifKayitID = yd != null ? yd.YevmiyelerTasinirKontrolTifKayitID : (int?)null,
+                                         TifNo = yd != null ? yd.TifNo : "",
+                                         Tutar = yd != null ? yd.Tutar : (decimal?)null,
+                                         Aciklama = yd != null ? yd.Aciklama : "",
+
+                                     } by new
+                                     {
+                                         y.YevmiyeID,
+                                         y.YevmiyeTarih,
+                                         y.YevmiyeNo,
+                                         y.VergiKimlikNo,
+                                         y.HarcamaBirimAdi,
+                                         y.HarcamaBirimKod,
+                                         y.HesapKod,
+                                         y.HesapAdi,
+                                         y.Borc,
+                                         y.Alacak,
+                                         y.Aciklama
+                                     } into g1
+                                     select new
+                                     {
+                                         g1.Key.YevmiyeID,
+                                         g1.Key.YevmiyeTarih,
+                                         g1.Key.YevmiyeNo,
+                                         g1.Key.VergiKimlikNo,
+                                         g1.Key.HarcamaBirimAdi,
+                                         g1.Key.HarcamaBirimKod,
+                                         g1.Key.HesapKod,
+                                         g1.Key.HesapAdi,
+                                         g1.Key.Borc,
+                                         g1.Key.Alacak,
+                                         g1.Key.Aciklama,
+                                         data = g1.Where(p => p.YevmiyelerTasinirKontrolTifKayitID.HasValue).OrderBy(o => o.TifNo).ToList()
+                                     }).OrderBy(o => o.YevmiyeNo).ThenBy(t => t.YevmiyeTarih).ThenBy(t => t.HarcamaBirimAdi).ThenBy(t => t.HesapKod).ToList();
+                    var Data = new List<DrYevmiyeTasinirIslemFisiExcelModel>();
+
+                    foreach (var item in GroupData)
+                    {
+
+                        if (item.data.Any())
+                        {
+                            var SubData = new List<DrYevmiyeTasinirIslemFisiExcelModel>();
+                            foreach (var pItem in item.data)
+                            {
+                                SubData.Add(new DrYevmiyeTasinirIslemFisiExcelModel()
+                                {
+                                    YevmiyeTarih = item.YevmiyeTarih,
+                                    YevmiyeNo = item.YevmiyeNo,
+                                    VergiKimlikNo = item.VergiKimlikNo,
+                                    HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                    HarcamaBirimKod = item.HarcamaBirimKod,
+                                    HesapKod = item.HesapKod,
+                                    HesapAdi = item.HesapAdi,
+                                    Borc = item.Borc,
+                                    Alacak = item.Alacak,
+                                    Aciklama = item.Aciklama,
+                                    Tf_TifNo = pItem.TifNo,
+                                    Tf_Tutar = pItem.Tutar,
+                                    Tf_Aciklama = pItem.Aciklama
+
+                                });
+                            }
+                            Data.AddRange(SubData);
+
+                            Data.Add(new DrYevmiyeTasinirIslemFisiExcelModel()
+                            {
+                                Tf_TifNo = "Toplam:",
+                                Tf_Tutar = SubData.Sum(s => s.Tf_Tutar ?? 0)
+                            });
+
+                        }
+                        else
+                        {
+                            Data.Add(new DrYevmiyeTasinirIslemFisiExcelModel()
+                            {
+                                YevmiyeTarih = item.YevmiyeTarih,
+                                YevmiyeNo = item.YevmiyeNo,
+                                VergiKimlikNo = item.VergiKimlikNo,
+                                HarcamaBirimAdi = item.HarcamaBirimAdi,
+                                HarcamaBirimKod = item.HarcamaBirimKod,
+                                HesapKod = item.HesapKod,
+                                HesapAdi = item.HesapAdi,
+                                Borc = item.Borc,
+                                Alacak = item.Alacak,
+                                Aciklama = item.Aciklama,
+                            });
+
+                        }
+                    }
+                    gv.DataSource = Data;
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeKdvTevkifatListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SendikaIslemleriHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Data = q.ToList();
+                    var Senikas = db.YevmiyelerSendikaBilgileris.ToList();
+                    gv.DataSource = (from s in Data
+                                     join sn in Senikas on s.YevmiyeSendikaBilgiID equals sn.YevmiyeSendikaBilgiID into defsn
+                                     from sn in defsn.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         Sn_HesapKod = sn != null ? sn.HesapKod : "",
+                                         Sn_VergiKimlikNo = sn != null ? sn.VergiKimlikNo : "",
+                                         Sn_AdSoyad = sn != null ? sn.AdSoyad : "",
+                                         Sn_IBanNo = sn != null ? sn.IBanNo : "",
+                                         Sn_KisaAdi = sn != null ? sn.KisaAdi : "",
+                                         Sn_Aciklama = sn != null ? sn.Aciklama : ""
+
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeSendikaListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Data = q.ToList();
+                    var BesBankas = db.YevmiyelerBesBankaHesapNumaralaris.ToList();
+                    var BesHesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari).ToList();
+                    gv.DataSource = (from s in Data
+                                     join hk in BesHesapKods on s.BESYevmiyeHesapKodID equals hk.YevmiyeHesapKodID into defhk
+                                     from hk in defhk.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         Bs_HesapKod = hk != null ? hk.HesapKod : "",
+                                         Bs_HesapAdi = hk != null ? hk.HesapAdi : "",
+                                         Bs_YevmiyeDokumuDurumu = hk != null ? s.BESIsYevmiyeDokumuAyri == true ? "Yevmiye Dökümü Ayrı" : "Yevmiye Dökümü Ayrı Değil" : "",
+                                         Bs_OdemeDurumu = hk != null ? s.BESIsYevmiyeOdendi == true ? "Yevmiye Ödendi" : "Yevmiye Ödenmedi" : "",
+
+
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeBesListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var Data = q.ToList();
+                    var BesBankas = db.YevmiyelerProjeBankaHesapNumaralaris.ToList();
+                    gv.DataSource = (from s in Data
+                                     join bn in BesBankas on s.ProjeBankaHesapNoID equals bn.ProjeBankaHesapNoID into defbn
+                                     from bn in defbn.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         Bn_HesapNo = bn != null ? bn.HesapNo : "",
+                                         Bn_HesapAdi = bn != null ? bn.HesapAdi : "",
+                                         Bn_ProjeNo = bn != null ? bn.ProjeNo : "",
+                                         Bn_ProjeAdi = bn != null ? bn.ProjeAdi : ""
+
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeBankaHesapNoListesi_" + model.Yil + ".xls");
+                }
+                else
+                {
+                    var gv = new GridView();
+                    gv.DataSource = q.ToList().Select(s => new
+                    {
+                        s.YevmiyeTarih,
+                        s.YevmiyeNo,
+                        s.VergiKimlikNo,
+                        s.HarcamaBirimAdi,
+                        s.HarcamaBirimKod,
+                        s.HesapKod,
+                        s.HesapAdi,
+                        s.Borc,
+                        s.Alacak,
+                        s.Aciklama
+                    });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeListesi_" + model.Yil + ".xls");
+                }
+            }
+            #endregion
+
             model.RowCount = q.Count();
             model.BorcToplam = q.Sum(s => (decimal?)s.Borc) ?? 0;
             model.AlacakToplam = q.Sum(s => (decimal?)s.Alacak) ?? 0;
             model.KalanToplam = model.BorcToplam - model.AlacakToplam;
-            if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
-            else q = q.OrderBy(o => o.YevmiyeNo).ThenBy(t => t.YevmiyeTarih).ThenBy(t => t.BirimAdi);
+
             var PS = Management.SetStartRowInx(model.StartRowIndex, model.PageIndex, model.PageCount, model.RowCount, model.PageSize);
             model.PageIndex = PS.PageIndex;
             model.Data = q.Skip(PS.StartRowIndex).Take(model.PageSize).ToList();
@@ -195,6 +796,8 @@ namespace WebApp.Controllers
             ViewBag.SelectName = SelectName;
             return View(model);
         }
+
+
 
         public ActionResult GetExcelYukle(int Yil)
         {
@@ -356,7 +959,7 @@ namespace WebApp.Controllers
                                           IslemYapanIP = UserIdentity.Ip,
                                           IslemTarihi = DateTime.Now,
                                       }).ToList();
-                        var qGrup = model.Data.Where(p=>p.YevmiyeTarih.HasValue && p.YevmiyeNo.HasValue && p.YevmiyeHarcamaBirimID.HasValue).GroupBy(g => new { g.YevmiyeTarih, g.YevmiyeNo, g.VergiKimlikNo, g.YevmiyeHarcamaBirimID, g.HarcamaBirimAdi, g.HarcamaBirimKod, g.HesapKod, g.HesapAdi, g.Borc, g.Alacak, g.Aciklama }).Select(s => new
+                        var qGrup = model.Data.Where(p => p.YevmiyeTarih.HasValue && p.YevmiyeNo.HasValue && p.YevmiyeHarcamaBirimID.HasValue).GroupBy(g => new { g.YevmiyeTarih, g.YevmiyeNo, g.VergiKimlikNo, g.YevmiyeHarcamaBirimID, g.HarcamaBirimAdi, g.HarcamaBirimKod, g.HesapKod, g.HesapAdi, g.Borc, g.Alacak, g.Aciklama }).Select(s => new
                         {
                             s.Key.YevmiyeNo,
                             Count = s.Count(),
@@ -886,12 +1489,7 @@ namespace WebApp.Controllers
                             MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AAdSoyad" });
                         }
                         else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AAdSoyad" });
-                        if (kModel.Y1003AAdres.IsNullOrWhiteSpace())
-                        {
-                            MmMessage.Messages.Add("Adres Giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AAdres" });
-                        }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AAdres" });
+
                         if (!(kModel.Y1003AMatrah > 0))
                         {
                             MmMessage.Messages.Add("Matrah bilgisi 0'Dan büyük olmalıdır.");
@@ -921,12 +1519,13 @@ namespace WebApp.Controllers
                 }
                 if (!MmMessage.Messages.Any())
                 {
+                    var VergiKimlikNo = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.Y1003AVergiKimlikNo).First();
                     Yevmiye.Y1003AHesapKodID = kModel.Y1003AHesapKodID;
                     Yevmiye.Y1003AIsHesaplamayaGirecek = kModel.Y1003AIsHesaplamayaGirecek;
                     Yevmiye.Y1003AVergiKodu = kModel.Y1003AVergiKodu;
                     Yevmiye.Y1003AVergiKimlikNo = kModel.Y1003AVergiKimlikNo;
                     Yevmiye.Y1003AAdSoyad = kModel.Y1003AAdSoyad;
-                    Yevmiye.Y1003AAdres = kModel.Y1003AAdres;
+                    Yevmiye.Y1003AAdres = VergiKimlikNo.Adres;
                     Yevmiye.Y1003AMatrah = kModel.Y1003AMatrah;
                     Yevmiye.Y1003ABelgeninMahiyeti = kModel.Y1003ABelgeninMahiyeti;
                     Yevmiye.Y1003AFaturaTarihi = kModel.Y1003AFaturaTarihi;

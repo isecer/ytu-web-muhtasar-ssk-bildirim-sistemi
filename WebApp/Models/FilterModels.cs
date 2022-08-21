@@ -692,6 +692,9 @@ namespace WebApp.Models
 
 
 
+
+    #endregion
+    #region DataModels
     [Serializable()]
     public static class TreeExt
     {
@@ -1352,6 +1355,7 @@ namespace WebApp.Models
         public int? YevmiyeHesapKodTurID { get; set; }
         public bool? IsY1003BVeriGirisiTamamlandi { get; set; }
         public bool? Is1003AHesaplamayaGirecek { get; set; }
+        public bool? Is1003AGelirKaydiListesi { get; set; }
         public bool? Is1003AGelirKaydiYapildi { get; set; }
         public bool? IsKdvTevkifatVeriGirisiTamamlandi { get; set; }
         public bool? IsEKHarcamaBirimiDegisti { get; set; }
@@ -1376,9 +1380,12 @@ namespace WebApp.Models
         public int Yil { get; set; }
         public int AyID { get; set; }
     }
+    
     public class FrYevmiyeler : Yevmiyeler
     {
+        public string Y1003AHesapKod { get; set; }
         public bool? IsY1003BVeriGirisiTamamlandi { get; set; }
+        public bool? Is1003AGelirKaydiListesi { get; set; } 
         public bool? Is1003AHesaplamayaGirecek { get; set; }
         public bool? Is1003AGelirKaydiYapildi { get; set; }
         public bool? IsKdvTevkifatVeriGirisiTamamlandi { get; set; }
@@ -1441,8 +1448,71 @@ namespace WebApp.Models
     {
 
     }
-    #endregion
 
+    public class DrYevmiyePrimKayitExcelModel
+    {
+        public DateTime? YevmiyeTarih { get; set; }
+        public int? YevmiyeNo { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string HarcamaBirimAdi { get; set; }
+        public string HarcamaBirimKod { get; set; }
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public decimal? Borc { get; set; }
+        public decimal? Alacak { get; set; }
+        public string Aciklama { get; set; }
+
+        public string P_BirimAdi { get; set; }
+        public int? P_Yil { get; set; }
+        public int? P_Ay { get; set; }
+        public string P_BelgeKodu { get; set; }
+        public decimal? P_SskPrimTutar { get; set; }
+        public decimal? P_Matrah { get; set; }
+    }
+    public class DrYevmiyeKdvTevkifatExcelModel
+    {
+        public DateTime? YevmiyeTarih { get; set; }
+        public int? YevmiyeNo { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string HarcamaBirimAdi { get; set; }
+        public string HarcamaBirimKod { get; set; }
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public decimal? Borc { get; set; }
+        public decimal? Alacak { get; set; }
+        public string Aciklama { get; set; }
+
+        public string Kt_HesapKod { get; set; }
+        public string Kt_VergiKimlikNo { get; set; }
+        public string Kt_AdSoyad { get; set; }
+        public string Kt_KdvKodu { get; set; }
+        public string Kt_KdvKodOrani { get; set; }
+        public int? Kt_FaturaYil { get; set; }
+        public int? Kt_FaturaAy { get; set; }
+        public decimal? Kt_Matrah { get; set; }
+        public int? Kt_KdvOrani { get; set; }
+        public decimal? Kt_KdvTutari { get; set; }
+        public decimal? Kt_TevkifatTutari { get; set; }
+    }
+    public class DrYevmiyeTasinirIslemFisiExcelModel
+    {
+        public DateTime? YevmiyeTarih { get; set; }
+        public int? YevmiyeNo { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string HarcamaBirimAdi { get; set; }
+        public string HarcamaBirimKod { get; set; }
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public decimal? Borc { get; set; }
+        public decimal? Alacak { get; set; }
+        public string Aciklama { get; set; }
+
+        public string Tf_TifNo { get; set; }
+        public decimal? Tf_Tutar { get; set; }
+        public string Tf_Aciklama { get; set; }
+     
+    }
+    #endregion
     #region Enums
     public static class HesapKoduTuru
     {

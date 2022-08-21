@@ -140,7 +140,7 @@
                                                         <td class="form-group">
                                                             @if (KayitYetkisi)
                                                             {
-                                                                <select class="form-control" name="Y1003AIsHesaplamayaGirecek"> 
+                                                                <select class="form-control" name="Y1003AIsHesaplamayaGirecek">
                                                                     <option value="true" @Model.Y1003AIsHesaplamayaGirecek.ToSelected()>Evet</option>
                                                                     <option value="false" @((Model.Y1003AIsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
                                                                 </select>
@@ -176,14 +176,7 @@
                                                                     @Html.TextBox("Y1003AAdSoyad", Model.Y1003AAdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "KAdSoyad_" + Model.YevmiyeID, @readonly = "readonly", style = "color:black;" })
                                                                 </td>
                                                             </tr>
-                                                            <tr>
-                                                                <td id="lbl_Y1003AAdres">Adres</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003AAdres", Model.Y1003AAdres, new { @class = "form-control", maxlength = "512", autocomplete = "off", id = "KAdres_" + Model.YevmiyeID, @readonly = "readonly", style = "color:black;" })
 
-                                                                </td>
-                                                            </tr>
                                                             <tr>
                                                                 <td id="lbl_Y1003AMatrah">Matrah</td>
                                                                 <td>:</td>
@@ -203,7 +196,7 @@
                                                                 <td id="lbl_Y1003AFaturaTarihi">Fatura Tarihi</td>
                                                                 <td>:</td>
                                                                 <td class="form-group">
-                                                                    @Html.TextBox("Y1003AFaturaTarihi", Model.Y1003AFaturaTarihi.ToFormatDate(), new { @class = "form-control date-picker" })
+                                                                    @Html.TextBox("Y1003AFaturaTarihi", Model.Y1003AFaturaTarihi.ToFormatDate(), new { @class = "form-control", id = "Y1003AFaturaTarihi_" + Model.YevmiyeID })
                                                                 </td>
                                                             </tr>
                                                             <tr>
@@ -277,6 +270,7 @@
                                                             <td>
                                                                 <a class="btn btn-success btn-sm" onclick="GelirKaydiOlustur(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
                                                                 <script>
+
                                                                     $("#Y1003AVergiKimlikNo_@Model.YevmiyeID").select2({
                                                                         tags: true,
                                                                         minimumInputLength: 2,
@@ -318,10 +312,16 @@
                                                                         }
                                                                     }).on('change', function (e) {
                                                                         $('#KAdSoyad_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.AdSoyad);
-                                                                        $('#KAdres_@Model.YevmiyeID').val(e.added == undefined ? "" : e.added.Adres);
                                                                     });
                                                                     var secilen = @Html.Raw(Json.Encode(new { id = Model.Y1003AVergiKimlikNo, text = Model.Y1003AVergiKimlikNo }));
-                                                                    $("#Y1003AVergiKimlikNo_@Model.YevmiyeID").select2('data', secilen);
+                                                                    if (secilen.id != null) {
+                                                                        $("#Y1003AVergiKimlikNo_@Model.YevmiyeID").select2('data', secilen);
+                                                                    }
+                                                                    $('#Y1003AFaturaTarihi_@Model.YevmiyeID').datetimepicker({
+                                                                        lang: 'tr',
+                                                                        timepicker: false,
+                                                                        format: 'd-m-Y'
+                                                                    });
                                                                 </script>
                                                             </td>
                                                         </tr>
@@ -499,17 +499,17 @@
 
                                             <table class="table table-hover" style="width:100%;">
                                                 <tr class="info">
-                                                    <th width="110">Tif Numarası</th>
-                                                    <th>Açıklama</th>
+                                                    <th width="220">Tif Numarası</th>
                                                     <th width="220" style="text-align:right;">Tutar</th>
+                                                    <th style="padding-left:15px;">Açıklama</th>
                                                     <th width="40"></th>
                                                 </tr>
                                                 @foreach (var item in Model.YevmiyelerTasinirKontrolTifKaydis)
                                                 {
                                                     <tr>
                                                         <td id="tdTfNo_@item.YevmiyelerTasinirKontrolTifKayitID">@item.TifNo</td>
-                                                        <td id="tdTfAc_@item.YevmiyelerTasinirKontrolTifKayitID">@item.Aciklama</td>
                                                         <td style="text-align:right;">@item.Tutar.ToString("n2") TL</td>
+                                                        <td style="padding-left:15px;" id="tdTfAc_@item.YevmiyelerTasinirKontrolTifKayitID">@item.Aciklama</td>
                                                         <td style="padding-left:5px;">
                                                             @if (KayitYetkisi)
                                                             {
@@ -523,8 +523,9 @@
                                                 @if (Model.YevmiyelerTasinirKontrolTifKaydis.Any())
                                                 {
                                                     <tr class="warning">
-                                                        <td colspan="2" style="text-align:right;font-weight:bold;">Borç Toplam: @Model.Borc.ToString("n2") TL</td>
+                                                        <td style="text-align:right;font-weight:bold;">Borç Toplam: @Model.Borc.ToString("n2") TL</td>
                                                         <td style="text-align:right;font-weight:bold;">Tutar Toplam: @Model.YevmiyelerTasinirKontrolTifKaydis.Sum(s => s.Tutar).ToString("n2") TL</td>
+                                                        <td></td>
                                                         <td></td>
                                                     </tr>
                                                 }
@@ -731,15 +732,12 @@
                                                                     });
 
 
-                                                                </script>
-                                                                @if (Model.YevmiyeSendikaBilgiID.HasValue)
-                                                                {
-                                                                    <script>
-
-                                                                        var secilen = @Html.Raw(Json.Encode(new { id = Model.YevmiyeSendikaBilgiID, text = Model.YevmiyeSendikaBilgiID.HasValue ? (Model.YevmiyelerSendikaBilgileri.HesapKod + " " + Model.YevmiyelerSendikaBilgileri.AdSoyad):"" }));
+                                                                    var secilen = @Html.Raw(Json.Encode(new { id = Model.YevmiyeSendikaBilgiID, text = Model.YevmiyeSendikaBilgiID.HasValue ? (Model.YevmiyelerSendikaBilgileri.HesapKod + " " + Model.YevmiyelerSendikaBilgileri.AdSoyad):"" }));
+                                                                    if (secilen.id != null) {
                                                                         $("#SYevmiyeSendikaBilgiID_@Model.YevmiyeID").select2('data', secilen);
-                                                                    </script>
-                                                                }
+                                                                    }
+                                                                </script>
+
                                                             </td>
                                                         </tr>
                                                     }
@@ -884,15 +882,7 @@
         </tbody>
     </table>
 </div>
-<script>
-    $('.date-picker').datetimepicker({
-        lang: 'tr',
-        timepicker: false,
-        format: 'd-m-Y'
-    });
 
-
-</script>
 
 
 

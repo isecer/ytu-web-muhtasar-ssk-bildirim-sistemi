@@ -28,7 +28,7 @@
                         @if (true)
                         {
                             <li>
-                                <span class="label label-success" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
+                                <span class="label label-warning" style="cursor:pointer;" onclick="MExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Maaş Dönüştür</span>
                                 <script>
 
                                     function MExcelYukle() {
@@ -100,6 +100,85 @@
 
                             </li>
                         }
+                        @if (ExcelYuklemeYetki && Model.Yil.HasValue)
+                        {
+                            <li>
+                                <span class="label label-warning" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
+                                <script>
+
+
+                                    function ExcelYukle() {
+                                        var _anaPnl = $('#pnlDetay');
+                                        _pRefresh(_anaPnl, false);
+                                        $.ajax({
+                                            url: '@Url.Action("GetExcelYukle", "Yevmiyeler")',
+                                            data: { 'Yil': @Model.Yil },
+                                            type: 'POST',
+                                            cache: false,
+                                            success: function (result) {
+                                                _pRefresh(_anaPnl, true);
+
+                                                    var btbxxFS = bootbox.dialog({
+                                                        message: result.page,
+                                                        title: "Excel'den Yevmiye yükleme işlemi",
+                                                        buttons: {
+                                                            success: {
+                                                                label: 'Yükle',
+                                                                className: "btn-primary",
+                                                                callback: function (event) {
+                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                                                    var saveOk = true;
+                                                                    if (saveOk) {
+                                                                        _pRefresh(pnlx, false);
+                                                                        $('#ExcelYuklePostForm').ajaxForm({
+                                                                            success: function (result) {
+                                                                                _pRefresh(pnlx, true);
+                                                                                getMsg(result);
+                                                                                if (result.IsSuccess) {
+                                                                                    setTimeout(function () {
+                                                                                        var _clsBtn = $('.modal-header').find('button').first();
+                                                                                        $(_clsBtn).click();
+                                                                                        $('#frmYevmiyeler').submit();
+                                                                                    }, 3400)
+                                                                                }
+                                                                                else {
+                                                                                    return false;
+                                                                                }
+                                                                            },
+                                                                            complete: function (cmp) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            },
+                                                                            error: function (err) {
+                                                                                _pRefresh(pnlx, true);
+                                                                            }
+
+                                                                        });
+                                                                        $('#ExcelYuklePostForm').submit();
+                                                                    }
+                                                                    return false;
+                                                                }
+                                                            },
+                                                            danger: {
+                                                                label: 'Kapat',
+                                                                className: "btn-success",
+                                                                callback: function () {
+                                                                }
+                                                            }
+                                                        }
+                                                    });
+
+                                            },
+                                            error: function (err) {
+                                                _pRefresh(_anaPnl, true);
+                                                alert(err.responseText);
+                                            }
+                                        });
+                                    };
+
+                                </script>
+
+                            </li>
+                        }
                         <li><a href="javasctipr:void(0)" onclick="$('#Expand').val(($('#pnlFltr').hasClass('panel-toggled') ? 'true' :'false' )); " class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                     </ul>
                 </div>
@@ -113,7 +192,7 @@
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td width="120">Yıl / Tarih Aralığı</td>
+                                                    <td width="160">Yıl / Tarih Aralığı</td>
                                                     <td>@Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeler').submit();", id = "Yil_" })</td>
                                                     <td width="220">
                                                         <table>
@@ -136,22 +215,9 @@
                                         <td>
                                             <table style="width:100%;table-layout:fixed;">
                                                 <tr>
-                                                    <td width="120">Hesap Kod Türü</td>
+                                                    <td width="160">Hesap Kod Türü</td>
                                                     <td>@Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();", id = "YevmiyeHesapKodTurID_" })</td>
-                                                    <td class="@(Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? "" : "hide")">
-                                                        <table style="width:100%;">
-                                                            <tr>
-                                                                <td width="100">22-31 Gelir Kaydı</td>
-                                                                <td>
-                                                                    @*<select class="form-control" onchange="$('#frmYevmiyeler').submit();" name="GelirKaydiOlacak" id="GelirKaydiOlacak_">
-                                                                            <option></option>
-                                                                            <option value="true" @Model.GelirKaydiOlacak.ToSelected()>Evet</option>
-                                                                            <option value="false" @((!Model.GelirKaydiOlacak).ToSelected())>Hayır</option>
-                                                                        </select>*@
-                                                                </td>
-                                                            </tr>
-                                                        </table>
-                                                    </td>
+
                                                 </tr>
                                             </table>
                                         </td>
@@ -161,24 +227,59 @@
                                         <tr>
                                             <td>
                                                 <table style="width:100%;table-layout:fixed;">
-                                                    <tr>
-                                                        <td width="120">Kayıt Durumu</td>
-                                                        <td colspan="2">
-                                                            @Html.DropDownList(SelectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
-                                                        </td>
 
-                                                    </tr>
-                                                    @if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B || Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                                                    @if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                                                     {
                                                         <tr>
-                                                            <td width="120">Fatura Yıl / Ay</td>
-                                                            <td>
-                                                                @Html.DropDownList("FYil", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+                                                            <td width="160">Hesaplamaya Girme Durumu</td>
+                                                            <td colspan="2">
+                                                                @Html.DropDownList("Is1003AHesaplamayaGirecek", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
 
                                                             </td>
-                                                            <td> @Html.DropDownList("FAyID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })</td>
                                                         </tr>
+                                                        <tr>
+                                                            <td width="160">Gelir Kaydı Listesi</td>
+                                                            <td colspan="2">
+                                                                @Html.DropDownList("Is1003AGelirKaydiListesi", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+
+                                                            </td>
+                                                        </tr> 
+
+                                                        if (Model.Is1003AGelirKaydiListesi == true)
+                                                        {
+                                                            <tr>
+                                                                <td width="160">Gelir Kaydı Durumu</td>
+                                                                <td colspan="2">
+                                                                    @Html.DropDownList("Is1003AGelirKaydiYapildi", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+
+                                                                </td>
+                                                            </tr>
+                                                        }
+
                                                     }
+                                                    else
+                                                    {
+                                                        <tr>
+                                                            <td width="160">Kayıt Durumu</td>
+                                                            <td colspan="2">
+                                                                @Html.DropDownList(SelectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+                                                            </td>
+
+                                                        </tr>
+                                                        if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B || Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
+                                                        {
+                                                            <tr>
+                                                                <td width="160">Fatura Yıl / Ay</td>
+                                                                <td>
+                                                                    @Html.DropDownList("FYil", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+
+                                                                </td>
+                                                                <td> @Html.DropDownList("FAyID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })</td>
+                                                            </tr>
+                                                        }
+                                                    }
+
+
                                                 </table>
                                             </td>
                                         </tr>
@@ -273,86 +374,11 @@
                 <div class="panel-heading padding-0">
                     <h3 class="panel-title"><i class="fa fa-file-text-o fa-lg"></i>&nbsp; Yevmiyeler</h3>
                     <ul class="panel-controls">
-
-                        @if (ExcelYuklemeYetki && Model.Yil.HasValue)
+                        @if (Model.Data.Any())
                         {
-                            <li>
-                                <span class="label label-success" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
-                                <script>
-
-
-                                    function ExcelYukle() {
-                                        var _anaPnl = $('#pnlDetay');
-                                        _pRefresh(_anaPnl, false);
-                                        $.ajax({
-                                            url: '@Url.Action("GetExcelYukle", "Yevmiyeler")',
-                                            data: { 'Yil': @Model.Yil },
-                                            type: 'POST',
-                                            cache: false,
-                                            success: function (result) {
-                                                _pRefresh(_anaPnl, true);
-
-                                                    var btbxxFS = bootbox.dialog({
-                                                        message: result.page,
-                                                        title: "Excel'den Yevmiye yükleme işlemi",
-                                                        buttons: {
-                                                            success: {
-                                                                label: 'Yükle',
-                                                                className: "btn-primary",
-                                                                callback: function (event) {
-                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
-                                                                    var saveOk = true;
-                                                                    if (saveOk) {
-                                                                        _pRefresh(pnlx, false);
-                                                                        $('#ExcelYuklePostForm').ajaxForm({
-                                                                            success: function (result) {
-                                                                                _pRefresh(pnlx, true);
-                                                                                getMsg(result);
-                                                                                if (result.IsSuccess) {
-                                                                                    setTimeout(function () {
-                                                                                        var _clsBtn = $('.modal-header').find('button').first();
-                                                                                        $(_clsBtn).click();
-                                                                                        $('#frmYevmiyeler').submit();
-                                                                                    }, 3400)
-                                                                                }
-                                                                                else {
-                                                                                    return false;
-                                                                                }
-                                                                            },
-                                                                            complete: function (cmp) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            },
-                                                                            error: function (err) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            }
-
-                                                                        });
-                                                                        $('#ExcelYuklePostForm').submit();
-                                                                    }
-                                                                    return false;
-                                                                }
-                                                            },
-                                                            danger: {
-                                                                label: 'Kapat',
-                                                                className: "btn-success",
-                                                                callback: function () {
-                                                                }
-                                                            }
-                                                        }
-                                                    });
-
-                                            },
-                                            error: function (err) {
-                                                _pRefresh(_anaPnl, true);
-                                                alert(err.responseText);
-                                            }
-                                        });
-                                    };
-
-                                </script>
-
-                            </li>
+                            <li><span class="label label-success" style="cursor:pointer;" onclick="ExportExcel();"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel Olarak İndir</span></li>
                         }
+
                     </ul>
                 </div>
                 <div class="panel-body">
@@ -376,13 +402,21 @@
                                 foreach (var item in Model.Data)
                                 {
                                     var ClassRow = "";
-                                    if (Model.YevmiyeHesapKodTurID==HesapKoduTuru.SSKPrimHesapKodlari1003B)
+                                    if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
                                     {
-                                        ClassRow = item.IsY1003BVeriGirisiTamamlandi == true?"success":"danger";
+                                        ClassRow = item.IsY1003BVeriGirisiTamamlandi == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                                     {
-                                        ClassRow = item.Is1003AHesaplamayaGirecek == true ? "success" : "danger";
+                                        if (Model.Is1003AGelirKaydiListesi == true)
+                                        {
+                                            ClassRow = item.Is1003AGelirKaydiYapildi == true ? "success" : "danger";
+                                        }
+                                        else
+                                        {
+                                            ClassRow = item.Is1003AHesaplamayaGirecek == true ? "success" : "danger";
+                                        }
+
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
                                     {
@@ -479,6 +513,7 @@
         </div>
     }
 </div>
+
 <script type="text/javascript">
     function ShowDetail(id) {
         var sndr = $('#iShow_' + id);
@@ -507,6 +542,11 @@
                 alert(err.responseText);
             }
         });
+    }
+    function ExportExcel() {
+        $('#export').val('true');
+        $('#frmYevmiyeler').submit();
+        $('#export').val('false');
     }
 </script>
 @if (KayitYetkisi)

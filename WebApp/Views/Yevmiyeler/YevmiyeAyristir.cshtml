@@ -49,14 +49,14 @@
                                         <td id="lbl_SskPrimTutar">SSK Prim Tutarı</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextBox("SskPrimTutar", Model.SskPrimTutar.ToEmptyStringZero(), new { @class = "form-control" })
+                                            @Html.TextBox("SskPrimTutar", Model.SskPrimTutar.ToEmptyStringZero(), new { @class = "form-control",autocomplete="off" })
                                         </td>
                                     </tr>
                                     <tr>
                                         <td id="lbl_Matrah">Matrah</td>
                                         <td>:</td>
                                         <td class="form-group">
-                                            @Html.TextBox("Matrah", Model.Matrah.ToEmptyStringZero(), new { @class = "form-control" })
+                                            @Html.TextBox("Matrah", Model.Matrah.ToEmptyStringZero(), new { @class = "form-control", autocomplete = "off" })
                                         </td>
                                     </tr>
                                 </tbody>

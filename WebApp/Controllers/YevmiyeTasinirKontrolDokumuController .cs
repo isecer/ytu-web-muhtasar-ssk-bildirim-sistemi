@@ -65,7 +65,7 @@ namespace WebApp.Controllers
             if (export && model.RowCount > 0)
             {
                 var gv = new GridView();
-                gv.DataSource = model.Data.Select(s => new
+                gv.DataSource = q.Select(s => new
                 {
                     s.VergiKimlikNo,
                     s.BirimAdi,
@@ -74,7 +74,7 @@ namespace WebApp.Controllers
                     s.Alacak,
                     s.Borc,
                     s.Kalan,
-                });
+                }).ToList();
                 gv.DataBind();
                 Response.ContentType = "application/ms-excel";
                 Response.ContentEncoding = System.Text.Encoding.UTF8;

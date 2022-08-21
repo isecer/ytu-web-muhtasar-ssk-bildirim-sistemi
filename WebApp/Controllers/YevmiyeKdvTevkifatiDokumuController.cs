@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         public ActionResult Index(int? Yil = null, int? AyID = null, bool export = false)
         {
             if (!Yil.HasValue) Yil = DateTime.Now.Year;
-            if (!AyID.HasValue) Yil = DateTime.Now.Month;
+            if (!AyID.HasValue) AyID = DateTime.Now.Month;
             return Index(new FmKdvTevkifatiDokumu { Yil = Yil, AyID = AyID }, export);
         }
         [HttpPost]
