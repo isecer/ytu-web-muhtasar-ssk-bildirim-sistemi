@@ -243,7 +243,7 @@
                                                                 @Html.DropDownList("Is1003AGelirKaydiListesi", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
 
                                                             </td>
-                                                        </tr> 
+                                                        </tr>
 
                                                         if (Model.Is1003AGelirKaydiListesi == true)
                                                         {
@@ -276,6 +276,26 @@
                                                                 </td>
                                                                 <td> @Html.DropDownList("FAyID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })</td>
                                                             </tr>
+                                                        }
+                                                        if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
+                                                        {
+
+                                                            <tr>
+                                                                <td width="160">Banka Hesap Numarası</td>
+                                                                <td colspan="2">
+                                                                    <input name="BankaHesapNumarasi" id="BankaHesapNumarasi" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.BankaHesapNumarasi" class="form-control" />
+                                                                    @if (!Model.BankaHesapNumarasi.IsNullOrWhiteSpace())
+                                                                    {
+                                                                        <script>
+                                                                            $(function () {
+                                                                                SetCaretAtEnd(document.getElementById('BankaHesapNumarasi'));
+                                                                            });
+
+                                                                        </script>
+                                                                    }
+                                                                </td> 
+                                                            </tr>
+                                                            
                                                         }
                                                     }
 

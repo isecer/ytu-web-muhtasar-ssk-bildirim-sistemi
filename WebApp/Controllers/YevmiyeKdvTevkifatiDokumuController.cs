@@ -84,7 +84,7 @@ namespace WebApp.Controllers
                     s.KdvAdi,
                     s.KdvKodu,
                     s.KdvOrani,
-                    s.BolumOran,
+                    BolumOran = s.BolumOran.Replace("/", "&"),
                     s.Matrah,
                     s.TevkifatTutari,
                 });

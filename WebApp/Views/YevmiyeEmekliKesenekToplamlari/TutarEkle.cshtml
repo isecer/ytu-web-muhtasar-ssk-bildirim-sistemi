@@ -5,9 +5,9 @@
     var HarcamaBirimi = (YevmiyelerHarcamaBirimleri)ViewBag.HarcamaBirim;
     var Yil = (int)ViewBag.Yil;
     var TutarCounts = Model.Count;
-    var KalanCount = 10 - TutarCounts;
+    var KalanCount = 15 - TutarCounts;
 }
-@using (Ajax.BeginForm("TutarEkle", "YevmiyeHarcamaBirimiToplamlari", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmTutarKayit", @class = "form-horizontal" }))
+@using (Ajax.BeginForm("TutarEkle", "YevmiyeEmekliKesenekToplamlari", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmTutarKayit", @class = "form-horizontal" }))
 {
     @Html.Hidden("Yil", Yil)
     @Html.Hidden("YevmiyeHarcamaBirimID", HarcamaBirimi.YevmiyeHarcamaBirimID)

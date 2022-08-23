@@ -1155,6 +1155,7 @@ namespace WebApp.Models
         public decimal Kalan { get; set; }
         public decimal KayitToplam { get; set; }
         public decimal KalanTutar { get; set; }
+        public List<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
 
     }
     public class FmYevmiye1003AMuhatasarDokumu : PagerOption
@@ -1367,6 +1368,7 @@ namespace WebApp.Models
         public string VergiKimlikNo { get; set; }
         public string HarcamaBirimKod { get; set; }
         public string HesapKod { get; set; }
+        public string BankaHesapNumarasi { get; set; }
         public string Aciklama { get; set; }
 
         public decimal BorcToplam { get; set; }
@@ -1384,6 +1386,7 @@ namespace WebApp.Models
     public class FrYevmiyeler : Yevmiyeler
     {
         public string Y1003AHesapKod { get; set; }
+        public string BankaHesapNumarasi { get; set; }
         public bool? IsY1003BVeriGirisiTamamlandi { get; set; }
         public bool? Is1003AGelirKaydiListesi { get; set; } 
         public bool? Is1003AHesaplamayaGirecek { get; set; }

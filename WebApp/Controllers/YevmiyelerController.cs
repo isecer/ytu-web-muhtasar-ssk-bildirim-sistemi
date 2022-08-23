@@ -1,4 +1,5 @@
-﻿using BiskaUtil;
+﻿using AnketSistemi.Models;
+using BiskaUtil;
 using Database;
 using Microsoft.Office.Interop.Excel;
 using System;
@@ -41,6 +42,8 @@ namespace WebApp.Controllers
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
             var q = (from s in db.Yevmiyelers
+                     join hn in db.YevmiyelerProjeBankaHesapNumaralaris on s.ProjeBankaHesapNoID equals hn.ProjeBankaHesapNoID into defhn
+                     from hn in defhn.DefaultIfEmpty()
                      join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
                      join hk in db.YevmiyelerHesapKodlaris on s.HesapKod equals hk.HesapKod into defhk
                      from hk in defhk.DefaultIfEmpty()
@@ -61,6 +64,7 @@ namespace WebApp.Controllers
                          Borc = s.Borc,
                          Alacak = s.Alacak,
                          Aciklama = s.Aciklama,
+                         BankaHesapNumarasi = hn != null ? hn.HesapNo : "",
                          Y1003BYilAyModels = s.Yevmiyeler1003BAyristirmalari.Select(sy => new FrYilAyModel { Yil = sy.Yil, AyID = sy.AyID }).ToList(),
                          Y1003AHesapKodID = s.Y1003AHesapKodID,
                          Y1003AVergiKodu = s.Y1003AVergiKodu,
@@ -73,10 +77,10 @@ namespace WebApp.Controllers
                          Y1003AFaturaTarihi = s.Y1003AFaturaTarihi,
                          Y1003AFaturaNo = s.Y1003AFaturaNo,
                          YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
-                         BESYevmiyeHesapKodID=s.BESYevmiyeHesapKodID,
-                         BESIsYevmiyeDokumuAyri=s.BESIsYevmiyeDokumuAyri,
-                         BESIsYevmiyeOdendi=s.BESIsYevmiyeOdendi, 
-                         ProjeBankaHesapNoID=s.ProjeBankaHesapNoID,
+                         BESYevmiyeHesapKodID = s.BESYevmiyeHesapKodID,
+                         BESIsYevmiyeDokumuAyri = s.BESIsYevmiyeDokumuAyri,
+                         BESIsYevmiyeOdendi = s.BESIsYevmiyeOdendi,
+                         ProjeBankaHesapNoID = s.ProjeBankaHesapNoID,
                          KdvTevkifatYilAyModels = s.YevmiyelerKdvTevkifatKayitlaris.Select(sy => new FrYilAyModel { Yil = sy.FaturaYil, AyID = sy.FaturaAyID }).ToList(),
                          IsY1003BVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.Yevmiyeler1003BAyristirmalari.Sum(sm => sm.SskPrimTutar) == s.Alacak : (bool?)null,
                          Is1003AHesaplamayaGirecek = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
@@ -195,6 +199,8 @@ namespace WebApp.Controllers
                 else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
                 {
                     if (model.IsBankaHesapNumarasiGirildi.HasValue) q = q.Where(p => p.IsBankaHesapNumarasiGirildi == model.IsBankaHesapNumarasiGirildi);
+                    if (!model.BankaHesapNumarasi.IsNullOrWhiteSpace()) q = q.Where(p => p.BankaHesapNumarasi == model.BankaHesapNumarasi);
+
                     ViewBag.IsBankaHesapNumarasiGirildi = new SelectList(Management.CmbBankaVeriGirisDurumData(true), "Value", "Caption", model.IsBankaHesapNumarasiGirildi);
                     SelectName = "IsBankaHesapNumarasiGirildi";
                 }
@@ -387,7 +393,7 @@ namespace WebApp.Controllers
                                      group new
                                      {
                                          YevmiyeKdvTevkifatKayitID = yd != null ? yd.YevmiyeKdvTevkifatKayitID : (int?)null,
-                                         HesapKod = yd != null ? yd.YevmiyelerHesapKodlari.HesapKod : "",
+                                         HesapKod = yd != null && yd.YevmiyelerHesapKodlari != null ? yd.YevmiyelerHesapKodlari.HesapKod : "",
                                          VergiKimlikNo = yd != null ? yd.VergiKimlikNo : "",
                                          AdSoyad = yd != null ? yd.AdSoyad : "",
                                          KdvKodu = yd != null ? yd.KdvKodu : "",
@@ -435,9 +441,10 @@ namespace WebApp.Controllers
 
                         if (item.data.Any())
                         {
+                            var SubData = new List<DrYevmiyeKdvTevkifatExcelModel>();
                             foreach (var pItem in item.data)
                             {
-                                var Row = new DrYevmiyeKdvTevkifatExcelModel()
+                                SubData.Add(new DrYevmiyeKdvTevkifatExcelModel()
                                 {
                                     YevmiyeTarih = item.YevmiyeTarih,
                                     YevmiyeNo = item.YevmiyeNo,
@@ -460,10 +467,16 @@ namespace WebApp.Controllers
                                     Kt_KdvTutari = pItem.KdvTutari,
                                     Kt_TevkifatTutari = pItem.TevkifatTutari,
 
-                                };
-                                Data.Add(Row);
+                                });
                             }
-                            if (item.data.Count > 1) Data.Add(new DrYevmiyeKdvTevkifatExcelModel());
+                            Data.AddRange(SubData);
+                            Data.Add(new DrYevmiyeKdvTevkifatExcelModel()
+                            {
+                                Kt_AdSoyad = "Toplam:",
+                                Kt_Matrah = SubData.Sum(s => s.Kt_Matrah ?? 0),
+                                Kt_KdvTutari = SubData.Sum(s => s.Kt_KdvTutari ?? 0),
+                                Kt_TevkifatTutari = SubData.Sum(s => s.Kt_TevkifatTutari ?? 0)
+                            });
                         }
                         else
                         {
@@ -884,13 +897,9 @@ namespace WebApp.Controllers
                                 var ExcelYevmiyeNos = model.Data.Select(s => s.YevmiyeNo).Distinct().ToList();
                                 if (DBMinYevmiyeNo < 4)
                                 {
-                                    mMessage.Messages.Add("Yüklemek istediğiniz 1,2,3 yevmiye numaraları daha önce yüklenmiştir.");
-                                }
-                                else
-                                {
-                                    if (ExcelYevmiyeNos.Where(a => new List<int> { 1, 2, 3 }.Contains(a.Value)).Count() != ExcelYevmiyeNos.Count)
+                                    if (ExcelMinYevmiyeNo < 4)
                                     {
-                                        mMessage.Messages.Add("Yükleyeceğiniz yevmiye numarası 4 ten daha küçük olacaksa sadece 1,2,3 yevmiye numaraları olması gerekmetkedir.");
+                                        mMessage.Messages.Add("Yüklemek istediğiniz 1,2,3 yevmiye numaraları daha önce yüklenmiştir.");
                                     }
                                 }
 
@@ -924,52 +933,47 @@ namespace WebApp.Controllers
                     {
 
                         #region BildirimData 
-                        model.Data = (from s in model.Data
-                                      join Br in Birimler on s.VergiKimlikNo equals Br.VergiKimlikNo into defB
-                                      from Br in defB.DefaultIfEmpty()
-                                      join Vh in VergiTevkifatHesapKodlari1003As on s.HesapKod equals Vh.HesapKod into defVh
-                                      from Vh in defVh.DefaultIfEmpty()
-                                      join Sn in Sendikalar on s.YevmiyeSendikaBilgiID equals Sn.YevmiyeSendikaBilgiID into defSn
-                                      from Sn in defSn.DefaultIfEmpty()
-                                      join ek in EmekliKesenekHesapKods on s.HesapKod equals ek.HesapKod into defEk
-                                      from ek in defEk.DefaultIfEmpty()
-                                      join bs in EmekliKesenekHesapKods on s.HesapKod equals bs.HesapKod into defbs
-                                      from bs in defbs.DefaultIfEmpty()
-                                      select new ExcelDataImportYevmiyeRow
-                                      {
-                                          SayfaNo = s.SayfaNo,
-                                          SatirNo = s.SatirNo,
-                                          YevmiyeTarih = s.YevmiyeTarih,
-                                          YevmiyeNo = s.YevmiyeNo,
-                                          VergiKimlikNo = s.VergiKimlikNo,
-                                          YevmiyeHarcamaBirimID = (Br != null ? (int?)Br.YevmiyeHarcamaBirimID : null),
-                                          HarcamaBirimAdi = s.HarcamaBirimAdi,
-                                          HarcamaBirimKod = s.HarcamaBirimKod,
-                                          HesapKod = s.HesapKod,
-                                          HesapAdi = s.HesapAdi,
-                                          Y1003AHesapKodID = Vh != null ? Vh.YevmiyeHesapKodID : (int?)null,
-                                          Y1003AIsHesaplamayaGirecek = Vh != null ? (s.Borc > 0 ? false : true) : false,
-                                          EKYevmiyeHarcamaBirimID = ek != null ? s.YevmiyeHarcamaBirimID : (int?)null,
-                                          YevmiyeSendikaBilgiID = (Sn != null ? (int?)Sn.YevmiyeSendikaBilgiID : null),
-                                          BESYevmiyeHesapKodID = bs != null ? bs.YevmiyeHesapKodID : (int?)null,
-                                          Borc = s.Borc,
-                                          Alacak = s.Alacak,
-                                          Aciklama = s.Aciklama,
-                                          IslemYapanID = UserIdentity.Current.Id,
-                                          IslemYapanIP = UserIdentity.Ip,
-                                          IslemTarihi = DateTime.Now,
-                                      }).ToList();
-                        var qGrup = model.Data.Where(p => p.YevmiyeTarih.HasValue && p.YevmiyeNo.HasValue && p.YevmiyeHarcamaBirimID.HasValue).GroupBy(g => new { g.YevmiyeTarih, g.YevmiyeNo, g.VergiKimlikNo, g.YevmiyeHarcamaBirimID, g.HarcamaBirimAdi, g.HarcamaBirimKod, g.HesapKod, g.HesapAdi, g.Borc, g.Alacak, g.Aciklama }).Select(s => new
+                        var Data = (from s in model.Data
+                                    join Br in Birimler on s.VergiKimlikNo equals Br.VergiKimlikNo into defB
+                                    from Br in defB.DefaultIfEmpty()
+                                    join Vh in VergiTevkifatHesapKodlari1003As on s.HesapKod equals Vh.HesapKod into defVh
+                                    from Vh in defVh.DefaultIfEmpty()
+                                    join Sn in Sendikalar on s.HesapKod equals Sn.HesapKod into defSn
+                                    from Sn in defSn.DefaultIfEmpty()
+                                    join ek in EmekliKesenekHesapKods on s.HesapKod equals ek.HesapKod into defEk
+                                    from ek in defEk.DefaultIfEmpty()
+                                    join bs in BesHesapKods on s.HesapKod equals bs.HesapKod into defbs
+                                    from bs in defbs.DefaultIfEmpty()
+                                    select new ExcelDataImportYevmiyeRow
+                                    {
+                                        SayfaNo = s.SayfaNo,
+                                        SatirNo = s.SatirNo,
+                                        YevmiyeTarih = s.YevmiyeTarih,
+                                        YevmiyeNo = s.YevmiyeNo,
+                                        VergiKimlikNo = s.VergiKimlikNo,
+                                        YevmiyeHarcamaBirimID = (Br != null ? (int?)Br.YevmiyeHarcamaBirimID : null),
+                                        HarcamaBirimAdi = s.HarcamaBirimAdi,
+                                        HarcamaBirimKod = s.HarcamaBirimKod,
+                                        HesapKod = s.HesapKod,
+                                        HesapAdi = s.HesapAdi,
+                                        Y1003AHesapKodID = Vh != null ? Vh.YevmiyeHesapKodID : (int?)null,
+                                        Y1003AIsHesaplamayaGirecek = Vh != null ? (s.Borc > 0 ? false : true) : false,
+                                        EKYevmiyeHarcamaBirimID = ek != null ? s.YevmiyeHarcamaBirimID : (int?)null,
+                                        YevmiyeSendikaBilgiID = (Sn != null ? (int?)Sn.YevmiyeSendikaBilgiID : null),
+                                        BESYevmiyeHesapKodID = bs != null ? bs.YevmiyeHesapKodID : (int?)null,
+                                        Borc = s.Borc,
+                                        Alacak = s.Alacak,
+                                        Aciklama = s.Aciklama,
+                                        IslemYapanID = UserIdentity.Current.Id,
+                                        IslemYapanIP = UserIdentity.Ip,
+                                        IslemTarihi = DateTime.Now,
+                                    }).ToList();
+
+                        if (Data.Count != model.Data.Count)
                         {
-                            s.Key.YevmiyeNo,
-                            Count = s.Count(),
-                            Satirlar = s.Select(s2 => s2.SatirNo).ToList()
-                        }).ToList();
-                        var GrupMukerrer = qGrup.Where(p => p.Count > 1).ToList();
-                        foreach (var item in GrupMukerrer)
-                        {
-                            mMessage.Messages.Add("Excel Verilerinde Mukerrer Kayıt.Yevmiye No: " + item.YevmiyeNo + " Satırlar:" + string.Join(",", item.Satirlar));
+                            mMessage.Messages.Add("Yüklemek istediğiniz yevmiye sayısı ile eşleştirmeler yapılmış yevmiye sayısı uyuşmamaktadır.");
                         }
+                        model.Data = Data;
                         if (!mMessage.Messages.Any())
                         {
                             foreach (var item in model.Data)
@@ -1066,8 +1070,9 @@ namespace WebApp.Controllers
                                     IslemYapanIP = s.IslemYapanIP,
                                     IslemTarihi = s.IslemTarihi,
                                 }).ToList();
+                                var bulkDb = new BulkEF();
+                                bulkDb.BulkInsertAll(addYevmiyes);
                                 db.Yevmiyelers.AddRange(addYevmiyes);
-                                db.SaveChanges();
                                 mMessage.IsSuccess = true;
                                 mMessage.Messages.Add("Yevmiye verileri yükleme işlemi başarılı. Toplam: " + model.Data.Count + " Kalem bilgi sisteme işlendi.");
                                 mMessage.MessageType = Msgtype.Success;
@@ -1519,13 +1524,22 @@ namespace WebApp.Controllers
                 }
                 if (!MmMessage.Messages.Any())
                 {
-                    var VergiKimlikNo = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.Y1003AVergiKimlikNo).First();
                     Yevmiye.Y1003AHesapKodID = kModel.Y1003AHesapKodID;
                     Yevmiye.Y1003AIsHesaplamayaGirecek = kModel.Y1003AIsHesaplamayaGirecek;
                     Yevmiye.Y1003AVergiKodu = kModel.Y1003AVergiKodu;
-                    Yevmiye.Y1003AVergiKimlikNo = kModel.Y1003AVergiKimlikNo;
-                    Yevmiye.Y1003AAdSoyad = kModel.Y1003AAdSoyad;
-                    Yevmiye.Y1003AAdres = VergiKimlikNo.Adres;
+                    var VergiKimlikNo = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.Y1003AVergiKimlikNo).FirstOrDefault();
+                    if (VergiKimlikNo != null)
+                    {
+                        Yevmiye.Y1003AVergiKimlikNo = kModel.Y1003AVergiKimlikNo;
+                        Yevmiye.Y1003AAdres = VergiKimlikNo.Adres;
+                        Yevmiye.Y1003AAdSoyad = kModel.Y1003AAdSoyad;
+                    }
+                    else
+                    {
+                        Yevmiye.Y1003AVergiKimlikNo = null;
+                        Yevmiye.Y1003AAdres = null;
+                        Yevmiye.Y1003AAdSoyad = null;
+                    }
                     Yevmiye.Y1003AMatrah = kModel.Y1003AMatrah;
                     Yevmiye.Y1003ABelgeninMahiyeti = kModel.Y1003ABelgeninMahiyeti;
                     Yevmiye.Y1003AFaturaTarihi = kModel.Y1003AFaturaTarihi;

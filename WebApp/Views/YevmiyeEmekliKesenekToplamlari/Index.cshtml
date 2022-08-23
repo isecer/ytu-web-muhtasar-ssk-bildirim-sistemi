@@ -32,6 +32,7 @@
                             <tr>
                                 <th width="70">Sıra No</th>
                                 <th class="sirala sorting" field="BirimAdi">Harcama Birimi</th>
+                                <th width="50">Çıktı</th>
                                 <th class="sirala sorting" field="SaymanlikKod">Saymanlık Kodu</th>
                                 <th width="160" class="sirala sorting" field="Borc" style="text-align:right;">Yevmiye Borç</th>
                                 <th width="160" class="sirala sorting" field="Alacak" style="text-align:right;">Yevmiye Alacak</th>
@@ -55,6 +56,13 @@
                                             @item.VergiKimlikNo - @item.BirimAdi
                                         </td>
                                         <td>
+                                            @if (item.Borc > 0 || item.Alacak > 0)
+                                            {
+                                                <span title="Birime Ait Yevmiye Listesini İndir" style="cursor:pointer;" onclick="window.location.href='@Url.Action("YevmiyeBirimExport", "YevmiyeEmekliKesenekToplamlari", new { Model.Yil, item.YevmiyeHarcamaBirimID })'"> <img src="/Content/img/Excel-Icon.png" width="20" height="18"></span>
+                                            }
+                                        </td>
+
+                                        <td>
                                             @item.SaymanlikKod
                                         </td>
                                         <td style="text-align:right;">
@@ -73,7 +81,7 @@
                                 }
                                 <tr class="info">
 
-                                    <td colspan="4" style="text-align:right;font-weight:bold;">
+                                    <td colspan="5" style="text-align:right;font-weight:bold;">
                                         Genel Toplam: @Model.Data.Sum(s => s.Borc).ToString("n2") TL
                                     </td>
                                     <td style="text-align:right;font-weight:bold;">

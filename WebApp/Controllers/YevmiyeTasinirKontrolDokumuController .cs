@@ -21,7 +21,7 @@ namespace WebApp.Controllers
         public ActionResult Index(int? Yil = null, bool export = false)
         {
             if (!Yil.HasValue) Yil = DateTime.Now.Year;
-            return Index(new FmTasinirKontrolDokumu { Yil = Yil, PageSize = 50 },   export);
+            return Index(new FmTasinirKontrolDokumu { Yil = Yil, PageSize = 50 }, export);
         }
         [HttpPost]
         public ActionResult Index(FmTasinirKontrolDokumu model, bool export = false)
@@ -56,7 +56,7 @@ namespace WebApp.Controllers
 
                      });
             if (model.YevmiyeHarcamaBirimID.HasValue) q = q.Where(p => p.YevmiyeHarcamaBirimID == model.YevmiyeHarcamaBirimID);
-            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod == model.HesapKod);
+            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod.StartsWith(model.HesapKod));
             if (!model.HesapAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapAdi == model.HesapAdi);
 
             model.RowCount = q.Count();
@@ -94,7 +94,7 @@ namespace WebApp.Controllers
 
 
             if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
-            else q = q.OrderBy(o => o.BirimAdi).ThenBy(t => t.HesapAdi);
+            else q = q.OrderBy(o => o.BirimAdi).ThenBy(t => t.HesapKod);
             var PS = Management.SetStartRowInx(model.StartRowIndex, model.PageIndex, model.PageCount, model.RowCount, model.PageSize);
             model.Data = q.Skip(PS.StartRowIndex).Take(model.PageSize).Select(s => new FrTasinirKontrolDokumu
             {
