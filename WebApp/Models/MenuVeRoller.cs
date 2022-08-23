@@ -76,9 +76,7 @@ namespace WebApp.Models
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "1003A Muhtasar Dökümü", MenuCssClass = "fa fa-file-text-o", MenuUrl = "Yevmiye1003AMuhatasarDokumu/Index", DilCeviriYap = false, SiraNo = 3)]
         [RoleAttribute(GorunurAdi = "Yevmiye - 1003A Muhtasar Dökümü", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string Yevmiyeler1003AMuhtasarDokumu = "Yevmiyeler1003AMuhtasarDokumu";
-        [RoleAttribute(GorunurAdi = "Yevmiye - 1003A Muhtasar Dökümü Kayıt Yetkisi", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
-        public const string Yevmiyeler1003AMuhtasarDokumuKayitYetkisi = "Yevmiyeler1003AMuhtasarDokumuKayitYetkisi";
+        public const string Yevmiyeler1003AMuhtasarDokumu = "Yevmiyeler1003AMuhtasarDokumu"; 
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Kdv Tevkifat Dökümü", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeKdvTevkifatiDokumu/Index", DilCeviriYap = false, SiraNo = 4)]
         [RoleAttribute(GorunurAdi = "Yevmiye - Kdv Tevkifat Dökümü", Kategori = "Yevmiye İşlemleri", Aciklama = "")]

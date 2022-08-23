@@ -5,7 +5,7 @@
     /**/
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // var KayitYetki = RoleNames.YevmiyelerHarcamaBirimiToplamlariKayitYetkisi.InRole();
+    var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
 }
 
 <div class="row">
@@ -90,9 +90,10 @@
                                         <td style="text-align:right;">@item.SskBorcTutar.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.KalanSskBorcTutar.ToString("n2") TL</td>
                                         <td style="padding-left:10px;">
-
-                                            <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@Model.AyID,@item.YevmiyeHarcamaBirimID,@item.YevmiyeBelgeKodID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
-
+                                            @if (KayitYetki)
+                                            {
+                                                <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@Model.AyID,@item.YevmiyeHarcamaBirimID,@item.YevmiyeBelgeKodID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
+                                            }
                                         </td>
                                     </tr>
                                 }
@@ -133,8 +134,9 @@
         float: left;
     }
 </style>
-
-<script>
+@if (KayitYetki)
+{
+    <script>
     function TutarEkle(Yil,AyID,YevmiyeHarcamaBirimID,YevmiyeBelgeKodID) {
           var _panel = $('#EkHbPanel');
         _pRefresh(_panel, false);
@@ -196,4 +198,5 @@
             }
         });
     }
-</script>
+    </script>
+}

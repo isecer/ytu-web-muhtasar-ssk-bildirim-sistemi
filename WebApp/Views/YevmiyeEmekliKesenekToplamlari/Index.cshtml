@@ -3,6 +3,7 @@
 @model FmYevmiyeEkHbToplamlari
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
 }
 
 <div class="row">
@@ -74,9 +75,12 @@
                                         <td style="text-align:right;">@item.Kalan.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.KayitToplam.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.KalanTutar.ToString("n2") TL</td>
-                                        <td style="padding-left:10px;">
-                                            <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
-                                        </td>
+                                        @if (KayitYetki)
+                                        {
+                                            <td style="padding-left:10px;">
+                                                <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
+                                            </td>
+                                        }
                                     </tr>
                                 }
                                 <tr class="info">
@@ -108,8 +112,9 @@
         float: left;
     }
 </style>
-
-<script>
+@if (KayitYetki)
+{
+    <script>
     function TutarEkle(Yil, YevmiyeHarcamaBirimID) {
           var _panel = $('#EkHbPanel');
         _pRefresh(_panel, false);
@@ -181,4 +186,5 @@
             }
         });
     }
-</script>
+    </script>
+}
