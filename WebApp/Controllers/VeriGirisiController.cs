@@ -444,7 +444,7 @@ namespace WebApp.Controllers
                             if (!item.VASurecleriBirimID.HasValue)
                             {
                                 hataTipi.Add("İşyeri kod bilgileri hiçbir birim ile eşleşmedi");
-                                item.HataliHucreler.AddRange(new List<int> { 3, 4, 5, 6, 7,8 });
+                                item.HataliHucreler.AddRange(new List<int> { 3, 4, 5, 6, 7, 8 });
                             }
                             if (!item.VeriGirisTipID.HasValue)
                             {
@@ -781,6 +781,14 @@ namespace WebApp.Controllers
                                 hataTipi.Add("Gelir vergisinden muaf mı bilgisi 1 yada 2 olmalıdır");
                                 item.HataliHucreler.Add(29);
                             }
+                            if (item.GvMatrahi > 0)
+                            {
+                                if (((item.DvKesintisi + item.AsgariGecimIstisnaDvTutar) > 0) == false)
+                                {
+                                    item.HataliHucreler.AddRange(new List<int> { 35, 36, 30 });
+                                    hataTipi.Add("Gelir Vergisi Matrahı 0'dan Büyük ise Damga Vergisi Kesintisi ile Asgari Geçim İstisna Damga Vergisi Tuturı Toplamı 0 an Büyük Olmalıdır.");
+                                }
+                            }
                             if (!item.HesaplananGv.HasValue)
                             {
                                 hataTipi.Add("Hesaplanan Gelir Vergisi Bilgisi Boş Bırakılamaz.");
@@ -795,6 +803,14 @@ namespace WebApp.Controllers
                             {
                                 hataTipi.Add("Gelir Vergisi Kesintisi Bilgisi Boş Bırakılamaz.");
                                 item.HataliHucreler.Add(34);
+                            }
+                            else if (item.GvKesinti.HasValue && item.HesaplananGv.HasValue && item.AsgariGecimIstisnaGvTutar.HasValue)
+                            {
+                                if (item.GvKesinti != (item.HesaplananGv - item.AsgariGecimIstisnaGvTutar))
+                                {
+                                    hataTipi.Add("Gelir Vergisi = (Hesaplanan Gelir Vergisi - Asgari Geçim İstisna Gelir Vergisi Tutar) olmalıdır. ");
+                                    item.HataliHucreler.AddRange(new List<int> { 34, 33, 32 });
+                                }
                             }
                             if (!item.AsgariGecimIstisnaDvTutar.HasValue)
                             {
