@@ -293,9 +293,9 @@
 
                                                                         </script>
                                                                     }
-                                                                </td> 
+                                                                </td>
                                                             </tr>
-                                                            
+
                                                         }
                                                     }
 
@@ -652,9 +652,8 @@
                             data: { id: id },
                             success: function (result) {
                                 toastr[result.success ? "success" : "error"](result.message, "Yevmiye Ayrıştırma Kaydı Silme İşlemi")
-                                if (result.success) {
-                                    SubData(YevmiyeID);
-                                }
+                                 SubData(YevmiyeID);
+                           
 
                             },
                             error: function (err) {
@@ -672,31 +671,32 @@
             }
         });
     }
-    function GelirKaydiOlustur(YevmiyeID) {
-        var _panel = $('#Wg1003AKayitPanel_' + YevmiyeID);
-        _pRefresh(_panel, false);
-        $('#frmYevmiyeKayit_' + YevmiyeID).ajaxForm({
-            success: function (result) {
-                _pRefresh(_panel, true);
-                if (result.IsSuccess) {
-                    toastr["success"](result.Messages[0], result.Title);
-                    var _clsBtn = $('.modal-header').find('button').first();
-                    $(_clsBtn).click();
-                    SubData(YevmiyeID);
-                }
-                else {
-                    getMsg(result);
-                    return false;
-                }
-                _pRefresh(_panel, true);
+        function GelirKaydiOlustur(YevmiyeID) {
+            var _panel = $('#Wg1003AKayitPanel_' + YevmiyeID);
+            _pRefresh(_panel, false);
+            $('#frmYevmiyeKayit_' + YevmiyeID).ajaxForm({
+                success: function (result) {
+                    _pRefresh(_panel, true);
+                    if (result.IsSuccess) {
+                        toastr["success"](result.Messages[0], result.Title);
+                        var _clsBtn = $('.modal-header').find('button').first();
+                        $(_clsBtn).click();
+                        SubData(YevmiyeID);
+                    }
+                    else {
+                        getMsg(result);
+                        return false;
+                    }
+                    _pRefresh(_panel, true);
 
-            },
-            error: function (err) {
-                _pRefresh(_panel, true);
-            }
+                },
+                error: function (err) {
+                    _pRefresh(_panel, true);
+                }
 
-        }).submit();
-    }
+            }).submit();
+        }
+
     function YevmiyeKdvTevkifatKayit(YevmiyeID, YevmiyeKdvTevkifatKayitID) {
         var _panel = $('#WdVergiKaydipanel_' + YevmiyeID);
         _pRefresh(_panel, false);

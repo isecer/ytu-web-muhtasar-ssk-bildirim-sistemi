@@ -27,11 +27,12 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult Index(FmYevmiye1003AMuhatasarDokumu model, bool export = false)
         {
-
-
-            var q = (from yv in db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && p.YevmiyeTarih.Month == model.AyID && p.Y1003AIsHesaplamayaGirecek == true)
-                     join hk in db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A) on yv.HesapKod equals hk.HesapKod
-                     join mk in db.Yevmiyeler1003AMuhtasarKayitlari.Where(p => p.Yil == model.Yil && p.AyID == model.AyID) on hk.VergiKodu equals mk.VergiKodu into defmk
+            var YevmiyeList = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == model.Yil && p.YevmiyeTarih.Month == model.AyID && p.Y1003AIsHesaplamayaGirecek == true).ToList();
+            var YevmiyeHesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A).ToList();
+            var Yevmiye1003AKayits = db.Yevmiyeler1003AMuhtasarKayitlari.Where(p => p.Yil == model.Yil && p.AyID == model.AyID).ToList();
+            var q = (from yv in YevmiyeList
+                     join hk in YevmiyeHesapKods on yv.HesapKod equals hk.HesapKod
+                     join mk in Yevmiye1003AKayits on hk.VergiKodu equals mk.VergiKodu into defmk
                      from mk in defmk.DefaultIfEmpty()
                      group new
                      {
@@ -60,8 +61,6 @@ namespace WebApp.Controllers
 
                      });
 
-            if (!model.Sort.IsNullOrWhiteSpace()) q = q.OrderBy(model.Sort);
-            else q = q.OrderBy(o => o.VergiKodu);
             model.Data = q.Select(s => new FrYevmiye1003AMuhatasarDokumu
             {
 
@@ -75,7 +74,7 @@ namespace WebApp.Controllers
                 GenelMatrahTutar = s.GenelMatrahTutar,
                 KalanMatrah = s.KalanMatrah
 
-            }).ToArray();
+            }).OrderBy(o => o.VergiKodu).ToList();
             #region export
             if (export && model.Data.Any())
             {
@@ -102,6 +101,35 @@ namespace WebApp.Controllers
 
                 return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "Yevmiye_1003AMuhtasarDokumu_" + model.Yil + "_" + model.AyID + ".xls");
             }
+
+            var qD = (from yv in YevmiyeList
+                      join hk in YevmiyeHesapKods on yv.HesapKod equals hk.HesapKod
+                      group new
+                      {
+                          yv.Alacak,
+                          yv.Borc
+                      } by new
+                      {
+                          hk.HesapKod,
+                          hk.HesapAdi
+                      } into g1
+                      select new
+                      {
+                          g1.Key.HesapKod,
+                          g1.Key.HesapAdi,
+                          Tutar = g1.Sum(sm => sm.Alacak) - g1.Sum(sm => sm.Borc),
+
+                      });
+
+            model.DataGelirKaydiToplam = qD.Select(s => new FrYevmiye1003AGelirKaydiToplam
+            {
+
+                HesapKod = s.HesapKod,
+                HesapAdi = s.HesapAdi,
+                Tutar = s.Tutar,
+
+            }).OrderBy(o => o.HesapKod).ToList();
+
             #endregion
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(false), "Value", "Caption", model.Yil);
             ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);

@@ -43,25 +43,22 @@ namespace WebApp.Controllers
                          //YevmiyeDvToplam = yb.HesapKod == DamgaVergiHesapKodu ? yb.Alacak : 0,
                          YevmiyeMatrahToplam = yba.Matrah,
                          yb.YevmiyeNo,
+                         SskBorcTutar = be != null ? be.Tutar : 0,
+                         yb.YevmiyeHarcamaBirimID,
+
+
                      } by new
                      {
-                         yb.IslemTarihi.Year,
-                         yb.IslemTarihi.Month,
                          YBAYevmiyeHarcamaBirimID = hb.YevmiyeHarcamaBirimID,
-                         yb.YevmiyeHarcamaBirimID,
                          hb.BirimAdi,
                          hb.VergiKimlikNo,
                          hb.IsyeriKodu,
                          bk.BelgeKodu,
-                         bk.YevmiyeBelgeKodID,
-                         SskBorcTutar = be != null ? be.Tutar : 0,
+                         bk.YevmiyeBelgeKodID
                      } into g1
                      select new
                      {
-                         g1.Key.Year,
-                         g1.Key.Month,
                          g1.Key.YBAYevmiyeHarcamaBirimID,
-                         g1.Key.YevmiyeHarcamaBirimID,
                          g1.Key.BirimAdi,
                          g1.Key.VergiKimlikNo,
                          g1.Key.IsyeriKodu,
@@ -71,12 +68,26 @@ namespace WebApp.Controllers
                          //YevmiyeAlacakToplam = g1.Sum(s => s.YevmiyeAlacakToplam),
                          //YevmiyeDvToplam = g1.Sum(s => s.YevmiyeDvToplam),
                          YevmiyeMatrahToplam = g1.Sum(s => s.YevmiyeMatrahToplam),
-                         g1.Key.SskBorcTutar,
-                         YevmiyeNos = g1.Select(g => g.YevmiyeNo).ToList()
+                         SskBorcTutar = g1.Sum(sm => sm.SskBorcTutar),
+                         YevmiyeNos = g1.Select(g => g.YevmiyeNo).ToList(),
+                         YevmiyeHarcamaBirimIDs = g1.Select(s => s.YevmiyeHarcamaBirimID).ToList()
 
                      }).ToList();
+
+
             var YevmiyeNos = q.SelectMany(s => s.YevmiyeNos).ToList();
-            var Yevmiyes = db.Yevmiyelers.Where(p => YevmiyeNos.Contains(p.YevmiyeNo) && (YevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == DamgaVergiHesapKodu) && p.YevmiyeTarih.Year == model.Yil).ToList();
+            var Yevmiyes = db.Yevmiyelers.Where(p => YevmiyeNos.Contains(p.YevmiyeNo) && (YevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == DamgaVergiHesapKodu) && p.YevmiyeTarih.Year == model.Yil).Select(s => new
+            {
+                s.YevmiyeNo,
+                s.YevmiyeID,
+                s.HesapKod,
+                s.Alacak,
+                s.YevmiyeHarcamaBirimID,
+                HarcamaBirimIDs = s.Yevmiyeler1003BAyristirmalari.Select(sa => sa.YevmiyeHarcamaBirimID).ToList(),
+
+
+            }).ToList();
+
 
 
             var IsciBildirgeVerileri = db.VASurecleriBirimVerileris.Where(p => p.VASurecleriBirim.VASurecleri.Yil == model.Yil && p.AyID == model.AyID).Select(s => new
@@ -96,13 +107,10 @@ namespace WebApp.Controllers
 
 
             var qDataL = (from s in q
-                          join yvd in Yevmiyes on s.YevmiyeHarcamaBirimID equals yvd.YevmiyeHarcamaBirimID into defyvd
-                          from yvd in defyvd.DefaultIfEmpty()
-                          where s.YevmiyeNos.Contains(yvd != null ? yvd.YevmiyeNo : 0)
                           group new
                           {
-                              YevmiyeAlacakToplam = (yvd != null && (YevmiyeAlacakHesapKods.Contains(yvd.HesapKod)) ? yvd.Alacak : 0),
-                              YevmiyeDvToplam = yvd != null && yvd.HesapKod == DamgaVergiHesapKodu ? yvd.Alacak : 0
+                              YevmiyeAlacakToplam = Yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && YevmiyeAlacakHesapKods.Contains(p.HesapKod)).Sum(sm => sm.Alacak),
+                              YevmiyeDvToplam = Yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && DamgaVergiHesapKodu == p.HesapKod).Sum(sm => sm.Alacak),
                           } by new
                           {
 

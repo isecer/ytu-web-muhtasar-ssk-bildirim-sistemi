@@ -1156,6 +1156,7 @@ namespace WebApp.Models
         public decimal KayitToplam { get; set; }
         public decimal KalanTutar { get; set; }
         public List<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
+        
 
     }
     public class FmYevmiye1003AMuhatasarDokumu : PagerOption
@@ -1163,8 +1164,14 @@ namespace WebApp.Models
         public int? Yil { get; set; }
         public int? AyID { get; set; }
         public bool? IsAktif { get; set; }
-        public IEnumerable<FrYevmiye1003AMuhatasarDokumu> Data { get; set; }
-
+        public List<FrYevmiye1003AMuhatasarDokumu> Data { get; set; }
+        public List<FrYevmiye1003AGelirKaydiToplam> DataGelirKaydiToplam { get; set; }
+}
+    public class FrYevmiye1003AGelirKaydiToplam
+    {
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public decimal Tutar { get; set; }
     }
     public class FrYevmiye1003AMuhatasarDokumu
     {

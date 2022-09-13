@@ -295,7 +295,7 @@ namespace WebApp.Controllers
                                     Aciklama = item.Aciklama,
                                     P_BirimAdi = pItem.BirimAdi,
                                     P_Yil = pItem.Yil,
-                                    P_Ay = pItem.Yil,
+                                    P_Ay = pItem.Ay,
                                     P_BelgeKodu = pItem.BelgeKodu,
                                     P_SskPrimTutar = pItem.SskPrimTutar,
                                     P_Matrah = pItem.Matrah
@@ -766,29 +766,65 @@ namespace WebApp.Controllers
                 }
                 else
                 {
-                    var gv = new GridView();
-                    gv.DataSource = q.ToList().Select(s => new
+
+                    //worksheet.Cells[1, 1] = "YevmiyeTarih";
+                    //worksheet.Cells[1, 2] = "YevmiyeNo";
+                    //worksheet.Cells[1, 3] = "VergiKimlikNo";
+                    //worksheet.Cells[1, 4] = "HarcamaBirimAdi";
+                    //worksheet.Cells[1, 5] = "HarcamaBirimKod";
+                    //worksheet.Cells[1, 6] = "HesapKod";
+                    //worksheet.Cells[1, 7] = "HesapAdi";
+                    //worksheet.Cells[1, 8] = "Borc";
+                    //worksheet.Cells[1, 9] = "Alacak";
+                    //worksheet.Cells[1, 10] = "Aciklama";
+
+
+                    //var unqCode = Guid.NewGuid().ToString().Substring(0, 6);
+                    //var FileName = "YevmiyeListesi_" + model.Yil + "_" + unqCode + ".xlsx";
+                    //var Path = System.Web.HttpContext.Current.Server.MapPath("~/TempDocumentFolder/" + FileName);
+                    //worksheet.SaveAs(FileName);
+                    //var Data = q.ToList().Select(s => new ExportYevmiyeModel
+                    //{
+                    //    YevmiyeTarih = s.YevmiyeTarih,
+                    //    YevmiyeNo = s.YevmiyeNo,
+                    //    VergiKimlikNo = s.VergiKimlikNo,
+                    //    HarcamaBirimAdi = s.HarcamaBirimAdi,
+                    //    HarcamaBirimKod = s.HarcamaBirimKod,
+                    //    HesapKod = s.HesapKod,
+                    //    HesapAdi = s.HesapAdi,
+                    //    Borc = s.Borc,
+                    //    Alacak = s.Alacak,
+                    //    Aciklama = s.Aciklama
+                    //}).ToList();
+                    //var props = typeof(ExportYevmiyeModel).GetProperties().ToList();
+                    //var DtData = ConvertToDataTable(Data, props);
+
+                    var Data = q.ToList().Select(s => new ExportYevmiyeModel
                     {
-                        s.YevmiyeTarih,
-                        s.YevmiyeNo,
-                        s.VergiKimlikNo,
-                        s.HarcamaBirimAdi,
-                        s.HarcamaBirimKod,
-                        s.HesapKod,
-                        s.HesapAdi,
-                        s.Borc,
-                        s.Alacak,
-                        s.Aciklama
-                    });
+                        YevmiyeTarih = s.YevmiyeTarih,
+                        YevmiyeNo = s.YevmiyeNo,
+                        VergiKimlikNo = s.VergiKimlikNo,
+                        HarcamaBirimAdi = s.HarcamaBirimAdi,
+                        HarcamaBirimKod = s.HarcamaBirimKod,
+                        HesapKod = s.HesapKod,
+                        HesapAdi = s.HesapAdi,
+                        Borc = s.Borc,
+                        Alacak = s.Alacak,
+                        Aciklama = s.Aciklama
+                    }).ToList();
+
+                    var gv = new GridView();
+                    gv.DataSource = Data;
                     gv.DataBind();
-                    Response.ContentType = "application/ms-excel";
+                    Response.ContentType = "application/vnd.ms-excel";
                     Response.ContentEncoding = System.Text.Encoding.UTF8;
                     Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
                     StringWriter sw = new StringWriter();
                     HtmlTextWriter htw = new HtmlTextWriter(sw);
                     gv.RenderControl(htw);
-
                     return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeListesi_" + model.Yil + ".xls");
+
+
                 }
             }
             #endregion
@@ -809,7 +845,71 @@ namespace WebApp.Controllers
             ViewBag.SelectName = SelectName;
             return View(model);
         }
+        public class ExportYevmiyeModel
+        {
+            public DateTime YevmiyeTarih { get; set; }
+            public int YevmiyeNo { get; set; }
+            public string VergiKimlikNo { get; set; }
+            public string HarcamaBirimAdi { get; set; }
+            public string HarcamaBirimKod { get; set; }
+            public string HesapKod { get; set; }
+            public string HesapAdi { get; set; }
+            public decimal Borc { get; set; }
+            public decimal Alacak { get; set; }
+            public string Aciklama { get; set; }
+        }
+        System.Data.DataTable ConvertToDataTable<T>(IEnumerable<T> source, List<System.Reflection.PropertyInfo> columnName)
+        {
 
+
+
+            var dt = new System.Data.DataTable();
+            dt.Columns.AddRange(
+              columnName.Select(p => new DataColumn(p.Name, p.PropertyType)).ToArray()
+            );
+
+            source.ToList().ForEach(
+              i => dt.Rows.Add(columnName.Select(p => p.GetValue(i, null)).ToArray())
+            );
+
+            return dt;
+        }
+        public static void GenerateExcel(System.Data.DataTable dataTable, string path)
+        {
+
+            DataSet dataSet = new DataSet();
+            dataSet.Tables.Add(dataTable);
+
+            // create a excel app along side with workbook and worksheet and give a name to it  
+            Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
+            Microsoft.Office.Interop.Excel.Workbook excelWorkBook = excelApp.Workbooks.Add();
+            Microsoft.Office.Interop.Excel._Worksheet xlWorksheet = excelWorkBook.Sheets[1];
+            Microsoft.Office.Interop.Excel.Range xlRange = xlWorksheet.UsedRange;
+            foreach (System.Data.DataTable table in dataSet.Tables)
+            {
+                //Add a new worksheet to workbook with the Datatable name  
+                Microsoft.Office.Interop.Excel.Worksheet excelWorkSheet = excelWorkBook.Sheets.Add();
+                excelWorkSheet.Name = table.TableName;
+
+                // add all the columns  
+                for (int i = 1; i < table.Columns.Count + 1; i++)
+                {
+                    excelWorkSheet.Cells[1, i] = table.Columns[i - 1].ColumnName;
+                }
+
+                // add all the rows  
+                for (int j = 0; j < table.Rows.Count; j++)
+                {
+                    for (int k = 0; k < table.Columns.Count; k++)
+                    {
+                        excelWorkSheet.Cells[j + 2, k + 1] = table.Rows[j].ItemArray[k].ToString();
+                    }
+                }
+            }
+            excelWorkBook.SaveAs(path);
+            excelWorkBook.Close();
+            excelApp.Quit();
+        }
 
 
         public ActionResult GetExcelYukle(int Yil)
@@ -1316,10 +1416,12 @@ namespace WebApp.Controllers
         public ActionResult YevmiyeAyristir(int YevmiyeID, int? Yevmiye1003BAyristirmaID = null)
         {
             var model = new Yevmiyeler1003BAyristirmalari();
+            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
             if (Yevmiye1003BAyristirmaID > 0)
             {
                 model = db.Yevmiyeler1003BAyristirmalari.Where(p => p.YevmiyeID == YevmiyeID && p.Yevmiye1003BAyristirmaID == Yevmiye1003BAyristirmaID).First();
             }
+            else model.SskPrimTutar = Yevmiye.Alacak - Yevmiye.Yevmiyeler1003BAyristirmalari.Sum(s => (decimal?)s.SskPrimTutar) ?? 0;
             //var YilYevmiyeToplamAlacak=db.Yevmiyelers.Where(p=>p.)
             ViewBag.YevmiyeHarcamaBirimID = new SelectList(Management.CmbBirimlerUniversiteIsYerleri(true), "Value", "Caption", model.YevmiyeHarcamaBirimID);
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.Yil);
@@ -1577,11 +1679,17 @@ namespace WebApp.Controllers
             ViewBag.DigerKdvKodRwShow = YevmiyeKdvTevkifatKayitID > 0 ? model.YevmiyelerKdvKodlari.IsDigerKdvler : false;
             return View(model);
         }
-        public ActionResult YevmiyeKdvKodKontrol(int id)
+        public ActionResult YevmiyeKdvKodKontrol(int? id)
         {
-            var KdvKod = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == id).Select(s => new { s.YevmiyeKdvKodID, s.HesapKod, s.KdvAdi, s.KdvOrani, s.IsDigerKdvler, s.TevkifatOranBolen, s.TevkifatOranBolunen }).First();
-            return KdvKod.ToJsonResult();
+            var KdvKod = new YevmiyelerKdvKodlari();
+            if (id.HasValue)
+            {
+                KdvKod = db.YevmiyelerKdvKodlaris.Where(p => p.YevmiyeKdvKodID == id).First();
+            }
+
+            return new { KdvKod.YevmiyeKdvKodID, KdvKod.HesapKod, KdvKod.KdvAdi, KdvKod.KdvOrani, KdvKod.IsDigerKdvler, KdvKod.TevkifatOranBolen, KdvKod.TevkifatOranBolunen }.ToJsonResult();
         }
+
         public ActionResult YevmiyeKdvHesapKod(int id)
         {
             var YvHk = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodID == id).First();

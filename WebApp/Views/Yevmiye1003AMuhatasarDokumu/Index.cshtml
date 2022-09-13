@@ -38,15 +38,15 @@
                         <thead>
                             <tr>
                                 <th width="70">Sıra No</th>
-                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
-                                <th width="160" class="sirala sorting" field="Tutar" style="text-align:right;">Tutar</th>
-                                <th width="160" class="sirala sorting" field="SksVergiTutar" style="text-align:right;">Sks Tutar</th>
-                                <th width="160" class="sirala sorting" field="ImidVergiTutar" style="text-align:right;">İmid Tutar</th>
-                                <th width="160" class="sirala sorting" field="KalanTutar" style="text-align:right;">Kalan Tutar</th>
-                                <th width="160" class="sirala sorting" field="SksMatrahTutar" style="text-align:right;">Sks Matrah</th>
-                                <th width="160" class="sirala sorting" field="ImidMatrahTutar" style="text-align:right;">İmid Matrah</th>
-                                <th width="160" class="sirala sorting" field="GenelMatrahTutar" style="text-align:right;">Genel Matrah</th>
-                                <th width="160" class="sirala sorting" field="KalanMatrah" style="text-align:right;">Kalan Matrah</th>
+                                <th field="VergiKodu">Vergi Kodu</th>
+                                <th width="160" style="text-align:right;">Tutar</th>
+                                <th width="160" style="text-align:right;">Sks Tutar</th>
+                                <th width="160" style="text-align:right;">İmid Tutar</th>
+                                <th width="160" style="text-align:right;">Kalan Tutar</th>
+                                <th width="160" style="text-align:right;">Sks Matrah</th>
+                                <th width="160" style="text-align:right;">İmid Matrah</th>
+                                <th width="160" style="text-align:right;">Genel Matrah</th>
+                                <th width="160" style="text-align:right;">Kalan Matrah</th>
                                 <th width="40"></th>
                             </tr>
                         </thead>
@@ -116,7 +116,52 @@
 
                         </tbody>
                     </table>
-                    @Model.ToSortSring()
+
+                    <table class="table table-hover" style="width:auto;">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th width="160">Hesap Kodu</th>
+                                <th>Hesap Adı</th>
+                                <th width="180" style="text-align:right;">Tutar (Alacak-Borç)</th>  
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                RowIndex = 0;
+                                foreach (var item in Model.DataGelirKaydiToplam)
+                                {
+                                    RowIndex++;
+                            <tr>
+                                <td>
+                                    @RowIndex
+                                </td>
+                                <td>
+                                    @item.HesapKod
+                                </td>
+                                <td>
+                                    @item.HesapAdi
+                                </td> 
+                                <td style="text-align:right;">
+                                    @item.Tutar.ToString("n2") TL
+                                </td>
+                            </tr>
+                                }
+                                <tr class="info">
+
+                                    <td colspan="3" style="text-align:right;font-weight:bold;">
+                                        Genel Toplam:
+                                    </td>
+                                    <td style="text-align:right;font-weight:bold;">
+                                        @Model.DataGelirKaydiToplam.Sum(s => s.Tutar).ToString("n2") TL
+                                    </td> 
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+
                 </div>
             </div>
         </div>
@@ -137,7 +182,7 @@
             url: '@Url.Action("TutarEkle", "Yevmiye1003AMuhatasarDokumu")',
             data: { 'Yil': Yil, 'AyID': AyID, 'VergiKodu':VergiKodu },
             async: false,
-            success: function (result) { 
+            success: function (result) {
                 _pRefresh(_panel, false);
                 var btbxxFS = bootbox.dialog({
                     message: result,
