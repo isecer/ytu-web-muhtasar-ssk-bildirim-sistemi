@@ -42,6 +42,7 @@ namespace Database
         public string Y1003AAdSoyad { get; set; }
         public string Y1003AAdres { get; set; }
         public Nullable<decimal> Y1003AMatrah { get; set; }
+        public Nullable<decimal> Y1003AKesintiTutar { get; set; }
         public string Y1003ABelgeninMahiyeti { get; set; }
         public Nullable<System.DateTime> Y1003AFaturaTarihi { get; set; }
         public string Y1003AFaturaNo { get; set; }

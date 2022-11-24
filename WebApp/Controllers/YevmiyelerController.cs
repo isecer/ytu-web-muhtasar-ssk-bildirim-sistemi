@@ -973,10 +973,11 @@ namespace WebApp.Controllers
                 }
                 else
                 {
+                    var YevmyeNos = model.Data.Select(s => s.YevmiyeNo).ToList();
                     var DBMaxYevmiyeNo = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yil).Max(m => (int?)m.YevmiyeNo);
                     var DBMinYevmiyeNo = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yil).Min(m => (int?)m.YevmiyeNo);
-                    var ExcelMinYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Min();
-                    var ExcelMaxYevmiyeNo = model.Data.Select(s => s.YevmiyeNo).Max();
+                    var ExcelMinYevmiyeNo = YevmyeNos.Min();
+                    var ExcelMaxYevmiyeNo = YevmyeNos.Max();
                     if (!DBMinYevmiyeNo.HasValue)
                     {
                         if (ExcelMinYevmiyeNo != 4 && ExcelMinYevmiyeNo != 1)
@@ -988,13 +989,12 @@ namespace WebApp.Controllers
                     {
                         if (ExcelMinYevmiyeNo >= 4)
                         {
-                            if (ExcelMinYevmiyeNo <= DBMaxYevmiyeNo)
+                            if (ExcelMinYevmiyeNo != DBMaxYevmiyeNo + 1)
                             {
-                                mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin yevmiye numarası daha önce yüklenen en büyük yevmiye numarasından (" + DBMaxYevmiyeNo + ") büyük olmalı.");
+                                mMessage.Messages.Add("Yükleyeceğiniz yevmiyelerin en küçük yevmiye numarası daha önce yüklenen en büyük yevmiye numarasından sonra gelen (" + (DBMaxYevmiyeNo+1) + ") numarası ile başlamalı.");
                             }
                             else
-                            {
-                                var ExcelYevmiyeNos = model.Data.Select(s => s.YevmiyeNo).Distinct().ToList();
+                            { 
                                 if (DBMinYevmiyeNo < 4)
                                 {
                                     if (ExcelMinYevmiyeNo < 4)
@@ -1014,6 +1014,7 @@ namespace WebApp.Controllers
 
                         }
                     }
+
                     if (((ExcelMaxYevmiyeNo - ExcelMinYevmiyeNo) + 1) != model.Data.Select(s => s.YevmiyeNo).Distinct().Count())
                     {
                         mMessage.Messages.Add("Excel de yevmiye numarası atlaması bulunuyor. Yevmiye numaraları sıra ile gitmeli ve eksik olmamalı.");
@@ -1172,7 +1173,8 @@ namespace WebApp.Controllers
                                 }).ToList();
                                 var bulkDb = new BulkEF();
                                 bulkDb.BulkInsertAll(addYevmiyes);
-                                db.Yevmiyelers.AddRange(addYevmiyes);
+                                //db.Yevmiyelers.AddRange(addYevmiyes);
+                                //db.SaveChanges();
                                 mMessage.IsSuccess = true;
                                 mMessage.Messages.Add("Yevmiye verileri yükleme işlemi başarılı. Toplam: " + model.Data.Count + " Kalem bilgi sisteme işlendi.");
                                 mMessage.MessageType = Msgtype.Success;
@@ -1194,7 +1196,7 @@ namespace WebApp.Controllers
                                 {
                                     var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
                                     mMessage.Messages.Add(msg);
-                                    Management.SistemBilgisiKaydet(msg, "DersIslemleri/FileDataDEOSave", BilgiTipi.Hata);
+                                    Management.SistemBilgisiKaydet(msg, "Yevmiyeler/FileDataDEOSave", BilgiTipi.Hata);
                                 }
                             }
                         }
@@ -1376,6 +1378,7 @@ namespace WebApp.Controllers
                            Y1003AAdSoyad = s.Y1003AAdSoyad,
                            Y1003AAdres = s.Y1003AAdres,
                            Y1003AMatrah = s.Y1003AMatrah,
+                           Y1003AKesintiTutar = s.Y1003AKesintiTutar,
                            Y1003ABelgeninMahiyeti = s.Y1003ABelgeninMahiyeti,
                            Y1003AFaturaTarihi = s.Y1003AFaturaTarihi,
                            Y1003AFaturaNo = s.Y1003AFaturaNo,
@@ -1481,7 +1484,7 @@ namespace WebApp.Controllers
             if (!MmMessage.Messages.Any())
             {
                 var YevmiyeAyniYilGirisi = db.Yevmiyeler1003BAyristirmalari.Any(a => a.YevmiyeID == kModel.YevmiyeID && a.Yil == kModel.Yil && a.AyID == kModel.AyID && a.Yevmiye1003BAyristirmaID != kModel.Yevmiye1003BAyristirmaID);
-                if (YevmiyeAyniYilGirisi)
+                if (false && YevmiyeAyniYilGirisi)
                 {
                     MmMessage.Messages.Add("Seçilen Yıl ve Ay İçin Daha Önceden Ayrıştırma İşlemi Yapıldı!");
                     MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Yil" });
@@ -1489,8 +1492,8 @@ namespace WebApp.Controllers
                 }
                 else
                 {
-                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "Yil" });
-                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "AyID" });
+                    //MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "Yil" });
+                    //MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Nothing, PropertyName = "AyID" });
 
                     var AyristirmaMatrahToplam = db.Yevmiyeler1003BAyristirmalari.Where(a => a.YevmiyeID == kModel.YevmiyeID && a.Yevmiye1003BAyristirmaID != kModel.Yevmiye1003BAyristirmaID).Sum(s => (decimal?)s.SskPrimTutar);
                     var YevmiyeAlacakToplam = db.Yevmiyelers.Where(a => a.YevmiyeID == kModel.YevmiyeID).First().Alacak;
@@ -1603,6 +1606,12 @@ namespace WebApp.Controllers
                             MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AMatrah" });
                         }
                         else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AMatrah" });
+                        if (!kModel.Y1003AKesintiTutar.HasValue)
+                        {
+                            MmMessage.Messages.Add("Kesinti tutar bilgisi giriniz.");
+                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AKesintiTutar" });
+                        }
+                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AKesintiTutar" });
                         if (kModel.Y1003ABelgeninMahiyeti.IsNullOrWhiteSpace())
                         {
                             MmMessage.Messages.Add("Belge Mahiyeti Giriniz.");
@@ -1643,6 +1652,7 @@ namespace WebApp.Controllers
                         Yevmiye.Y1003AAdSoyad = null;
                     }
                     Yevmiye.Y1003AMatrah = kModel.Y1003AMatrah;
+                    Yevmiye.Y1003AKesintiTutar = kModel.Y1003AKesintiTutar;
                     Yevmiye.Y1003ABelgeninMahiyeti = kModel.Y1003ABelgeninMahiyeti;
                     Yevmiye.Y1003AFaturaTarihi = kModel.Y1003AFaturaTarihi;
                     Yevmiye.Y1003AFaturaNo = kModel.Y1003AFaturaNo;

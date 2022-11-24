@@ -905,7 +905,10 @@ namespace WebApp.Controllers
                         }
                         else
                         {
+
                             var excpt = model.IsciAktarilanExcelHataKontrolu(EklenmesiGerekenVeriler);
+
+
 
                             if (excpt == null)
                             {
@@ -914,17 +917,45 @@ namespace WebApp.Controllers
                                 if (EklenmesiGerekenVeriler.Any())
                                 {
                                     mMessage.Messages.Add("<span style='color:red;'>Bazı bildirimlerin bu ay eksik giriş yapıldığı saptandı. Bu veriler aşağıdaki excel dosyasının son satırlarına işlendi.</span>");
-
                                 }
                                 mMessage.Messages.Add("<a style='color:red;' href='" + model.DosyaYolu + "' target='_blank;'><img src='/Content/img/Excel-Icon.png' width='18' height='17'> " + model.DosyaAdi + "</a>");
-
                             }
+
                             else
                             {
-                                var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
+                                mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir.</span>");
+                                var msg = string.Join("<br/>", model.Data.Select(s => (s.SatirNo + ". Satırda hata: " + s.HataAciklamasi)));
                                 mMessage.Messages.Add(msg);
-                                Management.SistemBilgisiKaydet(msg, "DersIslemleri/FileDataDEOSave", BilgiTipi.Hata);
+
+                                if (EklenmesiGerekenVeriler.Any())
+                                {
+                                    mMessage.Messages.Add("<span style='color:red;'>Bazı bildirimlerin bu ay eksik giriş yapıldığı saptandı. Lütfen eksik olan bildirimleri giriniz.</span>");
+                                }
+                                var msgEx = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
+                                Management.SistemBilgisiKaydet(msgEx, "VeriGirisi/ExcelYuklePost", BilgiTipi.Hata);
                             }
+
+
+                            //var excpt = model.IsciAktarilanExcelHataKontrolu(EklenmesiGerekenVeriler);
+
+                            //if (excpt == null)
+                            //{
+
+                            //    mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir. Aşağıdaki dosyayı indirip kontrol ediniz lütfen.</span>");
+                            //    if (EklenmesiGerekenVeriler.Any())
+                            //    {
+                            //        mMessage.Messages.Add("<span style='color:red;'>Bazı bildirimlerin bu ay eksik giriş yapıldığı saptandı. Bu veriler aşağıdaki excel dosyasının son satırlarına işlendi.</span>");
+
+                            //    }
+                            //    mMessage.Messages.Add("<a style='color:red;' href='" + model.DosyaYolu + "' target='_blank;'><img src='/Content/img/Excel-Icon.png' width='18' height='17'> " + model.DosyaAdi + "</a>");
+
+                            //}
+                            //else
+                            //{
+                            //    var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
+                            //    mMessage.Messages.Add(msg);
+                            //    Management.SistemBilgisiKaydet(msg, "VeriGirisi/ExcelYuklePost", BilgiTipi.Hata);
+                            //}
                         }
 
                         #endregion
@@ -933,7 +964,7 @@ namespace WebApp.Controllers
                     {
                         var msg = "Muhtasar ve SSK Bildirimi verisi yükleme işlemi yapılırken bir hata oluştu! Hata:" + ex.ToExceptionMessage();
                         mMessage.Messages.Add(msg);
-                        Management.SistemBilgisiKaydet(msg, "VeriGirisi /ExcelYuklePost", BilgiTipi.Hata);
+                        Management.SistemBilgisiKaydet(msg, "VeriGirisi/ExcelYuklePost", BilgiTipi.Hata);
 
                     }
                 }

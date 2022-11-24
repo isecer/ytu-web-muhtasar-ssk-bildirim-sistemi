@@ -120,157 +120,172 @@
                                             @using (Ajax.BeginForm("GelirKayit", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit_" + Model.YevmiyeID, @class = "form-horizontal" }))
                                             {
                                                 @Html.Hidden("YevmiyeID", Model.YevmiyeID)
-                                                <table style="width:100%;">
-                                                    <tr>
-                                                        <td id="lbl_YeniYevmiyeHesapKodID" width="240">Yeni Hesap Kodu</td>
-                                                        <td width="10">:</td>
-                                                        <td class="form-group">
-                                                            @if (KayitYetkisi)
-                                                            {
-                                                                @Html.DropDownList("Y1003AHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })
-                                                            }
-                                                            else
-                                                            {
-                                                                @*@(Model.Y1003AHesapKodID != null ? (Model.Y1003AHesapKodID ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek") : "Veri Girilmedi.");*@
-                                                            }
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td id="lbl_IsHesaplamayaGirecek">Hesaplamaya Girecek Mi</td>
-                                                        <td>:</td>
-                                                        <td class="form-group">
-                                                            @if (KayitYetkisi)
-                                                            {
-                                                                <select class="form-control" name="Y1003AIsHesaplamayaGirecek">
-                                                                    <option value="true" @Model.Y1003AIsHesaplamayaGirecek.ToSelected()>Evet</option>
-                                                                    <option value="false" @((Model.Y1003AIsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
-                                                                </select>
-                                                            }
-                                                            else
-                                                            {
-                                                                @(Model.Y1003AIsHesaplamayaGirecek ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek");
-                                                            }
-
-                                                        </td>
-                                                    </tr>
-                                                    @if (Model.Is1003A10_24GelirKaydiOlacak)
-                                                    {
-                                                        if (KayitYetkisi)
+                                            <table style="width:100%;">
+                                                <tr>
+                                                    <td id="lbl_YeniYevmiyeHesapKodID" width="240">Yeni Hesap Kodu</td>
+                                                    <td width="10">:</td>
+                                                    <td class="form-group">
+                                                        @if (KayitYetkisi)
                                                         {
-                                                            <tr>
-                                                                <td id="lbl_Y1003AVergiKimlikNo">Vergi Kimlik No</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    <table>
-                                                                        <tr>
-                                                                            <td width="200"><input type="text" width="200" autocomplete="off" class="form-control" maxlength="11" name="Y1003AVergiKimlikNo" id="Y1003AVergiKimlikNo_@Model.YevmiyeID" value="@Model.Y1003AVergiKimlikNo" /></td>
-                                                                            <td width="100"> <a class="btn btn-info btn-sm" href="@Url.Action("Kayit","YevmiyeVergiKimlikNumaralari")" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> Ekle</a></td>
-                                                                        </tr>
-                                                                    </table>
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="lbl_Y1003AAdSoyad">Ad Soyad</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003AAdSoyad", Model.Y1003AAdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "KAdSoyad_" + Model.YevmiyeID, @readonly = "readonly", style = "color:black;" })
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td id="lbl_Y1003AMatrah">Matrah</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003AMatrah", Model.Y1003AMatrah, new { @class = "form-control", maxlength = "32", autocomplete = "off" })
-
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="lbl_Y1003ABelgeninMahiyeti">Belgenin Mahiyeti</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003ABelgeninMahiyeti", Model.Y1003ABelgeninMahiyeti, new { @class = "form-control", maxlength = "128", autocomplete = "off" })
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="lbl_Y1003AFaturaTarihi">Fatura Tarihi</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003AFaturaTarihi", Model.Y1003AFaturaTarihi.ToFormatDate(), new { @class = "form-control", id = "Y1003AFaturaTarihi_" + Model.YevmiyeID })
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td id="lbl_Y1003AFaturaNo">Fatura No</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @Html.TextBox("Y1003AFaturaNo", Model.Y1003AFaturaNo, new { @class = "form-control", maxlength = "64", autocomplete = "off" })
-                                                                </td>
-                                                            </tr>
-
+                                                            @Html.DropDownList("Y1003AHesapKodID", Model.SHesapKodlari1003A, new { @class = "form-control" })
                                                         }
                                                         else
                                                         {
-
-                                                            <tr>
-                                                                <td>Vergi Kimlik No</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(!Model.Y1003AVergiKimlikNo.IsNullOrWhiteSpace() ? Model.Y1003AVergiKimlikNo : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Ad Soyad</td>
-                                                                <td>:</td>
-                                                                <td class="form-group">
-                                                                    @(!Model.Y1003AAdSoyad.IsNullOrWhiteSpace() ? Model.Y1003AAdSoyad : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Adres</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(!Model.Y1003AAdres.IsNullOrWhiteSpace() ? Model.Y1003AAdres : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Matrah</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(Model.Y1003AMatrah.HasValue ? Model.Y1003AMatrah.Value.ToString("n2") + " TL" : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Belgenin Mahiyeti</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(!Model.Y1003ABelgeninMahiyeti.IsNullOrWhiteSpace() ? Model.Y1003ABelgeninMahiyeti : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Fatura Tarihi</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(Model.Y1003AFaturaTarihi.HasValue ? Model.Y1003AFaturaTarihi.ToFormatDate() : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Fatura No</td>
-                                                                <td>:</td>
-                                                                <td>
-                                                                    @(!Model.Y1003AFaturaNo.IsNullOrWhiteSpace() ? Model.Y1003AFaturaNo : "Veri Girilmedi");
-                                                                </td>
-                                                            </tr>
+                                                            @*@(Model.Y1003AHesapKodID != null ? (Model.Y1003AHesapKodID ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek") : "Veri Girilmedi.");*@
                                                         }
-                                                    }
-                                                    @if (KayitYetkisi)
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td id="lbl_IsHesaplamayaGirecek">Hesaplamaya Girecek Mi</td>
+                                                    <td>:</td>
+                                                    <td class="form-group">
+                                                        @if (KayitYetkisi)
+                                                        {
+                                                            <select class="form-control" name="Y1003AIsHesaplamayaGirecek">
+                                                                <option value="true" @Model.Y1003AIsHesaplamayaGirecek.ToSelected()>Evet</option>
+                                                                <option value="false" @((Model.Y1003AIsHesaplamayaGirecek == false).ToSelected())>Hayir</option>
+                                                            </select>
+                                                        }
+                                                        else
+                                                        {
+                                                            @(Model.Y1003AIsHesaplamayaGirecek ? "Hesaplamaya Girecek" : "Hesaplamaya Girmeyecek");
+                                                        }
+
+                                                    </td>
+                                                </tr>
+                                                @if (Model.Is1003A10_24GelirKaydiOlacak)
+                                                {
+                                                    if (KayitYetkisi)
                                                     {
                                                         <tr>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td id="lbl_Y1003AVergiKimlikNo">Vergi Kimlik No</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td width="200"><input type="text" width="200" autocomplete="off" class="form-control" maxlength="11" name="Y1003AVergiKimlikNo" id="Y1003AVergiKimlikNo_@Model.YevmiyeID" value="@Model.Y1003AVergiKimlikNo" /></td>
+                                                                        <td width="100"> <a class="btn btn-info btn-sm" href="@Url.Action("Kayit","YevmiyeVergiKimlikNumaralari")" target="_blank"><i class="fa fa-plus" aria-hidden="true"></i> Ekle</a></td>
+                                                                    </tr>
+                                                                </table>
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="lbl_Y1003AAdSoyad">Ad Soyad</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003AAdSoyad", Model.Y1003AAdSoyad, new { @class = "form-control", maxlength = "256", autocomplete = "off", id = "KAdSoyad_" + Model.YevmiyeID, @readonly = "readonly", style = "color:black;" })
+                                                            </td>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td id="lbl_Y1003AMatrah">Matrah</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003AMatrah", Model.Y1003AMatrah, new { @class = "form-control", maxlength = "32", autocomplete = "off" })
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="lbl_Y1003AKesintiTutar">Kesinti Tutarı</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003AKesintiTutar", Model.Y1003AKesintiTutar, new { @class = "form-control", maxlength = "32", autocomplete = "off" })
+
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="lbl_Y1003ABelgeninMahiyeti">Belgenin Mahiyeti</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003ABelgeninMahiyeti", Model.Y1003ABelgeninMahiyeti, new { @class = "form-control", maxlength = "128", autocomplete = "off" })
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="lbl_Y1003AFaturaTarihi">Fatura Tarihi</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003AFaturaTarihi", Model.Y1003AFaturaTarihi.ToFormatDate(), new { @class = "form-control", id = "Y1003AFaturaTarihi_" + Model.YevmiyeID })
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td id="lbl_Y1003AFaturaNo">Fatura No</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @Html.TextBox("Y1003AFaturaNo", Model.Y1003AFaturaNo, new { @class = "form-control", maxlength = "64", autocomplete = "off" })
+                                                            </td>
+                                                        </tr>
+
+                                                    }
+                                                    else
+                                                    {
+
+                                                        <tr>
+                                                            <td>Vergi Kimlik No</td>
+                                                            <td>:</td>
                                                             <td>
-                                                                <a class="btn btn-success btn-sm" onclick="GelirKaydiOlustur(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
-                                                                <script>
+                                                                @(!Model.Y1003AVergiKimlikNo.IsNullOrWhiteSpace() ? Model.Y1003AVergiKimlikNo : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Ad Soyad</td>
+                                                            <td>:</td>
+                                                            <td class="form-group">
+                                                                @(!Model.Y1003AAdSoyad.IsNullOrWhiteSpace() ? Model.Y1003AAdSoyad : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Adres</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!Model.Y1003AAdres.IsNullOrWhiteSpace() ? Model.Y1003AAdres : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Matrah</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(Model.Y1003AMatrah.HasValue ? Model.Y1003AMatrah.Value.ToString("n2") + " TL" : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Kesinti Tutarı</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(Model.Y1003AKesintiTutar.HasValue ? Model.Y1003AKesintiTutar.Value.ToString("n2") + " TL" : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Belgenin Mahiyeti</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!Model.Y1003ABelgeninMahiyeti.IsNullOrWhiteSpace() ? Model.Y1003ABelgeninMahiyeti : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura Tarihi</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(Model.Y1003AFaturaTarihi.HasValue ? Model.Y1003AFaturaTarihi.ToFormatDate() : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Fatura No</td>
+                                                            <td>:</td>
+                                                            <td>
+                                                                @(!Model.Y1003AFaturaNo.IsNullOrWhiteSpace() ? Model.Y1003AFaturaNo : "Veri Girilmedi");
+                                                            </td>
+                                                        </tr>
+                                                    }
+                                                }
+                                                @if (KayitYetkisi)
+                                                {
+                                                    <tr>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <a class="btn btn-success btn-sm" onclick="GelirKaydiOlustur(@Model.YevmiyeID)"><i class="fa fa-save" aria-hidden="true"></i> Kaydet</a>
+                                                            <script>
 
                                                                     $("#Y1003AVergiKimlikNo_@Model.YevmiyeID").select2({
                                                                         tags: true,
@@ -323,11 +338,11 @@
                                                                         timepicker: false,
                                                                         format: 'd-m-Y'
                                                                     });
-                                                                </script>
-                                                            </td>
-                                                        </tr>
-                                                    }
-                                                </table>
+                                                            </script>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
                                             }
                                         </td>
                                     </tr>

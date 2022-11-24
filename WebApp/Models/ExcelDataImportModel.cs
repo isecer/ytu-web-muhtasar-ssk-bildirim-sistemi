@@ -175,7 +175,7 @@ namespace WebApp.Models
                 }
                 var tables = ds.Tables[0];
                 for (int i = 0; i < tables.Rows.Count; i++)
-                {
+                { 
 
                     var _BelgeMahiyetTipKodu = tables.Rows[i][0].ToStrObjEmptString().Trim();
                     var _BelgeTurKodu = tables.Rows[i][1].ToStrObjEmptString().Trim();
@@ -294,6 +294,7 @@ namespace WebApp.Models
                 Application excel = new Application();
                 var path = System.Web.HttpContext.Current.Server.MapPath("~" + model.DosyaYolu);
                 Workbook workbook = excel.Workbooks.Open(path, ReadOnly: false, Editable: true);
+                
                 var MaxRowNum = model.Data.Max(s => s.SatirNo);
                 int SNo = 0;
                 foreach (var itemRow in model.Data)
@@ -369,6 +370,15 @@ namespace WebApp.Models
                 }
                 worksheet1.Columns.AutoFit();
                 excel.Application.ActiveWorkbook.Save();
+                try
+                { 
+                    workbook.Close();
+                    excel.Application.ActiveWorkbook.Close();
+                }
+                catch (Exception)
+                { 
+                }
+             
                 excel.Application.Quit();
                 excel.Quit();
                 //if (File.Exists(path))

@@ -6,6 +6,7 @@
 
     Layout = "~/Views/Shared/_Layout.cshtml";
     var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
+    var isyeriGroupData = (List<FrYevmiye1003BSskPrimleri>) ViewBag.isyeriGroupData;
 }
 
 <div class="row">
@@ -47,10 +48,10 @@
                                 <th class="sirala sorting" field="YevmiyeAlacakToplam" style="text-align:right;">Gv Toplam</th>
                                 <th class="sirala sorting" field="YevmiyeDvToplam" style="text-align:right;">Dv Toplam</th>
                                 <th class="sirala sorting" field="YevmiyeMatrahToplam" style="text-align:right;">Matrah Toplam</th>
-                                <th class="sirala sorting" field="SskTutarToplami" style="text-align:right;">Ssk Prim Fark</th>
-                                <th class="sirala sorting" field="GvKesintiToplam" style="text-align:right;">Gv Fark</th>
-                                <th class="sirala sorting" field="DvKesintiToplam" style="text-align:right;">Dv Fark</th>
-                                <th class="sirala sorting" field="MatrahToplam" style="text-align:right;">Matrah Fark</th>
+                                <th class="sirala sorting" field="SskTutarToplami" style="text-align:right; color: maroon;">Ssk Prim Fark</th>
+                                <th class="sirala sorting" field="GvKesintiToplam" style="text-align:right;color: maroon;">Gv Fark</th>
+                                <th class="sirala sorting" field="DvKesintiToplam" style="text-align:right;color: maroon;">Dv Fark</th>
+                                <th class="sirala sorting" field="MatrahToplam" style="text-align:right;color: maroon;">Matrah Fark</th>
                                 <th class="sirala sorting" field="SskBorcTutar" style="text-align:right;">Ssk Borç Tutar</th>
                                 <th class="sirala sorting" field="KalanSskBorcTutar" style="text-align:right;">Kalan Ssk Borç Tutar</th>
                                 <th width="40"></th>
@@ -83,10 +84,10 @@
                                         </td>
                                         <td style="text-align:right;">@item.YevmiyeDvToplam.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.YevmiyeMatrahToplam.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.SskTutarToplam.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.GvKesintiToplam.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.DvKesintiToplam.ToString("n2") TL</td>
-                                        <td style="text-align:right;">@item.MatrahToplam.ToString("n2") TL</td>
+                                        <td style="text-align:right;color: maroon;">@item.SskTutarToplam.ToString("n2") TL</td>
+                                        <td style="text-align:right;color: maroon;">@item.GvKesintiToplam.ToString("n2") TL</td>
+                                        <td style="text-align:right;color: maroon;">@item.DvKesintiToplam.ToString("n2") TL</td>
+                                        <td style="text-align:right;color: maroon;">@item.MatrahToplam.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.SskBorcTutar.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.KalanSskBorcTutar.ToString("n2") TL</td>
                                         <td style="padding-left:10px;">
@@ -106,18 +107,109 @@
                                     </td>
                                     <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.YevmiyeDvToplam).ToString("n2") TL</td>
                                     <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.YevmiyeMatrahToplam).ToString("n2") TL</td>
-                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.SskTutarToplam).ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.SskTutarToplam).ToString("n2") TL</td>
 
-                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.GvKesintiToplam).ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.GvKesintiToplam).ToString("n2") TL</td>
 
-                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.DvKesintiToplam).ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.DvKesintiToplam).ToString("n2") TL</td>
 
-                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.MatrahToplam).ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.MatrahToplam).ToString("n2") TL</td>
                                     <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.SskBorcTutar).ToString("n2") TL</td>
 
                                     <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.KalanSskBorcTutar).ToString("n2") TL</td>
                                     <td></td>
                                 </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                    @Model.ToSortSring()
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <div class="panel panel-danger" id="EkHbPanel">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>1003B SSK Primleri Birim Grup Bazlı</h3>
+                    
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" field="BirimAdi">İşyeri Adı</th>
+                                <th class="sirala sorting" field="IsyeriKodu">İşyeri Kodu</th> 
+                                <th class="sirala sorting" field="SskPrimTutarToplam" style="text-align:right;">Ssk Prim Toplam</th>
+                                <th class="sirala sorting" field="YevmiyeAlacakToplam" style="text-align:right;">Gv Toplam</th>
+                                <th class="sirala sorting" field="YevmiyeDvToplam" style="text-align:right;">Dv Toplam</th>
+                                <th class="sirala sorting" field="YevmiyeMatrahToplam" style="text-align:right;">Matrah Toplam</th>
+                                <th class="sirala sorting" field="SskTutarToplami" style="text-align:right; color: maroon;">Ssk Prim Fark</th>
+                                <th class="sirala sorting" field="GvKesintiToplam" style="text-align:right;color: maroon;">Gv Fark</th>
+                                <th class="sirala sorting" field="DvKesintiToplam" style="text-align:right;color: maroon;">Dv Fark</th>
+                                <th class="sirala sorting" field="MatrahToplam" style="text-align:right;color: maroon;">Matrah Fark</th>
+                                <th class="sirala sorting" field="SskBorcTutar" style="text-align:right;">Ssk Borç Tutar</th>
+                                <th class="sirala sorting" field="KalanSskBorcTutar" style="text-align:right;">Kalan Ssk Borç Tutar</th>
+                                <th width="40"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int RowIndex2 = 0;
+                                foreach (var item in isyeriGroupData)
+                                {
+                                    RowIndex2++;
+                            <tr>
+                                <td>
+                                    @RowIndex2
+                                </td>
+                                <td>
+                                    @item.VergiKimlikNo - @item.BirimAdi
+                                </td>
+                                <td>
+                                    @item.IsyeriKodu
+                                </td>
+                                <td style="text-align:right;">
+                                    @item.SskPrimTutarToplam.ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;">
+                                    @item.YevmiyeAlacakToplam.ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;">@item.YevmiyeDvToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;">@item.YevmiyeMatrahToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;color: maroon;">@item.SskTutarToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;color: maroon;">@item.GvKesintiToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;color: maroon;">@item.DvKesintiToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;color: maroon;">@item.MatrahToplam.ToString("n2") TL</td>
+                                <td style="text-align:right;">@item.SskBorcTutar.ToString("n2") TL</td>
+                                <td style="text-align:right;">@item.KalanSskBorcTutar.ToString("n2") TL</td>
+                                <td width="40"></td>
+                            </tr>
+                                }
+                            <tr class="info">
+                                <td colspan="4" style="text-align:right;font-weight:bold;">
+                                    Genel Toplam: @Model.Data.Sum(s => s.SskPrimTutarToplam).ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;font-weight:bold;">
+                                    @Model.Data.Sum(s => s.YevmiyeAlacakToplam).ToString("n2") TL
+                                </td>
+                                <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.YevmiyeDvToplam).ToString("n2") TL</td>
+                                <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.YevmiyeMatrahToplam).ToString("n2") TL</td>
+                                <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.SskTutarToplam).ToString("n2") TL</td>
+
+                                <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.GvKesintiToplam).ToString("n2") TL</td>
+
+                                <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.DvKesintiToplam).ToString("n2") TL</td>
+
+                                <td style="text-align:right;font-weight:bold;color: maroon;">@Model.Data.Sum(s => s.MatrahToplam).ToString("n2") TL</td>
+                                <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.SskBorcTutar).ToString("n2") TL</td>
+
+                                <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.KalanSskBorcTutar).ToString("n2") TL</td>
+                                <td width="40"></td>
+                            </tr>
 
                             }
 

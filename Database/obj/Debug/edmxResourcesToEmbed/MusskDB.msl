@@ -600,6 +600,7 @@
           <ScalarProperty Name="Y1003AFaturaNo" ColumnName="Y1003AFaturaNo" />
           <ScalarProperty Name="Y1003AFaturaTarihi" ColumnName="Y1003AFaturaTarihi" />
           <ScalarProperty Name="Y1003ABelgeninMahiyeti" ColumnName="Y1003ABelgeninMahiyeti" />
+          <ScalarProperty Name="Y1003AKesintiTutar" ColumnName="Y1003AKesintiTutar" />
           <ScalarProperty Name="Y1003AMatrah" ColumnName="Y1003AMatrah" />
           <ScalarProperty Name="Y1003AAdres" ColumnName="Y1003AAdres" />
           <ScalarProperty Name="Y1003AAdSoyad" ColumnName="Y1003AAdSoyad" />
@@ -902,6 +903,22 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <AssociationSetMapping Name="KullaniciRolleri" TypeName="MusskDBModel.KullaniciRolleri" StoreEntitySet="KullaniciRolleri">
+      <EndProperty Name="Roller">
+        <ScalarProperty Name="RolID" ColumnName="RolID" />
+      </EndProperty>
+      <EndProperty Name="Kullanicilar">
+        <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="MenuRollleri" TypeName="MusskDBModel.MenuRollleri" StoreEntitySet="MenuRollleri">
+      <EndProperty Name="Roller">
+        <ScalarProperty Name="RolID" ColumnName="RolID" />
+      </EndProperty>
+      <EndProperty Name="Menuler">
+        <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+      </EndProperty>
+    </AssociationSetMapping>
     <EntitySetMapping Name="Vw_BirimlerTree">
       <EntityTypeMapping TypeName="MusskDBModel.Vw_BirimlerTree">
         <MappingFragment StoreEntitySet="Vw_BirimlerTree">
@@ -927,21 +944,5 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="KullaniciRolleri" TypeName="MusskDBModel.KullaniciRolleri" StoreEntitySet="KullaniciRolleri">
-      <EndProperty Name="Roller">
-        <ScalarProperty Name="RolID" ColumnName="RolID" />
-      </EndProperty>
-      <EndProperty Name="Kullanicilar">
-        <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
-      </EndProperty>
-    </AssociationSetMapping>
-    <AssociationSetMapping Name="MenuRollleri" TypeName="MusskDBModel.MenuRollleri" StoreEntitySet="MenuRollleri">
-      <EndProperty Name="Roller">
-        <ScalarProperty Name="RolID" ColumnName="RolID" />
-      </EndProperty>
-      <EndProperty Name="Menuler">
-        <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping>

@@ -606,6 +606,7 @@ warning 6002: The table/view 'MusskDB.dbo.KullanicilarLog' does not have a prima
     <Property Name="Y1003AAdSoyad" Type="nvarchar" MaxLength="256" />
     <Property Name="Y1003AAdres" Type="nvarchar" MaxLength="512" />
     <Property Name="Y1003AMatrah" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Y1003AKesintiTutar" Type="decimal" Precision="18" Scale="2" />
     <Property Name="Y1003ABelgeninMahiyeti" Type="nvarchar" MaxLength="128" />
     <Property Name="Y1003AFaturaTarihi" Type="date" />
     <Property Name="Y1003AFaturaNo" Type="nvarchar" MaxLength="64" />

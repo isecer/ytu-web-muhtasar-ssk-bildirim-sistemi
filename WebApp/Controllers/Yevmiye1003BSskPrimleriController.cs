@@ -43,7 +43,7 @@ namespace WebApp.Controllers
                          //YevmiyeDvToplam = yb.HesapKod == DamgaVergiHesapKodu ? yb.Alacak : 0,
                          YevmiyeMatrahToplam = yba.Matrah,
                          yb.YevmiyeNo,
-                         SskBorcTutar = be != null ? be.Tutar : 0,
+
                          yb.YevmiyeHarcamaBirimID,
 
 
@@ -54,7 +54,8 @@ namespace WebApp.Controllers
                          hb.VergiKimlikNo,
                          hb.IsyeriKodu,
                          bk.BelgeKodu,
-                         bk.YevmiyeBelgeKodID
+                         bk.YevmiyeBelgeKodID,
+                         SskBorcTutar = be != null ? be.Tutar : 0,
                      } into g1
                      select new
                      {
@@ -68,7 +69,7 @@ namespace WebApp.Controllers
                          //YevmiyeAlacakToplam = g1.Sum(s => s.YevmiyeAlacakToplam),
                          //YevmiyeDvToplam = g1.Sum(s => s.YevmiyeDvToplam),
                          YevmiyeMatrahToplam = g1.Sum(s => s.YevmiyeMatrahToplam),
-                         SskBorcTutar = g1.Sum(sm => sm.SskBorcTutar),
+                         SskBorcTutar = g1.Key.SskBorcTutar,
                          YevmiyeNos = g1.Select(g => g.YevmiyeNo).ToList(),
                          YevmiyeHarcamaBirimIDs = g1.Select(s => s.YevmiyeHarcamaBirimID).ToList()
 
@@ -218,6 +219,51 @@ namespace WebApp.Controllers
 
 
             }).ToArray();
+
+            var isyeriGroupData = (from s in model.Data
+                                   group new
+                                   {
+                                       s.YevmiyeHarcamaBirimID,
+                                       s.BirimAdi,
+                                       s.VergiKimlikNo,
+                                       s.IsyeriKodu,
+                                       s.SskPrimTutarToplam,
+                                       s.YevmiyeAlacakToplam,
+                                       s.YevmiyeDvToplam,
+                                       s.YevmiyeMatrahToplam,
+                                       s.MatrahToplam,
+                                       s.GvKesintiToplam,
+                                       s.DvKesintiToplam,
+                                       s.SskTutarToplam,
+                                       s.SskBorcTutar,
+                                       s.KalanSskBorcTutar
+                                   } by new
+                                   {
+
+                                       s.YevmiyeHarcamaBirimID,
+                                       s.BirimAdi,
+                                       s.VergiKimlikNo,
+                                       s.IsyeriKodu,
+                                   } into g1
+
+                                   select new FrYevmiye1003BSskPrimleri
+                                   {
+                                       YevmiyeHarcamaBirimID = g1.Key.YevmiyeHarcamaBirimID,
+                                       BirimAdi = g1.Key.BirimAdi,
+                                       VergiKimlikNo = g1.Key.VergiKimlikNo,
+                                       IsyeriKodu = g1.Key.IsyeriKodu,
+                                       SskPrimTutarToplam = g1.Sum(sm => sm.SskPrimTutarToplam),
+                                       YevmiyeAlacakToplam = g1.Sum(sm => sm.YevmiyeAlacakToplam),
+                                       YevmiyeDvToplam = g1.Sum(sm => sm.YevmiyeDvToplam),
+                                       YevmiyeMatrahToplam = g1.Sum(sm => sm.YevmiyeMatrahToplam),
+                                       MatrahToplam = g1.Sum(sm => sm.MatrahToplam),
+                                       GvKesintiToplam = g1.Sum(sm => sm.GvKesintiToplam),
+                                       DvKesintiToplam = g1.Sum(sm => sm.DvKesintiToplam),
+                                       SskTutarToplam = g1.Sum(sm => sm.SskTutarToplam),
+                                       SskBorcTutar = g1.Sum(sm => sm.SskBorcTutar),
+                                       KalanSskBorcTutar = g1.Sum(sm => sm.KalanSskBorcTutar)
+                                   }).ToList();
+            ViewBag.isyeriGroupData = isyeriGroupData;
             #region export
             if (export && model.Data.Any())
             {
