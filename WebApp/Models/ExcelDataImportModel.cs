@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Drawing;
 using System.IO;
-using System.Linq; 
+using System.Linq;
 using System.Web;
 using BiskaUtil;
 using Database;
@@ -175,7 +175,7 @@ namespace WebApp.Models
                 }
                 var tables = ds.Tables[0];
                 for (int i = 0; i < tables.Rows.Count; i++)
-                { 
+                {
 
                     var _BelgeMahiyetTipKodu = tables.Rows[i][0].ToStrObjEmptString().Trim();
                     var _BelgeTurKodu = tables.Rows[i][1].ToStrObjEmptString().Trim();
@@ -294,7 +294,7 @@ namespace WebApp.Models
                 Application excel = new Application();
                 var path = System.Web.HttpContext.Current.Server.MapPath("~" + model.DosyaYolu);
                 Workbook workbook = excel.Workbooks.Open(path, ReadOnly: false, Editable: true);
-                
+
                 var MaxRowNum = model.Data.Max(s => s.SatirNo);
                 int SNo = 0;
                 foreach (var itemRow in model.Data)
@@ -371,14 +371,14 @@ namespace WebApp.Models
                 worksheet1.Columns.AutoFit();
                 excel.Application.ActiveWorkbook.Save();
                 try
-                { 
+                {
                     workbook.Close();
                     excel.Application.ActiveWorkbook.Close();
                 }
                 catch (Exception)
-                { 
+                {
                 }
-             
+
                 excel.Application.Quit();
                 excel.Quit();
                 //if (File.Exists(path))
@@ -477,7 +477,7 @@ namespace WebApp.Models
 
             return Model;
         }
-      
+
         public static ExcelImportYevmiyeDataModel ToYevmiyeIterateRows(this HttpPostedFileBase item, int Yil)
         {
 
@@ -550,7 +550,7 @@ namespace WebApp.Models
                     var _HesapKod = tables.Rows[i][4].ToStrObjEmptString().Trim();
                     var _HesapAdi = tables.Rows[i][5].ToStrObjEmptString().Trim();
                     var _Borc = tables.Rows[i][6].ToDecimalObj();
-                    var _Alacak = tables.Rows[i][7].ToDecimalObj();
+                    var _Alacak = tables.Rows[i][7].ToDecimalObj();  
                     var _Aciklama = tables.Rows[i][8].ToStrObjEmptString().Trim();
 
 
@@ -584,7 +584,7 @@ namespace WebApp.Models
             {
             }
 
-           
+
             return Model;
         }
 
@@ -646,8 +646,8 @@ namespace WebApp.Models
             }
             return excpt;
         }
-      
-         
+
+
     }
 
 

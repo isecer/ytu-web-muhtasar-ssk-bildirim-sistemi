@@ -1804,9 +1804,9 @@ namespace WebApp.Controllers
                         kModel.TevkifatOranBolunen = YevmiyeKdvKodlari.TevkifatOranBolunen.Value;
 
                     }
-
-                    kModel.KdvTutari = (kModel.Matrah * kModel.KdvOrani) / 100;
-                    kModel.TevkifatTutari = kModel.KdvTutari * ((decimal)kModel.TevkifatOranBolunen / (decimal)kModel.TevkifatOranBolen);
+                    kModel.Matrah=kModel.Matrah.ToString("n2").ToDecimal().Value;
+                    kModel.KdvTutari = ((kModel.Matrah * kModel.KdvOrani) / 100).ToString("n2").ToDecimal().Value; 
+                    kModel.TevkifatTutari = (kModel.KdvTutari * ((decimal)kModel.TevkifatOranBolunen / (decimal)kModel.TevkifatOranBolen)).ToString("n2").ToDecimal().Value; 
 
                     KayitliTevkifatToplam = (KayitliTevkifatToplam + kModel.TevkifatTutari).ToString("n2").ToDecimal().Value;
 

@@ -56,10 +56,7 @@ namespace WebApp.Controllers
                 var SecilenMesaj = db.Mesajlars.Where(p => p.GroupID == MesajGroupID).FirstOrDefault();
                 ViewBag.MesajGroupID = SecilenMesaj != null ? MesajGroupID : "";
             }
-            else ViewBag.MesajGroupID = "";
-
-           
-
+            else ViewBag.MesajGroupID = ""; 
             return View();
 
         }
