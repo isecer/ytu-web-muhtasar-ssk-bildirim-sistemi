@@ -1,0 +1,142 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyeBelgeKodlari
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Belge Kodları Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="110" field="BelgeKodu">Belge Kodu</th>
+                                <th class="sirala sorting" width="80" field="YuzdeOran">% Oran</th>
+                                <th class="sirala sorting" field="BelgeAdi">Belge Adı</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <input name="BelgeKodu" type="text" value="@Model.BelgeKodu" class="form-control" />
+                                </th>
+                                <th></th>
+                                <th>
+                                    <input name="BelgeAdi" type="text" value="@Model.BelgeAdi" class="form-control" />
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>
+                                            @RowIndex
+                                        </td>
+                                        <td id="tdBk_@item.YevmiyeBelgeKodID">
+                                            @item.BelgeKodu
+                                        </td>
+                                        <td id="tdMpy_@item.YevmiyeBelgeKodID">
+                                            % @item.YuzdeOran
+                                        </td>
+                                        <td id="tdBa_@item.YevmiyeBelgeKodID">
+                                            @item.BelgeAdi
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YevmiyeBelgeKodlari", new { id = item.YevmiyeBelgeKodID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeBelgeKodID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var BelgeKodu = $("#tdBk_" + id).html();
+        var BelgeAdi = $("#tdBa_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (BelgeKodu + ' - ' + BelgeAdi)+"</td></tr>"+ 
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Belge Kodunu Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Belge Kodu Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Belge Kodunu Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeBelgeKodlari")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Belge Kodu Silme İşlemi");
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+
+    
+    
+</script>

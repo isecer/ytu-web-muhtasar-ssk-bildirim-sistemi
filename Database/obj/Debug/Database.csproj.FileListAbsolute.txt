@@ -1337,8 +1337,8 @@ C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.Razor.
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.xml
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.Deployment.xml
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Debug\System.Web.WebPages.Razor.xml
-C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csprojAssemblyReference.cache
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csproj.CopyComplete
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.dll
 C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.pdb
+C:\Users\User\Source\Repos\isecer\Ytu_Mussk\Database\obj\Debug\Database.csproj.AssemblyReference.cache

@@ -1,0 +1,82 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FrSurecIslemleri
+@{
+    Layout = null;
+}
+
+<div class="panel" id="PnlMadde_@Model.VASurecID" style="margin:0px;">
+    <div class="panel-heading padding-0" style="padding:0px;margin:0px;">
+        <h3 class="panel-title">
+            <i class="fa fa-list-alt"></i> Sürece Ait Aylar
+        </h3> 
+    </div>
+    <div class="panel" style="margin: 0px; padding: 0px;">
+        <div class="panel-body" style="margin: 0px; padding: 0px;">
+            <div class="col-md-12" style="height:410px;">
+                <table class="table" style="margin-bottom:0px;">
+                    <thead>
+                        <tr>
+                            <th height="40" width="75"></th> 
+                            <th style="font-size:10pt;">Ay Adı</th>
+                            <th style="font-size:10pt;" width="300">Durum</th> 
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" style="padding:0px;">
+                                <div class="scrolkikko" style="max-height:365px;overflow:auto;">
+                                    <table class="table table-hover" style="width:100%;table-layout:fixed;" id="Filter_Table_M_@Model.VASurecID">
+                                        @{
+                                            int RowIndex = 0;
+                                            foreach (var item in Model.AyData)
+                                            {
+                                                RowIndex++;
+                                                var rowGD = "M-" + Model.VASurecID + "-" + item.AyID;
+                                                var MtID = Guid.NewGuid().ToString();
+
+                                                <tr class="MainRow">
+                                                    <td width="75">
+                                                        <table>
+                                                            <tr>
+                                                                <td style="width:30px;">@RowIndex</td> 
+                                                            </tr>
+                                                        </table>
+                                                    </td>
+                                                    <td>
+                                                        @item.Aylar.AyAdi
+                                                    </td>
+                                                    <td width="300">
+
+                                                        @Html.DropDownList("AyDurumID",Model.SListAyDurum, new {@class= "form-control", style = "margin:0px;float:left;", id = "AyDurumID_" + MtID, OnChange = "AyDurumuGuncelle(this," + item.VASurecleriAyID + ");" })
+
+                                                        <script>
+                                                        $(function () {
+                                                            setTimeout(function () {
+                                                                $('#AyDurumID_' + '@MtID').val(@item.AyDurumID);
+                                                            }, 100);
+                                                        });
+                                                        </script>
+                                                    </td> 
+                                                </tr> 
+                                            }
+                                        }
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+
+    //$(function () {
+    //    $('.scrolkikko').slimScroll({
+    //        color: 'red',
+    //        height: '565px'
+    //    });
+    //})
+</script>

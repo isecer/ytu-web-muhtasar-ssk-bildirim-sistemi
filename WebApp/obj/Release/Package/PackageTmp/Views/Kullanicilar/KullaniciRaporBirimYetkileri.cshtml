@@ -1,0 +1,189 @@
+﻿@using BiskaUtil
+@using Database
+@using WebApp.Models;
+@model IEnumerable<Birimler>
+@{
+                /**/
+
+                Layout = "~/Views/Shared/_Layout.cshtml";
+
+                var user = (Kullanicilar)ViewBag.Kullanici;
+                var YetkiliBirimleri = (List<KullaniciBirimleriRapor>)ViewBag.YetkiliBirimleri;
+                var allchecked = (YetkiliBirimleri.Count == Model.Where(p => p.IsVeriGirisiYapilabilir).Count());
+                var kullaniciKayit = RoleNames.KullaniciKayit.InRole();
+}
+
+
+
+<div class="row">
+
+    <form method="post" id="kulSbmtFrm" class="form-horizontal" role="form">
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default">
+                <div class="portlet-title">
+                    <div class="panel-heading padding-0">
+                        <h3 class="panel-title"><i class="fa fa-home"></i>İşçi İşlemleri Rapor Birim Yetkileri: @user.Ad @user.Soyad [@user.KullaniciAdi] </h3>
+
+                        <ul class="panel-controls">
+                            <li>
+                                Tümü:<div class="make-switch switch-small" data-on-label="Evet" data-off-label="Hayır" style="z-index:0">
+                                    <input type="checkbox" value="true" id="tmunusec" onchange="tumunusec(this)" class="toggle" @allchecked.ToChecked() />
+                                </div>
+                            </li>
+                            @if (kullaniciKayit)
+                            {
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Kayit", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-user"></i> Kullanıcı</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Yetkilendirme", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Erişim Yetkileri</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Birim Yetkileri</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciYevmiyeHesapKodTurYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Yevmiye Hesap Tür Kod Yetkileri</span></li>
+                            }
+
+
+                            <li><a href="@Url.Action("KullaniciRaporBirimYetkileri","Kullanicilar",new {id= user.KullaniciID })" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body form">
+                    <input type="hidden" name="KullaniciID" value="@user.KullaniciID" />
+
+                    <table class="table" style="width:100%;table-layout:fixed;">
+                        <thead>
+                            <tr>
+                                <th>Birim Adı</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td>
+                                                <div style="width: 100%;" class="checkbox pull-left">
+                                                    <label style="width: 100%;">
+                                                        <input style="color: red; width: 100%;" type="text" name="search" id="filterBInp" placeholder="ara..." class="form-control">
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Count() > 0)
+                            {
+                                <tr>
+                                    <td colspan="2">
+                                        <div style="overflow:auto;height:600px;">
+                                            <table id="prgList" style="table-layout:fixed;width:100%;">
+                                                @foreach (var item in Model)
+                                                {
+                                                    var YetkiVar = YetkiliBirimleri.Any(a => a.BirimID == item.BirimID);
+
+                                                    <tr class="_rows" @(YetkiVar ? "style=color:blue" : "")>
+                                                        <td>
+                                                            @if (item.IsVeriGirisiYapilabilir)
+                                                            {
+                                                                <div class="checkbox pull-left">
+                                                                    <label>
+                                                                        <input type="checkbox" class="icheckbox chkAll" name="BirimID" value="@item.BirimID" @YetkiVar.ToChecked()>
+                                                                        <span class="birimAdlari">@item.BirimAdi.Trim()  (@item.VeriGirisTipleri.VeriGirisTipAdi)</span>
+                                                                    </label>
+                                                                </div>
+                                                            }
+                                                            else
+                                                            {
+                                                                <label style="color:maroon;font-weight:bold;">
+                                                                    <span class="birimAdlari">@item.BirimAdi </span>
+                                                                </label>
+                                                            }
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            </table>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+                            <tr>
+                                <td id="filtreKelime" colspan="2"></td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                    <input type="hidden" id="YetkilendirmeyeGit" name="YetkilendirmeyeGit" value="false" />
+                    <a href="javascript:void(0);" class="btn btn-default pull-right prslnAHarci" onclick="$('#YetkilendirmeyeGit').val('true'); $('#kulSbmtFrm').submit();"><i class="fa fa-save">&nbsp</i>Kaydet ve Erişim Yetkilerine Git</a>
+
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+<script type="text/javascript">
+
+    function tumunusec(sndr) {
+        var chkD = $(sndr).prop("checked");
+        $('.chkAll').each(function (inx, itmx) {
+            if ($(itmx).parents('._rows').first().css('display') != "none") {
+                if (chkD) { $(itmx).parent().addClass("checked"); }
+                else { $(itmx).parent().removeClass("checked"); }
+                $(itmx).prop("checked", chkD);
+            }
+        });
+    }
+    function Filtrele() {
+        var filtreval = $('#filterBInp').val().replace('İ', 'i').toLowerCase();
+        var $fltrRow = $('._rows');
+
+        if (filtreval != null && filtreval != "") {
+            var toplam = $('._rows').length;
+            $('#prgList').find('tr').each(function (inx, trx) {
+                var _birimdi = $(trx).find(".birimAdlari").first().text();
+                var clmValBol = _birimdi.replace('İ', 'i').toLowerCase();
+                //var ipS = $(trx).find('.ipS').first().text().toLowerCase();
+                var AShow = clmValBol.indexOf(filtreval) > -1;
+                // var IShow = ipS.indexOf(filtreval) > -1;
+                if (AShow) {
+                    $(trx).removeClass("hide");
+                }
+                else {
+                    $(trx).addClass("hide");
+                }
+
+            })
+            var Gizli = $('._rows.hide').length;
+            var gosterilen = toplam - Gizli;
+            $('#filtreKelime').html("[Ara:  %<span style='color:red;'>" + filtreval + "</span>%] [Bulunan: <span style='color:red;'>" + gosterilen + "</span>]");
+
+        }
+        else {
+            $fltrRow.removeClass("hide");
+            $('#filtreKelime').html("");
+
+        }
+    }
+    $('#filterBInp').bind("keydown", function (event) {
+        if (event.keyCode == 13) {
+            Filtrele();
+            event.preventDefault();
+        }
+    });
+</script>
+
+
+
+

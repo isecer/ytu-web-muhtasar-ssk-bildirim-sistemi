@@ -23,7 +23,7 @@ namespace WebApp.Controllers
         private MusskDBEntities db = new MusskDBEntities();
         public ActionResult Index()
         {
-            var fModel = new FmYevmiyeler { PageSize = 50 };
+            var fModel = new FmYevmiyeler { PageSize = 15 };
             var BirimID = UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler];
             var Yil = UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler];
             fModel.Expand = Yil.HasValue || BirimID.HasValue;
@@ -92,7 +92,7 @@ namespace WebApp.Controllers
                          IsSendikaBilgisiDegisti = sn != null ? s.YevmiyeSendikaBilgiID.HasValue && s.YevmiyelerSendikaBilgileri.HesapKod != s.HesapKod : (bool?)null,
                          IsBesBilgisiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
                          IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
-                     }).AsQueryable();
+                     }).AsQueryable(); 
             if (HesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
             {
                 var IsBankaYetkiVar = HesapKodTurYetkis.Any(a => a == HesapKoduTuru.BankaIslemleriHesapKodlari);

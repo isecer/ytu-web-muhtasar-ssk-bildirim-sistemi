@@ -2436,6 +2436,7 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
           <EntitySet Name="YevmiyelerTasinirKontrolTifKaydis" EntityType="MusskDBModel.YevmiyelerTasinirKontrolTifKaydi" />
           <EntitySet Name="YevmiyelerVergiKimlikNumaralaris" EntityType="MusskDBModel.YevmiyelerVergiKimlikNumaralari" />
           <EntitySet Name="KullanicilarLogs" EntityType="MusskDBModel.KullanicilarLog" />
+          <EntitySet Name="Vw_BirimlerTree" EntityType="MusskDBModel.Vw_BirimlerTree" />
           <AssociationSet Name="FK_Ayarlar_Kullanicilar" Association="MusskDBModel.FK_Ayarlar_Kullanicilar">
             <End Role="Kullanicilar" EntitySet="Kullanicilars" />
             <End Role="Ayarlar" EntitySet="Ayarlars" />
@@ -2760,7 +2761,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
             <End Role="Menuler" EntitySet="Menulers" />
             <End Role="Roller" EntitySet="Rollers" />
           </AssociationSet>
-          <EntitySet Name="Vw_BirimlerTree" EntityType="MusskDBModel.Vw_BirimlerTree" />
           </EntityContainer>
         <ComplexType Name="sp_BirimAgaci_Result">
           <Property Type="Int32" Name="BirimID" Nullable="true" />
@@ -3782,6 +3782,37 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
           <Property Name="IslemTarihi" Type="DateTime" Precision="0" />
           <Property Name="IslemYapanIP" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Vw_BirimlerTree">
+          <Key>
+            <PropertyRef Name="BirimID" />
+            <PropertyRef Name="BirimAdi" />
+            <PropertyRef Name="IsVeriGirisiYapilabilir" />
+            <PropertyRef Name="IsAyAsiriHesaplama" />
+            <PropertyRef Name="IsAktif" />
+            <PropertyRef Name="IslemTarihi" />
+            <PropertyRef Name="IslemYapanID" />
+            <PropertyRef Name="IslemYapanIP" />
+          </Key>
+          <Property Name="BirimTreeAdi" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="BirimID" Type="Int32" Nullable="false" />
+          <Property Name="UstBirimID" Type="Int32" />
+          <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
+          <Property Name="VeriGirisTipID" Type="Int32" />
+          <Property Name="VeriGirisTipAdi" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="YeniUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="EskiUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="IsyeriSiraNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="IlKodu" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+          <Property Name="AltIsverenNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="IsAyAsiriHesaplama" Type="Boolean" Nullable="false" />
+          <Property Name="AyBaslangicGun" Type="Int32" />
+          <Property Name="GelecekAyBitisGun" Type="Int32" />
+          <Property Name="IsAktif" Type="Boolean" Nullable="false" />
+          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
+          <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
         <Association Name="FK_Ayarlar_Kullanicilar">
           <End Type="MusskDBModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
           <End Type="MusskDBModel.Ayarlar" Role="Ayarlar" Multiplicity="*" />
@@ -4770,37 +4801,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
           <End Type="MusskDBModel.Menuler" Role="Menuler" Multiplicity="*" />
           <End Type="MusskDBModel.Roller" Role="Roller" Multiplicity="*" />
         </Association>
-        <EntityType Name="Vw_BirimlerTree">
-          <Key>
-            <PropertyRef Name="BirimID" />
-            <PropertyRef Name="BirimAdi" />
-            <PropertyRef Name="IsVeriGirisiYapilabilir" />
-            <PropertyRef Name="IsAyAsiriHesaplama" />
-            <PropertyRef Name="IsAktif" />
-            <PropertyRef Name="IslemTarihi" />
-            <PropertyRef Name="IslemYapanID" />
-            <PropertyRef Name="IslemYapanIP" />
-          </Key>
-          <Property Name="BirimTreeAdi" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
-          <Property Name="BirimID" Type="Int32" Nullable="false" />
-          <Property Name="UstBirimID" Type="Int32" />
-          <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="IsVeriGirisiYapilabilir" Type="Boolean" Nullable="false" />
-          <Property Name="VeriGirisTipID" Type="Int32" />
-          <Property Name="VeriGirisTipAdi" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="YeniUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="EskiUniteKodu" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="IsyeriSiraNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="IlKodu" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
-          <Property Name="AltIsverenNumarasi" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
-          <Property Name="IsAyAsiriHesaplama" Type="Boolean" Nullable="false" />
-          <Property Name="AyBaslangicGun" Type="Int32" />
-          <Property Name="GelecekAyBitisGun" Type="Int32" />
-          <Property Name="IsAktif" Type="Boolean" Nullable="false" />
-          <Property Name="IslemTarihi" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IslemYapanID" Type="Int32" Nullable="false" />
-          <Property Name="IslemYapanIP" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -5709,22 +5709,6 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="KullaniciRolleri" TypeName="MusskDBModel.KullaniciRolleri" StoreEntitySet="KullaniciRolleri">
-            <EndProperty Name="Roller">
-              <ScalarProperty Name="RolID" ColumnName="RolID" />
-            </EndProperty>
-            <EndProperty Name="Kullanicilar">
-              <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
-            </EndProperty>
-          </AssociationSetMapping>
-          <AssociationSetMapping Name="MenuRollleri" TypeName="MusskDBModel.MenuRollleri" StoreEntitySet="MenuRollleri">
-            <EndProperty Name="Roller">
-              <ScalarProperty Name="RolID" ColumnName="RolID" />
-            </EndProperty>
-            <EndProperty Name="Menuler">
-              <ScalarProperty Name="MenuID" ColumnName="MenuID" />
-            </EndProperty>
-          </AssociationSetMapping>
           <EntitySetMapping Name="Vw_BirimlerTree">
             <EntityTypeMapping TypeName="MusskDBModel.Vw_BirimlerTree">
               <MappingFragment StoreEntitySet="Vw_BirimlerTree">
@@ -5750,6 +5734,22 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="KullaniciRolleri" TypeName="MusskDBModel.KullaniciRolleri" StoreEntitySet="KullaniciRolleri">
+            <EndProperty Name="Roller">
+              <ScalarProperty Name="RolID" ColumnName="RolID" />
+            </EndProperty>
+            <EndProperty Name="Kullanicilar">
+              <ScalarProperty Name="KullaniciID" ColumnName="KullaniciID" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="MenuRollleri" TypeName="MusskDBModel.MenuRollleri" StoreEntitySet="MenuRollleri">
+            <EndProperty Name="Roller">
+              <ScalarProperty Name="RolID" ColumnName="RolID" />
+            </EndProperty>
+            <EndProperty Name="Menuler">
+              <ScalarProperty Name="MenuID" ColumnName="MenuID" />
+            </EndProperty>
+          </AssociationSetMapping>
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

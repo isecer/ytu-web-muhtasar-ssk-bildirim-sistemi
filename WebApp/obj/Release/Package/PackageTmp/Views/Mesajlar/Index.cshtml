@@ -1,0 +1,327 @@
+﻿@using BiskaUtil
+@using WebApp.Models
+@model FmMesajlar
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "Mesajlar", FormMethod.Post, new { id = "frmMesajlar" }))
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-info @(Model.Expand?"":"panel-toggled")" id="pnlFltr">
+                <input class="hide" name="Expand" value="@Model.Expand.ToString().ToLower()" id="Expand" />
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title">
+                        <i class="glyphicon glyphicon-filter"></i> Filtre İşlemi
+                    </h3>
+                    <ul class="panel-controls">
+                        <li><a href="javasctipr:void(0)" onclick="$('#Expand').val(($('#pnlFltr').hasClass('panel-toggled') ? 'true' :'false' )); " class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover" style="table-layout:fixed;">
+                        <tr>
+                            <td>
+                                <table style="width:100%;table-layout:fixed;">
+                                    <tr>
+                                        <td width="120">Mesaj Kategorisi</td>
+                                        <td>@Html.DropDownList("MesajKategoriID", null, new { @class = "form-control", onchange = "$('#frmMesajlar').submit();" })</td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td style="padding-left:10px;">
+                                <table style="width:100%;table-layout:fixed;">
+                                    <tr>
+                                        <td width="120">Durum</td>
+                                        <td>@Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmMesajlar').submit();" })</td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="padding-left:10px;">
+                                <table style="width:100%;table-layout:fixed;">
+                                    <tr>
+                                        <td width="120">Aranacak Kelime</td>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td><input name="AdSoyad" id="AdSoyad" type="text" onkeypress="if (event.which == 13) { $('#frmMesajlar').submit(); }" value="@Model.AdSoyad" class="form-control" /></td>
+                                                    <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmMesajlar').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
+                                                </tr>
+                                            </table>
+                                            @if (Model.AdSoyad.IsNullOrEmpty() == false)
+                                            {
+                                                <script>
+                                                    $(function () {
+                                                        SetCaretAtEnd(document.getElementById('AdSoyad'));
+                                                    });
+
+                                                </script>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <table style="table-layout:fixed;width:100%;">
+                        <tr>
+                            <td><h3 class="panel-title"><i class="fa fa-envelope"></i>&nbsp; Gelen Mesaj Listesi</h3></td>
+                            <td width="380px;">
+                                <ul class="panel-controls">
+                                    <li><span class="label label-info label-form">Toplam Konu: <b>@IndexModel.Toplam</b></span></li>
+                                    <li><span class="label label-success label-form">Kapalı Konu: <b>@IndexModel.Aktif</b></span></li>
+                                    <li><span class="label label-warning label-form">Açık Konu: <b>@IndexModel.Pasif</b></span></li>
+                                    <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+
+                </div>
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <table class="table table-hover" style="margin-bottom:0px;">
+                        <thead>
+                            <tr>
+                                <th width="75"></th>
+                                <th class="sirala sorting" width="280" field="AdSoyad"> Mesaj Gönderen</th>
+                                <th class="sirala sorting" field="KategoriAdi">Kategori/Konu</th>
+                                <th width="110" class="sirala sorting" field="Tarih">Tarih/IP</th>
+                                <th width="60" class="sirala sorting" field="IsAktif">Durum</th>
+                                <th width="20" style="padding-left: 0px; padding-right: 0px;"></th>
+
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr>
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width:30px;">@RowIndex</td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_@item.MesajID" onclick="ShowDetail(@item.MesajID)">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            @if (item.Kullanici != null)
+                                            {
+                                                <table>
+                                                    <tr>
+                                                        <td title="Kullanici Bilgisini Gör">
+                                                            <span class="user" style="width: 55px; height: 55px; margin-right: 5px;">
+                                                                <img style="width: 55px; height: 55px;cursor:pointer;margin:0px;" onclick="detayGor(@item.Kullanici.KullaniciID,'#kulPnl')" src="@item.Kullanici.ResimAdi.ToKullaniciResim()">
+                                                            </span>
+                                                        </td>
+                                                        <td title="@item.BirimAdi">
+                                                            <a href="javascript:void(0)" title="Cevapla" onclick="senMx('@(item.KullaniciID.ToString())',@item.MesajID,@item.MesajID)"><i class="fa fa-mail-reply fa-2x"></i></a>
+                                                            <span>
+                                                                @item.Kullanici.Ad @item.Kullanici.Soyad<br>
+                                                                <span style="font-size: 8pt; color: gray;">Mail: @item.Kullanici.EMail</span>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                            else
+                                            {
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="user" style="width: 55px; height: 55px; margin-right: 5px;">
+                                                                <img style="width: 55px; height: 55px;margin:0px;" src="@("".ToKullaniciResim())">
+                                                            </span>
+                                                        </td>
+                                                        <td title="@item.BirimAdi">
+                                                            <a href="javascript:void(0)" title="Cevapla" onclick="senMx('@(item.Email)',@item.MesajID,@item.MesajID)"><i class="fa fa-mail-reply fa-2x"></i></a>
+                                                            <span>
+                                                                @item.AdSoyad<br>
+                                                                <span style="font-size: 8pt; color: gray;"><b>Mail:</b> @item.Email</span><br>
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            }
+                                            <input type="text" id="konu_@item.MesajID" value="@item.Konu" style="display:none;" />
+
+                                        </td>
+
+                                        <td>
+                                            <b>Kategori:</b> @item.KategoriAdi <br />
+                                            <b>Konu:</b> @(item.Konu.Length > 70 ? item.Konu.Substring(0, 69) + "..." : item.Konu)
+                                        </td>
+                                        <td>
+                                            <b>@item.Tarih.ToFormatDateAndTime()</b>
+                                            @(item.IslemYapanIP)
+                                        </td>
+                                        <td style="text-align:center;">
+                                            <input style="width:18px;height:18px;cursor:pointer;" type="checkbox" @item.IsAktif.ToChecked() onchange="dKayit(this,@item.MesajID)" id="msjCvpDurum_@item.MesajID" />
+                                        </td>
+                                        <td style="vertical-align: middle; padding-left: 0px; padding-right: 0px;">
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.MesajID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="cls-@item.MesajID hide">
+                                        <td colspan="7" style="padding: 1px 1px 2px 75px;">
+                                            <div style="max-height:550px;overflow:auto;">
+                                                <div id="cls-@item.MesajID" class="panel panel-default">
+                                                    <div class="panel-body" style="padding: 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" style="text-align: center">
+                                        [ Listelenen Kayıt Yok ]
+
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+
+    function senMx(id, mID, subMdid) {
+        var _konu = $('#konu_' + mID).val();
+        var msjChkID = $('#msjCvpDurum_' + mID);
+        //var _AciklamaHtml = $('#AciklamaHtml_' + subMdid).val();
+        mGonder(id, _konu, '', subMdid, mID);
+
+    }
+    function getMDetay(id,_Konu) {
+        $('#msjCvpDurum_' + id).prop('checked', true);
+        toastr["success"]("'" + _Konu + "' Konulu Mesaj durumu Kapalı olarak İşaretlendi", "Mesaj Durum Güncelleme İşlemi");
+       GetMails(id);
+    }
+    function ShowDetail(id) {
+        var sndr = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(sndr, cls, unTogled);
+        if (unTogled) GetMails(id);
+
+    }
+    function ShowDetail2(id) {
+        var rwID = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        toggleByClass(rwID, cls, unTogled);
+        //if (unTogled) setTimeout(function () { GetDetail(dbdID, klID); }, 200);
+    }
+    function SilmeOnay(sndr, id) {
+        var htmlCont = $("#cls-" + id).html();
+        var eks = $("#tdEk_" + id).html();
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçtiğiniz mesaj ile birlikte bu mesaja cevap yazılan tüm mail bilgileri silinecek! <br/>Seçilen Mesajı Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: htmlCont + SoruHtml,
+            title: "Mesaj Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Mesaj Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function dKayit(sndr, id) {
+
+        var sndrVal = $(sndr).is(':checked');
+
+        $.ajax({
+            url: '@Url.Action("DurumKayit", "Mesajlar")',
+            data: { id: id, IsAktif: sndrVal },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Mesaj Durum Güncelleme İşlemi");
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+    function GetMails(id) {
+        var pnlx = $("#cls-" + id);
+        _pRefresh(pnlx, false);
+        $.ajax({
+            url: '@Url.Action("getMesajDetay", "Mesajlar")',
+            data: { 'MesajID': id},
+            success: function (result) {
+                var _nme = 'cls-' + id;
+                insertHtml(_nme, result);
+                _pRefresh(pnlx, true);
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+                _pRefresh(pnlx, true);
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "Mesajlar")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Mesaj Silme İşlemi");
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    $(".cls-" + id).remove();
+                }
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

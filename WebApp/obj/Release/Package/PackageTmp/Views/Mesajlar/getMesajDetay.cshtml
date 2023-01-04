@@ -1,0 +1,109 @@
+﻿@using WebApp.Models
+@model FrMesajlar
+@{
+    Layout = null;
+
+}
+
+<table class="table table-hover" style="margin-bottom:0px;">
+    @*<thead>
+            <tr>
+                <th height="40" width="35"></th>
+                <th width="40"></th>
+                <th width="20"></th>
+                <th style="font-size:10pt;">Gönderen</th>
+                <th width="120"></th>
+                <th width="120">Tarih</th>
+            </tr>
+        </thead>*@
+    <tbody>
+        @{
+            int inxX = Model.SubMesajList.Count + 1;
+            bool openRow = true;
+            foreach (var itemx in Model.SubMesajList)
+            {
+                bool IsGenelMesaj = itemx.Gonderilenler.Count == 0;
+                var rowCls = itemx.Gonderilenler.Count > 0 ? "success" : "warning";
+                var gd = Guid.NewGuid().ToString();
+                inxX--;
+                <tr class="MainRow @rowCls">
+                    <td width="35">
+                        <ul class="panel-controls">
+                            <li id="iShow_@gd" onclick="ShowDetail2('@gd')">
+                                <a href="javascript:void(0)"><span class="fa fa-angle-@(openRow?"down":"up")"></span> </a>
+                            </li>
+                        </ul>
+                    </td>
+                    <td width="40">
+                        <span class="user" style="width: 35px; height: 35px; margin-right: 5px;">
+                            @if (itemx.KullaniciID > 0)
+                            {
+                                <img style="width: 35px; height: 35px;margin:0px;cursor:pointer;"  title="Kullanici Bilgisini Gör" src="@(itemx.ResimYolu.ToKullaniciResim())" onclick="detayGor(@itemx.KullaniciID,'#kulPnl')">
+                            }
+                            else
+                            {
+                                <img style="width: 35px; height: 35px;margin:0px;" src="@(itemx.ResimYolu.ToKullaniciResim())">
+
+                            }
+                        </span>
+                    </td>
+                    <td width="20">
+                        @if (IsGenelMesaj)
+                        {
+                            <a href="javascript:void(0)" title="Cevapla" onclick="senMx('@(itemx.KullaniciID > 0 ? itemx.KullaniciID.ToString() : itemx.EMail)',@Model.MesajID,@itemx.MesajID)"><i class="fa fa-mail-reply fa-2x"></i></a>
+                        }
+                    </td>
+                    <td>
+                        @itemx.AdSoyad
+                    </td>
+                    <td width="120">
+                        @(IsGenelMesaj ? "Gelen Mesaj": "Giden Mail" )
+                    </td>
+                    <td width="120">@itemx.Tarih.ToFormatDateAndTime()</td>
+
+                </tr>
+                <tr class="MainRow2 @(openRow?"":"hide") cls-@gd @rowCls">
+                    <td id="cls-@gd" colspan="6" style="padding: 1px 1px 2px 35px;">
+                        <input type="text" id="AciklamaHtml_@itemx.MesajID" value="@itemx.Icerik" style="display:none;" />
+                        <div class="panel" style="padding-top:0px;">
+                            <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;word-break:break-word;">
+                                @Html.Raw(itemx.Icerik)
+                            </div>
+                            <div class="panel-footer" style="padding-top:1px;padding-bottom:1px;"></div>
+                            @if (!IsGenelMesaj || itemx.Ekler.Count > 0)
+                            {
+                                <table class="table" style="padding:0px;margin:0px;">
+                                    @if (itemx.Gonderilenler.Count > 0)
+                                    {
+                                        <tr>
+                                            <td width="20"><img src="/Images/User-green.png" style="height:16px;"></td>
+                                            <td width="130">Gönderilen Kişiler</td>
+                                            <td width="5">:</td>
+                                            <td>@string.Join(", ", itemx.Gonderilenler.Select(s => s.Email))</td>
+                                        </tr>
+                                    }
+                                    @if (itemx.Ekler.Count > 0)
+                                    {
+                                        <tr>
+                                            <td width="20"><img src="@Url.Content("/Images/Attachment.png")" style="height:16px;"></td>
+                                            <td width="130">@(IsGenelMesaj ? "Gelen Ekler" : "Gönderilen Ekler")</td>
+                                            <td width="5">:</td>
+                                            <td>@Html.Raw(string.Join(", ", itemx.Ekler.Select(s => "<a href='" + s.EkDosyaYolu + "' target='_blank'><span class='fa fa-download' style='color: green;'></span>&nbsp;" + s.EkAdi + "</a>")))</td>
+                                        </tr>
+                                    }
+                                </table>
+
+
+
+                            }
+
+                        </div>
+
+                    </td>
+                </tr>
+                openRow = false;
+            }
+        }
+    </tbody>
+</table>
+

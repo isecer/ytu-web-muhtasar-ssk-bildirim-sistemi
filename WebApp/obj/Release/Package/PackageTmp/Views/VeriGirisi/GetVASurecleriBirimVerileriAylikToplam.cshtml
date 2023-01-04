@@ -1,0 +1,72 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FmVASurecleriBirimVerileriAylikToplam
+@{
+    Layout = null;
+    var KayitYetkisi = Model.IsAktif && RoleNames.VeriGirisiKayitYetkisi.InRole(); 
+}
+
+<table class="table table-hover table-bordered" style="table-layout:fixed;">
+    <thead>
+        <tr class="info">
+            <th width="150"></th>
+            <th style="font-size:10pt;text-align:right;">Agi Toplam</th>
+            <th style="font-size:10pt;text-align:right;">G.V. Matrah Toplam</th>
+            <th style="font-size:10pt;text-align:right;">G.V. Kesinti Toplam</th>
+            <th style="font-size:10pt;text-align:right;">Prim Tutarı Toplam</th>
+            <th width="120" style="font-size:10pt;text-align:center;">Kayıt Tarihi</th>
+            <th width="60"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int inx = 0;
+            foreach (var item in Model.Data.Where(p=>p.IsGirilenOrHesaplananToplam))
+            {
+                inx++;
+                <tr class="active">
+                    <td style="font-size:10pt;">@inx)</td>
+                    <td style="font-size:10pt;text-align:right;" id="AG_@item.VASurecleriBirimVerileriAylikToplamID">@item.AsgariGecimIndirimiToplam.ToString("n2") TL</td>
+                    <td style="font-size:10pt;text-align:right;" id="GVM_@item.VASurecleriBirimVerileriAylikToplamID">@item.GvMatrahiToplam.ToString("n2") TL</td>
+                    <td style="font-size:10pt;text-align:right;" id="GVK_@item.VASurecleriBirimVerileriAylikToplamID">@item.GvKesintiToplam.ToString("n2") TL</td>
+                    <td style="font-size:10pt;text-align:right;" id="PT_@item.VASurecleriBirimVerileriAylikToplamID">@item.PrimTutarToplam.ToString("n2") TL</td>
+                    <td style="text-align:center;" id="KT_@item.VASurecleriBirimVerileriAylikToplamID">@DateTime.Now.ToFormatDateAndTime()</td>
+                    <td style="text-align:center;">
+                        @if (KayitYetkisi)
+                        {
+                        <a href="javascript:void(0)" onclick="VeriGirisi(@item.VASurecleriBirimVerileriAylikToplamID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                        <a href="javascript:void(0)" onclick="VGSilmeOnay(this,@item.VASurecleriBirimVerileriAylikToplamID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+        }
+       
+
+    </tbody>
+    <tfoot>
+        <tr class="warning">
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">Girilen Veri Toplam</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam).Sum(s => s.AsgariGecimIndirimiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam).Sum(s => s.GvMatrahiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam).Sum(s => s.GvKesintiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam).Sum(s => s.PrimTutarToplam).ToString("n2") TL</td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr class="success">
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">Yüklenen Veri Toplam</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam == false).Sum(s => s.AsgariGecimIndirimiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam == false).Sum(s => s.GvMatrahiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam == false).Sum(s => s.GvKesintiToplam).ToString("n2") TL</td>
+            <td style="font-size:10pt;text-align:right; font-weight:bold;">@Model.Data.Where(p => p.IsGirilenOrHesaplananToplam == false).Sum(s => s.PrimTutarToplam).ToString("n2") TL</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tfoot>
+
+</table>
+
+
+
+

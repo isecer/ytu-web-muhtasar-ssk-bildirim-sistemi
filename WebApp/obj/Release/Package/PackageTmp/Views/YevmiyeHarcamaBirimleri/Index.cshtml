@@ -1,0 +1,170 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyelerHarcamaBirimleri
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> Harcama Birimleri Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="110" field="VergiKimlikNo">Vergi Kimlik No</th>
+                                <th class="sirala sorting" field="BirimAdi">Birim Adı</th>
+                                <th class="sirala sorting" width="200" field="IsUniversiteIsyeri">Üniversite İşyeri Mi</th>
+                                <th class="sirala sorting" field="IsyeriKodu">İş Yeri Kodu</th>
+                                <th class="sirala sorting" field="SaymanlikKodu">Saymanlık Kodu</th>
+                                <th class="sirala sorting" field="IsAltBirim">Alt Birim Mi</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <input name="VergiKimlikNo" type="text" value="@Model.VergiKimlikNo" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="BirimAdi" type="text" value="@Model.BirimAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <select name="IsUniversiteIsyeri" class="form-control">
+                                        <option></option>
+                                        <option value="true" @Model.IsUniversiteIsyeri.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsUniversiteIsyeri == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <input name="IsyeriKodu" type="text" value="@Model.IsyeriKodu" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="IsyeriKodu" type="text" value="@Model.SaymanlikKod" class="form-control" />
+                                </th>
+                                <th>
+                                    <select name="IsAltBirim" class="form-control">
+                                        <option></option>
+                                        <option value="true" @Model.IsAltBirim.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsAltBirim == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                            <tr class="@trCls">
+                                <td>@RowIndex</td>
+                                <td id="tdVkn_@item.YevmiyeHarcamaBirimID">
+                                    @item.VergiKimlikNo
+                                </td>
+                                <td id="tdBa_@item.YevmiyeHarcamaBirimID">
+                                    @item.BirimAdi
+                                </td>
+                                <td>
+                                    @item.IsUniversiteIsyeri.ToEvetHayir()
+                                </td>
+                                <td>
+                                    @item.IsyeriKodu
+                                </td>
+                                <td>
+                                    @item.SaymanlikKod
+                                </td>
+                                <td>
+                                    @item.IsAltBirim.ToEvetHayir()
+                                </td>
+                                <td>
+
+                                    <a href="@Url.Action("Kayit", "YevmiyeHarcamaBirimleri", new { id = item.YevmiyeHarcamaBirimID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                    <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHarcamaBirimID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+
+                                </td>
+                            </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var Vkn = $("#tdVkn_" + id).html();
+        var BirimAdi = $("#tdBa_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (Vkn + ' - ' + BirimAdi) + "</td></tr>" +
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Harcama Birimi Bilgisini Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message: SoruHtml,
+            title: "Harcama Birimi Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Harcama Birimini Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeHarcamaBirimleri")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Harcama Birimi Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

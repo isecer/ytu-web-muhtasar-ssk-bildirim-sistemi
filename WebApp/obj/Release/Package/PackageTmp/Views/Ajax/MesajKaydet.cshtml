@@ -1,0 +1,338 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@using Database
+@model Mesajlar
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = null;
+
+
+}
+
+<div class="row">
+    @using (Ajax.BeginForm("MesajKaydetPost", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "_Form" }))
+    {
+        @Html.Hidden("MesajID", Model.MesajID);
+        @Html.Hidden("GroupID", Model.GroupID);
+        <div class="panel panel-danger" style="padding-bottom: 0px;" id="pnlMailGonder">
+            <div class="panel-body" style="padding: 0px;">
+                <div class="panel panel-default form-horizontal" style="margin: 0px;">
+                    <div class="panel-body form-group-separated">
+
+                        @if (UserIdentity.Current.IsAuthenticated || Model.MesajID > 0)
+                        {
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Ad Soyad</label>
+                                <div class="col-md-10 col-xs-10">
+                                    @Model.AdSoyad
+                                    <input type="hidden" name="AdSoyad" id="AdSoyad" value="@Model.AdSoyad" class="form-control">
+                                </div>
+                            </div>
+
+                                <div class="form-group">
+                                    <label class="col-md-2 col-xs-2 control-label">Email</label>
+                                    <div class="col-md-10 col-xs-10">
+                                        @Model.Email
+                                        <input type="hidden" name="Email" id="Email" value="@Model.Email" class="form-control">
+                                    </div>
+                                </div>
+                        }
+                        else
+                        {
+
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Ad Soyad</label>
+                                <div class="col-md-10 col-xs-10">
+                                    <input type="text" name="AdSoyad" id="AdSoyad" value="@Model.AdSoyad" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Email</label>
+                                <div class="col-md-10 col-xs-10">
+                                    <input type="text" name="Email" id="Email" value="@Model.Email" class="form-control">
+                                </div>
+                            </div>
+                        }
+                        @if (Model.MesajID > 0)
+                        {
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Kategori</label>
+                                <div class="col-md-10 col-xs-10">
+                                    @Model.MesajKategorileri.KategoriAdi
+                                    @Html.Hidden("MesajKategoriID", Model.MesajKategoriID)
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Konu</label>
+                                <div class="col-md-10 col-xs-10">
+                                    @Model.Konu
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Kategori Seçiniz</label>
+                                <div class="col-md-10 col-xs-10">
+                                    @Html.DropDownList("MesajKategoriID", null, new { @class = "form-control", id = "mkID", onchange = "getKtNot(this)" })
+                                </div>
+                            </div>
+                            <div class="form-group hide" id="mkAck">
+                                <label class="col-md-2 col-xs-2 control-label">Kategori Açıklaması</label>
+                                <div class="col-md-10 col-xs-10" id="acklmT">
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 col-xs-2 control-label">Konu</label>
+                                <div class="col-md-10 col-xs-10">
+                                    <input type="text" name="Konu" id="Konu" value="@Model.Konu" class="form-control">
+                                </div>
+                            </div>
+                        }
+                        <div class="form-group">
+                            <div class="col-md-12 col-xs-12" style="padding: 0px;">
+                                <div>
+                                    <textarea style="height:100%;" id="AciklamaHtml" name="AciklamaHtml" class="form-control"></textarea>
+                                    <textarea style="display: none;" id="Aciklama" name="Aciklama"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 col-xs-12">
+                                <div>
+                                    <img src="~/Images/Attachment.png" style="height: 16px;" /><span> MesajEkleri:</span>
+                                    <table id="tableEk" class="table table-striped table-hover table-bordered" style="width: 100%; table-layout: fixed; margin: 0px; font-size: 8pt;">
+
+                                        <tr class="AnaRow">
+                                            <th style="width: 60px; padding: 0px;"></th>
+                                            <th style="padding: 0px;">Başlık</th>
+                                            <th style="padding: 0px;">Ek</th>
+                                            <th style="padding: 0px; width: 35px;"></th>
+                                        </tr>
+                                        @*@foreach (var item in Model.MesajEkleris.Select((s, inx) => new { s, inx }))
+                                            {
+                                                <tr class="Detay">
+                                                    <td style="padding: 0px; vertical-align: middle;" class="Sno">
+                                                        @(item.inx + 1))
+                                                    </td>
+                                                    <td style='padding: 0px;'>
+                                                        <input type="text" name="MesajEkiID" style="display: none;" value="@item.s.MesajEkiID" />
+                                                        <input type="text" name="EkAdi" style="padding: 0px; height: 22px; " value="@item.s.EkAdi" maxlength="250" placeholder="Ek Adı Giriniz" class="form-control" />
+                                                    </td>
+                                                    <td style='padding: 0px; vertical-align: middle;'>
+                                                        <a href="@item.s.EkDosyaYolu" target="_blank"><span class="fa fa-download" style="color: green;"></span>&nbsp;@item.s.EkAdi</a>
+                                                    </td>
+                                                    <td style='padding-top: 0px; padding-bottom: 0px; vertical-align: middle; text-align: center;'>
+                                                        <span style="cursor: pointer;" onclick="EkSil(this)" class="fa fa-trash-o" data-original-title="Eki Sil"></span>
+                                                    </td>
+                                                </tr>
+                                            }*@
+
+                                        <tr class="foterRow">
+                                            <td colspan="4" style="text-align: center;">
+                                                <a href="javascript:void(0)" onclick="yeniEkEkle()" class="btn btn-xs btn-success"><i class="fa fa-plus tooltips" data-style="blue" data-original-title="">Yeni Ek Ekle</i></a>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+<script src="~/Content/ckeditor/showCk.js"></script>
+@if (MmMessage.IsCloseDialog)
+{
+    <script>
+        setTimeout(function () { window.top.dialogKapat('@MmMessage.DialogID'); }, 2000);
+
+    </script>
+}
+
+<script>
+    setTimeout(getKtNot($('#mkID')),200);
+    function getMsjKategoris(sndr){
+        var _EnstituKod =$(sndr).val();
+        var _panel = $('#_Form').find('#pnlMailGonder');
+        _pRefresh(_panel, false);
+        $.ajax({
+            url: '@Url.Action("getMsjKategoris", "Ajax")',
+            data: { },
+            type: 'POST',
+            dataType: "json",
+            enctype: "multipart/form-data",
+            success: function (result) {
+                $('#_Form').find('#mkID').empty();
+                var opt = "";
+                for (var i = 0; i < result.length; i++) {
+                    var _val = "";
+                    var _text = "";
+                    if (result[i].Value != null) {
+                        _val = result[i].Value;
+                        _text = result[i].Caption;
+                    }
+                    opt += "<option value=" + _val + ">" + _text + "</option>"
+                }
+                $('#_Form').find('#mkID').append(opt);
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                alert(err.responseText);
+                _pRefresh(_panel, true);
+            }
+        });
+    }
+    function  getKtNot(sndr){
+        var _KategoriID =$(sndr).val();
+        var _panel = $('#pnlMailGonder');
+        _pRefresh(_panel, false);
+        if(_KategoriID=="" || _KategoriID==null){
+            _pRefresh(_panel, true);
+            $('#_Form').find('#acklmT').html("");
+            $('#_Form').find('#mkAck').addClass("hide");
+            return;
+        }
+        $.ajax({
+            url: '@Url.Action("getKtNot", "Ajax")',
+            data: { 'MesajKategoriID': _KategoriID},
+            type: 'POST',
+            dataType: "json",
+            success: function (result){
+                if(result.NotBilgisi!="" && result.NotBilgisi!=null){
+                    $('#_Form').find('#acklmT').html(result.NotBilgisi);
+                    $('#_Form').find('#mkAck').removeClass("hide");
+                }
+                else {
+                    $('#_Form').find('#acklmT').html("");
+                    $('#_Form').find('#mkAck').addClass("hide");
+                }
+                _pRefresh(_panel, true);
+            },
+            error: function (err) {
+                alert(err.responseText);
+                _pRefresh(_panel, true);
+            }
+        });
+    }
+    function yeniEkEkle() {
+        var row = "<tr class='Detay'>" +
+                       "<td class='Sno' style='padding:0px;padding-top:2px;'></td>" +
+                        "<td style='padding:0px;' ><input type='text' name='DuyuruDosyaEkID' style='display: none;'/><input type='text'name='DosyaEkiAdi' maxlength='250' style='height:24px;' placeholder='Baslik' class='form-control' /></td>" +
+                        "<td style='padding-top:0px;padding-bottom:0px;'><input type='file' name='DosyaEki'    style='height:24px;'/></td>" +
+                        "<td style='width:40px;padding-top:0px;padding-bottom:0px;'>" +
+                             "<a href='javascript:void(0)' onclick='EkSil(this)' class='btn btn-xs btn-danger'><i class='fa fa-trash-o tooltips' data-style='blue' data-original-title='Eki Sil'></i></a>" +
+                        "</td>" +
+                   "</tr>";
+
+        $(row).insertBefore('.foterRow');
+        SnoVer();
+    }
+    function EkSil(sndr) {
+        $(sndr).parents('tr').first().remove();
+        SnoVer();
+    }
+    function SnoVer() {
+        setTimeout(function () {
+            $('#_Form').find('#tableEk').find('.Detay').each(function (inx, itmx) {
+                var sNoTd = $(itmx).find('td').first().text((inx + 1) + ")");
+            })
+        }, 200);
+    }
+    function sbmtDosyaKontrol() {
+        var saveOk = true;
+        $('#_Form').find('#tableEk').find('.Detay').each(function (inx, itmx) {
+            var duyuruDosyaAdi = $(itmx).find('td').eq(1).find("input[name='DosyaEkiAdi']").first().val();
+            var duyuruDosyaEki = "";
+            if ($(itmx).find('td').eq(1).find("input").first() != null && $(itmx).find('td').eq(1).find("input").first() != "") {
+                duyuruDosyaEki = $(itmx).find('td').eq(2).find("input").first().val();
+            }
+
+            if (duyuruDosyaAdi == "") {
+                saveOk = false;
+                $(itmx).find('td').eq(1).first().pulsate({
+                    color: "#fdbe41",
+                    reach: 60,
+                    repeat: 14,
+                    speed: 300,
+                    glow: true
+                });
+            }
+            if (duyuruDosyaEki == "") {
+                saveOk = false;
+                $(itmx).find('td').eq(2).first().pulsate({
+                    color: "#fdbe41",
+                    reach: 60,
+                    repeat: 14,
+                    speed: 300,
+                    glow: true
+                });
+            }
+        });
+        if (@UserIdentity.Current.IsAuthenticated.ToString().ToLower()!="true") {
+            if ($('#_Form').find('#AdSoyad').val() == "") {
+                saveOk = false;
+                $('#_Form').find('#AdSoyad').parents('div').first().pulsate({
+                    color: "#fdbe41",
+                    reach: 60,
+                    repeat: 14,
+                    speed: 300,
+                    glow: true
+                });
+            }
+            if ($('#_Form').find('#Email').val() == "") {
+                saveOk = false;
+                $('#_Form').find('#Email').parents('div').first().pulsate({
+                    color: "#fdbe41",
+                    reach: 60,
+                    repeat: 14,
+                    speed: 300,
+                    glow: true
+                });
+            }
+        }
+        if ($('#_Form').find('#mkID').val() == "") {
+            saveOk = false;
+            $('#_Form').find('#mkID').parents('div').first().pulsate({
+                color: "#fdbe41",
+                reach: 60,
+                repeat: 14,
+                speed: 300,
+                glow: true
+            });
+        }
+        if ($('#_Form').find('#Konu').val() == "") {
+            saveOk = false;
+            $('#_Form').find('#Konu').parents('div').first().pulsate({
+                color: "#fdbe41",
+                reach: 60,
+                repeat: 14,
+                speed: 300,
+                glow: true
+            });
+        }
+        var txt = CKEDITOR.instances.AciklamaHtml.document.getBody().getText().trim();
+        if (txt == "") {
+            saveOk = false;
+            $('#_Form').find('#AciklamaHtml').parents('div').first().pulsate({
+                color: "#fdbe41",
+                reach: 60,
+                repeat: 14,
+                speed: 300,
+                glow: true
+            });
+        }
+        return saveOk;
+    }
+
+</script>
+
+
+

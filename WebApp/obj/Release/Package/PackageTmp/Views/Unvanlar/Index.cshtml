@@ -1,0 +1,135 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmUnvanlar
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Ünvan Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th> 
+                                <th class="sirala sorting" field="UnvanAdi">Ünvan Adı</th> 
+                                <th width="70" class="sirala sorting" field="IsAktif">Durum</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th> 
+                                <th>
+                                    <input name="UnvanAdi" type="text" value="@Model.UnvanAdi" class="form-control" />
+                                </th> 
+                                <th>
+                                    @Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;" })
+
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>
+                                          @RowIndex
+                                        </td> 
+                                        <td id="tdMad_@item.UnvanID">
+                                            @item.UnvanAdi
+                                        </td> 
+                                        <td id="tdIa_@item.UnvanID" style="text-align:center;">
+                                            <span style="font-size:8.5pt;display:inline-block;" class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "Unvanlar", new { id = item.UnvanID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.UnvanID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="4" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td> 
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var gMesaj = $("#tdMad_" + id).html();
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçilen Ünvanı Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: "Ünvan Adı: " + gMesaj + SoruHtml,
+            title: "Ünvan Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Ünvan Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "Unvanlar")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Ünvan Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

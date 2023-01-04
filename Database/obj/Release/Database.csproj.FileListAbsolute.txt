@@ -193,3 +193,28 @@ E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.csproj.CoreCompi
 E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.csproj.CopyComplete
 E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.dll
 E:\Yazılım\Ana Projeler\MUSSK\4\Database\obj\Release\Database.pdb
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\Database.dll.config
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\Database.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\Database.pdb
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\EntityFramework.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\Microsoft.Web.Infrastructure.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Helpers.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Mvc.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Razor.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.Deployment.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.Razor.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\EntityFramework.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Helpers.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Mvc.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.Razor.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.Deployment.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\bin\Release\System.Web.WebPages.Razor.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Release\Database.csproj.AssemblyReference.cache
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Release\Database.csproj.CoreCompileInputs.cache
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Release\Database.csproj.CopyComplete
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Release\Database.dll
+C:\Users\User\source\repos\isecer\Ytu_Mussk\Database\obj\Release\Database.pdb

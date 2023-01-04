@@ -1,0 +1,199 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FrMailGonderme
+@{
+    Layout = null;
+
+    var dataK = (IEnumerable<MailKullaniciBilgi>)ViewBag.DataK;
+
+}
+
+<div class="panel panel-default form-horizontal" style="margin-bottom:0px;">
+
+    <div class="panel panel-default" style="margin:0px;padding:0px;">
+        <div class="panel-body" style="margin:0px;padding:0px;">
+            <div class="panel-body form-group-separated">
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label">Konu / Tarih</label>
+                    <div class="col-md-10 col-xs-9">
+                        <table style="width: 100%; table-layout: fixed;">
+                            <tr>
+                                <td style="padding-left: 1px; padding-right: 1px;">
+                                    @Model.Konu
+                                </td>
+                                <td style="width: 120px; padding-left: 1px; padding-right: 1px;vertical-align:top">
+                                    @Model.Tarih.ToFormatDateAndTime()
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                    <div class="panel panel-default" style="margin:0px;padding:0px;">
+                        <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                            <div class="scrolkikko2" style="width:100%; overflow:hidden;word-wrap:break-word;">
+                                <table style="width:100%;table-layout:fixed;">
+                                    <tr>
+                                        <td>
+                                            @Html.Raw(Model.AciklamaHtml)
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label">Kişiler (@Model.KisiSayisi Kişi)</label>
+                    <div class="col-md-10  col-xs-9" style="text-align: left;">
+                        <div class="panel panel-default" style="margin:0px;padding:0px;">
+                            <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                @if (Model.KisiSayisi > 15)
+                                {
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td>
+                                                <div style="width: 100%;" class="checkbox pull-left">
+                                                    <label style="width: 100%;">
+                                                        <input style="color: red; width: 100%;" type="text" name="search" id="filterBInp_@Model.GonderilenMailID" placeholder="ara..." class="form-control">
+                                                    </label>
+                                                </div>
+                                            </td>
+                                            <td><a href="javascript:void(0);" onclick="Filtrele@(Model.GonderilenMailID+"")()" class="label label-warning">Ara</a></td>
+                                        </tr>
+                                    </table>
+                                }
+                                <div class="scrolkikko" style="max-height: 130px; width:100%; overflow:hidden;">
+
+                                    <table style="width: 100%; table-layout: fixed;">
+                                        <tr>
+                                            <td style="width: 40px;"></td>
+                                            <td></td>
+                                        </tr>
+                                        @foreach (var item2 in dataK.Select((s, inx) => new { inx, s }))
+                                        {
+                                            <tr class="fltrRow_@Model.GonderilenMailID">
+                                                <td style="width: 40px;">@(item2.inx + 1)</td>
+                                                <td class="name">
+                                                    <table>
+                                                        <tr style="line-height:10px;">
+                                                            <td style="font-size:8pt;color: #085614;" class="fltrTd_@Model.GonderilenMailID">
+                                                                <img src="@Url.Content("/Images/User-green.png")" style="height:16px;" /> @item2.s.AdSoyad   <span style="font-size:7pt;">@item2.s.Email</span>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+
+                                </div>
+                                @if (Model.KisiSayisi > 15)
+                                {
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td id="filtreKelime_@Model.GonderilenMailID"></td>
+                                        </tr>
+                                    </table>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label">Ekler <img src="@Url.Content("/Images/Attachment.png")" style="height: 16px;"></label>
+                    <div class="col-md-10  col-xs-9" style="text-align: left;">
+                        <div class="panel panel-default" style="margin:0px;padding:0px;">
+                            <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                <div class="scrolkikko" style="max-height: 100px; width:100%; overflow:hidden;">
+                                    <table style="width: 100%; table-layout: fixed;">
+                                        @if (Model.EkSayisi > 0)
+                                        {
+                                            foreach (var item2 in Model.GonderilenMailEkleris.Select((s, inx) => new { inx, s }))
+                                            {
+                                                <tr>
+                                                    <td style="width: 25px;">@(item2.inx + 1))</td>
+                                                    <td class="name"><a href="@item2.s.EkDosyaYolu" target="_blank"><span class="fa fa-download" style="color: green;"></span>&nbsp;@item2.s.EkAdi</a></td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr>
+                                                <td colspan="2">Ek Yok</td>
+                                            </tr>
+                                        }
+
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label">Gönderen</label>
+                    <div class="col-md-10  col-xs-9">@Model.MailGonderen</div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 col-xs-3 control-label">Ip</label>
+                    <div class="col-md-10 col-xs-9">@Model.IslemYapanIP</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $('.scrolkikko').slimScroll({
+        height: '100px;',
+        color: '#9bbb67'
+    });
+    $('.scrolkikko2').slimScroll({
+        height: '300px;',
+        color: '#9bbb67'
+    });
+
+
+    function Filtrele@(Model.GonderilenMailID+"")() {
+        var _rid='@Model.GonderilenMailID';
+        var filtreval = $('#filterBInp_' + _rid).val().replace('İ', 'i').toLowerCase();
+        var $fltrRow = $('.fltrRow_' + _rid);
+
+        if (filtreval != null && filtreval != "") {
+            var toplam = $('.fltrRow_' + _rid).length;
+            $('.fltrRow_' + _rid).each(function (inx, trx) {
+                var _text = $(trx).find('.fltrTd_' + _rid).first().text();
+                var clm_text = _text.replace('İ', 'i').toLowerCase();
+                //var ipS = $(trx).find('.ipS').first().text().toLowerCase();
+                var AShow = clm_text.indexOf(filtreval) > -1;
+                // var IShow = ipS.indexOf(filtreval) > -1;
+                if (AShow) {
+                    $(trx).removeClass("hide");
+                }
+                else {
+                    $(trx).addClass("hide");
+                }
+
+            })
+            var Gizli = $('.fltrRow_' + _rid+'.hide').length;
+            var gosterilen = toplam - Gizli;
+            $('#filtreKelime_' + _rid).html("[Ara:  %<span style='color:red;'>" + filtreval + "</span>%] [Bulunan: <span style='color:red;'>" + gosterilen + "</span>]");
+
+        }
+        else {
+            $fltrRow.removeClass("hide");
+            $('#filtreKelime_' + _rid).html("");
+
+        }
+    }
+    $('#filterBInp_@(Model.GonderilenMailID+"")').bind("keydown", function (event) {
+        if (event.keyCode == 13) {
+            Filtrele@(Model.GonderilenMailID+"")();
+            event.preventDefault();
+        }
+    });
+</script>

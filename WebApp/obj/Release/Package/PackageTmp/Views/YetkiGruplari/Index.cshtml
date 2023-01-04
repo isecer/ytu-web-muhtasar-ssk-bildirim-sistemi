@@ -1,0 +1,120 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model FmYetkiGruplari
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    @using (Html.BeginForm("Index", "YetkiGruplari"))
+    {
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-lock"></i>&nbsp; Yetki Grupları</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Yetki Grup Adı</th>
+                                <th style="width: 125px;">Yetki Sayısı</th>
+                                <th style="width: 35px; text-align: center;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <td style="padding: 0px;">
+                                    <input type="text" name="YetkiGrupAdi" class="form-control" value="@Model.YetkiGrupAdi" />
+                                </td>
+                                <td style="padding: 0px;"></td>
+                                <td style="padding: 0px;"></td>
+
+                            </tr>
+                            @if (Model.Data.Any())
+                            {
+                                foreach (var item in Model.Data)
+                                {
+                                    <tr>
+
+                                        <td id="tdMad_@item.YetkiGrupID" style="padding-top: 0px;padding-bottom: 0px;vertical-align:middle;">@item.YetkiGrupAdi</td>
+                                        <td style="padding: 4px; vertical-align: middle;">
+                                            @item.YetkiSayisi
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YetkiGruplari", new { id = item.YetkiGrupID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YetkiGrupID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" style="text-align: center">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+
+    }
+
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var gMesaj = $("#tdMad_" + id).html();
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçilen Yetki Grubunu Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: "Yetki Grup Adı: " + gMesaj + " <br/>" + SoruHtml,
+            title: "Yetki Grubu Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Yetki Grubunu Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url:'@Url.Action("Sil", "YetkiGruplari")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Yetki Grubu Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>
+

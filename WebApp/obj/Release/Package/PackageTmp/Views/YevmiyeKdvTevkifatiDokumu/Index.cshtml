@@ -1,0 +1,94 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmKdvTevkifatiDokumu
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "YevmiyeKdvTevkifatiDokumu", FormMethod.Post, new { id = "frmYevmiyeKdvTevkifatiDokumu" }))
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger" id="EkHbPanel">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> Kdv Tevkifat Dökümü</h3>
+                    <ul class="panel-controls">
+                        <li>
+                            <span>Yevmiye Yılı:</span>
+                            <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
+                                @Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeKdvTevkifatiDokumu').submit();", style = "color:black;min-width:220px;height:24px;" })
+                            </span>
+                        </li>
+                        <li>
+                            <span>Yevmiye Ay:</span>
+                            <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
+                                @Html.DropDownList("AyID", null, new { @class = "form-control", onchange = "$('#frmYevmiyeKdvTevkifatiDokumu').submit();", style = "color:black;min-width:220px;height:24px;" })
+                            </span>
+                        </li>
+                        @if (Model.Data.Any())
+                        {
+                            <li><span class="label label-success" style="cursor:pointer;" onclick="window.location.href='@Url.Action("Index", "YevmiyeKdvTevkifatiDokumu", new {  Model.Yil, Model.AyID, export = true })'"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel Olarak İndir</span></li>
+                        }
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th width="160" class="sirala sorting" field="KdvKodu">Kdv Kodu</th>
+                                <th class="sirala sorting" field="KdvAdi">Kdv Adı</th>
+                                <th width="160" class="sirala sorting" field="KdvOrani">Kdv Oranı</th>
+                                <th width="160" class="sirala sorting" field="BolumOran">Bölüm Oranı</th>
+                                <th width="160" class="sirala sorting" field="Matrah" style="text-align:right;">Matrah Toplam</th>
+                                <th width="160" class="sirala sorting" field="TevkifatTutari" style="text-align:right;">Tevkifat Tutarı Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int RowIndex = 0;
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    <tr>
+                                        <td>
+                                            @RowIndex
+                                        </td>
+                                        <td>
+                                            @item.KdvKodu
+                                        </td>
+                                        <td>
+                                            @item.KdvAdi
+                                        </td>
+                                        <td>
+                                            @item.KdvOrani
+                                        </td>
+                                        <td>
+                                            @item.BolumOran
+                                        </td>
+                                        <td style="text-align:right;">
+                                            @item.Matrah.ToString("n2") TL
+                                        </td>
+                                        <td style="text-align:right;">
+                                            @item.TevkifatTutari.ToString("n2") TL
+                                        </td>
+
+                                    </tr>
+                                }
+                                <tr class="info">
+                                    <td colspan="6" style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.Matrah).ToString("n2") TL</td>
+                                    <td style="text-align:right;font-weight:bold;">@Model.Data.Sum(s => s.TevkifatTutari).ToString("n2") TL</td>
+                                </tr>
+
+                            }
+
+                        </tbody>
+                    </table>
+                    @Model.ToSortSring()
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -1,0 +1,163 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyelerBesBankaHesapNumaralari
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i> Bireysel Emeklilik Banka Hesap Numaraları Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="110" field="KisaAdi">Hesap Döküm Ayrı</th>
+                                <th class="sirala sorting" width="110" field="HesapKod">Hesap Kodu</th>
+                                <th class="sirala sorting" width="110" field="VergiKimlikNo">Vergi Kimlik No</th>
+                                <th class="sirala sorting" width="180" field="IbanNo">Iban No</th>
+                                <th class="sirala sorting" field="FirmaAdi">Firma Adı</th>
+                                <th class="sirala sorting" field="Aciklama">Aciklama</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <select class="form-control" name="IsYevmiyeDokumuAyriOlabilir">
+                                        <option></option>
+                                        <option value="true" @Model.IsYevmiyeDokumuAyriOlabilir.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsYevmiyeDokumuAyriOlabilir == false).ToSelected())>Hayir</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <input name="HesapKod" type="text" value="@Model.HesapKod" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="VergiKimlikNo" type="text" value="@Model.VergiKimlikNo" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="IBanNo" type="text" value="@Model.IBanNo" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="FirmaAdi" type="text" value="@Model.FirmaAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="Aciklama" type="text" value="@Model.Aciklama" class="form-control" />
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>@RowIndex</td>
+                                        <td>
+                                            @item.IsYevmiyeDokumuAyriOlabilir.ToEvetHayir()
+                                        </td>
+                                        <td id="tdHk_@item.YevmiyeBesBankaHesapNumaraID">
+                                            @item.HesapKod
+                                        </td>
+                                        <td id="tdVkn_@item.YevmiyeBesBankaHesapNumaraID">
+                                            @item.VergiKimlikNo
+                                        </td>
+                                        <td>
+                                            @item.IBanNo
+                                        </td>
+                                        <td id="tdAs_@item.YevmiyeBesBankaHesapNumaraID">
+                                            @item.FirmaAdi
+                                        </td>
+                                        <td>
+                                            @item.Aciklama
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YevmiyeBesBankaHesapNumaralari", new { id = item.YevmiyeBesBankaHesapNumaraID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeBesBankaHesapNumaraID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="8" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+        var Vkn = $("#tdVkn_" + id).html();
+        var AdSoyad = $("#tdAs_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (Vkn + ' - ' + AdSoyad) + "</td></tr>" +
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Sendika Bilgisini Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message: SoruHtml,
+            title: "BES Banka Hesap Numarası Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "BES Banka Hesap Numarası Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeBesBankaHesapNumaralari")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Banka Hesap Numarası Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>
