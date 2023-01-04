@@ -23,7 +23,7 @@ namespace WebApp.Controllers
         private MusskDBEntities db = new MusskDBEntities();
         public ActionResult Index()
         {
-            var fModel = new FmYevmiyeler { PageSize = 15 };
+            var fModel = new FmYevmiyeler { PageSize = 20 };
             var BirimID = UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler];
             var Yil = UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler];
             fModel.Expand = Yil.HasValue || BirimID.HasValue;
