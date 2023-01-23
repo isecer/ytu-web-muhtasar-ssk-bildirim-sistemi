@@ -77,7 +77,7 @@ namespace WebApp.Controllers
 
 
             var YevmiyeNos = q.SelectMany(s => s.YevmiyeNos).ToList();
-            var Yevmiyes = db.Yevmiyelers.Where(p => YevmiyeNos.Contains(p.YevmiyeNo) && (YevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == DamgaVergiHesapKodu) && p.YevmiyeTarih.Year == model.Yil).Select(s => new
+            var Yevmiyes = db.Yevmiyelers.Where(p => YevmiyeNos.Contains(p.YevmiyeNo) && (YevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == DamgaVergiHesapKodu)).Select(s => new
             {
                 s.YevmiyeNo,
                 s.YevmiyeID,

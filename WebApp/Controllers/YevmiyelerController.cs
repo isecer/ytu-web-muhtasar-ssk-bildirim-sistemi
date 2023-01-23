@@ -1182,13 +1182,10 @@ namespace WebApp.Controllers
                             else
                             {
 
-                                var excpt = model.YevmiyeAktarilanExcelHataKontrolu();
-
+                                var excpt = model.YevmiyeAktarilanExcelHataKontrolu(); 
                                 if (excpt == null)
-                                {
-
-                                    mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir. Aşağıdaki dosyayı indirip kontrol ediniz lütfen.</span>");
-
+                                { 
+                                    mMessage.Messages.Add("<span style='color:red;'>Excel dosyasındaki bazı veriler düzgün girilmemiştir. Aşağıdaki dosyayı indirip kontrol ediniz lütfen.</span>"); 
                                     mMessage.Messages.Add("<a style='color:red;' href='" + model.DosyaYolu + "' target='_blank;'><img src='/Content/img/Excel-Icon.png' width='18' height='17'> " + model.DosyaAdi + "</a>");
 
                                 }

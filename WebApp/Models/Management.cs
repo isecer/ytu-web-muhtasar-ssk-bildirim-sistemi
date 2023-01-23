@@ -2321,7 +2321,7 @@ namespace WebApp.Models
         {
             var dct = new List<ComboModelInt>();
             if (bosSecimVar) dct.Add(new ComboModelInt { });
-            for (int i = DateTime.Now.Year + 1; i >= 2022; i--)
+            for (int i = DateTime.Now.Year + 1; i >= 2017; i--)
             {
                 dct.Add(new ComboModelInt { Value = i, Caption = i + " Yılı" });
             }

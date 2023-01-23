@@ -422,14 +422,16 @@ namespace WebApp.Models
             string ConnectionString = string.Empty;
             if (fileExtension == ".xls") ConnectionString = path.ToConnectionStringXls();
             else if (fileExtension == ".xlsx") ConnectionString = path.ToConnectionStringXlsx();
-            OleDbConnection excelConnection = new OleDbConnection(ConnectionString);
-            excelConnection.Open();
             var dt = new System.Data.DataTable();
-
-            dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-            if (dt == null)
+            using (OleDbConnection excelConnection = new OleDbConnection(ConnectionString))
             {
-                return null;
+                excelConnection.Open();
+
+                dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                if (dt == null)
+                {
+                    return null;
+                }
             }
             String[] excelSheets = new String[dt.Rows.Count];
             int t = 0;
@@ -439,39 +441,28 @@ namespace WebApp.Models
                 excelSheets[t] = row["TABLE_NAME"].ToString();
                 t++;
             }
-            OleDbConnection excelConnection1 = new OleDbConnection(ConnectionString);
-
-            for (int iSht = 0; iSht < excelSheets.Length; iSht++)
+            using (OleDbConnection excelConnection1 = new OleDbConnection(ConnectionString))
             {
-                string query = string.Format("Select * from [{0}]", excelSheets[iSht]);
-                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+                for (int iSht = 0; iSht < excelSheets.Length; iSht++)
                 {
-                    if (ds.Tables.Count > 0) ds.Tables[0].Rows.Clear();
-                    dataAdapter.Fill(ds);
-                }
-                var tables = ds.Tables[0];
-                for (int i = 0; i < tables.Rows.Count; i++)
-                {
-                    var Row = new ExcelDataImportYevmiyeMaasRow();
-                    for (int ci = 0; ci < 12; ci++)
+                    string query = string.Format("Select * from [{0}]", excelSheets[iSht]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
                     {
-                        Row.ColumnValues.Add(tables.Rows[i][ci].ToStrObjEmptString());
+                        if (ds.Tables.Count > 0) ds.Tables[0].Rows.Clear();
+                        dataAdapter.Fill(ds);
                     }
+                    var tables = ds.Tables[0];
+                    for (int i = 0; i < tables.Rows.Count; i++)
+                    {
+                        var Row = new ExcelDataImportYevmiyeMaasRow();
+                        for (int ci = 0; ci < 12; ci++)
+                        {
+                            Row.ColumnValues.Add(tables.Rows[i][ci].ToStrObjEmptString());
+                        }
 
-                    Model.Data.Add(Row);
+                        Model.Data.Add(Row);
+                    }
                 }
-            }
-
-
-
-            try
-            {
-                excelConnection.Close();
-                excelConnection1.Close();
-
-            }
-            catch (Exception ex)
-            {
             }
 
 
@@ -498,14 +489,16 @@ namespace WebApp.Models
             string ConnectionString = string.Empty;
             if (fileExtension == ".xls") ConnectionString = path.ToConnectionStringXls();
             else if (fileExtension == ".xlsx") ConnectionString = path.ToConnectionStringXlsx();
-            OleDbConnection excelConnection = new OleDbConnection(ConnectionString);
-            excelConnection.Open();
-            var dt = new System.Data.DataTable();
 
-            dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
-            if (dt == null)
+            var dt = new System.Data.DataTable();
+            using (OleDbConnection excelConnection = new OleDbConnection(ConnectionString))
             {
-                return null;
+                excelConnection.Open();
+                dt = excelConnection.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                if (dt == null)
+                {
+                    return null;
+                }
             }
             String[] excelSheets = new String[dt.Rows.Count];
             int t = 0;
@@ -515,76 +508,64 @@ namespace WebApp.Models
                 excelSheets[t] = row["TABLE_NAME"].ToString();
                 t++;
             }
-            OleDbConnection excelConnection1 = new OleDbConnection(ConnectionString);
-
-            for (int iSht = 0; iSht < excelSheets.Length; iSht++)
+            using (OleDbConnection excelConnection1 = new OleDbConnection(ConnectionString))
             {
-                string query = string.Format("Select * from [{0}]", excelSheets[iSht]);
-                using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
+
+                for (int iSht = 0; iSht < excelSheets.Length; iSht++)
                 {
-                    if (ds.Tables.Count > 0) ds.Tables[0].Rows.Clear();
-                    dataAdapter.Fill(ds);
-                }
-                var tables = ds.Tables[0];
-                for (int i = 0; i < tables.Rows.Count; i++)
-                {
-
-                    var _YevmiyeTarih = tables.Rows[i][0].ToDatetimeObj();
-                    var _YevmiyeNo = tables.Rows[i][1].ToIntObj();
-                    var _HarcamaBirim = tables.Rows[i][2].ToStrObjEmptString().Trim();
-                    var _VergiKimlikNo = "";
-                    var _HarcamaBirimAdi = "";
-                    var HarcamaBirimSpl = _HarcamaBirim.Split('-').ToList();
-                    if (HarcamaBirimSpl.Count > 1)
+                    string query = string.Format("Select * from [{0}]", excelSheets[iSht]);
+                    using (OleDbDataAdapter dataAdapter = new OleDbDataAdapter(query, excelConnection1))
                     {
-                        _VergiKimlikNo = HarcamaBirimSpl[0].ToStrObjEmptString();
-                        _HarcamaBirimAdi = HarcamaBirimSpl[1];
-
+                        if (ds.Tables.Count > 0) ds.Tables[0].Rows.Clear();
+                        dataAdapter.Fill(ds);
                     }
-                    else
+                    var tables = ds.Tables[0];
+                    for (int i = 0; i < tables.Rows.Count; i++)
                     {
-                        _VergiKimlikNo = HarcamaBirimSpl[0];
+
+                        var _YevmiyeTarih = tables.Rows[i][0].ToDatetimeObj();
+                        var _YevmiyeNo = tables.Rows[i][1].ToIntObj();
+                        var _HarcamaBirim = tables.Rows[i][2].ToStrObjEmptString().Trim();
+                        var _VergiKimlikNo = "";
+                        var _HarcamaBirimAdi = "";
+                        var HarcamaBirimSpl = _HarcamaBirim.Split('-').ToList();
+                        if (HarcamaBirimSpl.Count > 1)
+                        {
+                            _VergiKimlikNo = HarcamaBirimSpl[0].ToStrObjEmptString();
+                            _HarcamaBirimAdi = HarcamaBirimSpl[1];
+
+                        }
+                        else
+                        {
+                            _VergiKimlikNo = HarcamaBirimSpl[0];
+                        }
+
+                        var _HarcamaBirimKod = tables.Rows[i][3].ToStrObjEmptString().Trim();
+                        var _HesapKod = tables.Rows[i][4].ToStrObjEmptString().Trim();
+                        var _HesapAdi = tables.Rows[i][5].ToStrObjEmptString().Trim();
+                        var _Borc = tables.Rows[i][6].ToDecimalObj();
+                        var _Alacak = tables.Rows[i][7].ToDecimalObj();
+                        var _Aciklama = tables.Rows[i][8].ToStrObjEmptString().Trim();
+
+
+                        Model.Data.Add(new ExcelDataImportYevmiyeRow
+                        {
+                            SayfaNo = iSht + 1,
+                            SatirNo = i + 2,
+                            YevmiyeTarih = _YevmiyeTarih,
+                            YevmiyeNo = _YevmiyeNo,
+                            VergiKimlikNo = _VergiKimlikNo,
+                            HarcamaBirimAdi = _HarcamaBirimAdi,
+                            HarcamaBirimKod = _HarcamaBirimKod,
+                            HesapKod = _HesapKod,
+                            HesapAdi = _HesapAdi,
+                            Borc = _Borc,
+                            Alacak = _Alacak,
+                            Aciklama = _Aciklama,
+                        });
                     }
-
-                    var _HarcamaBirimKod = tables.Rows[i][3].ToStrObjEmptString().Trim();
-                    var _HesapKod = tables.Rows[i][4].ToStrObjEmptString().Trim();
-                    var _HesapAdi = tables.Rows[i][5].ToStrObjEmptString().Trim();
-                    var _Borc = tables.Rows[i][6].ToDecimalObj();
-                    var _Alacak = tables.Rows[i][7].ToDecimalObj();  
-                    var _Aciklama = tables.Rows[i][8].ToStrObjEmptString().Trim();
-
-
-                    Model.Data.Add(new ExcelDataImportYevmiyeRow
-                    {
-                        SayfaNo = iSht + 1,
-                        SatirNo = i + 2,
-                        YevmiyeTarih = _YevmiyeTarih,
-                        YevmiyeNo = _YevmiyeNo,
-                        VergiKimlikNo = _VergiKimlikNo,
-                        HarcamaBirimAdi = _HarcamaBirimAdi,
-                        HarcamaBirimKod = _HarcamaBirimKod,
-                        HesapKod = _HesapKod,
-                        HesapAdi = _HesapAdi,
-                        Borc = _Borc,
-                        Alacak = _Alacak,
-                        Aciklama = _Aciklama,
-                    });
                 }
             }
-
-
-
-            try
-            {
-                excelConnection.Close();
-                excelConnection1.Close();
-
-            }
-            catch (Exception ex)
-            {
-            }
-
-
             return Model;
         }
 
