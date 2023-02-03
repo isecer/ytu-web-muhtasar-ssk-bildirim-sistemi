@@ -41,21 +41,64 @@ namespace WebApp.Controllers
             var HesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
-            var q = (from s in db.Yevmiyelers
-                     join hn in db.YevmiyelerProjeBankaHesapNumaralaris on s.ProjeBankaHesapNoID equals hn.ProjeBankaHesapNoID into defhn
-                     from hn in defhn.DefaultIfEmpty()
-                     join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
-                     join hk in db.YevmiyelerHesapKodlaris on s.HesapKod equals hk.HesapKod into defhk
-                     from hk in defhk.DefaultIfEmpty()
-                     join sn in db.YevmiyelerSendikaBilgileris on s.HesapKod equals sn.HesapKod into defsn
-                     from sn in defsn.DefaultIfEmpty()
+            //var q = (from s in db.Yevmiyelers
+            //         join hn in db.YevmiyelerProjeBankaHesapNumaralaris on s.ProjeBankaHesapNoID equals hn.ProjeBankaHesapNoID into defhn
+            //         from hn in defhn.DefaultIfEmpty()
+            //         join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
+            //         join hk in db.YevmiyelerHesapKodlaris on s.HesapKod equals hk.HesapKod into defhk
+            //         from hk in defhk.DefaultIfEmpty()
+            //         join sn in db.YevmiyelerSendikaBilgileris on s.HesapKod equals sn.HesapKod into defsn
+            //         from sn in defsn.DefaultIfEmpty()
+            //         select new FrYevmiyeler
+            //         {
+            //             YevmiyeID = s.YevmiyeID,
+            //             YevmiyeTarih = s.YevmiyeTarih,
+            //             YevmiyeNo = s.YevmiyeNo,
+            //             YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
+            //             BirimAdi = b.BirimAdi,
+            //             HarcamaBirimAdi = s.HarcamaBirimAdi,
+            //             VergiKimlikNo = s.VergiKimlikNo,
+            //             HarcamaBirimKod = s.HarcamaBirimKod,
+            //             HesapKod = s.HesapKod,
+            //             HesapAdi = s.HesapAdi,
+            //             Borc = s.Borc,
+            //             Alacak = s.Alacak,
+            //             Aciklama = s.Aciklama,
+            //             BankaHesapNumarasi = hn != null ? hn.HesapNo : "", 
+            //             Y1003AHesapKodID = s.Y1003AHesapKodID,
+            //             Y1003AVergiKodu = s.Y1003AVergiKodu,
+            //             Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
+            //             Y1003AVergiKimlikNo = s.Y1003AVergiKimlikNo,
+            //             Y1003AAdSoyad = s.Y1003AAdSoyad,
+            //             Y1003AAdres = s.Y1003AAdres,
+            //             Y1003AMatrah = s.Y1003AMatrah,
+            //             Y1003ABelgeninMahiyeti = s.Y1003ABelgeninMahiyeti,
+            //             Y1003AFaturaTarihi = s.Y1003AFaturaTarihi,
+            //             Y1003AFaturaNo = s.Y1003AFaturaNo,
+            //             YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
+            //             BESYevmiyeHesapKodID = s.BESYevmiyeHesapKodID,
+            //             BESIsYevmiyeDokumuAyri = s.BESIsYevmiyeDokumuAyri,
+            //             BESIsYevmiyeOdendi = s.BESIsYevmiyeOdendi,
+            //             ProjeBankaHesapNoID = s.ProjeBankaHesapNoID, 
+            //             IsY1003BVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.Yevmiyeler1003BAyristirmalari.Sum(sm => sm.SskPrimTutar) == s.Alacak : (bool?)null,
+            //             Is1003AHesaplamayaGirecek = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
+            //             Is1003AGelirKaydiListesi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? hk.IsGelirKaydindaKullanilacak == true : false,
+            //             Is1003AGelirKaydiYapildi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? (s.Y1003AVergiKimlikNo != "" && s.Y1003AVergiKimlikNo != null) : (bool?)null,
+            //             IsKdvTevkifatVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari ? s.YevmiyelerKdvTevkifatKayitlaris.Sum(sm => sm.TevkifatTutari) == s.Alacak : (bool?)null,
+            //             IsEKHarcamaBirimiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari ? s.EKYevmiyeHarcamaBirimID.HasValue && s.YevmiyeHarcamaBirimID != s.EKYevmiyeHarcamaBirimID : (bool?)null,
+            //             IsTifVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.YevmiyelerTasinirKontrolTifKaydis.Sum(sm => sm.Tutar) == s.Borc : (bool?)null,
+            //             IsSendikaBilgisiDegisti = sn != null ? s.YevmiyeSendikaBilgiID.HasValue && s.YevmiyelerSendikaBilgileri.HesapKod != s.HesapKod : (bool?)null,
+            //             IsBesBilgisiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
+            //             IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
+            //         }).AsQueryable(); 
+            var q = (from s in db.Vw_Yevmiyeler
                      select new FrYevmiyeler
                      {
                          YevmiyeID = s.YevmiyeID,
                          YevmiyeTarih = s.YevmiyeTarih,
                          YevmiyeNo = s.YevmiyeNo,
                          YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
-                         BirimAdi = b.BirimAdi,
+                         BirimAdi = s.BirimAdi,
                          HarcamaBirimAdi = s.HarcamaBirimAdi,
                          VergiKimlikNo = s.VergiKimlikNo,
                          HarcamaBirimKod = s.HarcamaBirimKod,
@@ -64,8 +107,7 @@ namespace WebApp.Controllers
                          Borc = s.Borc,
                          Alacak = s.Alacak,
                          Aciklama = s.Aciklama,
-                         BankaHesapNumarasi = hn != null ? hn.HesapNo : "",
-                         Y1003BYilAyModels = s.Yevmiyeler1003BAyristirmalari.Select(sy => new FrYilAyModel { Yil = sy.Yil, AyID = sy.AyID }).ToList(),
+                         BankaHesapNumarasi = s.BankaHesapNumarasi,
                          Y1003AHesapKodID = s.Y1003AHesapKodID,
                          Y1003AVergiKodu = s.Y1003AVergiKodu,
                          Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
@@ -81,18 +123,17 @@ namespace WebApp.Controllers
                          BESIsYevmiyeDokumuAyri = s.BESIsYevmiyeDokumuAyri,
                          BESIsYevmiyeOdendi = s.BESIsYevmiyeOdendi,
                          ProjeBankaHesapNoID = s.ProjeBankaHesapNoID,
-                         KdvTevkifatYilAyModels = s.YevmiyelerKdvTevkifatKayitlaris.Select(sy => new FrYilAyModel { Yil = sy.FaturaYil, AyID = sy.FaturaAyID }).ToList(),
-                         IsY1003BVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.Yevmiyeler1003BAyristirmalari.Sum(sm => sm.SskPrimTutar) == s.Alacak : (bool?)null,
-                         Is1003AHesaplamayaGirecek = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
-                         Is1003AGelirKaydiListesi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? hk.IsGelirKaydindaKullanilacak == true : false,
-                         Is1003AGelirKaydiYapildi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? (s.Y1003AVergiKimlikNo != "" && s.Y1003AVergiKimlikNo != null) : (bool?)null,
-                         IsKdvTevkifatVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari ? s.YevmiyelerKdvTevkifatKayitlaris.Sum(sm => sm.TevkifatTutari) == s.Alacak : (bool?)null,
-                         IsEKHarcamaBirimiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari ? s.EKYevmiyeHarcamaBirimID.HasValue && s.YevmiyeHarcamaBirimID != s.EKYevmiyeHarcamaBirimID : (bool?)null,
-                         IsTifVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.YevmiyelerTasinirKontrolTifKaydis.Sum(sm => sm.Tutar) == s.Borc : (bool?)null,
-                         IsSendikaBilgisiDegisti = sn != null ? s.YevmiyeSendikaBilgiID.HasValue && s.YevmiyelerSendikaBilgileri.HesapKod != s.HesapKod : (bool?)null,
-                         IsBesBilgisiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
+                         IsY1003BVeriGirisiTamamlandi = s.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.SskPrimTutarTop == s.Alacak : (bool?)null,
+                         Is1003AHesaplamayaGirecek = s.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
+                         Is1003AGelirKaydiListesi = s.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && s.IsGelirKaydindaKullanilacak == true,
+                         Is1003AGelirKaydiYapildi = s.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? !string.IsNullOrEmpty(s.Y1003AVergiKimlikNo) : (bool?)null,
+                         IsKdvTevkifatVeriGirisiTamamlandi = s.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari ? s.TevkifatTutariTop == s.Alacak : (bool?)null,
+                         IsEKHarcamaBirimiDegisti = s.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari ? s.EKYevmiyeHarcamaBirimID.HasValue && s.YevmiyeHarcamaBirimID != s.EKYevmiyeHarcamaBirimID : (bool?)null,
+                         IsTifVeriGirisiTamamlandi = s.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.TifTutarTop == s.Borc : (bool?)null,
+                         IsSendikaBilgisiDegisti = s.YevmiyeSendikaBilgiID.HasValue ? s.YevHesapKod != s.HesapKod : (bool?)null,
+                         IsBesBilgisiDegisti = s.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
                          IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
-                     }).AsQueryable(); 
+                     }).AsQueryable();
             if (HesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
             {
                 var IsBankaYetkiVar = HesapKodTurYetkis.Any(a => a == HesapKoduTuru.BankaIslemleriHesapKodlari);
@@ -123,12 +164,7 @@ namespace WebApp.Controllers
                     if (model.IsY1003BVeriGirisiTamamlandi.HasValue) q = q.Where(p => p.IsY1003BVeriGirisiTamamlandi == model.IsY1003BVeriGirisiTamamlandi);
                     ViewBag.IsY1003BVeriGirisiTamamlandi = new SelectList(Management.CmbVeriGirisiTamamlandiData(true), "Value", "Caption", model.IsY1003BVeriGirisiTamamlandi);
                     SelectName = "IsY1003BVeriGirisiTamamlandi";
-
-                    ViewBag.FYil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.FYil);
-                    ViewBag.FAyID = new SelectList(Management.CmbAylar(true), "Value", "Caption", model.FAyID);
-
-                    if (model.FYil.HasValue) q = q.Where(p => p.Y1003BYilAyModels.Any(a => a.Yil == model.FYil));
-                    if (model.FAyID.HasValue) q = q.Where(p => p.Y1003BYilAyModels.Any(a => a.AyID == model.FAyID));
+ 
                 }
                 else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                 {
@@ -157,12 +193,7 @@ namespace WebApp.Controllers
                     if (model.IsKdvTevkifatVeriGirisiTamamlandi.HasValue) q = q.Where(p => p.IsKdvTevkifatVeriGirisiTamamlandi == model.IsKdvTevkifatVeriGirisiTamamlandi);
                     ViewBag.IsKdvTevkifatVeriGirisiTamamlandi = new SelectList(Management.CmbVeriGirisiTamamlandiData(true), "Value", "Caption", model.IsKdvTevkifatVeriGirisiTamamlandi);
                     SelectName = "IsKdvTevkifatVeriGirisiTamamlandi";
-
-                    ViewBag.FYil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.FYil);
-                    ViewBag.FAyID = new SelectList(Management.CmbAylar(true), "Value", "Caption", model.FAyID);
-
-                    if (model.FYil.HasValue) q = q.Where(p => p.KdvTevkifatYilAyModels.Any(a => a.Yil == model.FYil));
-                    if (model.FAyID.HasValue) q = q.Where(p => p.KdvTevkifatYilAyModels.Any(a => a.AyID == model.FAyID));
+                     
                 }
                 else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari)
                 {

@@ -879,6 +879,69 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     <Property Name="IslemYapanID" Type="int" Nullable="false" />
     <Property Name="IslemYapanIP" Type="nvarchar" MaxLength="256" Nullable="false" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'MusskDB.dbo.Vw_Yevmiyeler' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Vw_Yevmiyeler">
+    <Key>
+      <PropertyRef Name="YevmiyeID" />
+      <PropertyRef Name="YevmiyeTarih" />
+      <PropertyRef Name="YevmiyeNo" />
+      <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      <PropertyRef Name="BirimAdi" />
+      <PropertyRef Name="HarcamaBirimAdi" />
+      <PropertyRef Name="VergiKimlikNo" />
+      <PropertyRef Name="HarcamaBirimKod" />
+      <PropertyRef Name="HesapKod" />
+      <PropertyRef Name="HesapAdi" />
+      <PropertyRef Name="Borc" />
+      <PropertyRef Name="Alacak" />
+      <PropertyRef Name="Aciklama" />
+      <PropertyRef Name="Y1003AIsHesaplamayaGirecek" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Expr2" />
+    </Key>
+    <Property Name="YevmiyeID" Type="int" Nullable="false" />
+    <Property Name="Yil" Type="int" />
+    <Property Name="YevmiyeTarih" Type="date" Nullable="false" />
+    <Property Name="YevmiyeNo" Type="int" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="int" Nullable="false" />
+    <Property Name="BirimAdi" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="HarcamaBirimAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="VergiKimlikNo" Type="nvarchar" MaxLength="11" Nullable="false" />
+    <Property Name="HarcamaBirimKod" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="HesapKod" Type="nvarchar" MaxLength="64" Nullable="false" />
+    <Property Name="HesapAdi" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Borc" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Alacak" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="Aciklama" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BankaHesapNumarasi" Type="nvarchar" MaxLength="4" />
+    <Property Name="Y1003AHesapKodID" Type="int" />
+    <Property Name="Y1003AVergiKodu" Type="nvarchar" MaxLength="8" />
+    <Property Name="Y1003AIsHesaplamayaGirecek" Type="bit" Nullable="false" />
+    <Property Name="Y1003AVergiKimlikNo" Type="nvarchar" MaxLength="11" />
+    <Property Name="Y1003AAdSoyad" Type="nvarchar" MaxLength="256" />
+    <Property Name="Y1003AAdres" Type="nvarchar" MaxLength="512" />
+    <Property Name="Y1003AMatrah" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Y1003ABelgeninMahiyeti" Type="nvarchar" MaxLength="128" />
+    <Property Name="Y1003AFaturaTarihi" Type="date" />
+    <Property Name="Y1003AFaturaNo" Type="nvarchar" MaxLength="64" />
+    <Property Name="YevmiyeSendikaBilgiID" Type="int" />
+    <Property Name="BESYevmiyeHesapKodID" Type="int" />
+    <Property Name="BESIsYevmiyeDokumuAyri" Type="bit" />
+    <Property Name="BESIsYevmiyeOdendi" Type="bit" />
+    <Property Name="ProjeBankaHesapNoID" Type="int" />
+    <Property Name="Expr1" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+    <Property Name="YevmiyeHesapKodTurID" Type="int" />
+    <Property Name="EKYevmiyeHarcamaBirimID" Type="int" />
+    <Property Name="Expr2" Type="int" Nullable="false" />
+    <Property Name="Expr3" Type="int" />
+    <Property Name="YevHesapKod" Type="nvarchar" MaxLength="126" />
+    <Property Name="BESHesapKod" Type="nvarchar" MaxLength="64" />
+    <Property Name="IsGelirKaydindaKullanilacak" Type="bit" />
+    <Property Name="SskPrimTutarTop" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="TevkifatTutariTop" Type="decimal" Precision="38" Scale="2" />
+    <Property Name="TifTutarTop" Type="decimal" Precision="38" Scale="2" />
+  </EntityType>
   <Association Name="FK_Ayarlar_Kullanicilar">
     <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
     <End Role="Ayarlar" Type="Self.Ayarlar" Multiplicity="*" />
@@ -2034,6 +2097,51 @@ warning 6002: The table/view 'MusskDB.dbo.Vw_BirimlerTree' does not have a prima
     [Vw_BirimlerTree].[IslemYapanID] AS [IslemYapanID], 
     [Vw_BirimlerTree].[IslemYapanIP] AS [IslemYapanIP]
     FROM [dbo].[Vw_BirimlerTree] AS [Vw_BirimlerTree]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Vw_Yevmiyeler" EntityType="Self.Vw_Yevmiyeler" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Vw_Yevmiyeler].[YevmiyeID] AS [YevmiyeID], 
+    [Vw_Yevmiyeler].[Yil] AS [Yil], 
+    [Vw_Yevmiyeler].[YevmiyeTarih] AS [YevmiyeTarih], 
+    [Vw_Yevmiyeler].[YevmiyeNo] AS [YevmiyeNo], 
+    [Vw_Yevmiyeler].[YevmiyeHarcamaBirimID] AS [YevmiyeHarcamaBirimID], 
+    [Vw_Yevmiyeler].[BirimAdi] AS [BirimAdi], 
+    [Vw_Yevmiyeler].[HarcamaBirimAdi] AS [HarcamaBirimAdi], 
+    [Vw_Yevmiyeler].[VergiKimlikNo] AS [VergiKimlikNo], 
+    [Vw_Yevmiyeler].[HarcamaBirimKod] AS [HarcamaBirimKod], 
+    [Vw_Yevmiyeler].[HesapKod] AS [HesapKod], 
+    [Vw_Yevmiyeler].[HesapAdi] AS [HesapAdi], 
+    [Vw_Yevmiyeler].[Borc] AS [Borc], 
+    [Vw_Yevmiyeler].[Alacak] AS [Alacak], 
+    [Vw_Yevmiyeler].[Aciklama] AS [Aciklama], 
+    [Vw_Yevmiyeler].[BankaHesapNumarasi] AS [BankaHesapNumarasi], 
+    [Vw_Yevmiyeler].[Y1003AHesapKodID] AS [Y1003AHesapKodID], 
+    [Vw_Yevmiyeler].[Y1003AVergiKodu] AS [Y1003AVergiKodu], 
+    [Vw_Yevmiyeler].[Y1003AIsHesaplamayaGirecek] AS [Y1003AIsHesaplamayaGirecek], 
+    [Vw_Yevmiyeler].[Y1003AVergiKimlikNo] AS [Y1003AVergiKimlikNo], 
+    [Vw_Yevmiyeler].[Y1003AAdSoyad] AS [Y1003AAdSoyad], 
+    [Vw_Yevmiyeler].[Y1003AAdres] AS [Y1003AAdres], 
+    [Vw_Yevmiyeler].[Y1003AMatrah] AS [Y1003AMatrah], 
+    [Vw_Yevmiyeler].[Y1003ABelgeninMahiyeti] AS [Y1003ABelgeninMahiyeti], 
+    [Vw_Yevmiyeler].[Y1003AFaturaTarihi] AS [Y1003AFaturaTarihi], 
+    [Vw_Yevmiyeler].[Y1003AFaturaNo] AS [Y1003AFaturaNo], 
+    [Vw_Yevmiyeler].[YevmiyeSendikaBilgiID] AS [YevmiyeSendikaBilgiID], 
+    [Vw_Yevmiyeler].[BESYevmiyeHesapKodID] AS [BESYevmiyeHesapKodID], 
+    [Vw_Yevmiyeler].[BESIsYevmiyeDokumuAyri] AS [BESIsYevmiyeDokumuAyri], 
+    [Vw_Yevmiyeler].[BESIsYevmiyeOdendi] AS [BESIsYevmiyeOdendi], 
+    [Vw_Yevmiyeler].[ProjeBankaHesapNoID] AS [ProjeBankaHesapNoID], 
+    [Vw_Yevmiyeler].[Expr1] AS [Expr1], 
+    [Vw_Yevmiyeler].[YevmiyeHesapKodTurID] AS [YevmiyeHesapKodTurID], 
+    [Vw_Yevmiyeler].[EKYevmiyeHarcamaBirimID] AS [EKYevmiyeHarcamaBirimID], 
+    [Vw_Yevmiyeler].[Expr2] AS [Expr2], 
+    [Vw_Yevmiyeler].[Expr3] AS [Expr3], 
+    [Vw_Yevmiyeler].[YevHesapKod] AS [YevHesapKod], 
+    [Vw_Yevmiyeler].[BESHesapKod] AS [BESHesapKod], 
+    [Vw_Yevmiyeler].[IsGelirKaydindaKullanilacak] AS [IsGelirKaydindaKullanilacak], 
+    [Vw_Yevmiyeler].[SskPrimTutarTop] AS [SskPrimTutarTop], 
+    [Vw_Yevmiyeler].[TevkifatTutariTop] AS [TevkifatTutariTop], 
+    [Vw_Yevmiyeler].[TifTutarTop] AS [TifTutarTop]
+    FROM [dbo].[Vw_Yevmiyeler] AS [Vw_Yevmiyeler]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK_Ayarlar_Kullanicilar" Association="Self.FK_Ayarlar_Kullanicilar">
       <End Role="Kullanicilar" EntitySet="Kullanicilar" />

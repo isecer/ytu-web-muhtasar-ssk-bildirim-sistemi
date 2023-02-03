@@ -384,6 +384,7 @@
       <End Role="Menuler" EntitySet="Menulers" />
       <End Role="Roller" EntitySet="Rollers" />
     </AssociationSet>
+    <EntitySet Name="Vw_Yevmiyeler" EntityType="MusskDBModel.Vw_Yevmiyeler" />
   </EntityContainer>
   <ComplexType Name="sp_BirimAgaci_Result">
     <Property Type="Int32" Name="BirimID" Nullable="true" />
@@ -2424,4 +2425,65 @@
     <End Type="MusskDBModel.Menuler" Role="Menuler" Multiplicity="*" />
     <End Type="MusskDBModel.Roller" Role="Roller" Multiplicity="*" />
   </Association>
+  <EntityType Name="Vw_Yevmiyeler">
+    <Key>
+      <PropertyRef Name="YevmiyeID" />
+      <PropertyRef Name="YevmiyeTarih" />
+      <PropertyRef Name="YevmiyeNo" />
+      <PropertyRef Name="YevmiyeHarcamaBirimID" />
+      <PropertyRef Name="BirimAdi" />
+      <PropertyRef Name="HarcamaBirimAdi" />
+      <PropertyRef Name="VergiKimlikNo" />
+      <PropertyRef Name="HarcamaBirimKod" />
+      <PropertyRef Name="HesapKod" />
+      <PropertyRef Name="HesapAdi" />
+      <PropertyRef Name="Borc" />
+      <PropertyRef Name="Alacak" />
+      <PropertyRef Name="Aciklama" />
+      <PropertyRef Name="Y1003AIsHesaplamayaGirecek" />
+      <PropertyRef Name="Expr1" />
+      <PropertyRef Name="Expr2" />
+    </Key>
+    <Property Name="YevmiyeID" Type="Int32" Nullable="false" />
+    <Property Name="Yil" Type="Int32" />
+    <Property Name="YevmiyeTarih" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="YevmiyeNo" Type="Int32" Nullable="false" />
+    <Property Name="YevmiyeHarcamaBirimID" Type="Int32" Nullable="false" />
+    <Property Name="BirimAdi" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="HarcamaBirimAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="VergiKimlikNo" Type="String" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="HarcamaBirimKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="HesapKod" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="HesapAdi" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Borc" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Alacak" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="Aciklama" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="BankaHesapNumarasi" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AHesapKodID" Type="Int32" />
+    <Property Name="Y1003AVergiKodu" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AIsHesaplamayaGirecek" Type="Boolean" Nullable="false" />
+    <Property Name="Y1003AVergiKimlikNo" Type="String" MaxLength="11" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AAdSoyad" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AAdres" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AMatrah" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Y1003ABelgeninMahiyeti" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Y1003AFaturaTarihi" Type="DateTime" Precision="0" />
+    <Property Name="Y1003AFaturaNo" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="YevmiyeSendikaBilgiID" Type="Int32" />
+    <Property Name="BESYevmiyeHesapKodID" Type="Int32" />
+    <Property Name="BESIsYevmiyeDokumuAyri" Type="Boolean" />
+    <Property Name="BESIsYevmiyeOdendi" Type="Boolean" />
+    <Property Name="ProjeBankaHesapNoID" Type="Int32" />
+    <Property Name="Expr1" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+    <Property Name="YevmiyeHesapKodTurID" Type="Int32" />
+    <Property Name="EKYevmiyeHarcamaBirimID" Type="Int32" />
+    <Property Name="Expr2" Type="Int32" Nullable="false" />
+    <Property Name="Expr3" Type="Int32" />
+    <Property Name="YevHesapKod" Type="String" MaxLength="126" FixedLength="false" Unicode="true" />
+    <Property Name="BESHesapKod" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+    <Property Name="IsGelirKaydindaKullanilacak" Type="Boolean" />
+    <Property Name="SskPrimTutarTop" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="TevkifatTutariTop" Type="Decimal" Precision="38" Scale="2" />
+    <Property Name="TifTutarTop" Type="Decimal" Precision="38" Scale="2" />
+  </EntityType>
 </Schema>

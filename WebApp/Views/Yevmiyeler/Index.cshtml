@@ -265,18 +265,7 @@
                                                                 @Html.DropDownList(SelectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
                                                             </td>
 
-                                                        </tr>
-                                                        if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B || Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
-                                                        {
-                                                            <tr>
-                                                                <td width="160">Fatura Yıl / Ay</td>
-                                                                <td>
-                                                                    @Html.DropDownList("FYil", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
-
-                                                                </td>
-                                                                <td> @Html.DropDownList("FAyID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })</td>
-                                                            </tr>
-                                                        }
+                                                        </tr> 
                                                         if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
                                                         {
 
@@ -363,7 +352,7 @@
                                                         <table style="width:100%;table-layout:fixed;">
                                                             <tr>
                                                                 <td><input name="Aciklama" id="Aciklama" type="text" onkeypress="if (event.which == 13) { $('#frmYevmiyeler').submit(); }" value="@Model.Aciklama" class="form-control" /></td>
-                                                                <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmYevmiyeler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
+                                                                <td width="110"><a href="javascript:void(0);" onclick="$('#frmYevmiyeler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
                                                             </tr>
                                                         </table>
                                                         @if (Model.Aciklama.IsNullOrEmpty() == false)

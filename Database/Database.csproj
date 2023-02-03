@@ -201,6 +201,9 @@
     <Compile Include="Vw_BirimlerTree.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Vw_Yevmiyeler.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="YetkiGruplari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>

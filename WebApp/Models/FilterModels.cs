@@ -1384,11 +1384,7 @@ namespace WebApp.Models
 
         public List<FrYevmiyeler> Data = new List<FrYevmiyeler>();
     }
-    public class FrYilAyModel
-    {
-        public int Yil { get; set; }
-        public int AyID { get; set; }
-    }
+    
     
     public class FrYevmiyeler : Yevmiyeler
     {
@@ -1403,9 +1399,7 @@ namespace WebApp.Models
         public bool? IsTifVeriGirisiTamamlandi { get; set; }
         public bool? IsSendikaBilgisiDegisti { get; set; }
         public bool? IsBesBilgisiDegisti { get; set; }
-        public bool? IsBankaHesapNumarasiGirildi { get; set; }
-        public List<FrYilAyModel> Y1003BYilAyModels { get; set; }
-        public List<FrYilAyModel> KdvTevkifatYilAyModels { get; set; }
+        public bool? IsBankaHesapNumarasiGirildi { get; set; } 
         public string BirimAdi { get; set; }
     }
     public class YevmiyeDetayModel : Yevmiyeler

@@ -82,6 +82,7 @@ namespace Database
         public virtual DbSet<YevmiyelerVergiKimlikNumaralari> YevmiyelerVergiKimlikNumaralaris { get; set; }
         public virtual DbSet<KullanicilarLog> KullanicilarLogs { get; set; }
         public virtual DbSet<Vw_BirimlerTree> Vw_BirimlerTree { get; set; }
+        public virtual DbSet<Vw_Yevmiyeler> Vw_Yevmiyeler { get; set; }
     
         public virtual ObjectResult<sp_BirimAgaci_Result> sp_BirimAgaci()
         {

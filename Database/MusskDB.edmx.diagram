@@ -141,6 +141,7 @@
         <AssociationConnector Association="MusskDBModel.FK_YevmiyelerKdvTevkifatKayitlari_YevmiyelerKdvKodlari" />
         <AssociationConnector Association="MusskDBModel.KullaniciRolleri" />
         <AssociationConnector Association="MusskDBModel.MenuRollleri" />
+        <EntityTypeShape EntityType="MusskDBModel.Vw_Yevmiyeler" Width="1.5" PointX="8.375" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
