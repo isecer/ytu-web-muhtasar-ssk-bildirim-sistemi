@@ -372,6 +372,7 @@ namespace WebApp.Models
                 excel.Application.ActiveWorkbook.Save();
                 try
                 {
+                    workbook.Save();
                     workbook.Close();
                     excel.Application.ActiveWorkbook.Close();
                 }
@@ -576,6 +577,7 @@ namespace WebApp.Models
             {
 
                 int BilgiYazimHucreNo = 10;
+
                 Application excel = new Application();
                 var path = System.Web.HttpContext.Current.Server.MapPath("~" + model.DosyaYolu);
                 Workbook workbook = excel.Workbooks.Open(path, ReadOnly: false, Editable: true);
@@ -604,8 +606,10 @@ namespace WebApp.Models
                         }
                     }
                 }
+                workbook.Save();
+                workbook.Close();
                 excel.Application.ActiveWorkbook.Save();
-                excel.Application.Quit();
+                excel.Application.Quit(); 
                 excel.Quit();
                 //if (File.Exists(path))
                 //{
