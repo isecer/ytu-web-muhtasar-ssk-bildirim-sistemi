@@ -342,9 +342,8 @@ namespace WebApp.Models
                 {
 
                     MaxRowNum = MaxRowNum + 1;
-                    Range HcAck = worksheet1.Cells[MaxRowNum, 1];
 
-                    HcAck = worksheet1.Cells[MaxRowNum, 11];
+                    Range HcAck = worksheet1.Cells[MaxRowNum, 11];
                     HcAck.Value = item.TcKimlikNo;
                     HcAck.Font.Color = Color.Red;
                     HcAck.Borders.Color = Color.Black;

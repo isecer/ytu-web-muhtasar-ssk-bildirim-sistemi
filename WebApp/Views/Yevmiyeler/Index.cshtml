@@ -40,53 +40,56 @@
                                             cache: false,
                                             success: function (resultPv) {
                                                 _pRefresh(_anaPnl, true);
-                                                    var btbxxFS = bootbox.dialog({
-                                                        message: resultPv,
-                                                        title: "Excel'den Yevmiye yükleme işlemi",
-                                                        buttons: {
-                                                            success: {
-                                                                label: 'Yükle',
-                                                                className: "btn-primary",
-                                                                callback: function (event) {
-                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
-                                                                    var saveOk = true;
-                                                                    if (saveOk) {
-                                                                        _pRefresh(pnlx, false);
-                                                                        $('#FrmMaasExcelYuklePost').ajaxForm({
-                                                                            success: function (result) {
-                                                                                _pRefresh(pnlx, true);
-                                                                                getMsg(result);
-                                                                                if (result.IsSuccess) {
-                                                                                    setTimeout(function () {
-                                                                                        var _clsBtn = $('.modal-header').find('button').first();
-                                                                                        $(_clsBtn).click();
-                                                                                    }, 3400)
-                                                                                }
-                                                                                else {
-                                                                                    return false;
-                                                                                }
-                                                                            },
-                                                                            complete: function (cmp) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            },
-                                                                            error: function (err) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            }
+                                                var btbxxFS = bootbox.dialog({
+                                                    message: resultPv,
+                                                    title: "Excel'den Yevmiye yükleme işlemi",
+                                                    buttons: {
+                                                        success: {
+                                                            label: 'Yükle',
+                                                            className: "btn-primary btnYukle",
+                                                            callback: function (event) { 
+                                                                $('.btnYukle').addClass("disabled");
+                                                                $('.btnYukle').html("Yükleniyor...");
+                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first(); 
+                                                                _pRefresh(pnlx, false);
+                                                                $('#FrmMaasExcelYuklePost').ajaxForm({
+                                                                    success: function (result) {
+                                                                        _pRefresh(pnlx, true);
+                                                                        getMsg(result);
+                                                                        if (result.IsSuccess) {
+                                                                            setTimeout(function () {
+                                                                                var _clsBtn = $('.modal-header').find('button').first();
+                                                                                $(_clsBtn).click();
+                                                                            }, 3400)
+                                                                        }
+                                                                        else {
+                                                                            return false;
+                                                                        }
+                                                                    },
+                                                                    complete: function (cmp) {
 
-                                                                        });
-                                                                        $('#FrmMaasExcelYuklePost').submit();
+                                                                        $('.btnYukle').removeClass("disabled");
+                                                                        $('.btnYukle').html("Yükle");
+                                                                        _pRefresh(pnlx, true);
+                                                                    },
+                                                                    error: function (err) {
+                                                                        _pRefresh(pnlx, true);
                                                                     }
-                                                                    return false;
-                                                                }
-                                                            },
-                                                            danger: {
-                                                                label: 'Kapat',
-                                                                className: "btn-success",
-                                                                callback: function () {
-                                                                }
+
+                                                                });
+                                                                $('#FrmMaasExcelYuklePost').submit();
+
+                                                                return false;
+                                                            }
+                                                        },
+                                                        danger: {
+                                                            label: 'Kapat',
+                                                            className: "btn-success",
+                                                            callback: function () {
                                                             }
                                                         }
-                                                    });
+                                                    }
+                                                });
 
                                             },
                                             error: function (err) {
@@ -118,54 +121,57 @@
                                             success: function (result) {
                                                 _pRefresh(_anaPnl, true);
 
-                                                    var btbxxFS = bootbox.dialog({
-                                                        message: result.page,
-                                                        title: "Excel'den Yevmiye yükleme işlemi",
-                                                        buttons: {
-                                                            success: {
-                                                                label: 'Yükle',
-                                                                className: "btn-primary",
-                                                                callback: function (event) {
-                                                                    var pnlx = $(btbxxFS).find('.modal-dialog').first();
-                                                                    var saveOk = true;
-                                                                    if (saveOk) {
-                                                                        _pRefresh(pnlx, false);
-                                                                        $('#ExcelYuklePostForm').ajaxForm({
-                                                                            success: function (result) {
-                                                                                _pRefresh(pnlx, true);
-                                                                                getMsg(result);
-                                                                                if (result.IsSuccess) {
-                                                                                    setTimeout(function () {
-                                                                                        var _clsBtn = $('.modal-header').find('button').first();
-                                                                                        $(_clsBtn).click();
-                                                                                        $('#frmYevmiyeler').submit();
-                                                                                    }, 3400)
-                                                                                }
-                                                                                else {
-                                                                                    return false;
-                                                                                }
-                                                                            },
-                                                                            complete: function (cmp) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            },
-                                                                            error: function (err) {
-                                                                                _pRefresh(pnlx, true);
-                                                                            }
+                                                var btbxxFS = bootbox.dialog({
+                                                    message: result.page,
+                                                    title: "Excel'den Yevmiye yükleme işlemi",
+                                                    buttons: {
+                                                        success: {
+                                                            label: 'Yükle',
+                                                            className: "btn-primary btnYevmiyeYukle",
+                                                            callback: function (event) {
+                                                                $('.btnYevmiyeYukle').addClass("disabled");
+                                                                $('.btnYevmiyeYukle').html("Yükleniyor...");
+                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
 
-                                                                        });
-                                                                        $('#ExcelYuklePostForm').submit();
+                                                                _pRefresh(pnlx, false);
+                                                                $('#ExcelYuklePostForm').ajaxForm({
+                                                                    success: function (result) {
+                                                                        _pRefresh(pnlx, true);
+                                                                        getMsg(result);
+                                                                        if (result.IsSuccess) {
+                                                                            setTimeout(function () {
+                                                                                var _clsBtn = $('.modal-header').find('button').first();
+                                                                                $(_clsBtn).click();
+                                                                                $('#frmYevmiyeler').submit();
+                                                                            }, 3400)
+                                                                        }
+                                                                        else {
+                                                                            return false;
+                                                                        }
+                                                                    },
+                                                                    complete: function (cmp) {
+                                                                        $('.btnYevmiyeYukle').removeClass("disabled");
+                                                                        $('.btnYevmiyeYukle').html("Yükle");
+                                                                        _pRefresh(pnlx, true);
+                                                                    },
+                                                                    error: function (err) {
+                                                                        _pRefresh(pnlx, true);
                                                                     }
-                                                                    return false;
-                                                                }
-                                                            },
-                                                            danger: {
-                                                                label: 'Kapat',
-                                                                className: "btn-success",
-                                                                callback: function () {
-                                                                }
+
+                                                                });
+                                                                $('#ExcelYuklePostForm').submit();
+
+                                                                return false;
+                                                            }
+                                                        },
+                                                        danger: {
+                                                            label: 'Kapat',
+                                                            className: "btn-success",
+                                                            callback: function () {
                                                             }
                                                         }
-                                                    });
+                                                    }
+                                                });
 
                                             },
                                             error: function (err) {

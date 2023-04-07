@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
@@ -41,56 +42,7 @@ namespace WebApp.Controllers
             var HesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
-            //var q = (from s in db.Yevmiyelers
-            //         join hn in db.YevmiyelerProjeBankaHesapNumaralaris on s.ProjeBankaHesapNoID equals hn.ProjeBankaHesapNoID into defhn
-            //         from hn in defhn.DefaultIfEmpty()
-            //         join b in db.YevmiyelerHarcamaBirimleris on s.YevmiyeHarcamaBirimID equals b.YevmiyeHarcamaBirimID
-            //         join hk in db.YevmiyelerHesapKodlaris on s.HesapKod equals hk.HesapKod into defhk
-            //         from hk in defhk.DefaultIfEmpty()
-            //         join sn in db.YevmiyelerSendikaBilgileris on s.HesapKod equals sn.HesapKod into defsn
-            //         from sn in defsn.DefaultIfEmpty()
-            //         select new FrYevmiyeler
-            //         {
-            //             YevmiyeID = s.YevmiyeID,
-            //             YevmiyeTarih = s.YevmiyeTarih,
-            //             YevmiyeNo = s.YevmiyeNo,
-            //             YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
-            //             BirimAdi = b.BirimAdi,
-            //             HarcamaBirimAdi = s.HarcamaBirimAdi,
-            //             VergiKimlikNo = s.VergiKimlikNo,
-            //             HarcamaBirimKod = s.HarcamaBirimKod,
-            //             HesapKod = s.HesapKod,
-            //             HesapAdi = s.HesapAdi,
-            //             Borc = s.Borc,
-            //             Alacak = s.Alacak,
-            //             Aciklama = s.Aciklama,
-            //             BankaHesapNumarasi = hn != null ? hn.HesapNo : "", 
-            //             Y1003AHesapKodID = s.Y1003AHesapKodID,
-            //             Y1003AVergiKodu = s.Y1003AVergiKodu,
-            //             Y1003AIsHesaplamayaGirecek = s.Y1003AIsHesaplamayaGirecek,
-            //             Y1003AVergiKimlikNo = s.Y1003AVergiKimlikNo,
-            //             Y1003AAdSoyad = s.Y1003AAdSoyad,
-            //             Y1003AAdres = s.Y1003AAdres,
-            //             Y1003AMatrah = s.Y1003AMatrah,
-            //             Y1003ABelgeninMahiyeti = s.Y1003ABelgeninMahiyeti,
-            //             Y1003AFaturaTarihi = s.Y1003AFaturaTarihi,
-            //             Y1003AFaturaNo = s.Y1003AFaturaNo,
-            //             YevmiyeSendikaBilgiID = s.YevmiyeSendikaBilgiID,
-            //             BESYevmiyeHesapKodID = s.BESYevmiyeHesapKodID,
-            //             BESIsYevmiyeDokumuAyri = s.BESIsYevmiyeDokumuAyri,
-            //             BESIsYevmiyeOdendi = s.BESIsYevmiyeOdendi,
-            //             ProjeBankaHesapNoID = s.ProjeBankaHesapNoID, 
-            //             IsY1003BVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B ? s.Yevmiyeler1003BAyristirmalari.Sum(sm => sm.SskPrimTutar) == s.Alacak : (bool?)null,
-            //             Is1003AHesaplamayaGirecek = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? s.Y1003AIsHesaplamayaGirecek : (bool?)null,
-            //             Is1003AGelirKaydiListesi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? hk.IsGelirKaydindaKullanilacak == true : false,
-            //             Is1003AGelirKaydiYapildi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A ? (s.Y1003AVergiKimlikNo != "" && s.Y1003AVergiKimlikNo != null) : (bool?)null,
-            //             IsKdvTevkifatVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari ? s.YevmiyelerKdvTevkifatKayitlaris.Sum(sm => sm.TevkifatTutari) == s.Alacak : (bool?)null,
-            //             IsEKHarcamaBirimiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari ? s.EKYevmiyeHarcamaBirimID.HasValue && s.YevmiyeHarcamaBirimID != s.EKYevmiyeHarcamaBirimID : (bool?)null,
-            //             IsTifVeriGirisiTamamlandi = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.YevmiyelerTasinirKontrolTifKaydis.Sum(sm => sm.Tutar) == s.Borc : (bool?)null,
-            //             IsSendikaBilgisiDegisti = sn != null ? s.YevmiyeSendikaBilgiID.HasValue && s.YevmiyelerSendikaBilgileri.HesapKod != s.HesapKod : (bool?)null,
-            //             IsBesBilgisiDegisti = hk != null && hk.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
-            //             IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
-            //         }).AsQueryable(); 
+            
             var q = (from s in db.Vw_Yevmiyeler
                      select new FrYevmiyeler
                      {
@@ -239,7 +191,7 @@ namespace WebApp.Controllers
             }
 
             if (model.YevmiyeNo.HasValue) q = q.Where(p => p.YevmiyeNo == model.YevmiyeNo);
-            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod.StartsWith(model.HesapKod) || p.HesapAdi.Contains(model.HesapKod));
+            if (!model.HesapKod.IsNullOrWhiteSpace()) q = q.Where(p => p.HesapKod.Contains(model.HesapKod) || p.HesapAdi.Contains(model.HesapKod));
             if (!model.Aciklama.IsNullOrWhiteSpace()) q = q.Where(p => p.Aciklama.Contains(model.Aciklama));
 
 
@@ -969,8 +921,7 @@ namespace WebApp.Controllers
         [HttpPost]
         [Authorize(Roles = RoleNames.YevmiyelerKayitYetkisi)]
         public ActionResult ExcelYuklePost(int Yil, HttpPostedFileBase DosyaEki)
-        {
-
+        { 
             var mMessage = new MmMessage();
             mMessage.IsSuccess = false;
             mMessage.Title = "Muhtasar ve SSK Bildirimi excel verisi yükleme işlemi";
