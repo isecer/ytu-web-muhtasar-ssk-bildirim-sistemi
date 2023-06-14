@@ -27,10 +27,10 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult Index(FmYevmiye1003BSskPrimleri model, bool export = false)
         {
-            var HesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B).Select(s => s.HesapKod).ToList();
-            var YevmiyeAlacakHesapKods = new List<string> { "360.01.01.01", "360.01.01.02" };
-            var DamgaVergiHesapKodu = "360.03.01";
-            var q = (from yb in db.Yevmiyelers.Where(p => HesapKods.Contains(p.HesapKod))
+            var hesapKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B).Select(s => s.HesapKod).ToList();
+            var yevmiyeAlacakHesapKods = new List<string> { "360.01.01.01", "360.01.01.02" };
+            const string damgaVergiHesapKodu = "360.03.01";
+            var q = (from yb in db.Yevmiyelers.Where(p => hesapKods.Contains(p.HesapKod))
                      join yba in db.Yevmiyeler1003BAyristirmalari.Where(p => p.Yil == model.Yil && p.AyID == model.AyID) on yb.YevmiyeID equals yba.YevmiyeID
                      join hb in db.YevmiyelerHarcamaBirimleris on yba.YevmiyeHarcamaBirimID equals hb.YevmiyeHarcamaBirimID
                      join bk in db.YevmiyelerBelgeKodlaris on yba.YevmiyeBelgeKodID equals bk.YevmiyeBelgeKodID
@@ -76,8 +76,8 @@ namespace WebApp.Controllers
                      }).ToList();
 
 
-            var YevmiyeNos = q.SelectMany(s => s.YevmiyeNos).ToList();
-            var Yevmiyes = db.Yevmiyelers.Where(p => YevmiyeNos.Contains(p.YevmiyeNo) && (YevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == DamgaVergiHesapKodu)).Select(s => new
+            var yevmiyeNos = q.SelectMany(s => s.YevmiyeNos).ToList();
+            var yevmiyes = db.Yevmiyelers.Where(p =>p.YevmiyeTarih.Year==model.Yil && yevmiyeNos.Contains(p.YevmiyeNo) && (yevmiyeAlacakHesapKods.Contains(p.HesapKod) || p.HesapKod == damgaVergiHesapKodu)).Select(s => new
             {
                 s.YevmiyeNo,
                 s.YevmiyeID,
@@ -91,7 +91,7 @@ namespace WebApp.Controllers
 
 
 
-            var IsciBildirgeVerileri = db.VASurecleriBirimVerileris.Where(p => p.VASurecleriBirim.VASurecleri.Yil == model.Yil && p.AyID == model.AyID).Select(s => new
+            var isciBildirgeVerileri = db.VASurecleriBirimVerileris.Where(p => p.VASurecleriBirim.VASurecleri.Yil == model.Yil && p.AyID == model.AyID).Select(s => new
             {
                 IsyeriKodu = s.IsyeriSiraNumarasi,
                 BelgeKodu = s.BelgeTurKodu,
@@ -101,7 +101,7 @@ namespace WebApp.Controllers
                 UcretIkramiyeToplam = (s.HakEdilenUcret + s.PrimIkramiyeIstihkak)
 
             }).ToList();
-            var BelgeKodlaris = db.BelgeTurleris.Select(s => new { BelgeKodu = s.BelgeTurKodu, s.PrimYuzdesi }).ToList();
+            var belgeKodlaris = db.BelgeTurleris.Select(s => new { BelgeKodu = s.BelgeTurKodu, s.PrimYuzdesi }).ToList();
 
 
 
@@ -110,8 +110,8 @@ namespace WebApp.Controllers
             var qDataL = (from s in q
                           group new
                           {
-                              YevmiyeAlacakToplam = Yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && YevmiyeAlacakHesapKods.Contains(p.HesapKod)).Sum(sm => sm.Alacak),
-                              YevmiyeDvToplam = Yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && DamgaVergiHesapKodu == p.HesapKod).Sum(sm => sm.Alacak),
+                              YevmiyeAlacakToplam = yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && yevmiyeAlacakHesapKods.Contains(p.HesapKod)).Sum(sm => sm.Alacak),
+                              YevmiyeDvToplam = yevmiyes.Where(p => s.YevmiyeNos.Contains(p.YevmiyeNo) && s.YevmiyeHarcamaBirimIDs.Contains(p.YevmiyeHarcamaBirimID) && damgaVergiHesapKodu == p.HesapKod).Sum(sm => sm.Alacak),
                           } by new
                           {
 
@@ -144,8 +144,8 @@ namespace WebApp.Controllers
                           }).ToList();
 
             var qDataLx = (from s in qDataL
-                           join bk in BelgeKodlaris on s.BelgeKodu equals bk.BelgeKodu
-                           join ibv in IsciBildirgeVerileri on new { s.IsyeriKodu, s.BelgeKodu } equals new { ibv.IsyeriKodu, ibv.BelgeKodu } into defibv
+                           join bk in belgeKodlaris on s.BelgeKodu equals bk.BelgeKodu
+                           join ibv in isciBildirgeVerileri on new { s.IsyeriKodu, s.BelgeKodu } equals new { ibv.IsyeriKodu, ibv.BelgeKodu } into defibv
                            from ibv in defibv.DefaultIfEmpty()
                            group new
                            {
@@ -304,18 +304,18 @@ namespace WebApp.Controllers
             return View(model);
         }
 
-        public ActionResult TutarEkle(int Yil, int AyID, int YevmiyeHarcamaBirimID, int YevmiyeBelgeKodID)
+        public ActionResult TutarEkle(int yil, int AyID, int YevmiyeHarcamaBirimID, int YevmiyeBelgeKodID)
         {
 
 
-            var Kayit = db.Yevmiyeler1003BSskPrimBoclari.Where(p => p.Yil == Yil && p.AyID == AyID && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID && p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).FirstOrDefault();
+            var Kayit = db.Yevmiyeler1003BSskPrimBoclari.Where(p => p.Yil == yil && p.AyID == AyID && p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID && p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).FirstOrDefault();
             if (Kayit == null)
             {
                 Kayit = new Yevmiyeler1003BSskPrimBoclari();
                 var Ay = db.Aylars.Where(p => p.AyID == AyID).First();
                 var HarcamaBirimi = db.YevmiyelerHarcamaBirimleris.Where(p => p.YevmiyeHarcamaBirimID == YevmiyeHarcamaBirimID).First();
                 var BelgeKodu = db.YevmiyelerBelgeKodlaris.Where(p => p.YevmiyeBelgeKodID == YevmiyeBelgeKodID).First();
-                Kayit.Yil = Yil;
+                Kayit.Yil = yil;
                 Kayit.AyID = AyID;
                 Kayit.Aylar = Ay;
                 Kayit.YevmiyeHarcamaBirimID = YevmiyeHarcamaBirimID;
