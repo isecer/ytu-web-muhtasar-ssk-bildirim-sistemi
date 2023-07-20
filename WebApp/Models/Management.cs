@@ -2313,7 +2313,9 @@ namespace WebApp.Models
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             dct.Add(new ComboModelInt { Value = 1, Caption = "1" });
             dct.Add(new ComboModelInt { Value = 8, Caption = "8" });
+            dct.Add(new ComboModelInt { Value = 10, Caption = "10" });
             dct.Add(new ComboModelInt { Value = 18, Caption = "18" });
+            dct.Add(new ComboModelInt { Value = 20, Caption = "20" });
             return dct;
 
         }
