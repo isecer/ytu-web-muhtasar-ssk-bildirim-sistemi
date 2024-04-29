@@ -2700,8 +2700,8 @@ C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.x
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Deployment.xml
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\bin\System.Web.WebPages.Razor.xml
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\bin\EntityFramework.xml
+C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.AssemblyReference.cache
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.CoreCompileInputs.cache
-C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.CopyComplete
+C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.Up2Date
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.dll
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.pdb
-C:\Users\User\Source\Repos\isecer\Ytu_Mussk\WebService\obj\Debug\WebService.csproj.AssemblyReference.cache

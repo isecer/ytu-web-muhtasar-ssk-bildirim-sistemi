@@ -21,15 +21,15 @@ namespace WebApp.Controllers
     [Authorize(Roles = RoleNames.Yevmiyeler)]
     public class YevmiyelerController : Controller
     {
-        private MusskDBEntities db = new MusskDBEntities();
+        private readonly MusskDBEntities db = new MusskDBEntities();
         public ActionResult Index()
         {
             var fModel = new FmYevmiyeler { PageSize = 20 };
-            var BirimID = UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler];
-            var Yil = UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler];
-            fModel.Expand = Yil.HasValue || BirimID.HasValue;
-            fModel.YevmiyeHarcamaBirimID = BirimID;
-            fModel.Yil = Yil;
+            var birimId = UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler];
+            var yil = UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler];
+            fModel.Expand = yil.HasValue || birimId.HasValue;
+            fModel.YevmiyeHarcamaBirimID = birimId;
+            fModel.Yil = yil;
             fModel.BitisTarihi = DateTime.Now.Date;
             return Index(fModel);
         }
@@ -38,15 +38,15 @@ namespace WebApp.Controllers
         public ActionResult Index(FmYevmiyeler model, bool export = false)
         {
 
-            var BirimIDs = UserIdentity.Current.BirimYetkileri;
-            var HesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
+            var birimIDs = UserIdentity.Current.BirimYetkileri;
+            var hesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
             
             var q = (from s in db.Vw_Yevmiyeler
                      select new FrYevmiyeler
                      {
-                         YevmiyeID = s.YevmiyeID,
+                         YevmiyeID = s.YevmiyeID, 
                          YevmiyeTarih = s.YevmiyeTarih,
                          YevmiyeNo = s.YevmiyeNo,
                          YevmiyeHarcamaBirimID = s.YevmiyeHarcamaBirimID,
@@ -86,16 +86,16 @@ namespace WebApp.Controllers
                          IsBesBilgisiDegisti = s.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
                          IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
                      }).AsQueryable();
-            if (HesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
+            if (hesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
             {
-                var IsBankaYetkiVar = HesapKodTurYetkis.Any(a => a == HesapKoduTuru.BankaIslemleriHesapKodlari);
+                var IsBankaYetkiVar = hesapKodTurYetkis.Any(a => a == HesapKoduTuru.BankaIslemleriHesapKodlari);
                 if (!IsBankaYetkiVar)
                 {
-                    var IsSendikaYetkiVar = HesapKodTurYetkis.Any(a => a == HesapKoduTuru.SendikaIslemleriHesapKodlari);
+                    var IsSendikaYetkiVar = hesapKodTurYetkis.Any(a => a == HesapKoduTuru.SendikaIslemleriHesapKodlari);
 
                     var HesapKods = new List<string>();
                     if (IsSendikaYetkiVar) HesapKods.AddRange(db.YevmiyelerSendikaBilgileris.Select(s => s.HesapKod).ToList());
-                    var EslesenHesapkodlaris = db.YevmiyelerHesapKodlaris.Where(p => HesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
+                    var EslesenHesapkodlaris = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
                     HesapKods.AddRange(EslesenHesapkodlaris.Select(s => s.HesapKod));
                     q = q.Where(p => HesapKods.Contains(p.HesapKod));
                 }
@@ -107,7 +107,7 @@ namespace WebApp.Controllers
             var SelectName = "";
             if (model.YevmiyeHesapKodTurID.HasValue)
             {
-                var HesapTurKods = db.YevmiyelerHesapKodlaris.Where(p => HesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
+                var HesapTurKods = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
 
                 if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
                 {
@@ -824,7 +824,7 @@ namespace WebApp.Controllers
             ViewBag.IndexModel = IndexModel;
             ViewBag.Yil = new SelectList(Management.CmbYevmiylerYil(true), "Value", "Caption", model.Yil);
             ViewBag.YevmiyeHarcamaBirimID = new SelectList(Management.CmbYevmiyelerBirim(true), "Value", "Caption", model.YevmiyeHarcamaBirimID);
-            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true, HesapKodTurYetkis), "Value", "Caption", model.YevmiyeHesapKodTurID);
+            ViewBag.YevmiyeHesapKodTurID = new SelectList(Management.CmbYevmiyeHesapKodTurleri(true, hesapKodTurYetkis), "Value", "Caption", model.YevmiyeHesapKodTurID);
             ViewBag.SelectName = SelectName;
             return View(model);
         }
@@ -1175,7 +1175,7 @@ namespace WebApp.Controllers
                                 {
                                     var msg = "Excel dosyası düzenlenirken bir hata oluştu! Hata:" + excpt.ToExceptionMessage();
                                     mMessage.Messages.Add(msg);
-                                    Management.SistemBilgisiKaydet(msg, "Yevmiyeler/FileDataDEOSave", BilgiTipi.Hata);
+                                    Management.SistemBilgisiKaydet(msg, "Yevmiyeler/FileDataDEOSave\r\n"+excpt.ToExceptionStackTrace(), BilgiTipi.Hata);
                                 }
                             }
                         }
@@ -1186,7 +1186,7 @@ namespace WebApp.Controllers
                     {
                         var msg = "Yevmiye verileri yükleme işlemi yapılırken bir hata oluştu! Hata:" + ex.ToExceptionMessage();
                         mMessage.Messages.Add(msg);
-                        Management.SistemBilgisiKaydet(msg, "Yevmiyeler/ExcelYuklePost", BilgiTipi.Hata);
+                        Management.SistemBilgisiKaydet(msg, "Yevmiyeler/ExcelYuklePost\r\n"+ex.ToExceptionStackTrace(), BilgiTipi.Hata);
 
                     }
                 }

@@ -636,7 +636,7 @@ namespace WebApp.Models
         }
         public static int? ToIntObj(this object obj)
         {
-            if (obj != null && (obj.IsNumber())) return Convert.ToInt32(obj);
+            if (obj != null && obj.IsNumber()) return Convert.ToInt32(Math.Round(Convert.ToDouble(obj)));
             else return (int?)null;
         }
         public static int? ToIntObjTrimSpace(this object obj)

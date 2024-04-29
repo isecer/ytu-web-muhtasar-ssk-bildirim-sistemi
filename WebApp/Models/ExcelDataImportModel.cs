@@ -177,6 +177,7 @@ namespace WebApp.Models
                 for (int i = 0; i < tables.Rows.Count; i++)
                 {
 
+                     
                     var _BelgeMahiyetTipKodu = tables.Rows[i][0].ToStrObjEmptString().Trim();
                     var _BelgeTurKodu = tables.Rows[i][1].ToStrObjEmptString().Trim();
                     var _DEsasKanunNo = tables.Rows[i][2].ToStrObjEmptString().Trim();
@@ -567,8 +568,7 @@ namespace WebApp.Models
                 }
             }
             return Model;
-        }
-
+        } 
         public static Exception YevmiyeAktarilanExcelHataKontrolu(this ExcelImportYevmiyeDataModel model)
         {
             Exception excpt = null;
@@ -607,7 +607,7 @@ namespace WebApp.Models
                 }
                 workbook.Save();
                 workbook.Close();
-                excel.Application.ActiveWorkbook.Save();
+                //excel.Application.ActiveWorkbook.Save();
                 excel.Application.Quit(); 
                 excel.Quit();
                 //if (File.Exists(path))

@@ -562,7 +562,7 @@ namespace WebApp.Controllers
                                             item.HataliHucreler.Add(18);
                                             EksikGunHesapYapilabilir = false;
                                         }
-                                        else if (item.BirOncekiDurumVerisi != null)
+                                        else if (item.BirOncekiDurumVerisi != null && !model.Data.Any(a => a.TcKimlikNo == item.TcKimlikNo && a.IstenCikisAy.HasValue && a.IstenCikisGun.Value <= item.IseGirisGun.Value))
                                         {
                                             if (!item.BirOncekiDurumVerisi.IstenCikisAy.HasValue)
                                             {
