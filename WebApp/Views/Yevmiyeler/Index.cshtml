@@ -2,11 +2,11 @@
 @using BiskaUtil
 @model FmYevmiyeler
 @{
-    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
-    var KayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
-    var ExcelYuklemeYetki = RoleNames.YevmiyelerExcelYukleme.InRole();
+    var kayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
+    var excelYuklemeYetki = RoleNames.YevmiyelerExcelYukleme.InRole();
+    var yevmiyeSilmeYetki = RoleNames.YevmiyelerYevmiyeSilmeYevmiyeNoile.InRole();
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var SelectName = (string)ViewBag.SelectName;
+    var selectName = (string)ViewBag.SelectName;
 }
 
 
@@ -25,6 +25,94 @@
                         <i class="glyphicon glyphicon-filter"></i> Filtre İşlemi
                     </h3>
                     <ul class="panel-controls">
+                        @if (yevmiyeSilmeYetki)
+                        {
+                            <li>
+                                <span class="label label-warning" style="cursor:pointer;" onclick="GetYevmiyeNoSil()"> <i class="fa fa-trash-o fa-lg" style="color:maroon;"></i> Yevmiye No Sil</span>
+                                <script>
+
+                                    function GetYevmiyeNoSil() {
+                                          var _anaPnl = $('#pnlDetay');
+                                          _pRefresh(_anaPnl, false);
+                                          $.ajax({
+                                              url: '@Url.Action("GetYevmiyeSil", "Yevmiyeler")',
+                                              data: { 'Yil': @Model.Yil },
+                                              type: 'POST',
+                                              cache: false,
+                                              success: function (result) {
+                                                  _pRefresh(_anaPnl, true);
+
+                                                  var btbxxFS = bootbox.dialog({
+                                                      message: result.page,
+                                                      title: "Yevmiye Silme işlemi",
+                                                      buttons: {
+                                                          info: {
+                                                              label: 'Yevmiyeleri Kontrol Et',
+                                                              className: "btn-info btnYevmiyeKontrol",
+                                                              callback: function (event) {
+                                                                  YevmiyeSilPost(true, btbxxFS);
+                                                                  return false;
+                                                              }
+                                                          },
+                                                          success: {
+                                                              label: 'Yevmiyeleri Sil',
+                                                              className: "btn-danger btnYevmiyeSil",
+                                                              callback: function (event) {
+                                                                  var yevmiyeNo = $('#YevmiyeNoBB').val();
+                                                                  if (yevmiyeNo=="") {
+                                                                      alert('Yevmiye numarası giriniz.');
+                                                                      return false; 
+                                                                  }
+                                                                  if (confirm('Girilen ' + yevmiyeNo +' yevmiye numaralı yevmiye ve sonrasındaki yevmiye kayıtlarını silmek istediğinizden emin misiniz? Silme işlemi yapıldıktan sonra kayıtlar geri alınamaz!')) {
+                                                                      YevmiyeSilPost(false, btbxxFS);
+                                                                  }
+                                                                  return false;
+                                                              }
+                                                          },
+                                                          danger: {
+                                                              label: 'Kapat',
+                                                              className: "btn-primary",
+                                                              callback: function () {
+                                                              }
+                                                          }
+                                                      }
+                                                  });
+
+                                              },
+                                              error: function (err) {
+                                                  _pRefresh(_anaPnl, true);
+                                                  alert(err.responseText);
+                                              }
+                                          })
+                                    };
+
+                                    function YevmiyeSilPost(isKontrolOrSil, btbxxFS) {
+                                        $(isKontrolOrSil ? '.btnYevmiyeKontrol':'.btnYevmiyeSil').addClass("disabled");
+                                        $(isKontrolOrSil ? '.btnYevmiyeKontrol' : '.btnYevmiyeSil').html(isKontrolOrSil?"Kontrol Ediliyor...":"Siliniyor...");
+                                        var pnlx = $(btbxxFS).find('.modal-dialog').first();
+                                        $('#isKontrolOrSil').val(isKontrolOrSil?'true':'false');
+                                        _pRefresh(pnlx, false);
+                                        $('#YevmiyeSilPostForm').ajaxForm({
+                                            success: function (result) {
+                                                _pRefresh(pnlx, true);
+                                                getMsg(result);
+                                            },
+                                            complete: function (cmp) {
+                                                $(isKontrolOrSil ? '.btnYevmiyeKontrol' : '.btnYevmiyeSil').removeClass("disabled");
+                                                $(isKontrolOrSil ? '.btnYevmiyeKontrol' : '.btnYevmiyeSil').html(isKontrolOrSil ? "Yevmiyeleri Kontrol Et" : "Yevmiyeleri Sil");
+                                                _pRefresh(pnlx, true);
+                                            },
+                                            error: function (err) {
+                                                _pRefresh(pnlx, true);
+                                            }
+
+                                        });
+                                        $('#YevmiyeSilPostForm').submit();
+                                    }
+                                </script>
+
+                            </li>
+                        }
                         @if (true)
                         {
                             <li>
@@ -47,10 +135,10 @@
                                                         success: {
                                                             label: 'Yükle',
                                                             className: "btn-primary btnYukle",
-                                                            callback: function (event) { 
+                                                            callback: function (event) {
                                                                 $('.btnYukle').addClass("disabled");
                                                                 $('.btnYukle').html("Yükleniyor...");
-                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first(); 
+                                                                var pnlx = $(btbxxFS).find('.modal-dialog').first();
                                                                 _pRefresh(pnlx, false);
                                                                 $('#FrmMaasExcelYuklePost').ajaxForm({
                                                                     success: function (result) {
@@ -103,7 +191,7 @@
 
                             </li>
                         }
-                        @if (ExcelYuklemeYetki && Model.Yil.HasValue)
+                        @if (excelYuklemeYetki && Model.Yil.HasValue)
                         {
                             <li>
                                 <span class="label label-warning" style="cursor:pointer;" onclick="ExcelYukle()"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel'den Yevmiye Yükle</span>
@@ -228,7 +316,7 @@
                                             </table>
                                         </td>
                                     </tr>
-                                    @if (Model.YevmiyeHesapKodTurID.HasValue && SelectName != "")
+                                    @if (Model.YevmiyeHesapKodTurID.HasValue && selectName != "")
                                     {
                                         <tr>
                                             <td>
@@ -268,10 +356,11 @@
                                                         <tr>
                                                             <td width="160">Kayıt Durumu</td>
                                                             <td colspan="2">
-                                                                @Html.DropDownList(SelectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+                                                                @Html.DropDownList(selectName, null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
                                                             </td>
 
-                                                        </tr> 
+                                                        </tr>
+
                                                         if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
                                                         {
 
@@ -413,57 +502,57 @@
                         <tbody>
                             @if (Model.RowCount > 0)
                             {
-                                int RowIndex = Model.StartRowIndex;
+                                int rowIndex = Model.StartRowIndex;
                                 foreach (var item in Model.Data)
                                 {
-                                    var ClassRow = "";
+                                    var classRow = "";
                                     if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
                                     {
-                                        ClassRow = item.IsY1003BVeriGirisiTamamlandi == true ? "success" : "danger";
+                                        classRow = item.IsY1003BVeriGirisiTamamlandi == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A)
                                     {
                                         if (Model.Is1003AGelirKaydiListesi == true)
                                         {
-                                            ClassRow = item.Is1003AGelirKaydiYapildi == true ? "success" : "danger";
+                                            classRow = item.Is1003AGelirKaydiYapildi == true ? "success" : "danger";
                                         }
                                         else
                                         {
-                                            ClassRow = item.Is1003AHesaplamayaGirecek == true ? "success" : "danger";
+                                            classRow = item.Is1003AHesaplamayaGirecek == true ? "success" : "danger";
                                         }
 
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.KDVTevkifatHesapKodlari)
                                     {
-                                        ClassRow = item.IsKdvTevkifatVeriGirisiTamamlandi == true ? "success" : "danger";
+                                        classRow = item.IsKdvTevkifatVeriGirisiTamamlandi == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.EmekliKesintiHesapKodlari)
                                     {
-                                        ClassRow = item.IsEKHarcamaBirimiDegisti == true ? "success" : "danger";
+                                        classRow = item.IsEKHarcamaBirimiDegisti == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari)
                                     {
-                                        ClassRow = item.IsTifVeriGirisiTamamlandi == true ? "success" : "danger";
+                                        classRow = item.IsTifVeriGirisiTamamlandi == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari)
                                     {
-                                        ClassRow = item.IsBesBilgisiDegisti == true ? "success" : "danger";
+                                        classRow = item.IsBesBilgisiDegisti == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.SendikaIslemleriHesapKodlari)
                                     {
-                                        ClassRow = item.IsSendikaBilgisiDegisti == true ? "success" : "danger";
+                                        classRow = item.IsSendikaBilgisiDegisti == true ? "success" : "danger";
                                     }
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
                                     {
-                                        ClassRow = item.IsBankaHesapNumarasiGirildi == true ? "success" : "danger";
+                                        classRow = item.IsBankaHesapNumarasiGirildi == true ? "success" : "danger";
                                     }
 
-                                    RowIndex++;
-                                    <tr class="@ClassRow">
+                                    rowIndex++;
+                                    <tr class="@classRow">
                                         <td>
                                             <table>
                                                 <tr>
-                                                    <td style="width:30px;">@RowIndex</td>
+                                                    <td style="width:30px;">@rowIndex</td>
                                                     <td>
                                                         <ul class="panel-controls">
                                                             <li id="iShow_@item.YevmiyeID" onclick="ShowDetail(@item.YevmiyeID)">
@@ -564,7 +653,7 @@
         $('#export').val('false');
     }
 </script>
-@if (KayitYetkisi)
+@if (kayitYetkisi)
 {
     <script>
          function YevmiyeAyristir(YevmiyeID, Yevmiye1003BAyristirmaID) {
@@ -648,7 +737,7 @@
                             success: function (result) {
                                 toastr[result.success ? "success" : "error"](result.message, "Yevmiye Ayrıştırma Kaydı Silme İşlemi")
                                  SubData(YevmiyeID);
-                           
+
 
                             },
                             error: function (err) {

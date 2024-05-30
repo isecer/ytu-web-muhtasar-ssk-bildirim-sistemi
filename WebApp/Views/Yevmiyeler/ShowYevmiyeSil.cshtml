@@ -1,0 +1,52 @@
+﻿@using WebApp.Models
+@using Database
+@using BiskaUtil
+@model YevmiyeNoSilmePopupModel
+@{
+    Layout = null;
+
+
+}
+<div class="row">
+    @using (Ajax.BeginForm("YevmiyeSilPost", null, new AjaxOptions() { HttpMethod = "POST", }, new { enctype = "multipart/form-data", id = "YevmiyeSilPostForm" }))
+    {
+        <input name="Yil" class="hide" value="@Model.Yil" />
+        <input name="isKontrolOrSil" id="isKontrolOrSil" class="hide" value="true" />
+        <div class="panel panel-info">
+
+            <div class="panel-body" style="margin: 0px; padding: 0px;">
+                <div class="col-md-12">
+                    <table class="table" style="font-size:9pt;margin:0px;">
+                        <tbody>
+                            <tr>
+                                <td width="155">Yevmiye Yılı</td>
+                                <td width="5">:</td>
+                                <td>
+                                    @Model.Yil
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Son Yevmiye No</td>
+                                <td>:</td>
+                                <td>
+                                    Yıla ait son yevmiye numarası: @Model.SonYevmiyeNo
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Yevmiye No</td>
+                                <td>:</td>
+                                <td>
+                                    <input type="text" class="form-control" id="YevmiyeNoBB" name="YevmiyeNo"   />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" style="padding:5px;color:maroon;" id="yevmiyeSilMessageTd">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>

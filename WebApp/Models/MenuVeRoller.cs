@@ -69,6 +69,8 @@ namespace WebApp.Models
         public const string YevmiyelerKayitYetkisi = "YevmiyelerKayıtYetkisi";
         [RoleAttribute(GorunurAdi = "Yevmiyeler Excel Yükleme", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyelerExcelYukleme = "YevmiyelerExcelYukleme";
+        [RoleAttribute(GorunurAdi = "Yevmiye Silme Yevmiye No ile", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyelerYevmiyeSilmeYevmiyeNoile = "YevmiyelerYevmiyeSilmeYevmiyeNoile";
 
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "1003B Ssk Primleri", MenuCssClass = "fa fa-file-text-o", MenuUrl = "Yevmiye1003BSskPrimleri/Index", DilCeviriYap = false, SiraNo = 2)]
         [RoleAttribute(GorunurAdi = "Yevmiye - 1003B Ssk Primleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]

@@ -1,45 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using BiskaUtil;
 using WebApp.Models;
 using Database;
 using Quartz;
-using WebApp.Jobs;
 using System.Threading.Tasks;
 
 namespace WebApp.Controllers
 {
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     [Authorize(Roles = RoleNames.SistemAyarlari)]
     public class SistemAyarlariController : Controller
     {
-        private IScheduler _scheduler;
-        public SistemAyarlariController()
-        {
-            _scheduler = MvcApplication._quartzScheduler;
-        }
+        private readonly IScheduler scheduler = MvcApplication._quartzScheduler;
         private MusskDBEntities db = new MusskDBEntities();
-        public ActionResult Index(string UnToggleKategoris)
+        public ActionResult Index(string unToggleKategoris)
         {
-            var _UnToggleKategoris = (UnToggleKategoris ?? "").Split(',').ToList();
+            var unToggleKategoriList = (unToggleKategoris ?? "").Split(',').ToList();
             var data = db.Ayarlars.OrderBy(o => o.Kategori).ThenBy(t => t.SiraNo).ToList();
-            var cats = data.Select(s => new { s.Kategori, Toggle = !_UnToggleKategoris.Contains(s.Kategori) }).Distinct().ToList();
-            var PanelToggled = new Dictionary<string, bool>();
+            var cats = data.Select(s => new { s.Kategori, Toggle = !unToggleKategoriList.Contains(s.Kategori) }).Distinct().ToList();
+            var panelToggled = new Dictionary<string, bool>();
             foreach (var item in cats)
             {
-                PanelToggled.Add(item.Kategori, item.Toggle);
+                panelToggled.Add(item.Kategori, item.Toggle);
             }
-            ViewBag.PanelToggled = PanelToggled;
+            ViewBag.PanelToggled = panelToggled;
             return View(data);
         }
         [HttpPost]
-        public ActionResult Index(List<string> AyarAdi, List<string> AyarDegeri, List<string> PanelToggled)
+        public ActionResult Index(List<string> ayarAdi, List<string> ayarDegeri, List<string> panelToggled)
         {
-            var qSistemAyarAdi = AyarAdi.Select((s, Index) => new { inx = Index, s }).ToList();
-            var qSistemAyarDegeri = AyarDegeri.Select((s, Index) => new { inx = Index, s }).ToList();
+            var qSistemAyarAdi = ayarAdi.Select((s, index) => new { inx = index, s }).ToList();
+            var qSistemAyarDegeri = ayarDegeri.Select((s, index) => new { inx = index, s }).ToList();
 
             var qModel = (from sa in qSistemAyarAdi
                           join sad in qSistemAyarDegeri on sa.inx equals sad.inx
@@ -49,17 +42,17 @@ namespace WebApp.Controllers
                               AyarAdi = sa.s,
                               AyarDegeri = sad.s,
                           }).ToList();
-            bool StartJob = false;
+            bool startJob = false;
             foreach (var item in qModel)
             {
-                var ayar = db.Ayarlars.Where(p => p.AyarAdi == item.AyarAdi).FirstOrDefault();
+                var ayar = db.Ayarlars.FirstOrDefault(p => p.AyarAdi == item.AyarAdi);
                 if (ayar != null)
                 {
 
                     ayar.AyarDegeri = item.AyarDegeri;
                     if (ayar.AyarAdi == SistemAyar.GeciciDosyalarOtomatikOlarakKaldirilsin)
                     {
-                        if (ayar.AyarDegeri.ToBoolean(false)) StartJob = true;
+                        if (ayar.AyarDegeri.ToBoolean(false)) startJob = true;
                     }
 
                 }
@@ -68,32 +61,32 @@ namespace WebApp.Controllers
 
             MessageBox.Show("Sistem Ayarları Güncellendi", MessageBox.MessageType.Success);
 
-            var _PanelToggled = new Dictionary<string, bool>();
-            foreach (var item in PanelToggled)
+            var panelToggledDct = new Dictionary<string, bool>();
+            foreach (var item in panelToggled)
             {
-                var _ptg = item.Replace("__", "◘").Split('◘');
-                _PanelToggled.Add(_ptg[0], _ptg[1].ToBoolean().Value);
+                var ptg = item.Replace("__", "◘").Split('◘');
+                panelToggledDct.Add(ptg[0], ptg[1].ToBoolean().Value);
             }
-            ViewBag.PanelToggled = _PanelToggled;
-            if (StartJob)
+            ViewBag.PanelToggled = panelToggledDct;
+            if (startJob)
             {
-                var _UnToggleKategoris = string.Join(",", _PanelToggled.Where(p => p.Value == false).Select(s => s.Key).ToList());
-                return RedirectToAction("StartJob", "SistemAyarlari", new { UnToggleKategoris = _UnToggleKategoris });
+                var unToggleKategoriList = string.Join(",", panelToggledDct.Where(p => p.Value == false).Select(s => s.Key).ToList());
+                return RedirectToAction("StartJob", "SistemAyarlari", new { UnToggleKategoris = unToggleKategoriList });
             }
-            else _scheduler.PauseAll();
+            else scheduler.PauseAll();
             var data = db.Ayarlars.OrderBy(o => o.Kategori).ThenBy(t => t.SiraNo).ToList();
 
             return View(data);
         }
-        public async Task<ActionResult> StartJob(string UnToggleKategoris)
+        public async Task<ActionResult> StartJob(string unToggleKategoris)
         {
-            await _scheduler.Clear(); 
-            await _scheduler.Start();
-            await _scheduler.ResumeAll();
-            IJobDetail job = Jobs.Jobs.JobDetailGeciciDosyaTemizleme();
-            ITrigger trigger = Jobs.Jobs.TriggerGeciciDosyaTemizleme();
-            await _scheduler.ScheduleJob(job, trigger);
-            return RedirectToAction("Index", "SistemAyarlari", new { UnToggleKategoris = UnToggleKategoris });
+            await scheduler.Clear(); 
+            await scheduler.Start();
+            await scheduler.ResumeAll();
+            IJobDetail job = Jobs.JobDetailGeciciDosyaTemizleme();
+            ITrigger trigger = Jobs.TriggerGeciciDosyaTemizleme();
+            await scheduler.ScheduleJob(job, trigger);
+            return RedirectToAction("Index", "SistemAyarlari", new { UnToggleKategoris = unToggleKategoris });
         }
     }
 

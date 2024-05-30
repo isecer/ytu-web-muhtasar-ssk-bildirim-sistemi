@@ -58,7 +58,17 @@ namespace BiskaUtil
         {
             var type = typeof(IRoleName);
             var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
+                .SelectMany(s => {
+                    try
+                    {
+                        return s.GetTypes();
+                    }
+                    catch (ReflectionTypeLoadException ex)
+                    {
+                        return ex.Types.Where(t => t != null); // Yüklenemeyen türler null olabilir
+                    }
+
+                })
                 .Where(p => type.IsAssignableFrom(p)).ToArray();
             List<FieldInfo> infos = new List<FieldInfo>();
             foreach (var typex in types)
@@ -90,7 +100,18 @@ namespace BiskaUtil
             //    .AsEnumerable();
             var type = typeof(IMenu);
             var types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
+                .SelectMany(s =>
+                {
+                    try
+                    {
+                        return s.GetTypes();
+                    }
+                    catch (ReflectionTypeLoadException ex)
+                    { 
+                        return ex.Types.Where(t => t != null); // Yüklenemeyen türler null olabilir
+                    }
+
+                })
                 .Where(p => type.IsAssignableFrom(p)).ToArray();
             List<FieldInfo> infos = new List<FieldInfo>();
             foreach (var typex in types)

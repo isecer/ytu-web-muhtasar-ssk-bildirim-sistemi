@@ -1059,6 +1059,11 @@ namespace WebApp.Models
         public string BirimAdi { get; set; }
         public string VeriGirisTipAdi { get; set; }
     }
+    public class YevmiyeNoSilmePopupModel
+    {
+        public int? SonYevmiyeNo { get; set; }
+        public int Yil { get; set; } 
+    }
     public class YevmiyeVeriGirisPopupExcelModel
     {
         public int Yil { get; set; }

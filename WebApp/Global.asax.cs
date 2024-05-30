@@ -10,7 +10,6 @@ using Database;
 using Quartz;
 using Quartz.Impl;
 using System.Collections.Specialized;
-using WebApp.Jobs;
 
 namespace WebApp
 {
@@ -31,7 +30,7 @@ namespace WebApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BiskaUtil.Membership.OnRequireUserIdentity += Membership_OnRequireUserIdentity;
             BiskaUtil.SystemInformation.OnEvent += SystemInformation_OnEvent;
-           // Management.Update();
+             Management.Update();
             OnlineUsers.users = new List<OnlineUser>();
             _quartzScheduler = ConfigureQuartz();
             var geciciDosyalarOtomatikOlarakKaldirilsin = SistemAyar.GeciciDosyalarOtomatikOlarakKaldirilsin.getAyar("false").ToBooleanObj().Value;
@@ -43,7 +42,8 @@ namespace WebApp
 
 
         }
-        public static IScheduler ConfigureQuartz()
+
+        private static IScheduler ConfigureQuartz()
         {
             NameValueCollection props = new NameValueCollection
             {
@@ -63,8 +63,8 @@ namespace WebApp
             _quartzScheduler.Clear();
             _quartzScheduler.Start();
             _quartzScheduler.ResumeAll();
-            IJobDetail job = Jobs.Jobs.JobDetailGeciciDosyaTemizleme();
-            ITrigger trigger = Jobs.Jobs.TriggerGeciciDosyaTemizleme();
+            IJobDetail job = Jobs.JobDetailGeciciDosyaTemizleme();
+            ITrigger trigger = Jobs.TriggerGeciciDosyaTemizleme();
             _quartzScheduler.ScheduleJob(job, trigger);
         }
         //protected void Application_Error(object sender, EventArgs e)
