@@ -244,4 +244,4 @@ C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.csproj.Gener
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.csproj.CoreCompileInputs.cache
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.dll
 C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.pdb
-C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.csproj.CopyComplete
+C:\Users\User\source\repos\isecer\Ytu_Mussk\WebApp\obj\Debug\WebApp.csproj.Up2Date

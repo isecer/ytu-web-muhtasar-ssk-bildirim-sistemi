@@ -84,7 +84,10 @@ namespace WebApp.Controllers
                          IsTifVeriGirisiTamamlandi = s.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari ? s.TifTutarTop == s.Borc : (bool?)null,
                          IsSendikaBilgisiDegisti = s.YevmiyeSendikaBilgiID.HasValue ? s.YevHesapKod != s.HesapKod : (bool?)null,
                          IsBesBilgisiDegisti = s.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari ? s.BESYevmiyeHesapKodID.HasValue && s.BESHesapKod != s.HesapKod : (bool?)null,
-                         IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue
+
+                         IsBankaHesapNumarasiGirildi = s.ProjeBankaHesapNoID.HasValue,
+                         YevmiyeAlimKanunTurID = s.YevmiyeAlimKanunTurID,
+                         IsYevmiyeAlimKanunTurGirildi = s.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari && s.YevmiyeAlimKanunTurID.HasValue,
                      }).AsQueryable();
             if (hesapKodTurYetkis.Count != db.YevmiyelerHesapKodTurleris.Count())
             {
@@ -107,7 +110,7 @@ namespace WebApp.Controllers
             var SelectName = "";
             if (model.YevmiyeHesapKodTurID.HasValue)
             {
-                var HesapTurKods = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
+                var HesapTurKods = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsHesapKoduBaslangicEslesmesiYeterli, s.IsGelirKaydindaKullanilacak }).ToList();
 
                 if (model.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B)
                 {
@@ -186,6 +189,24 @@ namespace WebApp.Controllers
 
                     ViewBag.IsBankaHesapNumarasiGirildi = new SelectList(Management.CmbBankaVeriGirisDurumData(true), "Value", "Caption", model.IsBankaHesapNumarasiGirildi);
                     SelectName = "IsBankaHesapNumarasiGirildi";
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari)
+                {
+                    q = q.Where(p =>
+                        db.YevmiyelerHesapKodlaris
+                            .Where(x => hesapKodTurYetkis.Contains(x.YevmiyeHesapKodTurID) && x.YevmiyeHesapKodTurID == model.YevmiyeHesapKodTurID)
+                            .Any(a =>
+                                a.IsHesapKoduBaslangicEslesmesiYeterli
+                                    ? p.HesapKod.StartsWith(a.HesapKod)
+                                    : p.HesapKod == a.HesapKod
+                            )
+                    );
+                    if (model.IsYevmiyeAlimKanunTurGirildi.HasValue) q = q.Where(p => p.IsYevmiyeAlimKanunTurGirildi == model.IsYevmiyeAlimKanunTurGirildi);
+                    if (model.YevmiyeAlimKanunTurID.HasValue) q = q.Where(p => p.YevmiyeAlimKanunTurID == model.YevmiyeAlimKanunTurID);
+
+                    ViewBag.IsYevmiyeAlimKanunTurGirildi = new SelectList(Management.CmbBankaVeriGirisDurumData(true), "Value", "Caption", model.IsYevmiyeAlimKanunTurGirildi);
+                    ViewBag.YevmiyeAlimKanunTurID = new SelectList(Management.CmbYevmiyeAlimKanunTurleri(true), "Value", "Caption", model.YevmiyeAlimKanunTurID);
+                    SelectName = "IsYevmiyeAlimKanunTurGirildi";
                 }
 
             }
@@ -746,6 +767,46 @@ namespace WebApp.Controllers
                     gv.RenderControl(htw);
 
                     return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YevmiyeBankaHesapNoListesi_" + model.Yil + ".xls");
+                }
+                else if (model.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari)
+                {
+                    var gv = new GridView();
+                    var data = q.ToList();
+                    var BesBankas = db.YevmiyelerProjeBankaHesapNumaralaris.ToList();
+                    var yevmiyeAlimKanunTurleri = db.YevmiyelerAlimKanunTurleris.ToList();
+                    gv.DataSource = (from s in data
+                                     join bn in BesBankas on s.ProjeBankaHesapNoID equals bn.ProjeBankaHesapNoID into defbn
+                                     from bn in defbn.DefaultIfEmpty()
+                                     join ya in yevmiyeAlimKanunTurleri on s.YevmiyeAlimKanunTurID equals ya.YevmiyeAlimKanunTurID into defya
+                                     from ya in defya.DefaultIfEmpty()
+                                     select new
+                                     {
+                                         s.YevmiyeTarih,
+                                         s.YevmiyeNo,
+                                         s.VergiKimlikNo,
+                                         s.HarcamaBirimAdi,
+                                         s.HarcamaBirimKod,
+                                         s.HesapKod,
+                                         s.HesapAdi,
+                                         s.Borc,
+                                         s.Alacak,
+                                         s.Aciklama,
+                                         YevmiyeAlimKanunTurAdi = ya != null ? ya.AlimKanunTurAdi : "",
+                                         Bn_HesapNo = bn != null ? bn.HesapNo : "",
+                                         Bn_HesapAdi = bn != null ? bn.HesapAdi : "",
+                                         Bn_ProjeNo = bn != null ? bn.ProjeNo : "",
+                                         Bn_ProjeAdi = bn != null ? bn.ProjeAdi : ""
+
+                                     });
+                    gv.DataBind();
+                    Response.ContentType = "application/ms-excel";
+                    Response.ContentEncoding = System.Text.Encoding.UTF8;
+                    Response.BinaryWrite(System.Text.Encoding.UTF8.GetPreamble());
+                    StringWriter sw = new StringWriter();
+                    HtmlTextWriter htw = new HtmlTextWriter(sw);
+                    gv.RenderControl(htw);
+
+                    return File(System.Text.Encoding.UTF8.GetBytes(sw.ToString()), Response.ContentType, "YuzdeOnAsimHesapListesi_" + model.Yil + ".xls");
                 }
                 else
                 {
@@ -1441,6 +1502,8 @@ namespace WebApp.Controllers
                            BESIsYevmiyeOdendi = s.BESIsYevmiyeOdendi,
                            EKYevmiyeHarcamaBirimID = s.EKYevmiyeHarcamaBirimID,
                            EKHarcamaBirimAdi = Ekh.BirimAdi,
+                           YevmiyeAlimKanunTurID = s.YevmiyeAlimKanunTurID,
+
 
                        }).First();
             mdl.Is1003BYevmiyeParcalamaOlacak = YetkiYevmiyeHesapKodTurID.Any(a => a == HesapKoduTuru.SSKPrimHesapKodlari1003B) && YevmiyeKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.SSKPrimHesapKodlari1003B && a.HesapKod == mdl.HesapKod && mdl.Alacak > 0);
@@ -1452,12 +1515,14 @@ namespace WebApp.Controllers
             mdl.IsSendikaKaydiOlacak = YetkiYevmiyeHesapKodTurID.Any(a => a == HesapKoduTuru.SendikaIslemleriHesapKodlari) && db.YevmiyelerSendikaBilgileris.Any(a => a.HesapKod == mdl.HesapKod);
             mdl.IsBireyselEmeklikKaydiOlacak = YetkiYevmiyeHesapKodTurID.Any(a => a == HesapKoduTuru.BireyselEmeklilikHesapKodlari) && YevmiyeKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.BireyselEmeklilikHesapKodlari && a.HesapKod == mdl.HesapKod);
             mdl.IsBankaIslemleriKaydiOlacak = YetkiYevmiyeHesapKodTurID.Any(a => a == HesapKoduTuru.BankaIslemleriHesapKodlari);
+            mdl.IsYevmiyeAlimKanunTurKaydiOlacak = YetkiYevmiyeHesapKodTurID.Any(a => a == HesapKoduTuru.YuzdeOnAsimHesapKodlari) && YevmiyeKodlaris.Any(a => a.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari && a.IsHesapKoduBaslangicEslesmesiYeterli ? mdl.HesapKod.StartsWith(a.HesapKod) : a.HesapKod == mdl.HesapKod);
 
 
 
             mdl.SHesapKodlari1003A = new SelectList(Management.CmbYevmiyelerHesapKodlari(HesapKoduTuru.VergiTevkifatHesapKodlari1003A), "Value", "Caption", mdl.Y1003AHesapKodID);
             mdl.SBesHesapKod = new SelectList(Management.CmbYevmiyelerHesapKodlari(HesapKoduTuru.BireyselEmeklilikHesapKodlari), "Value", "Caption", mdl.BESYevmiyeHesapKodID);
             mdl.EKHarcamaBirim = new SelectList(Management.CmbYevmiyelerBirim(), "Value", "Caption", mdl.EKYevmiyeHarcamaBirimID);
+            mdl.YevmiyeAlimKanunTur = new SelectList(Management.CmbYevmiyeAlimKanunTurleri(), "Value", "Caption", mdl.YevmiyeAlimKanunTurID);
 
             return View(mdl);
         }
@@ -2193,6 +2258,25 @@ namespace WebApp.Controllers
             return Sendikalar.ToJsonResult();
 
 
+        }
+
+        public ActionResult YevmiyeAlimKanunKayit(int yevmiyeId, int? yevmiyeAlimKanunTurId)
+        {
+            var mmMessage = new MmMessage
+            {
+                IsSuccess = false,
+                Title = "Sendika Bilgisi Değişikliği",
+                MessageType = Msgtype.Warning
+            };
+            var yevmiye = db.Yevmiyelers.First(p => p.YevmiyeID == yevmiyeId);
+
+            yevmiye.YevmiyeAlimKanunTurID = yevmiyeAlimKanunTurId;
+
+            db.SaveChanges();
+            mmMessage.Messages.Add("Yevmiye Alım Kanun Tür Bilgisi Güncellendi.");
+            mmMessage.IsSuccess = true;
+            mmMessage.MessageType = Msgtype.Success;
+            return mmMessage.ToJsonResult();
         }
     }
 }

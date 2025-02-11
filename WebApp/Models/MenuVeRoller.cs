@@ -101,6 +101,10 @@ namespace WebApp.Models
         [RoleAttribute(GorunurAdi = "Yevmiye - Bes Toplamları", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeBesToplamlari = "YevmiyeBesToplamlari";
 
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "%10 Aşım Hesapları Dökümü", MenuCssClass = "fa fa-file-text-o", MenuUrl = "YevmiyeYuzdeOnAsimHesaplari/Index", DilCeviriYap = false, SiraNo = 15)]
+        [RoleAttribute(GorunurAdi = "Yevmiye - %10 Aşım Hesapları Dökümü", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyeYuzdeOnAsimHesaplari = "YevmiyeYuzdeOnAsimHesaplari";
+
         [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Harcama Birimleri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeHarcamaBirimleri/Index", DilCeviriYap = false, SiraNo = 17)]
         [RoleAttribute(GorunurAdi = "Tanımlama - Harcama Birimleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
         public const string YevmiyeHarcamaBirimleri = "YevmiyeHarcamaBirimleri";
@@ -134,6 +138,9 @@ namespace WebApp.Models
         public const string YevmiyeBESBankaNumaralari = "YevmiyeBESBankaNumaralari";
 
 
+        [MenuAttribute(BagliMenuID = 82000, MenuAdi = "Yevmiye Alım Kanun Türleri", MenuCssClass = "fa fa-gear", MenuUrl = "YevmiyeAlimKanunTurleri/Index", DilCeviriYap = false, SiraNo = 47)]
+        [RoleAttribute(GorunurAdi = "Tanımlama - Yevmiye Alım Kanun Türleri", Kategori = "Yevmiye İşlemleri", Aciklama = "")]
+        public const string YevmiyeAlimKanunTurleri = "YevmiyeAlimKanunTurleri";
 
 
         [MenuAttribute(BagliMenuID = 84000, MenuAdi = "Birimlere Göre Toplamsal", MenuCssClass = "fa fa-bar-chart-o", MenuUrl = "RprBirimToplamsal/Index", DilCeviriYap = false, SiraNo = 1)]

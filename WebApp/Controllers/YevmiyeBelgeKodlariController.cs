@@ -24,7 +24,19 @@ namespace WebApp.Controllers
         {
 
             var q = from s in db.YevmiyelerBelgeKodlaris
-                    select s;
+                    let belgeTur = db.BelgeTurleris.FirstOrDefault(p => p.BelgeTurKodu == s.BelgeKodu)
+                    select new
+                    {
+                        s.YevmiyeBelgeKodID,
+                        s.BelgeKodu,
+                        s.BelgeAdi,
+                        s.IslemTarihi,
+                        s.Kullanicilar.Ad,
+                        s.Kullanicilar.Soyad,
+                        s.IslemYapanID,
+                        s.IslemYapanIP,
+                        belgeTur
+                    };
 
             if (!model.BelgeKodu.IsNullOrWhiteSpace()) q = q.Where(p => p.BelgeKodu == model.BelgeKodu);
             if (!model.BelgeAdi.IsNullOrWhiteSpace()) q = q.Where(p => p.BelgeAdi.Contains(model.BelgeAdi));
@@ -38,9 +50,11 @@ namespace WebApp.Controllers
                 YevmiyeBelgeKodID = s.YevmiyeBelgeKodID,
                 BelgeKodu = s.BelgeKodu,
                 BelgeAdi = s.BelgeAdi,
-                YuzdeOran = s.YuzdeOran,
+                YuzdeOran = s.belgeTur != null ? s.belgeTur.PrimYuzdesi : 0,
+                IsBelgeTurTablosundaBelgeKoduVar = s.belgeTur != null,
+                BelgeKodunaDenkGelenBelgeTurAdi = s.belgeTur != null ? s.belgeTur.BelgeTurAdi : "",
                 IslemTarihi = s.IslemTarihi,
-                IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
+                IslemYapan = s.Ad + " " + s.Soyad,
                 IslemYapanID = s.IslemYapanID,
                 IslemYapanIP = s.IslemYapanIP
             }).Skip(PS.StartRowIndex).Take(model.PageSize).ToArray();
@@ -80,21 +94,29 @@ namespace WebApp.Controllers
                 MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "BelgeAdi" });
             }
             else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "BelgeAdi" });
-            if (kModel.YuzdeOran <= 0 || kModel.YuzdeOran > 100)
-            {
-                MmMessage.Messages.Add("Yüzde Oranı 0 ile 100 arasında olmalıdır.");
-                MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YuzdeOran" });
-            }
-            else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "YuzdeOran" });
+         
             #endregion
             if (!MmMessage.Messages.Any())
             {
-                if (db.YevmiyelerBelgeKodlaris.Any(a=>a.BelgeKodu==kModel.BelgeKodu && a.YevmiyeBelgeKodID!=kModel.YevmiyeBelgeKodID))
+                if (db.YevmiyelerBelgeKodlaris.Any(a => a.BelgeKodu == kModel.BelgeKodu && a.YevmiyeBelgeKodID != kModel.YevmiyeBelgeKodID))
                 {
                     MmMessage.Messages.Add("Belge kodu daha önce tanımlanmıştır. Tekrar tanımlanamaz!");
                     MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "BelgeKodu" });
-                } 
+                }
             }
+            if (!MmMessage.Messages.Any())
+            {
+                var belgeTur = db.BelgeTurleris.FirstOrDefault(a => a.BelgeTurKodu == kModel.BelgeKodu);
+                if (belgeTur==null)
+                {
+                    MmMessage.Messages.Add($"{kModel.BelgeKodu} nolu Bu belge kodunun tanımlanabilmesi için İşçi işlemleri > Belge Türlerinde bulunan kayıtlarda aynı belge kodu ile kayıt açılması gerekmektedir!");
+                    MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "BelgeKodu" });
+                }
+                else
+                {
+                    kModel.YuzdeOran = belgeTur.PrimYuzdesi;
+                }
+            } 
             if (MmMessage.Messages.Count == 0)
             {
                 kModel.IslemTarihi = DateTime.Now;

@@ -1,35 +1,29 @@
 ﻿@using Database;
 @using WebApp.Models;
-@using BiskaUtil;
-@model YevmiyelerBelgeKodlari
+@model YevmiyelerAlimKanunTurleri
 @{
-    var MmMessage = ViewBag.MmMessage as MmMessage;
+    var mmMessage = ViewBag.MmMessage as MmMessage;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
     <form method="post" class="form-horizontal" role="form">
-        <input type="text" style="display:none;" id="YevmiyeBelgeKodID" name="YevmiyeBelgeKodID" value="@Model.YevmiyeBelgeKodID" />
+        <input type="text" style="display:none;" id="YevmiyeAlimKanunTurID" name="YevmiyeAlimKanunTurID" value="@Model.YevmiyeAlimKanunTurID" />
         <div class="col-md-12 col-md-12 col-md-12">
             <div class="panel panel-default" id="pUnvanK">
                 <div class="panel-heading padding-0">
-                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeBelgeKodID <= 0 ? "Yeni Belge Kodu Tanımlama İşlemi" : "Belge Kodu Düzeltme İşlemi") </h3>
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeAlimKanunTurID <= 0 ? "Yeni Yevmiye Alım Kanun Türü Tanımlama İşlemi" : "Yevmiye Alım Kanun Türü Düzeltme İşlemi") </h3>
                     <ul class="panel-controls">
-                        <li><a href="@Url.Action("Kayit", Model.YevmiyeBelgeKodID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                        <li><a href="@Url.Action("Kayit", Model.YevmiyeAlimKanunTurID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
                     </ul>
                 </div>
                 <div class="panel-body">
                     <div class="panel panel-default form-horizontal">
                         <div class="panel-body form-group-separated">
+                             
                             <div class="form-group">
-                                <label class="col-md-3 col-xs-4 control-label">Belge Tür Kodu</label>
+                                <label class="col-md-3 col-xs-4 control-label">Yevmiye Alım Kanun Tür Adı</label>
                                 <div class="col-md-9 col-xs-8">
-                                    <input type="text" name="BelgeKodu" id="BelgeKodu" maxlength="2" value="@Model.BelgeKodu" class="form-control" autocomplete="off"/>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-3 col-xs-4 control-label">Belge Tür Adı</label>
-                                <div class="col-md-9 col-xs-8">
-                                    <input type="text" name="BelgeAdi" id="BelgeAdi" maxlength="256" value="@Model.BelgeAdi" class="form-control" autocomplete="off"/>
+                                    <input type="text" name="AlimKanunTurAdi" id="AlimKanunTurAdi" maxlength="256" value="@Model.AlimKanunTurAdi" class="form-control" autocomplete="off"/>
                                 </div>
                             </div>
                           
@@ -48,7 +42,7 @@
 <script>
 
     $(function () {
-        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        var model = '@Html.Raw(Json.Encode(mmMessage))';
         validateControl(model);
     });
 

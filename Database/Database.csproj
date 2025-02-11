@@ -225,6 +225,9 @@
     <Compile Include="Yevmiyeler1003BSskPrimBoclari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="YevmiyelerAlimKanunTurleri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="YevmiyelerBelgeKodlari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>

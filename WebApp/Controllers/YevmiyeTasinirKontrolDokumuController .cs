@@ -26,9 +26,9 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult Index(FmTasinirKontrolDokumu model, bool export = false)
         {
-            var TasinirKontrolKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari).Select(s => s.HesapKod).ToList();
+            var tasinirKontrolKods = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.TasinirKontrolHesapKodlari).Select(s => s.HesapKod).ToList();
 
-            var q = (from yv in db.Yevmiyelers.Where(p => TasinirKontrolKods.Contains(p.HesapKod) && p.YevmiyeTarih.Year == model.Yil)
+            var q = (from yv in db.Yevmiyelers.Where(p => tasinirKontrolKods.Contains(p.HesapKod) && p.YevmiyeTarih.Year == model.Yil)
                      join hb in db.YevmiyelerHarcamaBirimleris on yv.YevmiyeHarcamaBirimID equals hb.YevmiyeHarcamaBirimID
                      group new
                      {

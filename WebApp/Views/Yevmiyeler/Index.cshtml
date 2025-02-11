@@ -61,7 +61,7 @@
                                                                   var yevmiyeNo = $('#YevmiyeNoBB').val();
                                                                   if (yevmiyeNo=="") {
                                                                       alert('Yevmiye numarası giriniz.');
-                                                                      return false; 
+                                                                      return false;
                                                                   }
                                                                   if (confirm('Girilen ' + yevmiyeNo +' yevmiye numaralı yevmiye ve sonrasındaki yevmiye kayıtlarını silmek istediğinizden emin misiniz? Silme işlemi yapıldıktan sonra kayıtlar geri alınamaz!')) {
                                                                       YevmiyeSilPost(false, btbxxFS);
@@ -351,8 +351,22 @@
                                                         }
 
                                                     }
+
                                                     else
                                                     {
+                                                        if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari)
+                                                        {
+
+                                                            <tr>
+                                                                <td width="160">Yevmiye Alım Kanun Türü</td>
+                                                                <td colspan="2">
+                                                                    @Html.DropDownList("YevmiyeAlimKanunTurID", null, new { @class = "form-control", style = "padding:0px;", onchange = "$('#frmYevmiyeler').submit();" })
+                                                                </td>
+                                                            </tr>
+
+
+
+                                                        }
                                                         <tr>
                                                             <td width="160">Kayıt Durumu</td>
                                                             <td colspan="2">
@@ -545,6 +559,10 @@
                                     else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.BankaIslemleriHesapKodlari)
                                     {
                                         classRow = item.IsBankaHesapNumarasiGirildi == true ? "success" : "danger";
+                                    }
+                                    else if (Model.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari)
+                                    {
+                                        classRow = item.IsYevmiyeAlimKanunTurGirildi == true ? "success" : "danger";
                                     }
 
                                     rowIndex++;
@@ -1012,7 +1030,36 @@
                 }
             }
         });
-    }
+        }
+        function YevmiyeAlimKanunTurKayit(YevmiyeID) {
+            var _panel = $('#YevmiyeAlimKanunKayitPanel_' + YevmiyeID);
+            _pRefresh(_panel, false);
+
+            $('#frmYevmiyeAlimKayit_' + YevmiyeID).ajaxForm({
+                success: function (result) {
+                    _pRefresh(_panel, true);
+                    if (result.IsSuccess) {
+                        toastr["success"](result.Messages[0], result.Title);
+                        var _clsBtn = $('.modal-header').find('button').first();
+                        $(_clsBtn).click();
+                        SubData(YevmiyeID);
+                    }
+                    else {
+                        getMsg(result);
+                        return false;
+                    }
+
+                },
+                complete: function (cmp) {
+                    _pRefresh(_panel, true);
+                },
+                error: function (err) {
+                    _pRefresh(_panel, true);
+                }
+
+            }).submit();
+        }
+
     function YevmiyeBankaHesapNoKayit(YevmiyeID) {
         var _panel = $('#WgBankaPanel_' + YevmiyeID);
         _pRefresh(_panel, false);

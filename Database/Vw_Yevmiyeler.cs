@@ -44,14 +44,12 @@ namespace Database
         public Nullable<bool> BESIsYevmiyeDokumuAyri { get; set; }
         public Nullable<bool> BESIsYevmiyeOdendi { get; set; }
         public Nullable<int> ProjeBankaHesapNoID { get; set; }
-        public decimal Expr1 { get; set; }
         public Nullable<int> YevmiyeHesapKodTurID { get; set; }
         public Nullable<int> EKYevmiyeHarcamaBirimID { get; set; }
-        public int Expr2 { get; set; }
-        public Nullable<int> Expr3 { get; set; }
         public string YevHesapKod { get; set; }
         public string BESHesapKod { get; set; }
         public Nullable<bool> IsGelirKaydindaKullanilacak { get; set; }
+        public Nullable<int> YevmiyeAlimKanunTurID { get; set; }
         public Nullable<decimal> SskPrimTutarTop { get; set; }
         public Nullable<decimal> TevkifatTutariTop { get; set; }
         public Nullable<decimal> TifTutarTop { get; set; }

@@ -238,6 +238,8 @@
     <Compile Include="Controllers\UnvanlarController.cs" />
     <Compile Include="Controllers\VeriGirisiController.cs" />
     <Compile Include="Controllers\YetkiGruplariController.cs" />
+    <Compile Include="Controllers\YevmiyeYuzdeOnAsimHesaplariController.cs" />
+    <Compile Include="Controllers\YevmiyeAlimKanunTurleriController.cs" />
     <Compile Include="Controllers\YevmiyeKdvTevkifatiDokumuController.cs" />
     <Compile Include="Controllers\YevmiyeTasinirKontrolDokumuController .cs" />
     <Compile Include="Controllers\YevmiyeBesBankaHesapNumaralariController.cs" />
@@ -1980,6 +1982,10 @@
     <Content Include="Views\YevmiyeKdvTevkifatiDokumu\Index.cshtml" />
     <Content Include="Views\YevmiyeTasinirKontrolDokumu\Index.cshtml" />
     <Content Include="Views\Yevmiyeler\ShowYevmiyeSil.cshtml" />
+    <Content Include="Views\YevmiyeAlimKanunTurleri\Index.cshtml" />
+    <Content Include="Views\YevmiyeAlimKanunTurleri\Kayit.cshtml" />
+    <Content Include="Views\YevmiyeYuzdeOnAsimHesaplari\Index.cshtml" />
+    <Content Include="Views\YevmiyeYuzdeOnAsimHesaplari\TutarEkle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

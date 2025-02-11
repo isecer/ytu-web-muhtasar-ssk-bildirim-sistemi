@@ -5,7 +5,7 @@
     /**/
 
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
+    var kayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
     var isyeriGroupData = (List<FrYevmiye1003BSskPrimleri>) ViewBag.isyeriGroupData;
 }
 
@@ -59,13 +59,13 @@
                         </thead>
                         <tbody>
                             @{
-                                int RowIndex = 0;
+                                int rowIndex = 0;
                                 foreach (var item in Model.Data)
                                 {
-                                    RowIndex++;
+                                    rowIndex++;
                                     <tr>
                                         <td>
-                                            @RowIndex
+                                            @rowIndex
                                         </td>
                                         <td>
                                             @item.VergiKimlikNo - @item.BirimAdi
@@ -91,7 +91,7 @@
                                         <td style="text-align:right;">@item.SskBorcTutar.ToString("n2") TL</td>
                                         <td style="text-align:right;">@item.KalanSskBorcTutar.ToString("n2") TL</td>
                                         <td style="padding-left:10px;">
-                                            @if (KayitYetki)
+                                            @if (kayitYetki)
                                             {
                                                 <a href="javascript:void(0)" onclick="TutarEkle(@Model.Yil,@Model.AyID,@item.YevmiyeHarcamaBirimID,@item.YevmiyeBelgeKodID)"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Tutar Düzelt"></i></a>
                                             }
@@ -158,13 +158,13 @@
                         </thead>
                         <tbody>
                             @{
-                                int RowIndex2 = 0;
+                                int rowIndex2 = 0;
                                 foreach (var item in isyeriGroupData)
                                 {
-                                    RowIndex2++;
+                                    rowIndex2++;
                             <tr>
                                 <td>
-                                    @RowIndex2
+                                    @rowIndex2
                                 </td>
                                 <td>
                                     @item.VergiKimlikNo - @item.BirimAdi
@@ -226,7 +226,7 @@
         float: left;
     }
 </style>
-@if (KayitYetki)
+@if (kayitYetki)
 {
     <script>
     function TutarEkle(Yil,AyID,YevmiyeHarcamaBirimID,YevmiyeBelgeKodID) {

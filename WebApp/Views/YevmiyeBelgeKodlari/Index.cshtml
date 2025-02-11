@@ -50,6 +50,16 @@
                                 {
                                     RowIndex++;
                                     trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    var msg = "";
+                                    if (item.IsBelgeTurTablosundaBelgeKoduVar)
+                                    {
+                                        msg = $"{item.BelgeKodu} kodlu belge % oranı verisi İşçi işlemleri > Belge Türlerinde bulunan '{item.BelgeKodunaDenkGelenBelgeTurAdi}' belge türünden alınmaktadır.";
+                                    }
+                                    else
+                                    {
+                                        msg = $"{item.BelgeKodu} kodlu belge % oranı verisi İşçi işlemleri > Belge Türlerinde bulunan hiçbir belge türü ile işleştirilemediği için alınamamıştır.";
+
+                                    }
                                     <tr class="@trCls">
                                         <td>
                                             @RowIndex
@@ -58,7 +68,12 @@
                                             @item.BelgeKodu
                                         </td>
                                         <td id="tdMpy_@item.YevmiyeBelgeKodID">
-                                            % @item.YuzdeOran
+                                            <label class="popover-dismiss"
+                                                   title="% Oranı Hk."
+                                                   data-content="@msg">
+                                                % @item.YuzdeOran <i class="fa fa-info-circle" style="margin:0px;"></i>
+                                            </label>
+
                                         </td>
                                         <td id="tdBa_@item.YevmiyeBelgeKodID">
                                             @item.BelgeAdi
@@ -96,7 +111,7 @@
         var BelgeKodu = $("#tdBk_" + id).html();
         var BelgeAdi = $("#tdBa_" + id).html();
         var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
-            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (BelgeKodu + ' - ' + BelgeAdi)+"</td></tr>"+ 
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (BelgeKodu + ' - ' + BelgeAdi)+"</td></tr>"+
             "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Belge Kodunu Silmek İstiyor Musunuz?</td></tr>" +
             "</table>";
         bootbox.dialog({
@@ -137,6 +152,9 @@
         });
     }
 
-    
-    
+    $(function () {
+    $(".popover-dismiss").popover({ trigger: 'hover', html: true });
+});
+
+
 </script>

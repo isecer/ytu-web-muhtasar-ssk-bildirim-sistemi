@@ -28,7 +28,7 @@
                                 <th class="sirala sorting" width="220" field="HesapKodTurAdi">Hesap Kodu Türü</th>
                                 <th class="sirala sorting" width="140" field="HesapKod">Hesap Kodu</th>
                                 <th class="sirala sorting" field="HesapAdi">Hesap Adı</th>
-                                <th class="sirala sorting" field="IsGelirKaydindaKullanilacak">Gelir Kaydı Yapılacak Mı</th> 
+                                <th class="sirala sorting" field="IsGelirKaydindaKullanilacak">Gelir Kaydı Yapılacak Mı</th>
                                 <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
                                 <th width="35"></th>
                             </tr>
@@ -51,7 +51,7 @@
                                         <option value="true" @Model.IsGelirKaydindaKullanilacak.ToSelected()>Evet</option>
                                         <option value="false" @((!Model.IsGelirKaydindaKullanilacak).ToSelected())>Hayır</option>
                                     </select>
-                                </th> 
+                                </th>
                                 <th>
                                     <input name="VergiKodu" type="text" value="@Model.VergiKodu" class="form-control" />
                                 </th>
@@ -73,13 +73,21 @@
                                         </td>
                                         <td id="tdHk_@item.YevmiyeHesapKodID">
                                             @item.HesapKod
+                                            @if (item.IsHesapKoduBaslangicEslesmesiYeterli)
+                                            {
+                                                <label class="popover-dismiss"
+                                                       title="Hesap Kodu Otomatik Tamamlama"
+                                                       data-content="Burada belirlenen hesap kodu, yevmiye kayıtlarındaki hesap kodları ile karşılaştırılır. Eşleşen kayıtlara otomatik olarak bu hesap kodu türü atanır. Örnek: Hesap kodu '120' girildiğinde, yevmiye kayıtlarında '120', '120.01', '120.02' gibi bu kodla başlayan tüm hesaplar bu hesap kodu türüne atanacaktır.">
+                                                    <i class="fa fa-info-circle" style="margin:0px;"></i>
+                                                </label>
+                                            }
                                         </td>
                                         <td id="tdHa_@item.YevmiyeHesapKodID">
                                             @item.HesapAdi
                                         </td>
                                         <td>
                                             @(item.IsGelirKaydindaKullanilacak.HasValue ? item.IsGelirKaydindaKullanilacak.Value.ToEvetHayir().ToString() : "")
-                                        </td> 
+                                        </td>
                                         <td>
                                             @item.VergiKodu
                                         </td>
@@ -112,6 +120,9 @@
     }
 </div>
 <script type="text/javascript">
+    $(function () {
+        $(".popover-dismiss").popover({ trigger: 'hover', html: true });
+    });
     function SilmeOnay(sndr, id) {
         var HesapKodu = $("#tdHk_" + id).html();
         var HesapAdi = $("#tdHa_" + id).html();

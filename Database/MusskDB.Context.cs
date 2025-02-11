@@ -63,7 +63,6 @@ namespace Database
         public virtual DbSet<VeriGirisTipleri> VeriGirisTipleris { get; set; }
         public virtual DbSet<YetkiGruplari> YetkiGruplaris { get; set; }
         public virtual DbSet<YetkiGrupRolleri> YetkiGrupRolleris { get; set; }
-        public virtual DbSet<Yevmiyeler> Yevmiyelers { get; set; }
         public virtual DbSet<Yevmiyeler1003AGelirKayit> Yevmiyeler1003AGelirKayit { get; set; }
         public virtual DbSet<Yevmiyeler1003AMuhtasarKayitlari> Yevmiyeler1003AMuhtasarKayitlari { get; set; }
         public virtual DbSet<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
@@ -72,7 +71,6 @@ namespace Database
         public virtual DbSet<YevmiyelerBesBankaHesapNumaralari> YevmiyelerBesBankaHesapNumaralaris { get; set; }
         public virtual DbSet<YevmiyelerHarcamaBirimleri> YevmiyelerHarcamaBirimleris { get; set; }
         public virtual DbSet<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
-        public virtual DbSet<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
         public virtual DbSet<YevmiyelerHesapKodTurleri> YevmiyelerHesapKodTurleris { get; set; }
         public virtual DbSet<YevmiyelerKdvKodlari> YevmiyelerKdvKodlaris { get; set; }
         public virtual DbSet<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
@@ -82,7 +80,10 @@ namespace Database
         public virtual DbSet<YevmiyelerVergiKimlikNumaralari> YevmiyelerVergiKimlikNumaralaris { get; set; }
         public virtual DbSet<KullanicilarLog> KullanicilarLogs { get; set; }
         public virtual DbSet<Vw_BirimlerTree> Vw_BirimlerTree { get; set; }
+        public virtual DbSet<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
+        public virtual DbSet<Yevmiyeler> Yevmiyelers { get; set; }
         public virtual DbSet<Vw_Yevmiyeler> Vw_Yevmiyeler { get; set; }
+        public virtual DbSet<YevmiyelerAlimKanunTurleri> YevmiyelerAlimKanunTurleris { get; set; }
     
         public virtual ObjectResult<sp_BirimAgaci_Result> sp_BirimAgaci()
         {

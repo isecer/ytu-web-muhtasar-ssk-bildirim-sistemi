@@ -2124,7 +2124,22 @@ namespace WebApp.Models
             return dct;
 
         }
+        public static List<ComboModelInt> CmbYevmiyeAlimKanunTurleri(bool bosSecimVar = true, bool? IsAktif = null)
+        {
+            var dct = new List<ComboModelInt>();
+            if (bosSecimVar) dct.Add(new ComboModelInt { Value = null, Caption = "" });
+            using (var db = new MusskDBEntities())
+            {
+                var qdata = db.YevmiyelerAlimKanunTurleris.AsQueryable(); 
+                var data = qdata.OrderBy(o => o.AlimKanunTurAdi).ToList();
+                foreach (var item in data)
+                {
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeAlimKanunTurID, Caption = item.AlimKanunTurAdi });
+                }
+            }
+            return dct;
 
+        }
 
 
         public static List<ComboModelInt> CmbMesajKategorileri(bool bosSecimVar = true, bool? IsAktif = null)

@@ -17,10 +17,10 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public YevmiyelerHarcamaBirimleri()
         {
-            this.Yevmiyelers = new HashSet<Yevmiyeler>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
             this.Yevmiyeler1003BSskPrimBoclari = new HashSet<Yevmiyeler1003BSskPrimBoclari>();
             this.YevmiyelerHarcamaBirimleriTutarKayits = new HashSet<YevmiyelerHarcamaBirimleriTutarKayit>();
+            this.Yevmiyelers = new HashSet<Yevmiyeler>();
         }
     
         public int YevmiyeHarcamaBirimID { get; set; }
@@ -36,12 +36,12 @@ namespace Database
     
         public virtual Kullanicilar Kullanicilar { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BSskPrimBoclari> Yevmiyeler1003BSskPrimBoclari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerHarcamaBirimleriTutarKayit> YevmiyelerHarcamaBirimleriTutarKayits { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
     }
 }

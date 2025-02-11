@@ -1,0 +1,127 @@
+﻿@using WebApp.Models;
+@model FmYevmiyeAlimKanunTurleri
+@{
+    var indexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Yevmiye Alım Kanun Türleri Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@indexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th> 
+                                <th class="sirala sorting" field="AlimKanunTurAdi">Yevmiye Alım Kanun Tür Adı</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    <input name="AlimKanunTurAdi" type="text" value="@Model.AlimKanunTurAdi" class="form-control" />
+                                </th> 
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int rowIndex = Model.StartRowIndex;
+                                foreach (var item in Model.Data)
+                                {
+                                    rowIndex++;
+                                    var trCls = rowIndex % 2 == 1 ? "" : "even";
+                                    
+                                    <tr class="@trCls">
+                                        <td>
+                                            @rowIndex
+                                        </td> 
+                                        <td id="tdBa_@item.YevmiyeAlimKanunTurID">
+                                            @item.AlimKanunTurAdi
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YevmiyeAlimKanunTurleri", new { id = item.YevmiyeAlimKanunTurID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeAlimKanunTurID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="3" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function SilmeOnay(sndr, id) {
+       
+        var BelgeAdi = $("#tdBa_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (BelgeAdi)+"</td></tr>"+
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Yevmiye Alım Kanun Türünü Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Yevmiye Alım Kanun Türü Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Yevmiye Alım Kanun Türünü Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeAlimKanunTurleri")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Yevmiye Alım Kanun Türü Silme İşlemi");
+                if (result.success) {
+                    $(sndr).closest("tr").remove(); 
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    } 
+
+</script>

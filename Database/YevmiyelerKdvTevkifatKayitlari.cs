@@ -36,8 +36,8 @@ namespace Database
     
         public virtual Aylar Aylar { get; set; }
         public virtual Kullanicilar Kullanicilar { get; set; }
-        public virtual Yevmiyeler Yevmiyeler { get; set; }
-        public virtual YevmiyelerHesapKodlari YevmiyelerHesapKodlari { get; set; }
         public virtual YevmiyelerKdvKodlari YevmiyelerKdvKodlari { get; set; }
+        public virtual YevmiyelerHesapKodlari YevmiyelerHesapKodlari { get; set; }
+        public virtual Yevmiyeler Yevmiyeler { get; set; }
     }
 }

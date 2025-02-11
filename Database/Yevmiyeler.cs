@@ -53,6 +53,7 @@ namespace Database
         public string BESHesapKod { get; set; }
         public Nullable<bool> BESIsYevmiyeDokumuAyri { get; set; }
         public Nullable<bool> BESIsYevmiyeOdendi { get; set; }
+        public Nullable<int> YevmiyeAlimKanunTurID { get; set; }
         public System.DateTime IslemTarihi { get; set; }
         public int IslemYapanID { get; set; }
         public string IslemYapanIP { get; set; }
@@ -70,5 +71,6 @@ namespace Database
         public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerTasinirKontrolTifKaydi> YevmiyelerTasinirKontrolTifKaydis { get; set; }
+        public virtual YevmiyelerAlimKanunTurleri YevmiyelerAlimKanunTurleri { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace WebApp.Controllers
                 HesapKod = s.HesapKod,
                 HesapAdi = s.HesapAdi,
                 VergiKodu = s.VergiKodu,
+                IsHesapKoduBaslangicEslesmesiYeterli = s.IsHesapKoduBaslangicEslesmesiYeterli,
                 IsGelirKaydindaKullanilacak = s.IsGelirKaydindaKullanilacak, 
                 IslemTarihi = s.IslemTarihi,
                 IslemYapan = s.Kullanicilar.Ad + " " + s.Kullanicilar.Soyad,
@@ -148,6 +149,7 @@ namespace WebApp.Controllers
                     data.YevmiyeHesapKodTurID = kModel.YevmiyeHesapKodTurID;
                     data.HesapKod = kModel.HesapKod;
                     data.HesapAdi = kModel.HesapAdi;
+                    data.IsHesapKoduBaslangicEslesmesiYeterli = kModel.IsHesapKoduBaslangicEslesmesiYeterli;
                     data.IsGelirKaydindaKullanilacak = kModel.IsGelirKaydindaKullanilacak;
                     data.VergiKodu = kModel.VergiKodu; 
                     data.IslemTarihi = kModel.IslemTarihi;
