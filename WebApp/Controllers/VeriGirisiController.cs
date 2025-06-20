@@ -267,8 +267,6 @@ namespace WebApp.Controllers
                 var model = DosyaEki.ToIsciIterateRows(VASurecID);
 
 
-
-
                 if (model.Data.Count == 0)
                 {
                     mMessage.Messages.Add(DosyaEki.FileName + "  isimli excel dosyasında hiçbir veriye rastlanmadı!");
@@ -377,7 +375,6 @@ namespace WebApp.Controllers
                                           BirOncekiDurumVerisi = _BirOncekiDurumVerisi
 
                                       }).ToList();
-
 
                         var BirOncekiAy = new DateTime(SurecBilgi.Yil, SurecBilgi.SecilenAyBilgi.AyID, 1).AddMonths(-1);
                         var BirOncekiAyKayitlari = TumVerilerBirim.Where(p => p.VASurecleriBirim.VASurecleri.Yil == BirOncekiAy.Year && p.AyID == BirOncekiAy.Month).ToList();
@@ -829,72 +826,72 @@ namespace WebApp.Controllers
                             }
 
                         }
+
                         var EklenmesiGerekenVeriler = BirOncekiAyKayitlari.Where(p => !p.IstenCikisAy.HasValue && !model.Data.Any(a => a.TcKimlikNo == p.TcKimlikNo)).ToList();
                         if (!model.Data.Any(a => a.HataliHucreler.Any() && a.HataliHucreler.Count < 20) && !EklenmesiGerekenVeriler.Any())
                         {
 
                             model.Data = model.Data.Where(p => !p.HataliHucreler.Any()).ToList();
                             db.VASurecleriBirimVerileris.RemoveRange(db.VASurecleriBirimVerileris.Where(p => p.VASurecleriBirimID == VASurecleriBirimID && p.AyID == AyID));
-                            foreach (var item in model.Data)
+                            var entities = model.Data.Select(item => new VASurecleriBirimVerileri
                             {
-                                db.VASurecleriBirimVerileris.Add(new VASurecleriBirimVerileri
-                                {
-                                    VASurecleriBirimID = item.VASurecleriBirimID.Value,
-                                    AyID = AyID,
-                                    HizmetDonemAy = item.HizmetDonemAy,
-                                    HizmetDonemYil = item.HizmetDonemYil,
-                                    BelgeMahiyetTipID = item.BelgeMahiyetTipID.Value,
-                                    BelgeMahiyetTipKodu = item.BelgeMahiyetTipKodu,
-                                    BelgeTurID = item.BelgeTurID.Value,
-                                    PrimYuzdesi = item.PrimYuzdesi,
-                                    BelgeTurKodu = item.BelgeTurKodu,
-                                    DEsasKanunNo = item.DEsasKanunNo,
-                                    YeniUniteKodu = item.YeniUniteKodu,
-                                    EskiUniteKodu = item.EskiUniteKodu,
-                                    IsyeriSiraNumarasi = item.IsyeriSiraNumarasi,
-                                    IlKodu = item.IlKodu,
-                                    AltIsverenNumarasi = item.AltIsverenNumarasi,
-                                    VeriGirisTipID = item.VeriGirisTipID.Value,
-                                    SSKSicilNo = item.SSKSicilNo,
-                                    TcKimlikNo = item.TcKimlikNo,
-                                    Ad = item.Ad,
-                                    Soyad = item.Soyad,
-                                    PrimOdemeGun = item.PrimOdemeGun.Value,
-                                    HakEdilenUcret = item.HakEdilenUcret.Value,
-                                    PrimIkramiyeIstihkak = item.PrimIkramiyeIstihkak ?? 0,
-                                    IseGirisGun = item.IseGirisGun,
-                                    IseGirisGunStr = item.IseGirisGunStr,
-                                    IseGirisAy = item.IseGirisAy,
-                                    IseGirisAyStr = item.IseGirisAyStr,
-                                    IstenCikisGun = item.IstenCikisGun,
-                                    IstenCikisGunStr = item.IstenCikisGunStr,
-                                    IstenCikisAy = item.IstenCikisAy,
-                                    IstenCikisAyStr = item.IstenCikisAyStr,
-                                    IstenCikisNedenID = item.IstenCikisNedenID,
-                                    IstenCikisNedenKodu = item.IstenCikisNedenKodu,
-                                    EksikGunSayisi = item.EksikGunSayisi,
-                                    EksikGunNedenID = item.EksikGunNedenID,
-                                    EksikGunNedenKodu = item.EksikGunNedenKodu,
-                                    MeslekTurID = item.MeslekTurID.Value,
-                                    MeslekTurKodu = item.MeslekTurKodu,
-                                    IstirahatSurecindeCalismamistir = item.IstirahatSurecindeCalismamistir,
-                                    TahakkukNedeni = item.TahakkukNedeni,
-                                    GvDenMuafmi = item.GvDenMuafmi.Value,
-                                    AsgariGecimIndirimi = item.AsgariGecimIndirimi,
-                                    GvMatrahi = item.GvMatrahi,
-                                    GvEngellilikOrani = item.GvEngellilikOrani,
-                                    GvKesinti = item.GvKesinti,
-                                    AsgariGecimIstisnaDvTutar = item.AsgariGecimIstisnaDvTutar,
-                                    DvKesintisi = item.DvKesintisi,
-                                    AsgariGecimIstisnaGvTutar = item.AsgariGecimIstisnaGvTutar,
-                                    HesaplananGv = item.HesaplananGv,
-                                    UzaktanCalismaGun = item.UzaktanCalismaGun,
+                                VASurecleriBirimID = item.VASurecleriBirimID.Value,
+                                AyID = AyID,
+                                HizmetDonemAy = item.HizmetDonemAy,
+                                HizmetDonemYil = item.HizmetDonemYil,
+                                BelgeMahiyetTipID = item.BelgeMahiyetTipID.Value,
+                                BelgeMahiyetTipKodu = item.BelgeMahiyetTipKodu,
+                                BelgeTurID = item.BelgeTurID.Value,
+                                PrimYuzdesi = item.PrimYuzdesi,
+                                BelgeTurKodu = item.BelgeTurKodu,
+                                DEsasKanunNo = item.DEsasKanunNo,
+                                YeniUniteKodu = item.YeniUniteKodu,
+                                EskiUniteKodu = item.EskiUniteKodu,
+                                IsyeriSiraNumarasi = item.IsyeriSiraNumarasi,
+                                IlKodu = item.IlKodu,
+                                AltIsverenNumarasi = item.AltIsverenNumarasi,
+                                VeriGirisTipID = item.VeriGirisTipID.Value,
+                                SSKSicilNo = item.SSKSicilNo,
+                                TcKimlikNo = item.TcKimlikNo,
+                                Ad = item.Ad,
+                                Soyad = item.Soyad,
+                                PrimOdemeGun = item.PrimOdemeGun.Value,
+                                HakEdilenUcret = item.HakEdilenUcret.Value,
+                                PrimIkramiyeIstihkak = item.PrimIkramiyeIstihkak ?? 0,
+                                IseGirisGun = item.IseGirisGun,
+                                IseGirisGunStr = item.IseGirisGunStr,
+                                IseGirisAy = item.IseGirisAy,
+                                IseGirisAyStr = item.IseGirisAyStr,
+                                IstenCikisGun = item.IstenCikisGun,
+                                IstenCikisGunStr = item.IstenCikisGunStr,
+                                IstenCikisAy = item.IstenCikisAy,
+                                IstenCikisAyStr = item.IstenCikisAyStr,
+                                IstenCikisNedenID = item.IstenCikisNedenID,
+                                IstenCikisNedenKodu = item.IstenCikisNedenKodu,
+                                EksikGunSayisi = item.EksikGunSayisi,
+                                EksikGunNedenID = item.EksikGunNedenID,
+                                EksikGunNedenKodu = item.EksikGunNedenKodu,
+                                MeslekTurID = item.MeslekTurID.Value,
+                                MeslekTurKodu = item.MeslekTurKodu,
+                                IstirahatSurecindeCalismamistir = item.IstirahatSurecindeCalismamistir,
+                                TahakkukNedeni = item.TahakkukNedeni,
+                                GvDenMuafmi = item.GvDenMuafmi.Value,
+                                AsgariGecimIndirimi = item.AsgariGecimIndirimi,
+                                GvMatrahi = item.GvMatrahi,
+                                GvEngellilikOrani = item.GvEngellilikOrani,
+                                GvKesinti = item.GvKesinti,
+                                AsgariGecimIstisnaDvTutar = item.AsgariGecimIstisnaDvTutar,
+                                DvKesintisi = item.DvKesintisi,
+                                AsgariGecimIstisnaGvTutar = item.AsgariGecimIstisnaGvTutar,
+                                HesaplananGv = item.HesaplananGv,
+                                UzaktanCalismaGun = item.UzaktanCalismaGun,
+                                IslemTarihi = item.IslemTarihi,
+                                IslemYapanID = item.IslemYapanID,
+                                IslemYapanIP = item.IslemYapanIP
+                            }).ToList();
 
-                                    IslemTarihi = item.IslemTarihi,
-                                    IslemYapanID = item.IslemYapanID,
-                                    IslemYapanIP = item.IslemYapanIP
-                                });
-                            }
+                            db.VASurecleriBirimVerileris.AddRange(entities);
+
                             db.VASurecleriBirimVerileris.RemoveRange(db.VASurecleriBirimVerileris.Where(p => qSilineceklerIDs.Contains(p.VASurecleriBirimVeriID)));
                             db.SaveChanges();
                             mMessage.IsSuccess = true;

@@ -1,25 +1,37 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\",
+  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\ytu_mussk\\webapp\\controllers\\yevmiyelercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\controllers\\yevmiyelercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\controllers\\verigirisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\controllers\\verigirisicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\ytu_mussk\\webapp\\controllers\\yevmiyeyuzdeonasimhesaplaricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\web.config||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\models\\exceldataimportmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\models\\exceldataimportmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\controllers\\yevmiyeyuzdeonasimhesaplaricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\controllers\\yevmiyeyuzdeonasimhesaplaricontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\ytu_mussk\\webapp\\views\\yevmiyeyuzdeonasimhesaplari\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\controllers\\yevmiyelercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\controllers\\yevmiyelercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\views\\yevmiyeyuzdeonasimhesaplari\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\views\\yevmiyeyuzdeonasimhesaplari\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\ytu_mussk\\webapp\\models\\filtermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\models\\filtermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\models\\filtermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|c:\\users\\user\\source\\repos\\isecer\\ytu_mussk\\webapp\\models\\menuveroller.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "AbsoluteMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\webapp\\models\\menuveroller.cs||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{7699A66C-46BB-43B4-A258-DE9905ACB9B1}|WebApp\\WebApp.csproj|solutionrelative:webapp\\models\\menuveroller.cs||{8B382828-6202-11D1-8870-0000F87579D2}"
     }
   ],
@@ -30,8 +42,16 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
@@ -41,70 +61,102 @@
               "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExcelDataImportModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\ExcelDataImportModel.cs",
+              "RelativeDocumentMoniker": "WebApp\\Models\\ExcelDataImportModel.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\ExcelDataImportModel.cs",
+              "RelativeToolTip": "WebApp\\Models\\ExcelDataImportModel.cs",
+              "ViewState": "AgIAAI8AAAAAAAAAAAAkwLAAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T12:19:57.892Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "VeriGirisiController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\VeriGirisiController.cs",
+              "RelativeDocumentMoniker": "WebApp\\Controllers\\VeriGirisiController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\VeriGirisiController.cs",
+              "RelativeToolTip": "WebApp\\Controllers\\VeriGirisiController.cs",
+              "ViewState": "AgIAAGsDAAAAAAAAAAAmwHoDAABbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-20T12:14:06.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Web.config",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Web.config",
+              "RelativeDocumentMoniker": "WebApp\\Web.config",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Web.config",
+              "RelativeToolTip": "WebApp\\Web.config",
+              "ViewState": "AgIAAJ8AAAAAAAAAAAAjwK8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000601|",
+              "WhenOpened": "2025-06-20T12:11:25.12Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "YevmiyelerController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Controllers\\YevmiyelerController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\YevmiyelerController.cs",
               "RelativeDocumentMoniker": "WebApp\\Controllers\\YevmiyelerController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Controllers\\YevmiyelerController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\YevmiyelerController.cs",
               "RelativeToolTip": "WebApp\\Controllers\\YevmiyelerController.cs",
-              "ViewState": "AQIAAEcDAAAAAAAAAAAMwBgDAAA0AAAA",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABkAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-11T10:47:02.255Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
               "RelativeDocumentMoniker": "WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
               "RelativeToolTip": "WebApp\\Views\\YevmiyeYuzdeOnAsimHesaplari\\Index.cshtml",
               "ViewState": "AQIAAFYAAAAAAAAAAAAAAGYAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-02-10T09:14:54.597Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-10T09:14:54.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FilterModels.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\FilterModels.cs",
+              "RelativeDocumentMoniker": "WebApp\\Models\\FilterModels.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\FilterModels.cs",
+              "RelativeToolTip": "WebApp\\Models\\FilterModels.cs",
+              "ViewState": "AQIAAEgFAAAAAAAAAADwv1AFAAAuAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-10T08:32:17.57Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "MenuVeRoller.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\MenuVeRoller.cs",
+              "RelativeDocumentMoniker": "WebApp\\Models\\MenuVeRoller.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Models\\MenuVeRoller.cs",
+              "RelativeToolTip": "WebApp\\Models\\MenuVeRoller.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-10T08:29:52.282Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FilterModels.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Models\\FilterModels.cs",
-              "RelativeDocumentMoniker": "WebApp\\Models\\FilterModels.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Models\\FilterModels.cs",
-              "RelativeToolTip": "WebApp\\Models\\FilterModels.cs",
-              "ViewState": "AQIAAEgFAAAAAAAAAADwv1AFAAAuAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T08:32:17.57Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MenuVeRoller.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Models\\MenuVeRoller.cs",
-              "RelativeDocumentMoniker": "WebApp\\Models\\MenuVeRoller.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Models\\MenuVeRoller.cs",
-              "RelativeToolTip": "WebApp\\Models\\MenuVeRoller.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-10T08:29:52.282Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "YevmiyeYuzdeOnAsimHesaplariController.cs",
-              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
+              "DocumentMoniker": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
               "RelativeDocumentMoniker": "WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
-              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\Ytu_Mussk\\WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
+              "ToolTip": "C:\\Users\\User\\source\\repos\\isecer\\web-muhtasar-ssk-bildirim-sistemi\\WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
               "RelativeToolTip": "WebApp\\Controllers\\YevmiyeYuzdeOnAsimHesaplariController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAowB0AAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-10T08:28:49.725Z",
               "EditorCaption": ""

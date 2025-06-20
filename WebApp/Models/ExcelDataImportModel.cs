@@ -176,8 +176,10 @@ namespace WebApp.Models
                 var tables = ds.Tables[0];
                 for (int i = 0; i < tables.Rows.Count; i++)
                 {
+                    var row = tables.Rows[i];
+                    if (row == null || row.ItemArray.All(x => x == null || string.IsNullOrWhiteSpace(x.ToString())))
+                        continue;
 
-                     
                     var _BelgeMahiyetTipKodu = tables.Rows[i][0].ToStrObjEmptString().Trim();
                     var _BelgeTurKodu = tables.Rows[i][1].ToStrObjEmptString().Trim();
                     var _DEsasKanunNo = tables.Rows[i][2].ToStrObjEmptString().Trim();
