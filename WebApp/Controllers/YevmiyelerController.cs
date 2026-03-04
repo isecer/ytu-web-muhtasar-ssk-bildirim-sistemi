@@ -100,7 +100,7 @@ namespace WebApp.Controllers
                     if (IsSendikaYetkiVar) HesapKods.AddRange(db.YevmiyelerSendikaBilgileris.Select(s => s.HesapKod).ToList());
                     var EslesenHesapkodlaris = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
                     HesapKods.AddRange(EslesenHesapkodlaris.Select(s => s.HesapKod));
-                    q = q.Where(p => HesapKods.Contains(p.HesapKod));
+                    q = q.Where(p => HesapKods.Any(a=>p.HesapKod.StartsWith(a))); 
                 }
             }
 
