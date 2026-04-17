@@ -29,21 +29,23 @@ namespace Database
             this.KullaniciBirimleris = new HashSet<KullaniciBirimleri>();
             this.KullaniciBirimleriRapors = new HashSet<KullaniciBirimleriRapor>();
             this.Mesajlars = new HashSet<Mesajlar>();
+            this.KullaniciYevmiyeHarcamaBirimleris = new HashSet<KullaniciYevmiyeHarcamaBirimleri>();
             this.KullaniciYevmiyeHesapKodTurYetkileris = new HashSet<KullaniciYevmiyeHesapKodTurYetkileri>();
             this.MesajKategorileris = new HashSet<MesajKategorileri>();
             this.MeslekTurleris = new HashSet<MeslekTurleri>();
             this.SistemBilgilendirmes = new HashSet<SistemBilgilendirme>();
+            this.Yevmiyelers = new HashSet<Yevmiyeler>();
             this.Yevmiyeler1003BAyristirmalari = new HashSet<Yevmiyeler1003BAyristirmalari>();
             this.YevmiyelerBelgeKodlaris = new HashSet<YevmiyelerBelgeKodlari>();
             this.YevmiyelerHarcamaBirimleris = new HashSet<YevmiyelerHarcamaBirimleri>();
+            this.YevmiyelerHesapKodlaris = new HashSet<YevmiyelerHesapKodlari>();
             this.YevmiyelerKdvKodlaris = new HashSet<YevmiyelerKdvKodlari>();
             this.YevmiyelerKdvTevkifatKayitlaris = new HashSet<YevmiyelerKdvTevkifatKayitlari>();
             this.YevmiyelerProjeBankaHesapNumaralaris = new HashSet<YevmiyelerProjeBankaHesapNumaralari>();
             this.YevmiyelerSendikaBilgileris = new HashSet<YevmiyelerSendikaBilgileri>();
             this.YevmiyelerTasinirKontrolTifKaydis = new HashSet<YevmiyelerTasinirKontrolTifKaydi>();
+            this.YevmiyelerYuzdeOnAsimHesapElleGirislers = new HashSet<YevmiyelerYuzdeOnAsimHesapElleGirisler>();
             this.Rollers = new HashSet<Roller>();
-            this.YevmiyelerHesapKodlaris = new HashSet<YevmiyelerHesapKodlari>();
-            this.Yevmiyelers = new HashSet<Yevmiyeler>();
         }
     
         public int KullaniciID { get; set; }
@@ -108,6 +110,8 @@ namespace Database
         public virtual Unvanlar Unvanlar { get; set; }
         public virtual YetkiGruplari YetkiGruplari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<KullaniciYevmiyeHarcamaBirimleri> KullaniciYevmiyeHarcamaBirimleris { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<KullaniciYevmiyeHesapKodTurYetkileri> KullaniciYevmiyeHesapKodTurYetkileris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MesajKategorileri> MesajKategorileris { get; set; }
@@ -116,11 +120,15 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SistemBilgilendirme> SistemBilgilendirmes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Yevmiyeler1003BAyristirmalari> Yevmiyeler1003BAyristirmalari { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerBelgeKodlari> YevmiyelerBelgeKodlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerHarcamaBirimleri> YevmiyelerHarcamaBirimleris { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerKdvKodlari> YevmiyelerKdvKodlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -132,10 +140,8 @@ namespace Database
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerTasinirKontrolTifKaydi> YevmiyelerTasinirKontrolTifKaydis { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<YevmiyelerYuzdeOnAsimHesapElleGirisler> YevmiyelerYuzdeOnAsimHesapElleGirislers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Roller> Rollers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<YevmiyelerHesapKodlari> YevmiyelerHesapKodlaris { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Yevmiyeler> Yevmiyelers { get; set; }
     }
 }

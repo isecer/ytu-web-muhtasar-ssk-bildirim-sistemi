@@ -52,6 +52,42 @@ namespace WebApp.Models
 
 
     }
+    public class FmYevmiyeYuzdeOnAsimElleGiris : PagerOption
+    { 
+        public DateTime? Tarih { get; set; }
+        public int? YevmiyeHarcamaBirimID { get; set; }
+        public string VergiKimlikNo { get; set; }
+        public string HesapKod { get; set; }
+        public string HesapAdi { get; set; }
+        public bool? IsAktif { get; set; }
+        public string Aciklama { get; set; }
+
+        public decimal BrutToplam { get; set; }
+          
+        public IEnumerable<FrYevmiyeYuzdeOnAsimElleGiris> Data { get; set; }
+        public int? Yil { get; set; }
+    }
+    public class FrYevmiyeYuzdeOnAsimElleGiris
+    {
+        public int YevmiyeYuzdeOnAsimHesapElleGirisID { get; set; }
+
+        public DateTime? Tarih { get; set; }
+
+        public string VergiKimlikNo { get; set; }
+
+        public string HarcamaBirimAdi { get; set; }
+
+        public string HesapKod { get; set; }
+
+        public string HesapAdi { get; set; }
+
+        public decimal BrutTutar { get; set; }
+
+        public string Aciklama { get; set; }
+
+        public bool IsAktif { get; set; }
+        public string Durum { get; set; }
+    }
     public class FrSecilenAyBilgi : VASurecleriAylar
     {
         public bool IsVeriGirilebilir { get; set; }

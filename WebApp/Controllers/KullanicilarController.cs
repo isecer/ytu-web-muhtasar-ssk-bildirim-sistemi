@@ -508,6 +508,46 @@ namespace WebApp.Controllers
         }
 
         [Authorize(Roles = RoleNames.KullaniciKayit)]
+        public ActionResult KullaniciHarcamaBirimYetkileri(int? id)
+        {
+            if (id.HasValue == false) return RedirectToAction("Index");
+            var Birimlers = db.YevmiyelerHarcamaBirimleris.OrderBy(o => o.BirimAdi).ToList();
+            var Kullanici = Management.GetUser(id.Value);
+            ViewBag.YetkiliBirimleri = db.KullaniciYevmiyeHarcamaBirimleris.Where(p => p.KullaniciID == id.Value).ToList();
+            ViewBag.Kullanici = Kullanici;
+            return View(Birimlers);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = RoleNames.KullaniciKayit)]
+        public ActionResult KullaniciHarcamaBirimYetkileri(List<int> HarcamaBirimID, int KullaniciID, bool YetkilendirmeyeGit = false)
+        {
+            if (KullaniciID <= 0) return RedirectToAction("Index");
+
+            HarcamaBirimID = HarcamaBirimID ?? new List<int>();
+            var mevcutYetkiler = db.KullaniciYevmiyeHarcamaBirimleris.Where(p => p.KullaniciID == KullaniciID).ToList();
+            db.KullaniciYevmiyeHarcamaBirimleris.RemoveRange(mevcutYetkiler);
+
+            var kul = db.Kullanicilars.Where(p => p.KullaniciID == KullaniciID).First();
+            kul.KullaniciYevmiyeHarcamaBirimleris = HarcamaBirimID
+                .Select(s => new KullaniciYevmiyeHarcamaBirimleri { YevmiyeHarcamaBirimID = s })
+                .ToList();
+
+            db.SaveChanges();
+            OnlineUsers.YetkiYenile(kul.KullaniciID);
+
+            if (YetkilendirmeyeGit)
+            {
+                return RedirectToAction("Yetkilendirme", new { id = kul.KullaniciID });
+            }
+            else
+            {
+                MessageBox.Show("Harcama Birim Yetkileri Kaydedildi", MessageBox.MessageType.Success);
+                return RedirectToAction("Index");
+            }
+        }
+
+        [Authorize(Roles = RoleNames.KullaniciKayit)]
         public ActionResult KullaniciYevmiyeHesapKodTurYetkileri(int? id)
         {
             if (id.HasValue == false) return RedirectToAction("Index");
@@ -543,116 +583,7 @@ namespace WebApp.Controllers
             }
 
         }
-        public ActionResult ProfilBilgi(int KullaniciID, string dlgid)
-        {
-            var kulYet = RoleNames.Kullanicilar.InRole();
-            var closePopup = false;
-            if ((!kulYet && KullaniciID != UserIdentity.Current.Id) || KullaniciID == 0)
-            {
-                KullaniciID = UserIdentity.Current.Id;
-            }
-            var kul = db.Kullanicilars.Where(p => p.KullaniciID == KullaniciID).FirstOrDefault();
-            kul.ResimAdi = SistemAyar.getAyar(SistemAyar.KullaniciResimYolu) + "/" + kul.ResimAdi;
-            var dataLog = db.KullanicilarLogs.Where(p => p.KullaniciID == kul.KullaniciID).OrderByDescending(o => o.LastLogonDate).FirstOrDefault();
-            if (dataLog != null)
-            {
-
-                kul.LastLogonDate = dataLog.LastLogonDate;
-                kul.LastLogonIP = dataLog.LastLogonIP;
-            }
-
-            ViewBag.closePopup = closePopup;
-
-            ViewBag.BirimID = new SelectList(Management.CmbBirimler(), "Value", "Caption", kul.BirimID);
-
-            return View(kul);
-        }
-
-
-
-        public ActionResult getPageData(int KullaniciID)
-        {
-            var data = db.Kullanicilars.Where(p => p.KullaniciID == KullaniciID).FirstOrDefault();
-            return View(data);
-        }
-        public ActionResult SifreDegistir(string dlgid = "")
-        {
-            var mmsg = new MmMessage();
-            mmsg.DialogID = dlgid;
-            ViewBag.MmMessage = mmsg;
-
-            ViewBag.EskiSifre = "";
-            ViewBag.YeniSifre = "";
-            ViewBag.YeniSifreTekrar = "";
-            return View();
-        }
-        [HttpPost]
-        public ActionResult SifreDegistir(string EskiSifre, string YeniSifre, string YeniSifreTekrar, string dlgid = "")
-        {
-            var mmsg = new MmMessage();
-            mmsg.IsDialog = dlgid != "";
-            mmsg.DialogID = dlgid;
-
-            if (EskiSifre.IsNullOrWhiteSpace())
-            {
-                string msg = "Kullanmakta Olduğunuz Şifreyi Giriniz";
-                mmsg.Messages.Add(msg);
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "EskiSifre" });
-            }
-            else mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "EskiSifre" });
-            if (YeniSifre.IsNullOrWhiteSpace())
-            {
-                string msg = "Yani Şifrenizi Giriniz";
-                mmsg.Messages.Add(msg);
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YeniSifre" });
-            }
-            else mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "YeniSifre" });
-
-            if (YeniSifreTekrar.IsNullOrWhiteSpace())
-            {
-                string msg = "Yeni Şifrenizi Tekrar Giriniz";
-                mmsg.Messages.Add(msg);
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YeniSifreTekrar" });
-            }
-            else mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "YeniSifreTekrar" });
-
-            if (mmsg.Messages.Count == 0 && YeniSifre != YeniSifreTekrar)
-            {
-                string msg = "Yeni Şifre İle Yeni Şifre Tekrar Birbiriyle Uyuşmuyor";
-                mmsg.Messages.Add(msg);
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YeniSifre" });
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "YeniSifreTekrar" });
-            }
-            var kullanici = db.Kullanicilars.Where(p => p.KullaniciID == UserIdentity.Current.Id).First();
-            if (mmsg.Messages.Count == 0 && kullanici.Sifre != EskiSifre.ComputeHash(Management.Tuz))
-            {
-                string msg = "Kullanmakta Olduğunuz Şifreyi Hatalı Girdiniz.";
-                mmsg.Messages.Add(msg);
-                mmsg.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "EskiSifre" });
-            }
-            if (mmsg.Messages.Count == 0)
-            {
-
-                kullanici.Sifre = YeniSifre.ComputeHash(Management.Tuz);
-                db.SaveChanges();
-                mmsg.IsSuccess = true;
-                mmsg.IsCloseDialog = true;
-                MessageBox.Show("Şifre Değitrime İşlemi", MessageBox.MessageType.Success, "Şifre Değiştirme İşlemi Başarılı");
-            }
-            else
-            {
-                MessageBox.Show("Hatalı İşlem", MessageBox.MessageType.Error, mmsg.Messages.ToArray());
-            }
-
-
-
-
-            ViewBag.MmMessage = mmsg;
-            ViewBag.EskiSifre = EskiSifre;
-            ViewBag.YeniSifre = YeniSifre;
-            ViewBag.YeniSifreTekrar = YeniSifreTekrar;
-            return View();
-        }
+     
 
         [Authorize(Roles = RoleNames.KullaniciKayit)]
         public ActionResult Sil(int id)

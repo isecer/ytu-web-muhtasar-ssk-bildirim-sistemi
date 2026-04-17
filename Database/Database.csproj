@@ -122,6 +122,9 @@
     <Compile Include="KullanicilarLog.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="KullaniciYevmiyeHarcamaBirimleri.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="KullaniciYevmiyeHesapKodTurYetkileri.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
@@ -240,6 +243,9 @@
     <Compile Include="YevmiyelerHarcamaBirimleriTutarKayit.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="YevmiyelerHesapKodHavuzu.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="YevmiyelerHesapKodlari.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
@@ -262,6 +268,9 @@
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
     <Compile Include="YevmiyelerVergiKimlikNumaralari.cs">
+      <DependentUpon>MusskDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="YevmiyelerYuzdeOnAsimHesapElleGirisler.cs">
       <DependentUpon>MusskDB.tt</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -292,6 +301,9 @@
       <DependentUpon>MusskDB.edmx</DependentUpon>
       <LastGenOutput>MusskDB.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

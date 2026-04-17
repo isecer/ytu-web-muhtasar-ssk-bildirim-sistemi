@@ -14,6 +14,7 @@ using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebApp.Models;
+using static BiskaUtil.MessageBox;
 
 namespace WebApp.Controllers
 {
@@ -38,12 +39,11 @@ namespace WebApp.Controllers
         public ActionResult Index(FmYevmiyeler model, bool export = false)
         {
 
-            var birimIDs = UserIdentity.Current.BirimYetkileri;
             var hesapKodTurYetkis = UserIdentity.Current.YevmiyeHesapKodTurYetkileri;
             UserIdentity.Current.SeciliBirimID[RoleNames.Yevmiyeler] = model.YevmiyeHarcamaBirimID;
             UserIdentity.Current.SeciliYil[RoleNames.Yevmiyeler] = model.Yil;
-
-            var q = (from s in db.Vw_Yevmiyeler
+            var kullaniciYevmiyeHarcamaBirimIds = UserIdentity.Current.YevmiyeHarcamaBirimYetkileri;
+            var q = (from s in db.Vw_Yevmiyeler.Where(p => kullaniciYevmiyeHarcamaBirimIds.Contains(p.YevmiyeHarcamaBirimID))
                      select new FrYevmiyeler
                      {
                          YevmiyeID = s.YevmiyeID,
@@ -100,7 +100,7 @@ namespace WebApp.Controllers
                     if (IsSendikaYetkiVar) HesapKods.AddRange(db.YevmiyelerSendikaBilgileris.Select(s => s.HesapKod).ToList());
                     var EslesenHesapkodlaris = db.YevmiyelerHesapKodlaris.Where(p => hesapKodTurYetkis.Contains(p.YevmiyeHesapKodTurID)).Select(s => new { s.YevmiyeHesapKodTurID, s.HesapKod, s.IsGelirKaydindaKullanilacak }).ToList();
                     HesapKods.AddRange(EslesenHesapkodlaris.Select(s => s.HesapKod));
-                    q = q.Where(p => HesapKods.Any(a=>p.HesapKod.StartsWith(a))); 
+                    q = q.Where(p => HesapKods.Any(a => p.HesapKod.StartsWith(a)));
                 }
             }
 
@@ -1005,15 +1005,17 @@ namespace WebApp.Controllers
                 }
             }
 
+            var yevmiyeHarcamaBirimIds = UserIdentity.Current.YevmiyeHarcamaBirimYetkileri;
             if (!mMessage.Messages.Any() && isKontrolOrSil)
             {
-                var silinecekYevmiyelerCount = db.Yevmiyelers.Count(p => p.YevmiyeTarih.Year == yil && p.YevmiyeNo >= yevmiyeNo);
+                var silinecekYevmiyelerCount = db.Yevmiyelers.Count(p => yevmiyeHarcamaBirimIds.Contains(p.YevmiyeHarcamaBirimID) && p.YevmiyeTarih.Year == yil && p.YevmiyeNo >= yevmiyeNo);
 
                 mMessage.Messages.Add(yil + " yılı yevmiyeleri arasında " + yevmiyeNo + " yevmiye numarası ve sonrası için " + silinecekYevmiyelerCount + " silinecek kayıt bulundu.");
             }
             else if (!mMessage.Messages.Any())
             {
-                var silinecekYevmiyeler = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == yil && p.YevmiyeNo >= yevmiyeNo).ToList();
+
+                var silinecekYevmiyeler = db.Yevmiyelers.Where(p => yevmiyeHarcamaBirimIds.Contains(p.YevmiyeHarcamaBirimID) && p.YevmiyeTarih.Year == yil && p.YevmiyeNo >= yevmiyeNo).ToList();
                 db.Yevmiyelers.RemoveRange(silinecekYevmiyeler);
                 mMessage.IsSuccess = true;
                 mMessage.Messages.Add(yil + " yılı yevmiyeleri arasında " + yevmiyeNo + " yevmiye numarası ve sonrası için " + silinecekYevmiyeler.Count + " yevmiye silindi");
@@ -1220,7 +1222,13 @@ namespace WebApp.Controllers
                                     hataTipi.Add(msg);
                                     item.HataliHucreler.Add(2);
                                 }
-                                if (item.HarcamaBirimKod.IsNullOrWhiteSpace())
+                                if (item.YevmiyeHarcamaBirimID.HasValue && !UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(
+                                              item.YevmiyeHarcamaBirimID.Value))
+                                {
+                                    hataTipi.Add("Bu Harcama Birimi için yetkiniz bulunmamaktadır.");
+                                    item.HataliHucreler.Add(2);
+                                }
+                                else if (item.HarcamaBirimKod.IsNullOrWhiteSpace())
                                 {
                                     hataTipi.Add("Harcama Birim Kodu boş");
                                     item.HataliHucreler.Add(3);
@@ -1458,9 +1466,10 @@ namespace WebApp.Controllers
         }
         public ActionResult GetDetail(int id)
         {
+            var harcamaBirimyetkileri = UserIdentity.Current.YevmiyeHarcamaBirimYetkileri;
             var YevmiyeKodlaris = db.YevmiyelerHesapKodlaris.ToList();
             var YetkiYevmiyeHesapKodTurID = db.Kullanicilars.Where(p => p.KullaniciID == UserIdentity.Current.Id).SelectMany(s => s.KullaniciYevmiyeHesapKodTurYetkileris).Select(s => s.YevmiyeHesapKodTurID).ToList();
-            var mdl = (from s in db.Yevmiyelers.Where(p => p.YevmiyeID == id)
+            var mdl = (from s in db.Yevmiyelers.Where(p => harcamaBirimyetkileri.Contains(p.YevmiyeHarcamaBirimID) && p.YevmiyeID == id)
                        join BHk in db.YevmiyelerHesapKodlaris on s.BESYevmiyeHesapKodID equals BHk.YevmiyeHesapKodID into defBkh
                        from BHk in defBkh.DefaultIfEmpty()
                        join Ekh in db.YevmiyelerHarcamaBirimleris on s.EKYevmiyeHarcamaBirimID equals Ekh.YevmiyeHarcamaBirimID into defEkh
@@ -1551,6 +1560,19 @@ namespace WebApp.Controllers
             MmMessage.IsSuccess = false;
             MmMessage.Title = "1003B Yevmiye Ayrıştırma İşlemi";
             MmMessage.MessageType = Msgtype.Warning;
+            var yevmiye = db.Yevmiyelers.FirstOrDefault(p => p.YevmiyeID == kModel.YevmiyeID);
+            if (yevmiye == null)
+            {
+                MmMessage.Messages.Add("Yevmiye bulunamadı.");
+                return MmMessage.ToJsonResult();
+            }
+            if (!UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+            {
+                MmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                MmMessage.MessageType = Msgtype.Error;
+                return MmMessage.ToJsonResult();
+            }
+
             if (kModel.YevmiyeHarcamaBirimID <= 0)
             {
                 MmMessage.Messages.Add("İş Yeri Seçiniz.");
@@ -1655,9 +1677,20 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    message = "'" + kayit.YevmiyelerHarcamaBirimleri.BirimAdi + "' İsimli Harcama Birimine Ait Yevmiye Ayrıştırma Kaydı Silindi!";
-                    db.Yevmiyeler1003BAyristirmalari.Remove(kayit);
-                    db.SaveChanges();
+                    var yevmiye = db.Yevmiyelers.FirstOrDefault(p => p.YevmiyeID == kayit.YevmiyeID);
+                    if (yevmiye == null || !UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+                    {
+                        message = "Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.";
+                        success = false;
+                    }
+                    else
+                    {
+                        message = "'" + kayit.YevmiyelerHarcamaBirimleri.BirimAdi +
+                                  "' İsimli Harcama Birimine Ait Yevmiye Ayrıştırma Kaydı Silindi!";
+                        db.Yevmiyeler1003BAyristirmalari.Remove(kayit);
+                        db.SaveChanges();
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -1678,17 +1711,22 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult GelirKayit(Yevmiyeler kModel)
         {
-            var MmMessage = new MmMessage();
-            MmMessage.IsSuccess = false;
-            MmMessage.Title = "1003A Gelir Kaydı";
-            MmMessage.MessageType = Msgtype.Warning;
+            var mmMessage = new MmMessage();
+            mmMessage.IsSuccess = false;
+            mmMessage.Title = "1003A Gelir Kaydı";
+            mmMessage.MessageType = Msgtype.Warning;
 
-            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kModel.YevmiyeID).First();
-            var YevmiyeHesap = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && p.HesapKod == Yevmiye.HesapKod).FirstOrDefault();
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kModel.YevmiyeID).First();
+            var YevmiyeHesap = db.YevmiyelerHesapKodlaris.Where(p => p.YevmiyeHesapKodTurID == HesapKoduTuru.VergiTevkifatHesapKodlari1003A && p.HesapKod == yevmiye.HesapKod).FirstOrDefault();
 
             if (YevmiyeHesap == null)
             {
-                MmMessage.Messages.Add("Bu yevmiye için Gelir Kaydı işlemi yapılamaz");
+                mmMessage.Messages.Add("Bu yevmiye için Gelir Kaydı işlemi yapılamaz");
+            }
+            else if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
+            {
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
             }
             else
             {
@@ -1699,88 +1737,88 @@ namespace WebApp.Controllers
                     {
                         if (kModel.Y1003AVergiKimlikNo.IsNullOrWhiteSpace())
                         {
-                            MmMessage.Messages.Add("Vergi Kimlik Numarası seçiniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AVergiKimlikNo" });
+                            mmMessage.Messages.Add("Vergi Kimlik Numarası seçiniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AVergiKimlikNo" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AVergiKimlikNo" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AVergiKimlikNo" });
                         if (kModel.Y1003AAdSoyad.IsNullOrWhiteSpace())
                         {
-                            MmMessage.Messages.Add("Ad Soyad Giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AAdSoyad" });
+                            mmMessage.Messages.Add("Ad Soyad Giriniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AAdSoyad" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AAdSoyad" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AAdSoyad" });
 
                         if (!(kModel.Y1003AMatrah > 0))
                         {
-                            MmMessage.Messages.Add("Matrah bilgisi 0'Dan büyük olmalıdır.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AMatrah" });
+                            mmMessage.Messages.Add("Matrah bilgisi 0'Dan büyük olmalıdır.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AMatrah" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AMatrah" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AMatrah" });
                         if (!kModel.Y1003AKesintiTutar.HasValue)
                         {
-                            MmMessage.Messages.Add("Kesinti tutar bilgisi giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AKesintiTutar" });
+                            mmMessage.Messages.Add("Kesinti tutar bilgisi giriniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AKesintiTutar" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AKesintiTutar" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AKesintiTutar" });
                         if (kModel.Y1003ABelgeninMahiyeti.IsNullOrWhiteSpace())
                         {
-                            MmMessage.Messages.Add("Belge Mahiyeti Giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003ABelgeninMahiyeti" });
+                            mmMessage.Messages.Add("Belge Mahiyeti Giriniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003ABelgeninMahiyeti" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003ABelgeninMahiyeti" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003ABelgeninMahiyeti" });
                         if (!kModel.Y1003AFaturaTarihi.HasValue)
                         {
-                            MmMessage.Messages.Add("Fatura Tarihi Giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AFaturaTarihi" });
+                            mmMessage.Messages.Add("Fatura Tarihi Giriniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AFaturaTarihi" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AFaturaTarihi" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AFaturaTarihi" });
                         if (kModel.Y1003AFaturaNo.IsNullOrWhiteSpace())
                         {
-                            MmMessage.Messages.Add("Fatura Numarası Giriniz.");
-                            MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AFaturaNo" });
+                            mmMessage.Messages.Add("Fatura Numarası Giriniz.");
+                            mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Warning, PropertyName = "Y1003AFaturaNo" });
                         }
-                        else MmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AFaturaNo" });
+                        else mmMessage.MessagesDialog.Add(new MrMessage { MessageType = Msgtype.Success, PropertyName = "Y1003AFaturaNo" });
 
                     }
                 }
-                if (!MmMessage.Messages.Any())
+                if (!mmMessage.Messages.Any())
                 {
-                    Yevmiye.Y1003AHesapKodID = kModel.Y1003AHesapKodID;
-                    Yevmiye.Y1003AIsHesaplamayaGirecek = kModel.Y1003AIsHesaplamayaGirecek;
-                    Yevmiye.Y1003AVergiKodu = kModel.Y1003AVergiKodu;
+                    yevmiye.Y1003AHesapKodID = kModel.Y1003AHesapKodID;
+                    yevmiye.Y1003AIsHesaplamayaGirecek = kModel.Y1003AIsHesaplamayaGirecek;
+                    yevmiye.Y1003AVergiKodu = kModel.Y1003AVergiKodu;
                     var VergiKimlikNo = db.YevmiyelerVergiKimlikNumaralaris.Where(p => p.VergiKimlikNo == kModel.Y1003AVergiKimlikNo).FirstOrDefault();
                     if (VergiKimlikNo != null)
                     {
-                        Yevmiye.Y1003AVergiKimlikNo = kModel.Y1003AVergiKimlikNo;
-                        Yevmiye.Y1003AAdres = VergiKimlikNo.Adres;
-                        Yevmiye.Y1003AAdSoyad = kModel.Y1003AAdSoyad;
+                        yevmiye.Y1003AVergiKimlikNo = kModel.Y1003AVergiKimlikNo;
+                        yevmiye.Y1003AAdres = VergiKimlikNo.Adres;
+                        yevmiye.Y1003AAdSoyad = kModel.Y1003AAdSoyad;
                     }
                     else
                     {
-                        Yevmiye.Y1003AVergiKimlikNo = null;
-                        Yevmiye.Y1003AAdres = null;
-                        Yevmiye.Y1003AAdSoyad = null;
+                        yevmiye.Y1003AVergiKimlikNo = null;
+                        yevmiye.Y1003AAdres = null;
+                        yevmiye.Y1003AAdSoyad = null;
                     }
-                    Yevmiye.Y1003AMatrah = kModel.Y1003AMatrah;
-                    Yevmiye.Y1003AKesintiTutar = kModel.Y1003AKesintiTutar;
-                    Yevmiye.Y1003ABelgeninMahiyeti = kModel.Y1003ABelgeninMahiyeti;
-                    Yevmiye.Y1003AFaturaTarihi = kModel.Y1003AFaturaTarihi;
-                    Yevmiye.Y1003AFaturaNo = kModel.Y1003AFaturaNo;
-                    Yevmiye.IslemTarihi = DateTime.Now; ;
-                    Yevmiye.IslemYapanID = UserIdentity.Current.Id;
-                    Yevmiye.IslemYapanIP = UserIdentity.Ip;
+                    yevmiye.Y1003AMatrah = kModel.Y1003AMatrah;
+                    yevmiye.Y1003AKesintiTutar = kModel.Y1003AKesintiTutar;
+                    yevmiye.Y1003ABelgeninMahiyeti = kModel.Y1003ABelgeninMahiyeti;
+                    yevmiye.Y1003AFaturaTarihi = kModel.Y1003AFaturaTarihi;
+                    yevmiye.Y1003AFaturaNo = kModel.Y1003AFaturaNo;
+                    yevmiye.IslemTarihi = DateTime.Now; ;
+                    yevmiye.IslemYapanID = UserIdentity.Current.Id;
+                    yevmiye.IslemYapanIP = UserIdentity.Ip;
 
 
                     db.SaveChanges();
 
-                    MmMessage.Messages.Add("Gelir Kaydı İşlemi Yapıldı.");
-                    MmMessage.IsSuccess = true;
-                    MmMessage.MessageType = Msgtype.Success;
+                    mmMessage.Messages.Add("Gelir Kaydı İşlemi Yapıldı.");
+                    mmMessage.IsSuccess = true;
+                    mmMessage.MessageType = Msgtype.Success;
 
                 }
             }
 
-            return MmMessage.ToJsonResult();
+            return mmMessage.ToJsonResult();
         }
         public ActionResult YevmiyeKdvTevkifatKayit(int YevmiyeID, int? YevmiyeKdvTevkifatKayitID = null)
         {
@@ -1824,7 +1862,18 @@ namespace WebApp.Controllers
             MmMessage.Title = "Kdv Tevkifat Kayıt İşlemi";
             MmMessage.MessageType = Msgtype.Warning;
 
-
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kModel.YevmiyeID).FirstOrDefault();
+            if (yevmiye == null)
+            {
+                MmMessage.Messages.Add("Yevmiye bulunamadı.");
+                return MmMessage.ToJsonResult();
+            }
+            if (!UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+            {
+                MmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                MmMessage.MessageType = Msgtype.Error;
+                return MmMessage.ToJsonResult();
+            }
             if (kModel.VergiKimlikNo.IsNullOrWhiteSpace())
             {
                 MmMessage.Messages.Add("Vergi Kimlik Numarası Giriniz.");
@@ -1995,9 +2044,18 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    message = "'" + kayit.VergiKimlikNo + "' Vergi Kimlik Numarasına Ait Kdv Tefkifatı Kaydı Silindi!";
-                    db.YevmiyelerKdvTevkifatKayitlaris.Remove(kayit);
-                    db.SaveChanges();
+                    var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kayit.YevmiyeID).FirstOrDefault();
+                    if (yevmiye == null || !UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+                    {
+                        message = "Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.";
+                        success = false;
+                    }
+                    else
+                    {
+                        message = "'" + kayit.VergiKimlikNo + "' Vergi Kimlik Numarasına Ait Kdv Tefkifatı Kaydı Silindi!";
+                        db.YevmiyelerKdvTevkifatKayitlaris.Remove(kayit);
+                        db.SaveChanges();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -2017,22 +2075,27 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult YevmiyeEKHarcamaBirimKayit(int YevmiyeID, int? EKYevmiyeHarcamaBirimID)
         {
-            var MmMessage = new MmMessage();
-            MmMessage.IsSuccess = false;
-            MmMessage.Title = "Emekli Kesenek Harcama Birimi Değişikliği";
-            MmMessage.MessageType = Msgtype.Warning;
-            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
-
-            if (!MmMessage.Messages.Any())
+            var mmMessage = new MmMessage();
+            mmMessage.IsSuccess = false;
+            mmMessage.Title = "Emekli Kesenek Harcama Birimi Değişikliği";
+            mmMessage.MessageType = Msgtype.Warning;
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+            if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
             {
-                Yevmiye.EKYevmiyeHarcamaBirimID = EKYevmiyeHarcamaBirimID;
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
+                return mmMessage.ToJsonResult();
+            }
+            if (!mmMessage.Messages.Any())
+            {
+                yevmiye.EKYevmiyeHarcamaBirimID = EKYevmiyeHarcamaBirimID;
                 db.SaveChanges();
-                MmMessage.Messages.Add("Harcama Birimi Güncellendi.");
-                MmMessage.IsSuccess = true;
-                MmMessage.MessageType = Msgtype.Success;
+                mmMessage.Messages.Add("Harcama Birimi Güncellendi.");
+                mmMessage.IsSuccess = true;
+                mmMessage.MessageType = Msgtype.Success;
 
             }
-            return MmMessage.ToJsonResult();
+            return mmMessage.ToJsonResult();
         }
         public ActionResult YevmiyeTasinirkontrolTifKayit(int YevmiyeID, int? YevmiyelerTasinirKontrolTifKayitID = null)
         {
@@ -2052,6 +2115,18 @@ namespace WebApp.Controllers
             MmMessage.IsSuccess = false;
             MmMessage.Title = "Taşınır Kontrol Kaydı";
             MmMessage.MessageType = Msgtype.Warning;
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kModel.YevmiyeID).FirstOrDefault();
+            if (yevmiye == null)
+            {
+                MmMessage.Messages.Add("Yevmiye bulunamadı.");
+                return MmMessage.ToJsonResult();
+            }
+            if (!UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+            {
+                MmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                MmMessage.MessageType = Msgtype.Error;
+                return MmMessage.ToJsonResult();
+            }
 
             if (kModel.TifNo.IsNullOrWhiteSpace())
             {
@@ -2128,9 +2203,18 @@ namespace WebApp.Controllers
             {
                 try
                 {
-                    message = "'" + kayit.TifNo + "' Tif Kaydı Silindi!";
-                    db.YevmiyelerTasinirKontrolTifKaydis.Remove(kayit);
-                    db.SaveChanges();
+                    var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == kayit.YevmiyeID).FirstOrDefault();
+                    if (yevmiye == null || !UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID))
+                    {
+                        message = "Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.";
+                        success = false;
+                    }
+                    else
+                    {
+                        message = "'" + kayit.TifNo + "' Tif Kaydı Silindi!";
+                        db.YevmiyelerTasinirKontrolTifKaydis.Remove(kayit);
+                        db.SaveChanges();
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -2149,64 +2233,81 @@ namespace WebApp.Controllers
         [HttpPost]
         public ActionResult YevmiyeBankaHesapNoKayit(int YevmiyeID, int? ProjeBankaHesapNoID)
         {
-            var MmMessage = new MmMessage();
-            MmMessage.IsSuccess = false;
-            MmMessage.Title = "Hesap Numarası Değişikliği";
-            MmMessage.MessageType = Msgtype.Warning;
-            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
-
-            var TumYevmiyeler = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == Yevmiye.YevmiyeTarih.Year && p.YevmiyeNo == Yevmiye.YevmiyeNo).ToList();
+            var mmMessage = new MmMessage();
+            mmMessage.IsSuccess = false;
+            mmMessage.Title = "Hesap Numarası Değişikliği";
+            mmMessage.MessageType = Msgtype.Warning;
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+            if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
+            {
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
+                return mmMessage.ToJsonResult();
+            }
+            var TumYevmiyeler = db.Yevmiyelers.Where(p => p.YevmiyeTarih.Year == yevmiye.YevmiyeTarih.Year && p.YevmiyeNo == yevmiye.YevmiyeNo).ToList();
             foreach (var item in TumYevmiyeler)
             {
                 item.ProjeBankaHesapNoID = ProjeBankaHesapNoID;
             }
             db.SaveChanges();
-            MmMessage.Messages.Add("Yevmiye Banka Hesap Numarası Güncellendi.");
-            MmMessage.IsSuccess = true;
-            MmMessage.MessageType = Msgtype.Success;
+            mmMessage.Messages.Add("Yevmiye Banka Hesap Numarası Güncellendi.");
+            mmMessage.IsSuccess = true;
+            mmMessage.MessageType = Msgtype.Success;
 
-            return MmMessage.ToJsonResult();
+            return mmMessage.ToJsonResult();
         }
 
         [HttpPost]
         public ActionResult YevmiyeSendikaBilgisiKayit(int YevmiyeID, int? YevmiyeSendikaBilgiID)
         {
-            var MmMessage = new MmMessage();
-            MmMessage.IsSuccess = false;
-            MmMessage.Title = "Sendika Bilgisi Değişikliği";
-            MmMessage.MessageType = Msgtype.Warning;
-            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
-
-            Yevmiye.YevmiyeSendikaBilgiID = YevmiyeSendikaBilgiID;
+            var mmMessage = new MmMessage();
+            mmMessage.IsSuccess = false;
+            mmMessage.Title = "Sendika Bilgisi Değişikliği";
+            mmMessage.MessageType = Msgtype.Warning;
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+            if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
+            {
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
+                return mmMessage.ToJsonResult();
+            }
+            yevmiye.YevmiyeSendikaBilgiID = YevmiyeSendikaBilgiID;
 
             db.SaveChanges();
-            MmMessage.Messages.Add("Yevmiye Sendika Bilgisi Güncellendi.");
-            MmMessage.IsSuccess = true;
-            MmMessage.MessageType = Msgtype.Success;
+            mmMessage.Messages.Add("Yevmiye Sendika Bilgisi Güncellendi.");
+            mmMessage.IsSuccess = true;
+            mmMessage.MessageType = Msgtype.Success;
 
-            return MmMessage.ToJsonResult();
+            return mmMessage.ToJsonResult();
         }
         [HttpPost]
         public ActionResult BESHesapKodKayit(int YevmiyeID, int? BESYevmiyeHesapKodID, bool? BESIsYevmiyeDokumuAyri, bool? BESIsYevmiyeOdendi)
         {
-            var MmMessage = new MmMessage();
-            MmMessage.IsSuccess = false;
-            MmMessage.Title = "Bireysel Emeklilik Hesap Kodu Değişikliği";
-            MmMessage.MessageType = Msgtype.Warning;
-            var Yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
-
-            if (!MmMessage.Messages.Any())
+            var mmMessage = new MmMessage
             {
-                Yevmiye.BESYevmiyeHesapKodID = BESYevmiyeHesapKodID;
-                Yevmiye.BESIsYevmiyeDokumuAyri = BESIsYevmiyeDokumuAyri;
-                Yevmiye.BESIsYevmiyeOdendi = BESIsYevmiyeOdendi;
+                IsSuccess = false,
+                Title = "Bireysel Emeklilik Hesap Kodu Değişikliği",
+                MessageType = Msgtype.Warning
+            };
+            var yevmiye = db.Yevmiyelers.Where(p => p.YevmiyeID == YevmiyeID).First();
+            if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
+            {
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
+                return mmMessage.ToJsonResult();
+            }
+            if (!mmMessage.Messages.Any())
+            {
+                yevmiye.BESYevmiyeHesapKodID = BESYevmiyeHesapKodID;
+                yevmiye.BESIsYevmiyeDokumuAyri = BESIsYevmiyeDokumuAyri;
+                yevmiye.BESIsYevmiyeOdendi = BESIsYevmiyeOdendi;
                 db.SaveChanges();
-                MmMessage.Messages.Add("Hesap Kodu Güncellendi.");
-                MmMessage.IsSuccess = true;
-                MmMessage.MessageType = Msgtype.Success;
+                mmMessage.Messages.Add("Hesap Kodu Güncellendi.");
+                mmMessage.IsSuccess = true;
+                mmMessage.MessageType = Msgtype.Success;
 
             }
-            return MmMessage.ToJsonResult();
+            return mmMessage.ToJsonResult();
         }
 
 
@@ -2265,10 +2366,17 @@ namespace WebApp.Controllers
             var mmMessage = new MmMessage
             {
                 IsSuccess = false,
-                Title = "Sendika Bilgisi Değişikliği",
+                Title = "Yevmiye Alım Kanun Tür Değişikliği",
                 MessageType = Msgtype.Warning
             };
             var yevmiye = db.Yevmiyelers.First(p => p.YevmiyeID == yevmiyeId);
+
+            if (UserIdentity.Current.YevmiyeHarcamaBirimYetkileri.Contains(yevmiye.YevmiyeHarcamaBirimID) == false)
+            {
+                mmMessage.Messages.Add("Bu Yevmiye İçin Harcama Birimi Yetkiniz Bulunmamaktadır.");
+                mmMessage.MessageType = Msgtype.Error;
+                return mmMessage.ToJsonResult();
+            }
 
             yevmiye.YevmiyeAlimKanunTurID = yevmiyeAlimKanunTurId;
 

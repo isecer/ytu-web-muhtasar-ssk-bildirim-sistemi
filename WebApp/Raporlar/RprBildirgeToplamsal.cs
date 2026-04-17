@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using DevExpress.XtraReports.UI;
+using WebApp.Models;
 
 namespace WebApp.Raporlar
 {

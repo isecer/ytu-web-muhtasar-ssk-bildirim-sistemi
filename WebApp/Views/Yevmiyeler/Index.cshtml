@@ -1,5 +1,6 @@
 ﻿@using WebApp.Models
 @using BiskaUtil
+@using System.Web.Mvc.Ajax
 @model FmYevmiyeler
 @{
     var kayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
@@ -602,6 +603,7 @@
                                     <tr class="cls-@item.YevmiyeID hide">
                                         <td colspan="7" style="padding: 1px 1px 2px 75px;">
                                             <div id="yevmiyeDetayPanel_@item.YevmiyeID">
+
                                                 <div id="cls-@item.YevmiyeID">
 
                                                 </div>
