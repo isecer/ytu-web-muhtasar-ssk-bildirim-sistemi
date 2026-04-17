@@ -177,6 +177,10 @@
                                                         <li>
                                                             <a href="@Url.Action("Yetkilendirme", new { id=item.KullaniciID })"><i class="fa fa-lock fa-lg"></i>Erişim Yetkileri</a>
                                                         </li>
+
+                                                        <li>
+                                                            <a href="@Url.Action("KullaniciHarcamaBirimYetkileri", new { id = item.KullaniciID })"><i class="fa fa-home fa-lg"></i> Harcama Birim Yetkileri</a>
+                                                        </li>
                                                         <li>
                                                             <a href="@Url.Action("KullaniciBirimYetkileri", new { id = item.KullaniciID })"><i class="fa fa-home fa-lg"></i> İşçi İşlemleri Birim Yetkileri</a>
                                                         </li>

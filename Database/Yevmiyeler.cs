@@ -59,6 +59,7 @@ namespace Database
         public string IslemYapanIP { get; set; }
     
         public virtual Kullanicilar Kullanicilar { get; set; }
+        public virtual YevmiyelerAlimKanunTurleri YevmiyelerAlimKanunTurleri { get; set; }
         public virtual YevmiyelerHarcamaBirimleri YevmiyelerHarcamaBirimleri { get; set; }
         public virtual YevmiyelerHesapKodlari YevmiyelerHesapKodlari { get; set; }
         public virtual YevmiyelerProjeBankaHesapNumaralari YevmiyelerProjeBankaHesapNumaralari { get; set; }
@@ -71,6 +72,5 @@ namespace Database
         public virtual ICollection<YevmiyelerKdvTevkifatKayitlari> YevmiyelerKdvTevkifatKayitlaris { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<YevmiyelerTasinirKontrolTifKaydi> YevmiyelerTasinirKontrolTifKaydis { get; set; }
-        public virtual YevmiyelerAlimKanunTurleri YevmiyelerAlimKanunTurleri { get; set; }
     }
 }

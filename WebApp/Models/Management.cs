@@ -1385,6 +1385,7 @@ namespace WebApp.Models
             ui.BirimYetkileri = kull.BirimYetkileri.Select(s => s.BirimID).ToList();
             ui.BirimYetkileriRapor = kull.KullaniciBirimleriRapors.Select(s => s.BirimID).ToList();
             ui.YevmiyeHesapKodTurYetkileri = kull.KullaniciYevmiyeHesapKodTurYetkileris.Select(s => s.YevmiyeHesapKodTurID).ToList();
+            ui.YevmiyeHarcamaBirimYetkileri = kull.KullaniciYevmiyeHarcamaBirimleris.Select(s => s.YevmiyeHarcamaBirimID).ToList();
             ui.SeciliBirimID = kull.SeciliBirimID;
             ui.SeciliVASurecID = kull.SeciliVASurecID;
             ui.SeciliAyID = kull.SeciliAyID;
@@ -1468,8 +1469,8 @@ namespace WebApp.Models
                              IslemTarihi = s.IslemTarihi,
                              IslemYapanIP = s.IslemYapanIP,
                              KullaniciBirimleriRapors = s.KullaniciBirimleriRapors,
-                             KullaniciYevmiyeHesapKodTurYetkileris = s.KullaniciYevmiyeHesapKodTurYetkileris
-
+                             KullaniciYevmiyeHesapKodTurYetkileris = s.KullaniciYevmiyeHesapKodTurYetkileris,
+                             KullaniciYevmiyeHarcamaBirimleris = s.KullaniciYevmiyeHarcamaBirimleris
                          }).FirstOrDefault();
                 if (q != null)
                 {
@@ -2350,8 +2351,8 @@ namespace WebApp.Models
             if (bosSecimVar) dct.Add(new ComboModelInt { });
             using (var db = new MusskDBEntities())
             {
-
-                var data = db.YevmiyelerHarcamaBirimleris.Where(p => !p.IsAltBirim).Select(s => new
+                var kullaniciYetkiYevmiyeHarcamaBirimIds = UserIdentity.Current.YevmiyeHarcamaBirimYetkileri;
+                var data = db.YevmiyelerHarcamaBirimleris.Where(p => kullaniciYetkiYevmiyeHarcamaBirimIds.Contains(p.YevmiyeHarcamaBirimID) &&!p.IsAltBirim).Select(s => new
                 {
                     s.YevmiyeHarcamaBirimID,
                     BirimAdi = s.BirimAdi + " " + s.VergiKimlikNo,
@@ -2380,11 +2381,11 @@ namespace WebApp.Models
                 }).OrderBy(o => o.VergiKodu).ToList();
                 foreach (var item in data)
                 {
-                    var HesapAdi = "";
-                    if (!item.VergiKodu.IsNullOrWhiteSpace()) HesapAdi += item.VergiKodu + " - ";
-                    HesapAdi += item.HesapAdi;
-                    if (!item.HesapKod.IsNullOrWhiteSpace()) HesapAdi += " (" + item.HesapKod + ")";
-                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodID, Caption = HesapAdi });
+                    var hesapAdi = "";
+                    if (!item.VergiKodu.IsNullOrWhiteSpace()) hesapAdi += item.VergiKodu + " - ";
+                    hesapAdi += item.HesapAdi;
+                    if (!item.HesapKod.IsNullOrWhiteSpace()) hesapAdi += " (" + item.HesapKod + ")";
+                    dct.Add(new ComboModelInt { Value = item.YevmiyeHesapKodID, Caption = hesapAdi });
                 }
             }
             return dct;

@@ -1,20 +1,16 @@
 ﻿using BiskaUtil;
-using Database;
-using SelectPdf;
+using Database; 
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using WebApp.Models;
 
 namespace WebApp.Controllers
 {
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     [Authorize(Roles = RoleNames.VeriGirisi)]
     public class VeriGirisiController : Controller
     {

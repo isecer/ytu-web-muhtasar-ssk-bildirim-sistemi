@@ -6,8 +6,7 @@
 
     var KayitYetkisi = RoleNames.YevmiyelerKayitYetkisi.InRole();
 }
-
-
+<form></form> 
 <div class="widget widget-default" style="border-top:1px solid; margin-bottom:8px;padding:6px 10px;min-height:100px;" id="Wg1003BKayitPanel_@Model.YevmiyeID">
     <br />
     <table style="width:100%;">
@@ -787,8 +786,8 @@
                                                         <tr>
                                                             <td width="240">Yevmiye Alım Kanun Türü</td>
                                                             <td width="10">:</td>
-                                                            <td class="form-group"> 
-                                                                @Html.DropDownList("YevmiyeAlimKanunTurId", Model.YevmiyeAlimKanunTur, new { @class = "form-control" }) 
+                                                            <td class="form-group">
+                                                                @Html.DropDownList("YevmiyeAlimKanunTurId", Model.YevmiyeAlimKanunTur, new { @class = "form-control" })
                                                             </td>
                                                         </tr>
                                                     }
@@ -911,8 +910,8 @@
                                                                 }).on('change', function (e) {
                                                                     $('#BhDetayHn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapNo);
                                                                     $('#BhDetayHa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.HesapAdi);
-                                                                    $('#BhDetayPn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeNo);
-                                                                    $('#BhDetayPa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeAdi);
+                                                                    $('#BhDetayPa_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeNo);
+                                                                    $('#BhDetayPn_@Model.YevmiyeID').html(e.added == undefined ? "" : e.added.ProjeAdi);
                                                                     if (e.added == undefined) $('.BhDetay_@Model.YevmiyeID').addClass('hide');
                                                                     else $('.BhDetay_@Model.YevmiyeID').removeClass('hide');
                                                                 });
@@ -942,13 +941,4 @@
         </tbody>
     </table>
 </div>
-
-
-
-
-
-
-
-
-
 

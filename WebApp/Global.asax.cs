@@ -23,8 +23,7 @@ namespace WebApp
         public static IScheduler _quartzScheduler;
         protected void Application_Start()
         {
-            DevExpress.XtraReports.Web.WebDocumentViewer.Native.WebDocumentViewerBootstrapper.SessionState = System.Web.SessionState.SessionStateBehavior.Disabled;
-            AreaRegistration.RegisterAllAreas();
+             AreaRegistration.RegisterAllAreas();
             //WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

@@ -1,5 +1,4 @@
-﻿using DevExpress.Web.Mvc;
-using BiskaUtil;
+﻿using BiskaUtil;
 using WebApp.Models;
 using System;
 using System.Collections.Generic;
@@ -18,7 +17,7 @@ using WebApp.Raporlar;
 
 namespace WebApp.Controllers
 {
-    [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
+    [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class AjaxController : Controller
     {
         private MusskDBEntities db = new MusskDBEntities();
@@ -881,7 +880,7 @@ namespace WebApp.Controllers
 
         }
 
-      
+
 
         [System.Web.Mvc.OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
         public ActionResult PdfViewer()

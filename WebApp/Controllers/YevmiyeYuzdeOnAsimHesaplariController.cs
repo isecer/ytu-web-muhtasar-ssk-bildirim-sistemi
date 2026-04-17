@@ -58,9 +58,12 @@ namespace WebApp.Controllers
             ViewBag.AyID = new SelectList(Management.CmbAylar(false), "Value", "Caption", model.AyID);
             return View(model);
         }
-        public List<FrYevmiyeYuzdeOnAsimHesaplari> GetMatchingAccounts(int year)
+        public List<FrYevmiyeYuzdeOnAsimHesaplari> GetMatchingAccountsV0(int year)
         {
             // Normal hesaplar için sorgu
+            
+
+
             var normalHesaplar = (from yb in db.Yevmiyelers.Where(p=>p.YevmiyeAlimKanunTurID.HasValue)
                                   where yb.YevmiyeTarih.Year == year
                                   from yhk in db.YevmiyelerHesapKodlaris
@@ -74,6 +77,7 @@ namespace WebApp.Controllers
                                       Toplam = g.Sum(x => x.Alacak) - g.Sum(x => x.Borc)
                                   }).ToList();
 
+          
             // 901'li hesaplar için sorgu
             var hesaplar901 = (from yb in db.Yevmiyelers
                                where yb.YevmiyeTarih.Year == year &&
@@ -126,8 +130,99 @@ namespace WebApp.Controllers
             sonuclar.AddRange(grupTotalleri);
             return sonuclar;
         }
+        public List<FrYevmiyeYuzdeOnAsimHesaplari> GetMatchingAccounts(int year)
+        {
+            // Normal hesaplar için sorgu
 
-        // Grup adlarını belirle
+
+
+            var normalHesaplar = (from yb in db.Yevmiyelers.Where(p => p.YevmiyeAlimKanunTurID.HasValue)
+                                  where yb.YevmiyeTarih.Year == year
+                                  from yhk in db.YevmiyelerHesapKodlaris
+                                  where yhk.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari &&
+                                        ((yhk.IsHesapKoduBaslangicEslesmesiYeterli && yb.HesapKod.StartsWith(yhk.HesapKod)) ||
+                                         (!yhk.IsHesapKoduBaslangicEslesmesiYeterli && yb.HesapKod == yhk.HesapKod))
+                                  group yb by yhk.HesapKod into g
+                                  select new
+                                  {
+                                      HesapKodu = g.Key,
+                                      Toplam = g.Sum(x => x.Alacak) - g.Sum(x => x.Borc)
+                                  }).ToList();
+
+            var normalHesaplarElle = (from yb in db.YevmiyelerYuzdeOnAsimHesapElleGirislers.Where(p => p.IsAktif == true)
+                where yb.Tarih.Year == year
+                from yhk in db.YevmiyelerHesapKodlaris
+                where yhk.YevmiyeHesapKodTurID == HesapKoduTuru.YuzdeOnAsimHesapKodlari &&
+                      ((yhk.IsHesapKoduBaslangicEslesmesiYeterli && yb.HesapKod.StartsWith(yhk.HesapKod)) ||
+                       (!yhk.IsHesapKoduBaslangicEslesmesiYeterli && yb.HesapKod == yhk.HesapKod))
+                group yb by yhk.HesapKod into g
+                select new
+                {
+                    HesapKodu = g.Key,
+                    Toplam = g.Sum(x => x.BrutTutar)*-1
+                }).ToList();
+            normalHesaplar.AddRange(normalHesaplarElle);
+
+            normalHesaplar = (from yb in normalHesaplar 
+                group yb by yb.HesapKodu into g
+                select new
+                {
+                    HesapKodu = g.Key,
+                    Toplam = g.Sum(x => x.Toplam)
+                }).ToList();
+            // 901'li hesaplar için sorgu
+            var hesaplar901 = (from yb in db.Yevmiyelers
+                               where yb.YevmiyeTarih.Year == year &&
+                                     yb.HesapKod.StartsWith("901")
+                               group yb by new { HesapKodu = "901." + yb.HesapKod.Substring(yb.HesapKod.Length - 5, 5), yb.HesapAdi } into g
+                               select new
+                               {
+                                   g.Key.HesapKodu,
+                                   g.Key.HesapAdi,
+                                   Toplam = g.Sum(x => x.Alacak) - g.Sum(x => x.Borc)
+                               }).ToList();
+
+
+
+            // Memory'de eşleştirme ve gruplandırma
+            var sonuclar = (from nh in normalHesaplar
+                            from h901 in hesaplar901
+                            where nh.HesapKodu.Substring(4, 5) == h901.HesapKodu.Substring(4, 5)
+                            select new FrYevmiyeYuzdeOnAsimHesaplari
+                            {
+                                EslesenHesapKodu = h901.HesapKodu,
+                                EslesenHesapAdi = h901.HesapAdi,
+                                EslesenHesapToplam = h901.Toplam,
+                                EslesenHesapToplamYuzde10 = h901.Toplam * (decimal)0.1,
+                                HesapKodu = nh.HesapKodu,
+                                Toplam = nh.Toplam,
+                                Bakiye = (h901.Toplam * (decimal)0.1) - nh.Toplam,
+                                GrupHesapKodu = GetHesapKodu(h901.HesapKodu),
+                                GrupAdi = GetGrupAdi(h901.HesapKodu)
+                            }).ToList();
+
+            // Grup toplamlarını hesapla ve ekle
+            var grupTotalleri = sonuclar
+                .GroupBy(x => new { x.GrupAdi, x.GrupHesapKodu })
+                .Select(g => new FrYevmiyeYuzdeOnAsimHesaplari
+                {
+                    EslesenHesapKodu = g.Key.GrupHesapKodu,
+                    EslesenHesapAdi = g.Key.GrupAdi,
+                    EslesenHesapToplam = g.Sum(x => x.EslesenHesapToplam),
+                    EslesenHesapToplamYuzde10 = g.Sum(x => x.EslesenHesapToplamYuzde10),
+                    HesapKodu = $"TOPLAM - {g.Key}",
+                    Toplam = g.Sum(x => x.Toplam),
+                    Bakiye = g.Sum(x => x.Bakiye),
+                    GrupAdi = g.Key.GrupAdi,
+                    IsGrupToplami = true
+                })
+                .ToList();
+
+            // Sonuçları ve grup toplamlarını birleştir
+            sonuclar.AddRange(grupTotalleri);
+            return sonuclar;
+        }
+         // Grup adlarını belirle
         string GetGrupAdi(string hesapKodu)
         {
             if (hesapKodu.StartsWith("901.03.05"))

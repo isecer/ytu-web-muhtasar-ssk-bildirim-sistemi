@@ -25,7 +25,8 @@
                             @if (kullaniciKayit)
                             {
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Kayit", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-user"></i> Kullanıcı</span></li>
-                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> Birim Yetkileri</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> Harcama Birim Yetkileri</span></li>
+                                <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> İçi İşlemleri Birim Yetkileri</span></li>
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciRaporBirimYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Rapor Birim Yetkileri</span></li>
                                 <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciYevmiyeHesapKodTurYetkileri", new { id = user.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Yevmiye Hesap Tür Kod Yetkileri</span></li>
                             }
