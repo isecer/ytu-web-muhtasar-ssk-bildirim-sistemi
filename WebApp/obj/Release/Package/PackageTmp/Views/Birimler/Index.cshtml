@@ -1,0 +1,309 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model  FmBirimler
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "Birimler", FormMethod.Post, new { id = "frmBirimler" }))
+    {
+        <div class="col-md-12">
+
+            <!-- START SIMPLE DATATABLE -->
+            <div class="panel panel-info @(Model.Expand ? "" : "panel-toggled")" id="pnlFltr">
+                <input class="hide" name="Expand" value="@Model.Expand.ToString().ToLower()" id="Expand" />
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title">
+                        <i class="glyphicon glyphicon-filter"></i> Filtre İşlemi
+                    </h3>
+                    <ul class="panel-controls">
+
+                        <li><a href="javasctipr:void(0)" onclick="$('#Expand').val(($('#pnlFltr').hasClass('panel-toggled') ? 'true' :'false' )); " class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body" style="padding-bottom:0px;">
+                    <table>
+                        <tr>
+                            <td  style="vertical-align:top;">
+                                <table class="table table-hover" style="table-layout:fixed;">
+                                    <tr>
+                                        <td width="220">İşçi Veri Girişi Durumu</td>
+                                        <td>
+                                            <select class="form-control" name="IsVeriGirisiYapilabilir" onchange="$('#frmBirimler').submit();">
+                                                <option value=""></option>
+                                                <option value="true" @Model.IsVeriGirisiYapilabilir.ToSelected()>Veri Girişi Yapılabilir</option>
+                                                <option value="false" @((!Model.IsVeriGirisiYapilabilir).ToSelected())>Veri Girişi Yapılamaz</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>Veri Giriş Tipi</td>
+                                        <td>
+                                            @Html.DropDownList("VeriGirisTipID", null, new { @class = "form-control", onchange = "$('#frmBirimler').submit();" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ay Aşırı Hesaplama</td>
+                                        <td>
+                                            @Html.DropDownList("IsAyAsiriHesaplama", null, new { @class = "form-control", onchange = "$('#frmBirimler').submit();" })
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                            <td style="vertical-align:top;">
+                                <table class="table table-hover" style="table-layout:fixed;">
+
+                                    
+                                    <tr width="220">
+                                        <td>Birim Aktiflik Durum</td>
+                                        <td>
+                                            @Html.DropDownList("IsAktif", null, new { @class = "form-control", style = "padding:0px;" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td> Aranacak Kelime</td>
+                                        <td>
+                                            <table style="width:100%;table-layout:fixed;">
+                                                <tr>
+                                                    <td><input name="Aranan" id="Aranan" type="text" onkeypress="if (event.which == 13) { $('#frmBirimler').submit(); }" value="@Model.Aranan" class="form-control" /></td>
+                                                    <td width="110px;"><a href="javascript:void(0);" onclick="$('#frmBirimler').submit();" class="btn btn-info"><i class="glyphicon glyphicon-filter"> Filtrele</i></a></td>
+                                                </tr>
+                                            </table>
+                                            @if (Model.Aranan.IsNullOrEmpty() == false)
+                                            {
+                                                <script>
+                                                    $(function () {
+                                                        SetCaretAtEnd(document.getElementById('Aranan'));
+                                                    });
+
+                                                </script>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-home"></i>&nbsp; Birim Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><span class="label label-success label-form">Aktif: <b>@IndexModel.Aktif</b></span></li>
+                        <li><span class="label label-danger label-form">Pasif: <b>@IndexModel.Pasif</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="75"></th>
+                                <th class="sirala sorting" field="BirimTreeAdi">Birim Adı</th>
+                                <th width="200">İşçi VG</th> 
+                                <th width="70" class="sirala sorting" field="IsAktif">Durum</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>
+                                            <table>
+                                                <tr>
+                                                    <td style="width:30px;">@RowIndex</td>
+                                                    <td>
+                                                        <ul class="panel-controls">
+                                                            <li id="iShow_@item.BirimID" onclick="ShowDetail(@item.BirimID)">
+                                                                <a href="javascript:void(0)"><span class="fa fa-angle-up"></span> </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            @item.BirimTreeAdi
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-@(item.IsVeriGirisiYapilabilir ? "success" : "default")">@(item.IsVeriGirisiYapilabilir ? "İşçi Veri Girişi Var" : "İşçi Veri Girişi Yok")</span>
+
+                                        </td> 
+                                        <td>
+                                            <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "Birimler", new { id = item.BirimID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.BirimID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr class="cls-@item.BirimID hide">
+                                        <td id="cls-@item.BirimID" colspan="5" style="padding: 1px 1px 2px 75px;">
+                                            <div class="panel panel-default form-horizontal" id="PnlOt_@item.BirimID" style="margin:0px;padding:0px;">
+                                                <div class="panel-body" style="margin:0px;padding:0px;">
+                                                    <div class="panel-body form-group-separated">
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Birim Adı</label>
+                                                            <div class="col-md-9 col-xs-8">@item.BirimTreeAdi</div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Veri Girişi Yapılabilir Mi?</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left;">
+                                                                <span class="badge badge-@(item.IsVeriGirisiYapilabilir ? "success" : "danger")">@item.IsVeriGirisiYapilabilir.ToEvetHayir()</span>
+                                                            </div>
+                                                        </div>
+                                                        @if (item.IsVeriGirisiYapilabilir)
+                                                        {
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">Veri Giriş Tipi</label>
+                                                                <div class="col-md-9 col-xs-8">@item.VeriGirisTipleri.VeriGirisTipAdi</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">Yeni Ünite Kodu</label>
+                                                                <div class="col-md-9 col-xs-8">@item.YeniUniteKodu</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">Eski Ünite Kodu</label>
+                                                                <div class="col-md-9 col-xs-8">@item.EskiUniteKodu</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">İşyeri Sıra Numarası</label>
+                                                                <div class="col-md-9 col-xs-8">@item.IsyeriSiraNumarasi</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">İl Kodu</label>
+                                                                <div class="col-md-9 col-xs-8">@item.IlKodu</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">Alt İşveren Numarası</label>
+                                                                <div class="col-md-9 col-xs-8">@item.AltIsverenNumarasi</div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label class="col-md-3 col-xs-4 control-label">Ay Aşırı Hesaplama</label>
+                                                                <div class="col-md-9 col-xs-8" style="text-align: left;">
+                                                                    <span class="badge badge-@(item.IsAyAsiriHesaplama ? "info" : "success")">@item.IsAyAsiriHesaplama.ToVarYok()</span>
+                                                                </div>
+                                                            </div>
+                                                            if (item.IsAyAsiriHesaplama)
+                                                            {
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 col-xs-4 control-label">Ay Başlangıç Gün</label>
+                                                                    <div class="col-md-9 col-xs-8">@item.AyBaslangicGun</div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label class="col-md-3 col-xs-4 control-label">Gelecek Ay Bitiş Gün</label>
+                                                                    <div class="col-md-9 col-xs-8">@item.GelecekAyBitisGun</div>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        
+
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">Durum</label>
+                                                            <div class="col-md-9 col-xs-8" style="text-align: left;">
+                                                                <span class="badge badge-@(item.IsAktif ? "success" : "danger")">@item.IsAktif.ToAktifPasif()</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-md-3 col-xs-4 control-label">İşlem Yapan</label>
+                                                            <div class="col-md-9 col-xs-8">@item.IslemYapan [@item.IslemTarihi.ToFormatDateAndTime()][@item.IslemYapanIP]</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">
+                                        [ Listelenen Kayıt Yok ]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    function ShowDetail(id,IsExpand) {
+        var sndr = $('#iShow_' + id);
+        var cls = 'cls-' + id;
+        var unTogled = ($('.' + cls).hasClass("hide"));
+        if (IsExpand) {
+            if (unTogled) toggleByClass(sndr, cls, unTogled);
+        }
+        else toggleByClass(sndr, cls, unTogled);
+    }
+    function SilmeOnay(sndr, id) {
+        var htmlCont = $("#cls-" + id).html().replace('hide', '').replace('_replaceHide','hide');
+        var SoruHtml = "<table style='color:maroon;table-layout:fixed;width:100%;'><tr><td width='30' style='padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='padding-right:10px;'>Seçilen Birimi Silmek İstiyor Musunuz?</td></tr></table>";
+        bootbox.dialog({
+            message: htmlCont + SoruHtml,
+            title: "Birim Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Birimi Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "Birimler")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Birim Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                     $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+
+</script>

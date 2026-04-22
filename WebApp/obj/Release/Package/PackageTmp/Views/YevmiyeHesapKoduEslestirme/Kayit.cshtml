@@ -1,0 +1,107 @@
+﻿@using Database;
+@using WebApp.Models;
+@using BiskaUtil;
+@model YevmiyelerHesapKodlari
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form method="post" class="form-horizontal" role="form">
+        <input type="text" style="display:none;" id="YevmiyeHesapKodID" name="YevmiyeHesapKodID" value="@Model.YevmiyeHesapKodID" />
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default" id="pUnvanK">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeHesapKodID <= 0 ? "Yeni Hesap Kodu Eşleştirme İşlemi" : "Hesap Kodu Eşleştirmesini Düzeltme İşlemi") </h3>
+                    <ul class="panel-controls">
+                        <li><a href="@Url.Action("Kayit", Model.YevmiyeHesapKodID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Hesap Kodu Türü</label>
+                                <div class="col-md-9 col-xs-8">
+                                    @Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control", onchange = "HKoduChange(this);" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Hesap Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="HesapKod" id="HesapKod" maxlength="64" value="@Model.HesapKod" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Hesap Adı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="HesapAdi" id="HesapAdi" maxlength="256" value="@Model.HesapAdi" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                  <label class="col-md-3 col-xs-4 control-label popover-dismiss"
+                                       title="Hesap Kodu Otomatik Tamamlama"
+                                       data-content="Burada belirlenen hesap kodu, yevmiye kayıtlarındaki hesap kodları ile karşılaştırılır. Eşleşen kayıtlara otomatik olarak bu hesap kodu türü atanır. Örnek: Hesap kodu '120' girildiğinde, yevmiye kayıtlarında '120', '120.01', '120.02' gibi bu kodla başlayan tüm hesaplar bu hesap kodu türüne atanacaktır.">
+                                    Hesap Kodu Aramasında Otomatik Tamamlansın <i class="fa fa-info-circle" style="margin:0px;"></i>
+                                </label>
+                                <div class="col-md-9 col-xs-8">
+                                    <div class="make-switch" data-on-label="Evet" data-off-label="Hayır" data-on="success" data-off="danger">
+                                        <input type="checkbox" value="true" name="IsHesapKoduBaslangicEslesmesiYeterli" class="toggle" @Model.IsHesapKoduBaslangicEslesmesiYeterli.ToChecked() />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group HKIsGelirKaydi @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
+                                <label class="col-md-3 col-xs-4 control-label">Gelir Kaydı Yapılacak Mı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <select class="form-control" name="IsGelirKaydindaKullanilacak" id="IsGelirKaydindaKullanilacak">
+                                        <option></option>
+                                        <option value="true" @Model.IsGelirKaydindaKullanilacak.ToSelected()>Evet</option>
+                                        <option value="false" @((!Model.IsGelirKaydindaKullanilacak).ToSelected())>Hayır</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group HKvergiKodu @(Model.YevmiyeHesapKodTurID==HesapKoduTuru.VergiTevkifatHesapKodlari1003A?"":"hide")">
+                                <label class="col-md-3 col-xs-4 control-label">Vergi Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="VergiKodu" id="VergiKodu" maxlength="8" value="@Model.VergiKodu" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(function () {
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+    $(function () {
+        $(".popover-dismiss").popover({ trigger: 'hover', html: true });
+    });
+
+    function HKoduChange(sndr) {
+        var sndrVal = $(sndr).val();
+        if (sndrVal == "@HesapKoduTuru.VergiTevkifatHesapKodlari1003A") {
+            $('.HKvergiKodu').removeClass('hide');
+            $('.HKIsGelirKaydi').removeClass('hide');
+
+        }
+        else {
+            $('.HKvergiKodu').addClass('hide');
+            $('.HKIsGelirKaydi').addClass('hide');
+        }
+
+
+    }
+</script>
+

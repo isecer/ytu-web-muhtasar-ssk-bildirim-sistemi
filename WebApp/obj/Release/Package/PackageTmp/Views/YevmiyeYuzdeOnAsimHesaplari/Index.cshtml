@@ -1,0 +1,153 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyeYuzdeOnAsimHesaplari
+@{
+    /**/
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var KayitYetki = RoleNames.YevmiyelerKayitYetkisi.InRole();
+}
+
+<div class="row">
+    @using (Html.BeginForm("Index", "YevmiyeYuzdeOnAsimHesaplari", FormMethod.Post, new { id = "frmYevmiyeYuzdeOnAsimHesaplari" }))
+    {
+        <div class="col-md-12">
+            <div class="panel panel-danger" id="EkHbPanel">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>%10 Aşım Hesapları Dökümü</h3>
+                    <ul class="panel-controls">
+                        <li>
+                            <span>Yevmiye Yılı:</span>
+                            <span class="label label-primary" style="padding:1px;padding-left:3px;padding-right:3px;">
+                                @Html.DropDownList("Yil", null, new { @class = "form-control", onchange = "$('#frmYevmiyeYuzdeOnAsimHesaplari').submit();", style = "color:black;min-width:220px;height:24px;" })
+                            </span>
+                        </li>
+                        @if (Model.Data.Any())
+                        {
+                            <li><span class="label label-success" style="cursor:pointer;" onclick="window.location.href='@Url.Action("Index", "YevmiyeYuzdeOnAsimHesaplari", new { Model.Yil, Model.AyID, export = true })'"> <img src="/Content/img/Excel-Icon.png" width="18" height="17"> Excel Olarak İndir</span></li>
+                        }
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <!-- Ana Tablo -->
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th>Hesap Kodu</th>
+                                <th>Hesap Adı</th>
+                                <th style="text-align:right;">Toplam</th>
+                                <th style="text-align:right;">%10</th>
+                                <th style="text-align:right;">830</th>
+                                <th style="text-align:right;">Bakiye</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int rowIndex = 0;
+                                decimal genelToplam = 0;
+                                decimal genelYuzde10 = 0;
+                                decimal genel830 = 0;
+                                decimal genelBakiye = 0;
+
+                                foreach (var item in Model.Data.Where(x => !x.IsGrupToplami))
+                                {
+                                    rowIndex++;
+                                    var backgroundColor = "";
+                                    switch (item.GrupAdi)
+                                    {
+                                        case "Tüketim":
+                                            backgroundColor = "#F4C27F";
+                                            break;
+                                        case "Hizmet Alımları":
+                                            backgroundColor = "#A7C7E7";
+                                            break;
+                                        case "Yapım İşleri":
+                                            backgroundColor = "#9ddd61";
+                                            break;
+                                    }
+
+                                    genelToplam += item.EslesenHesapToplam;
+                                    genelYuzde10 += item.EslesenHesapToplamYuzde10;
+                                    genel830 += item.Toplam;
+                                    genelBakiye += item.Bakiye;
+
+                                    <tr>
+                                        <td>@rowIndex</td>
+                                        <td style="background-color: @backgroundColor;">@item.EslesenHesapKodu</td>
+                                        <td style="background-color: @backgroundColor;">Toplam - @item.EslesenHesapAdi</td>
+                                        <td style="text-align:right; color:cornflowerblue;">@item.EslesenHesapToplam.ToString("n2") TL</td>
+                                        <td style="text-align:right; color:forestgreen;">@item.EslesenHesapToplamYuzde10.ToString("n2") TL</td>
+                                        <td style="text-align:right; color:maroon;">@item.Toplam.ToString("n2") TL</td>
+                                        <td style="text-align:right;">@item.Bakiye.ToString("n2") TL</td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr style="font-weight:bold; background-color:#f5f5f5;">
+                                <td colspan="3">GENEL TOPLAM</td>
+                                <td style="text-align:right; color:cornflowerblue;">@genelToplam.ToString("n2") TL</td>
+                                <td style="text-align:right; color:forestgreen;">@genelYuzde10.ToString("n2") TL</td>
+                                <td style="text-align:right; color:maroon;">@genel830.ToString("n2") TL</td>
+                                <td style="text-align:right;">@genelBakiye.ToString("n2") TL</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="panel panel-danger" id="EkHbPanel">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>%10 Aşım Hesapları Grup Toplamları</h3> 
+                </div>
+                <div class="panel-body"> 
+                    <table class="table table-hover" style="max-width:900px;">
+                        <thead>
+                            <tr>
+                                <th>Grup Hesap Kodu</th>
+                                <th>Grup Adı</th>
+                                <th style="text-align:right;">Toplam</th>
+                                <th style="text-align:right;">%10</th>
+                                <th style="text-align:right;">830</th>
+                                <th style="text-align:right;">Bakiye</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var grupToplam in Model.Data.Where(x => x.IsGrupToplami))
+                            {
+                                var backgroundColor = "";
+                                switch (grupToplam.GrupAdi)
+                                {
+                                    case "Tüketim":
+                                        backgroundColor = "#E8A23D";
+                                        break;
+                                    case "Hizmet Alımları":
+                                        backgroundColor = "#6495ED";
+                                        break;
+                                    case "Yapım İşleri":
+                                        backgroundColor = "#66AA44";
+                                        break;
+                                }
+
+                                <tr style="font-weight:bold;">
+                                    <td style="background-color: @backgroundColor;color: white;">@grupToplam.EslesenHesapKodu</td>
+                                    <td style="background-color: @backgroundColor; color: white;">@grupToplam.GrupAdi</td>
+                                    <td style="text-align:right; color:cornflowerblue;">@grupToplam.EslesenHesapToplam.ToString("n2") TL</td>
+                                    <td style="text-align:right; color:forestgreen;">@grupToplam.EslesenHesapToplamYuzde10.ToString("n2") TL</td>
+                                    <td style="text-align:right; color:maroon;">@grupToplam.Toplam.ToString("n2") TL</td>
+                                    <td style="text-align:right;">@grupToplam.Bakiye.ToString("n2") TL</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                    @Model.ToSortSring()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    .btnleft {
+        float: left;
+    }
+</style>

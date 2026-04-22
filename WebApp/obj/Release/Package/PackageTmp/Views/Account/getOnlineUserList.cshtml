@@ -1,0 +1,134 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model List<OnlineUser>
+@{
+    Layout = null;
+}
+
+<div class="panel-heading padding-0">
+    <h3 class="panel-title"><span class="fa fa-group"></span>Giriş Yapan Kullanıcılar</h3>
+
+    <div class="pull-right">
+        <table>
+            <tr>
+                <td><input style="color:red;" type="text" name="search" id="filterInp" placeholder="ara..." /></td>
+                <td><a href="javascript:void(0);" onclick="setTimeout(function () { getOnlineUsers(); }, 600)" class="label label-warning"><span class="fa fa-refresh"></span></a></td>
+            </tr>
+        </table>
+
+
+
+    </div>
+</div>
+<div id="tblFilter" class="panel-body list-group list-group-contacts">
+    <div   style="max-height: 300px; width:100%; overflow:auto;">
+        @foreach (var item in Model.OrderByDescending(o=>o.LoginTime))
+            {
+            <a class="filterRw list-group-item" style="padding:1px;">
+                <table class="table table-striped" style="width:100%; margin:0px;">
+                    <tbody>
+                        <tr>
+                            <td style="vertical-align:middle;" width="50">
+
+                                <img style="width:50px;height:50px;@(item.IsAuthenticated?"cursor:pointer;":"")" src="@item.ResimAdi" @(item.IsAuthenticated?"onclick=detayGor("+item.KullaniciID.Value+",'#kulPnl')":"") class="pull-left" alt="@item.Name" />
+                            </td>
+                            <td style="vertical-align:middle;">
+                                <table class="table table-striped" style="margin:0px;border-top:none;">
+                                    <tbody>
+                                        <tr>
+                                            <td style="border-top:none;" class="filterColumn">@item.Name @( item.IsAuthenticated ? item.UserName + " (" + item.YetkiGrupAdi + ")" : "")</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="filterColumn2">@item.Platform / @item.Browser v:@item.Version</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="filterColumn3">@item.Ip / @item.LoginTime</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                </table>
+            </a>
+        }
+    </div>
+</div>
+
+<div class="panel-footer text-center">
+    <table class="table" style="margin:0px;border-top:none;table-layout:fixed;">
+        <tbody>
+            <tr>
+                <td style="border-top:none;padding-right:0px;padding-left:2px;" class="text-left">Toplam Kullanıcı: @Model.Count</td>
+                <td style="border-top: none; padding-right: 2px; padding-left: 0px;" class="text-right">Misafir: @Model.Where(p => !p.IsAuthenticated).Count()</td>
+            </tr>
+            <tr id="filterDetailRw">
+                <td colspan="2" style="border-top: none; padding-right: 2px; padding-left: 2px; " class="text-center" id="filtreKelime"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(".panel-refresh").on("click", function () {
+        //var panel = $(this).parents(".panel").first();
+        //panel_refresh(panel);
+
+        //setTimeout(function () {
+        //    panel_refresh(panel);
+        //}, 3000);
+
+        $(this).parents(".dropdown").first().removeClass("open");
+        return false;
+    });
+    $('#filterInp').bind('keypress', function (e) {
+        var code = (e.keyCode ? e.keyCode : e.which);
+        if (code == 13) {
+            Filtrele();
+        }
+    });
+    function Filtrele() {
+        var filtreval = $('#filterInp').val().replace('İ', 'i').toLowerCase();
+        var $fltrRowDet = $('#filterDetailRw');
+        var $fltrRow = $('.filterRw');
+
+        if (filtreval != null && filtreval != "") {
+            var toplam = $('#tblFilter').find('.filterRw').length;
+
+            $('.filterRw').each(function (inx, trx) {
+                var clmVal = $(trx).find('.filterColumn').first().text().replace('İ', 'i').toLowerCase();
+                var clmVal2 = $(trx).find('.filterColumn2').first().text().replace('İ', 'i').toLowerCase();
+                var clmVal3 = $(trx).find('.filterColumn3').first().text().replace('İ', 'i').toLowerCase();
+                //var ipS = $(trx).find('.ipS').first().text().toLowerCase();
+                var AShow = clmVal.indexOf(filtreval) > -1;
+                var AShow2 = clmVal2.indexOf(filtreval) > -1;
+                var AShow3 = clmVal3.indexOf(filtreval) > -1;
+                // var IShow = ipS.indexOf(filtreval) > -1;
+                if (AShow || AShow2 || AShow3) {
+                    $(trx).first().removeClass("hide");
+                }
+                else {
+                    $(trx).first().addClass("hide");
+                }
+
+            })
+            var Gizli = $('#tblFilter').find('.filterRw.hide').length;
+            var gosterilen = toplam - Gizli;
+            $('#filtreKelime').html("[Ara:  %<span style='color:red;'>" + filtreval + "</span>%] [Bulunan: <span style='color:red;'>" + gosterilen + "</span>]");
+            $fltrRowDet.removeClass("hide");
+
+        }
+        else {
+            $fltrRow.removeClass("hide");
+            $fltrRowDet.addClass("hide");
+            $('#filtreKelime').html("");
+
+        }
+      
+
+
+
+    }
+</script>

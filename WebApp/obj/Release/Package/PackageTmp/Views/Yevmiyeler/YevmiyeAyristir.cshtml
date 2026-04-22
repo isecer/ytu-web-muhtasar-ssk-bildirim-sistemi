@@ -1,0 +1,71 @@
+﻿@using Database
+@using WebApp.Models
+@model Yevmiyeler1003BAyristirmalari
+@{
+    Layout = null;
+}
+@using (Ajax.BeginForm("YevmiyeAyristir", "Yevmiyeler", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmYevmiyeKayit", @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(h => h.YevmiyeID)
+    @Html.HiddenFor(h => h.Yevmiye1003BAyristirmaID)
+    <div class="col-md-12" style="overflow-x:auto; max-height:600px;">
+        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+            <table style="width:100%;">
+                <tbody> 
+                    <tr>
+                        <td style="padding-left:10px;text-align:left;">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td id="lbl_YevmiyeHarcamaBirimID" width="140">Üniversite İşyeri Adı</td>
+                                        <td width="10">:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("YevmiyeHarcamaBirimID", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_Yil">Yıl</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("Yil", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_AyID">Ay</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("AyID", null, new { @class = "form-control" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_YevmiyeBelgeKodID">Belge Kodu</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.DropDownList("YevmiyeBelgeKodID", null, new { @class = "form-control" })
+
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_SskPrimTutar">SSK Prim Tutarı</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.TextBox("SskPrimTutar", Model.SskPrimTutar.ToEmptyStringZero(), new { @class = "form-control",autocomplete="off" })
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td id="lbl_Matrah">Matrah</td>
+                                        <td>:</td>
+                                        <td class="form-group">
+                                            @Html.TextBox("Matrah", Model.Matrah.ToEmptyStringZero(), new { @class = "form-control", autocomplete = "off" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,50 @@
+﻿@using Database;
+@using WebApp.Models;
+@model YevmiyelerAlimKanunTurleri
+@{
+    var mmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form method="post" class="form-horizontal" role="form">
+        <input type="text" style="display:none;" id="YevmiyeAlimKanunTurID" name="YevmiyeAlimKanunTurID" value="@Model.YevmiyeAlimKanunTurID" />
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default" id="pUnvanK">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeAlimKanunTurID <= 0 ? "Yeni Yevmiye Alım Kanun Türü Tanımlama İşlemi" : "Yevmiye Alım Kanun Türü Düzeltme İşlemi") </h3>
+                    <ul class="panel-controls">
+                        <li><a href="@Url.Action("Kayit", Model.YevmiyeAlimKanunTurID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+                             
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Yevmiye Alım Kanun Tür Adı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="AlimKanunTurAdi" id="AlimKanunTurAdi" maxlength="256" value="@Model.AlimKanunTurAdi" class="form-control" autocomplete="off"/>
+                                </div>
+                            </div>
+                          
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(function () {
+        var model = '@Html.Raw(Json.Encode(mmMessage))';
+        validateControl(model);
+    });
+
+</script>
+

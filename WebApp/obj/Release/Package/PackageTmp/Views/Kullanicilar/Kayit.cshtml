@@ -1,0 +1,231 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@using Database;
+@model Kullanicilar
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var ResimVar = (bool)ViewBag.ResimVar;
+    var ErisimYetki = RoleNames.KullaniciKayit.InRole();
+    var Kullanici = (FrKullanicilar)ViewBag.Kullanici;
+}
+<div class="row">
+    <form method="post" id="kulSbmtFrm" class="form-horizontal" role="form" enctype="multipart/form-data">
+        <input type="text" style="display:none;" id="KullaniciID" name="KullaniciID" value="@Model.KullaniciID" />
+        <input type="text" style="display:none;" id="ResimAdi" name="ResimAdi" value="@Model.ResimAdi" />
+        <div class="col-md-12">
+            <div class="panel panel-success">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="@(Model.KullaniciID>0?"fa fa-edit":"fa fa-plus")"></i>&nbsp; @(Model.KullaniciID > 0 ? "Kullanıcı Kaydı Düzeltme İşlemi" : "Yeni Kullanıcı Oluşturma İşlemi")</h3>
+                    <ul class="panel-controls">
+
+                        @if (Model.KullaniciID > 0 && ErisimYetki)
+                        {
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("Yetkilendirme", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Erişim Yetkileri</span></li>
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciBirimYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-home"></i> Birim Yetkileri</span></li>
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciRaporBirimYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Rapor Birim Yetkileri</span></li>
+                            <li><span class="label label-info label-form" onclick="window.location.href='@Url.Action("KullaniciYevmiyeHesapKodTurYetkileri", new { id = Model.KullaniciID })'" style="cursor:pointer;"><i class="fa fa-lock"></i> Yevmiye Hesap Tür Kod Yetkileri</span></li>
+                        }
+                        <li><a href="@Url.Action("Kayit", Model.KullaniciID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel panel-default form-horizontal" id="pnlKkayit">
+                    <div class="panel-body form-group-separated">
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Ad (*)</label>
+                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                <input type="text" name="Ad" id="Ad" value="@Model.Ad" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Soyad (*)</label>
+                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                <input type="text" name="Soyad" id="Soyad" value="@Model.Soyad" class="form-control">
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label  padding-top-0 padding-bottom-0" id="birimidCapt">Birim (*)</label>
+                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                @Html.DropDownList("BirimID", null, "", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label  padding-top-0 padding-bottom-0" id="birimidCapt">Ünvanı (*)</label>
+                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                @Html.DropDownList("UnvanID", null, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Tel (*)</label>
+                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                <input type="text" name="Tel" id="Tel" value="@Model.Tel" placeholder="(0XXX) XXX-XXXX" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">EMail (*)</label>
+                            <div class="col-md-10 col-xs-8 padding-top-0 padding-bottom-0">
+                                <input type="text" name="EMail" id="EMail" value="@Model.EMail" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-2 col-xs-2 control-label">Kullanıcı Bilgileri</label>
+                            <div class="col-md-10 col-xs-10">
+                                <div class="panel panel-default form-horizontal">
+                                    <div class="panel-body form-group-separated">
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Profil Resmi</label>
+                                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                                <div id="pImageD" class="form-group">
+                                                    @if (ResimVar)
+                                                    {
+                                                        <div class="panel panel-default" style="padding:0px;margin:0px;">
+                                                            <div class="panel-body profile bg-info" style="padding:0px;margin:0px;">
+                                                                <div class="profile-image">
+                                                                    <img class="pImageD" style="width:120px;height:120px;" src="@Model.ResimAdi" alt="@Model.Ad @Model.Soyad">
+                                                                </div>
+                                                                <div class="profile-controls">
+                                                                    <a href="javascript:void(0);" onclick="rotateImage(true)" style="padding:5px;" class="profile-control-left" title="Sola Döndür"><span class="fa fa-rotate-left"></span></a>
+                                                                    <a href="javascript:void(0);" onclick="rotateImage(false)" style="padding:5px;" class="profile-control-right" title="Sağa Döndür"><span class="fa fa-rotate-right"></span></a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+
+                                                    <div class="@(Model.ResimAdi.IsNullOrWhiteSpace() == false ? "col-md-10 col-xs-8" : "col-md-12")">
+
+                                                        <input type="file" name="ProfilResmi" id="ProfilResmi" class="file" data-preview-file-type="any" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-4 control-label  padding-top-0 padding-bottom-0">Kullanıcı Adı (*)</label>
+                                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                                <input type="text" name="KullaniciAdi" id="KullaniciAdi" value="@Model.KullaniciAdi" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Şifre (*)</label>
+                                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                                <input type="password" name="Sifre" id="Sifre" value="@Model.Sifre" class="form-control">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">AD Giriş? (*)</label>
+                                            <div class="col-md-10 col-xs-8 padding-top-0 padding-bottom-0">
+                                                <div class="make-switch" data-on-label="Evet" data-off-label="Hayır" data-on="info" data-off="danger">
+                                                    <input type="checkbox" value="true" name="IsActiveDirectoryUser" class="toggle" @Model.IsActiveDirectoryUser.ToChecked() />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Yetki Grubu (*)</label>
+                                            <div class="col-md-10 col-xs-8 line-height-30 padding-top-0 padding-bottom-0">
+                                                @Html.DropDownList("YetkiGrupID", null, new { @class = "form-control" })
+                                            </div>
+                                        </div>
+
+                                        @if (UserIdentity.Current.IsAdmin)
+                                        {
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Yöneticimi</label>
+                                                <div class="col-md-10 col-xs-8 padding-top-0 padding-bottom-0">
+                                                    <div class="make-switch" data-on-label="Evet" data-off-label="Hayır" data-on="info" data-off="danger">
+                                                        <input type="checkbox" value="true" name="IsAdmin" class="toggle" @Model.IsAdmin.ToChecked() />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                        @if (Model.KullaniciID > 0)
+                                        {
+                                            <div class="form-group">
+                                                <label class="col-md-2 col-xs-4 control-label padding-top-0 padding-bottom-0">Kullanıcı Durumu</label>
+                                                <div class="col-md-10 col-xs-8 padding-top-0 padding-bottom-0">
+                                                    <div class="make-switch" data-on-label="Aktif" data-off-label="Pasif" data-on="success" data-off="danger">
+                                                        <input type="checkbox" value="true" name="IsAktif" class="toggle" @Model.IsAktif.ToChecked() />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+
+                    <input type="hidden" id="YetkilendirmeyeGit" name="YetkilendirmeyeGit" value="false" />
+                    <a href="javascript:void(0);" class="btn btn-default pull-right prslnAHarci" onclick="$('#YetkilendirmeyeGit').val('true'); $('#kulSbmtFrm').submit();"><i class="fa fa-save">&nbsp</i>Kaydet ve Birim Yetkilendirmesine Git</a>
+
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript" src="/Content/js/plugins/fileinput/fileinput.min.js"></script>
+
+<script>
+    $("#ProfilResmi").fileinput({
+        showUpload: false,
+        showCaption: false,
+        browseLabel: "Resim Seç",
+        removeLabel: "Seçileni Sil",
+        fileType: "any"
+    });
+    $("#CepTel").mask("(0999) 999-9999");
+
+
+    function rotateImage(rotate) {
+        var KullaniciID = $('#KullaniciID').val();
+        var _panel = $('#pImageD');
+        _pRefresh(_panel, false);
+        setTimeout(function () {
+            $.ajax({
+                url: '@Url.Action("rotateImage", "Ajax")',
+                data: { LeftOrRight: rotate, KullaniciID: KullaniciID },
+                success: function (result) {
+                    _pRefresh(_panel, true);
+                    var src = root + result.ResimAdi + "?time=" + new Date();
+                    $('.pImageD').first().attr('src', src);
+                    $('#pImageD').find('.panel-refresh-layer').remove();
+                },
+                error: function (err) {
+                    $('#pImageD').find('.panel-refresh-layer').remove();
+                    alert(err.responseText);
+                    _pRefresh(_panel, true);
+                }
+            });
+        }, 1000);
+    }
+
+        $(function () {
+            $('#BaslangicTarihi').datetimepicker({
+                lang: 'tr',
+                timepicker: false,
+                format: 'd-m-Y'
+            });
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+
+
+</script>

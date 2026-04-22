@@ -1,0 +1,1820 @@
+﻿@using BiskaUtil
+@using WebApp.Models
+@{
+    var urlInfo = Request.Url.ToUrlInfo();
+
+    bool FixedHeader = true;
+    bool FixedSidebar = true;
+    bool ScrollSidebar = true;
+    bool RightSidebar = false;
+    bool CustomNavigation = true;
+    bool ToggledNavigation = false;
+    bool BoxedOrFullWidth = false;
+    var UInfos = UserIdentity.Current.Informations;
+    string ThemeName = UInfos.Where(p => p.Key == "ThemeName").Count() > 0 ? UInfos["ThemeName"].ToString() : "/Content/css/theme-forest.css";
+    string BackgroundImage = UInfos.Where(p => p.Key == "BackgroundImage").Count() > 0 ? UInfos["BackgroundImage"].ToString() : "wall_2";
+
+    //bool FixedHeader = UserIdentity.Current.Informations.Where(p => p.Key == "FixedHeader").Count() > 0 ? UserIdentity.Current.Informations["FixedHeader"].ToBooleanObj().Value : false;
+    //bool FixedSidebar = UserIdentity.Current.Informations.Where(p => p.Key == "FixedSidebar").Count() > 0 ? UserIdentity.Current.Informations["FixedSidebar"].ToBooleanObj().Value : false;
+    //bool ScrollSidebar = UserIdentity.Current.Informations.Where(p => p.Key == "ScrollSidebar").Count() > 0 ? UserIdentity.Current.Informations["ScrollSidebar"].ToBooleanObj().Value : false;
+    //bool RightSidebar = UserIdentity.Current.Informations.Where(p => p.Key == "RightSidebar").Count() > 0 ? UserIdentity.Current.Informations["RightSidebar"].ToBooleanObj().Value : false;
+    //bool CustomNavigation = UserIdentity.Current.Informations.Where(p => p.Key == "CustomNavigation").Count() > 0 ? UserIdentity.Current.Informations["CustomNavigation"].ToBooleanObj().Value : true;
+    //bool ToggledNavigation = UserIdentity.Current.Informations.Where(p => p.Key == "ToggledNavigation").Count() > 0 ? UserIdentity.Current.Informations["ToggledNavigation"].ToBooleanObj().Value : false;
+    //bool BoxedOrFullWidth = UserIdentity.Current.Informations.Where(p => p.Key == "BoxedOrFullWidth").Count() > 0 ? UserIdentity.Current.Informations["BoxedOrFullWidth"].ToBooleanObj().Value : true;
+    //string ThemeName = UserIdentity.Current.Informations.Where(p => p.Key == "ThemeName").Count() > 0 ? UserIdentity.Current.Informations["ThemeName"].ToString() : "/Content/css/theme-forest.css";
+    //string BackgroundImage = UserIdentity.Current.Informations.Where(p => p.Key == "BackgroundImage").Count() > 0 ? UserIdentity.Current.Informations["BackgroundImage"].ToString() : "wall_2";
+    //if (BoxedOrFullWidth)
+    //{
+    //    FixedHeader = false;
+    //    FixedSidebar = false;
+    //}
+
+    var IsIdentity = BiskaUtil.UserIdentity.Current.IsAuthenticated;
+
+
+    var lImage = "/Content/assets/images/ytu_logo_tr.gif?nID=" + Guid.NewGuid().ToString();
+}
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <!-- META SECTION -->
+    <title>YTÜ - Muhtasar Ve SSK Bildirim Sistemi</title>
+    @*<meta http-equiv="Content-Type" content="text/html; charset=windows-1254" />
+        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-9" />
+        <meta http-equiv="Content-Type" content="text/html; charset=x-mac-turkish" />*@
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="@(urlInfo.Root)MusskIco.ico" type="image/x-icon" />
+    <!-- END META SECTION -->
+    <script type="text/javascript">
+        var root = '@urlInfo.Root';
+
+    </script>
+
+    <!-- CSS INCLUDE -->
+    @* <link rel="stylesheet" type="text/css" id="theme" href="~/Content/css/theme-default.css" />*@
+    <link rel="stylesheet" type="text/css" id="theme" href="@ThemeName" />
+
+
+    <link href="~/Content/assets/plugins/bootstrap-switch/static/stylesheets/bootstrap-switch.css" rel="stylesheet" />
+    <!-- EOF CSS INCLUDE -->
+    <!-- START PLUGINS -->
+
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+
+
+    <script type="text/javascript" src="~/Content/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+    @*<script src="~/Content/assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>*@
+    <script src="~/Content/assets/plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+
+    <script src="~/Content/assets/plugins/ui-nestable.js"></script>
+    <script src="~/Content/assets/plugins/jquery-nestable/jquery.nestable.js"></script>
+    @*<script type="text/javascript" src="~/Content/js/plugins/smartwizard/jquery.smartWizard-2.0.min.js"></script>*@
+
+    <script src="~/Scripts/biskaUtil.js"></script>
+    <!-- end default -->
+    <!-- END MESSAGE BOX-->
+    <script type="text/javascript" src="~/Content/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="~/Content/js/plugins/bootstrap/bootstrap-select.js"></script>
+    <!-- START THIS PAGE PLUGINS-->
+    <script type='text/javascript' src="~/Content/js/plugins/icheck/icheck.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/blueimp/jquery.blueimp-gallery.min.js"></script>
+    @*<script type="text/javascript" src="~/Content/js/plugins/scrolltotop/scrolltopcontrol.js"></script>*@
+
+    @*<script type="text/javascript" src="~/Content/js/plugins/datatables/jquery.dataTables.min.js"></script>*@
+
+    <script type="text/javascript" src="~/Content/js/plugins/morris/raphael-min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/morris/morris.min.js"></script>
+    @* <script type="text/javascript" src="~/Content/js/plugins/rickshaw/d3.v3.js"></script>
+        <script type="text/javascript" src="~/Content/js/plugins/rickshaw/rickshaw.min.js"></script>*@
+    <script type='text/javascript' src="~/Content/js/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script type='text/javascript' src="~/Content/js/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+
+    @*<link href="~/Content/js/plugins/bootstrap-datetimepicker/css/datetimepicker.css" rel="stylesheet" />
+        <script src="~/Content/js/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/Content/js/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.tr.js"></script>*@
+
+    <link href="~/Content/js/plugins/summernote/summernote.css" rel="stylesheet" />
+    @*<link href="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.css" rel="stylesheet" />*@
+    <link href="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/summernote/summernote.js"></script>
+    @*<script src="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.js"></script>*@
+    <script src="~/Content/assets/plugins/myDatetime/jquery.datetimepicker.full.js"></script>
+    @* <script src="~/Content/js/plugins/bootstrap/bootstrap-timepicker.min.js"></script>*@
+
+    <link href="~/Content/js/plugins/clockPicker/bootstrap-clockpicker.min.css" rel="stylesheet" />
+    <script src="~/Content/js/plugins/clockPicker/bootstrap-clockpicker.min.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/moment.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/knob/jquery.knob.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins/owl/owl.carousel.min.js"></script>
+
+
+
+    <script type="text/javascript" src="~/Content/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
+
+    <script src="~/Content/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+    <link href="~/Content/assets/plugins/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.css" rel="stylesheet" />
+    <script src="~/Content/assets/plugins/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.js"></script>
+    <script src="~/Scripts/jquery.easyWizard.js"></script>
+    @*<link href="~/Content/preloader/preloader.css" rel="stylesheet" />*@
+    <link href="~/Content/prldr.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/js/plugins/fileinput/fileinput.min.js"></script>
+    <!-- END SCRIPTS -->
+    <style>
+        .popover {
+            max-width: 800px;
+            width: auto;
+            z-index: 5001;
+        }
+    </style>
+</head>
+
+<body class="@(BoxedOrFullWidth ? ("page-container-boxed " + BackgroundImage) : "") js">
+
+    @*<div id="loader-wrapper">
+            <div id="loader"></div>
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+        </div>*@
+    <div id="preloader"></div>
+
+    <!-- START PAGE CONTAINER -->
+    <div class="page-container @(FixedHeader ? "page-navigation-top-fixed" : "") @(RightSidebar ? "page-mode-rtl" : "") @(ToggledNavigation ? "page-navigation-toggled page-container-wide" : "")">
+
+        <!-- START PAGE SIDEBAR -->
+        <div class="page-sidebar @(BoxedOrFullWidth ? "" : "page-sidebar-fixed") @(FixedSidebar ? "page-sidebar-fixed" : "") @(FixedSidebar && !BoxedOrFullWidth ? "scroll mCustomScrollbar _mCS_1 mCS-autoHide" : "")">
+            <!-- START X-NAVIGATION -->
+            <ul class="x-navigation  @(CustomNavigation ? "x-navigation-custom" : "")">
+                <li class="xn-logo">
+                    <a href="javascript:void(0);" style="background-color:transparent;">YTU</a>
+                    <a href="javascript:void(0);" class="x-navigation-control"></a>
+                </li>
+
+                <li class="xn-profile">
+                    <a href="javascript:void(0);" class="profile-mini">
+                        <img src="~/Content/assets/images/ytu_logo_tr.png" />
+                    </a>
+                    <div class="profile">
+                        <div class="profile-image">
+                            <div class="tile tile-primary" style="margin: 0px; padding: 0px; background-color:transparent;">
+                                <div class="mn profile-image">
+                                    <img src="~/Content/assets/images/ytu_logo_tr.png" />
+                                    <script>
+                                        setTimeout(function () {
+                                            $('.mn.profile-image').find("img").attr("src", "@lImage");
+                                        }, 200)
+                                    </script>
+                                </div>
+                                <ul>
+                                    <li style="cursor: pointer;">
+                                        <a href="javasscript:void(0); " style="text-align: center; font-size: 17pt; color: #ffd559; padding: 0px;">
+                                            MUSSK
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="profile-data">
+                            <div class="profile-data-title" style="font-size:11pt;">
+                                Muhtasar Ve SSK Bildirim Sistemi
+                            </div>
+
+                        </div>
+                        <div class="profile-controls">
+                            <a href="javascript:void(0);" class="profile-control-left"><span class="fa fa-info"></span></a>
+                            <a href="javascript:void(0);" onclick="mesGonder('')" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                        </div>
+                    </div>
+                </li>
+
+                @*<li class="xn-title">Navigation</li>*@
+                <li class="@("/home/index" == urlInfo.LastPath ? "active" : "")">
+                    <a href="@(urlInfo.Root)Home/Index" menuurl="@(urlInfo.Root.ToLower() + "home/index")">
+                        <i class="fa fa-desktop" style="margin:0px;"></i>
+                        <span class="xn-text">Ana Sayfa</span>
+                    </a>
+                </li>
+                <li class="@("/kduyurular/index" == urlInfo.LastPath ? "active" : "")">
+                    <a href="@(urlInfo.Root)Kduyurular/Index" menuurl="@(urlInfo.Root.ToLower() + "kduyurular/index")">
+                        <i class="fa fa-bullhorn" style="margin:0px;"></i>
+                        <span class="xn-text">Duyurular</span>
+                    </a>
+                </li>
+                @*<li class="@("/kalitehedeflerivefaaliyetplanlari/index" == urlInfo.LastPath ? "active" : "")">
+                        <a href="@(urlInfo.Root)kalitehedeflerivefaaliyetplanlari/Index" menuurl="@(urlInfo.Root.ToLower() + "kalitehedeflerivefaaliyetplanlari/index")">
+                            <i class="fa fa-bar-chart-o" style="margin:0px;"></i>
+                            <span class="xn-text" style="font-size:9.2pt">K. Hedefleri ve F. Planları</span>
+                        </a>
+                    </li>*@
+
+                @{Html.RenderPartial("_MenuPartial");}
+
+            </ul>
+            <!-- END X-NAVIGATION -->
+        </div>
+        <!-- END PAGE SIDEBAR -->
+        <!-- PAGE CONTENT -->
+        <div class="page-content" style="height:auto;">
+
+            <!-- START X-NAVIGATION VERTICAL -->
+            <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
+                <!-- TOGGLE NAVIGATION -->
+
+                @if (IsIdentity)
+                {
+                    <!-- PROFILE -->
+                    <li class="dropdown user pull-right" style="padding-top: 0px; padding-bottom: 0px;">
+                        <a style="padding-bottom: 0px;" href="javascript:void(0)" class="dropdown-toggle" data-close-others="true">
+
+                            <img id="userMainImg" style="margin-top: -12px; width: 45px; height: 45px;" src="@UserIdentity.Current.ImagePath">
+                            <span class="xn-text" style="margin-top: 10px;">@UserIdentity.Current.AdSoyad</span>
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                        <ul class="xn-drop-left animated zoomIn" style="z-index:997;">
+                            <li><a href="javascript:void(0)" onclick="detayGor(@UserIdentity.Current.Id)"><i class="fa fa-user"></i>Detay Göster</a></li>
+                            @if (UserIdentity.Current.IsActiveDirectoryUser == false)
+                            {
+                                <li><a href="javascript:void(0);" onclick="yeniDialogBB(null, 'Şifre Değiştir', '@(Url.Action("ParolaSifirla", "Account", new { KullaniciID = UserIdentity.Current.Id }))', 430, '@ModalSizeClass.Basic')"><span class="fa fa-lock"></span>Şifreyi değiştir</a></li>
+                            }
+                            <li><a href="javascript:void(0);" onclick="yetkiYenile();"><span class="fa fa-refresh"></span>Yetklilerimi Yenile</a></li>
+                            <li><a href="javascript:void(0);" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span>Çıkış Yap</a></li>
+                        </ul>
+                        <div class="message-box animated fadeIn" data-sound="alert" id="mb-signout">
+                            <div class="mb-container">
+                                <div class="mb-middle">
+                                    <div class="mb-title"><span class="fa fa-sign-out"></span><strong>Çıkış Yap</strong> ?</div>
+                                    <div class="mb-content">
+                                        <p>Çıkış yapmak istediğinizden emin misiniz?</p>
+                                    </div>
+                                    <div class="mb-footer">
+                                        <div class="pull-right">
+                                            <a href="javascript:void(0)" class="btn btn-success btn-lg" onclick="SignOut()">Evet</a>
+                                            <button class="btn btn-default btn-lg mb-control-close">Hayır</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                        function yetkiYenile() {
+                            $.ajax({
+                                url:'@Url.Action("YetkiYenile", "Ajax")',
+                                data: {'ReturnUrl':'@urlInfo.AbsolutePath'},
+                                success: function (result) {
+                                    if (result.IsSuccess) {
+                                        if (result.ReturnUrl != null && result.ReturnUrl != "")
+                                            window.location.href = result.ReturnUrl;
+                                    }
+                                },
+                                error: function (err) {
+                                    alert(err.responseText);
+                                }
+                            });
+                        }
+                        function SignOut() {
+                            $.ajax({
+                                url:'@Url.Action("SignOut", "Ajax")',
+                                data: {},
+                                success: function (result) {
+                                    if (result.IsSuccess) {
+                                        if (result.ReturnUrl != null && result.ReturnUrl != "")
+                                            window.location.href = result.ReturnUrl;
+                                    }
+                                },
+                                error: function (err) {
+                                    alert(err.responseText);
+                                }
+                            });
+                        }
+                        </script>
+
+                    </li>
+                    <!--END PROFILE -->
+                }
+                @if (UserIdentity.Current.IsAuthenticated && RoleNames.Mesajlar.InRole())
+                {
+                    var MsjModel = Management.GetCevaplanmamisMesajCount();
+                    <li class="xn-icon-button pull-right" id="_msgCountLi">
+                        <a href="javascript:void(0);"><span class="fa fa fa-envelope fa-lg"></span></a>
+                        <div id="_msjCount" class="informer informer-@(MsjModel.Value>0?"warning":"success")">@MsjModel.Value</div>
+                        <div id="_msgContent" class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging ui-draggable">
+                            <div class="panel-heading ui-draggable-handle padding-0">
+                                <h3 class="panel-title"><span class="fa fa fa-envelope fa-lg"></span> Gelen Mesajlar</h3>
+                                <div class="pull-right">
+                                    <span id="_msjCount2" class="label label-@(MsjModel.Value>0?"warning":"success")">@MsjModel.Value Açık Mesaj</span>
+                                </div>
+                            </div>
+                            <div class="panel-body list-group list-group-contacts _mCS_2" style="max-height: 200px;">
+                                <div id="mCSB_2" class="scrolkikkoxMsj" tabindex="0">
+                                    <div id="mCSB_2_container" style="position: relative; top: 0px; left: 0px;" dir="ltr">
+                                        @Html.Raw(MsjModel.Caption)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-footer text-center padding-0">
+                                <a href="@Url.Action("Index","Mesajlar")">Tüm Mesajları Gör</a>
+                            </div>
+                        </div>
+                        <script>
+                            $(function () {
+                                if (@MsjModel.Value>0) {
+                                    MessageCntPulsate();
+                                    $('.scrolkikkoxMsj').slimScroll({
+                                        color: 'red',
+                                        height: '200px'
+                                    });
+                                }
+                            })
+                            function MessageCntPulsate() {
+                                $('#_msgCountLi').pulsate({ color: "#fdbe41", reach: 60, repeat: 14, speed: 300, glow: true });
+                                $('#_msgContent').pulsate({ color: "#fdbe41", reach: 60, repeat: 14, speed: 300, glow: true });
+                            }
+                            var tmrMsg = null;
+                            $(function () {
+                                tmrMsgFnc(1, 30000);
+                            });
+
+                            function tmrMsgFnc(eventType, time) {
+                                if (eventType == 0) clearInterval(tmrMsg);
+                                else if (eventType == 1) {
+                                    tmrMsg = setInterval(function () { GetAcikMsjCount() }, time);
+                                }
+                                else if (eventType == 2) {
+                                    clearInterval(tmrLogn);
+                                    tmrMsg = setInterval(function () { GetAcikMsjCount() }, time);
+                                }
+                            }
+                            function GetAcikMsjCount() {
+                                var panel = $('#_msgContent');
+                                _pRefresh(panel, false);
+                                $.ajax({
+                                    url: '@Url.Action("GetAcikMsjCount", "Mesajlar")',
+                                    data: {},
+                                    success: function (result) {
+
+                                        var oldCount = parseInt($('#_msjCount').text());
+                                        $('#_msjCount').removeClass('informer-warning').removeClass('informer-success');
+                                        $('#_msjCount2').removeClass('label-warning').removeClass('label-success');
+                                        if (result.mCount > 0) {
+                                            $('#_msjCount').addClass('informer-warning');
+                                            $('#_msjCount2').addClass('label-warning');
+                                        }
+                                        else {
+                                            $('#_msjCount').addClass('informer-success');
+                                            $('#_msjCount2').addClass('label-success');
+                                        }
+                                        $('#_msjCount').html(result.mCount);
+                                        $('#_msjCount2').html(result.mCount + " Açık Mesaj");
+                                        $('#mCSB_2_container').html(result.HtmlContent);
+                                        if (result.mCount > oldCount) {
+                                            $('#_msgCountLi').addClass('active');
+                                            MessageCntPulsate();
+                                        }
+
+                                        _pRefresh(panel, true);
+                                        trmlognFnc(2, 30000);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh(panel, true);
+                                        trmlognFnc(0);
+                                    }
+                                });
+
+                            }
+                        </script>
+                    </li>
+                }
+                @if (UserIdentity.Current.IsAuthenticated && UserIdentity.Current.IsAdmin)
+                {
+                    <li class="xn-icon-button pull-right" style="cursor:pointer;" onclick="getOnlineUsers()">
+                        <a href="javascript:void(0)" onclick="getOnlineUsers()"><span class="fa fa-group"></span></a>
+                        <div id="userCnt" class="informer informer-success">@OnlineUsers.OnlineUserCount</div>
+                        <div id="oUserList" style="min-height: 100px;z-index:999;" class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging"></div>
+
+                        <script type="text/javascript">
+                            var tmrLogn = null;
+                            $(function () {
+                                trmlognFnc(1, 30000);
+                            });
+
+                            function trmlognFnc(eventType, time) {
+                                if (eventType == 0) clearInterval(tmrLogn);
+                                else if (eventType == 1) {
+                                    tmrLogn = setInterval(function () { OnlineUserKontrol() }, time);
+                                }
+                                else if (eventType == 2) {
+                                    clearInterval(tmrLogn);
+                                    tmrLogn = setInterval(function () { OnlineUserKontrol() }, time);
+                                }
+                            }
+                            function OnlineUserKontrol() {
+                                $.ajax({
+                                    url: '@Url.Action("OnlineUserCnt", "Account")',
+                                    data: {},
+                                    success: function (result) {
+                                        $('#userCnt').html(result);
+                                        trmlognFnc(2, 30000);
+                                    },
+                                    error: function (err) {
+                                        trmlognFnc(0);
+                                    }
+                                });
+
+                            }
+                            function getOnlineUsers() {
+
+                                var _panel = $('#oUserList');
+                                _pRefresh(_panel, false);
+                                $.ajax({
+                                    url: '@Url.Action("getOnlineUserList", "Account")',
+                                    data: {},
+                                    success: function (result) {
+                                        $('#oUserList').html(result);
+                                        _pRefresh(_panel, true);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh(_panel, true);
+                                    }
+                                });
+
+                            }
+
+                        </script>
+                    </li>
+                }
+
+
+                <!-- END LANG BAR -->
+                <!-- LOGIN BLOCk -->
+                @if (!IsIdentity)
+                {
+                    <li class="pull-right" id="loginPanel">
+                        <a href="javascript:void(0);">Giriş Yap <span class="fa fa-lock fa-lg"></span></a>
+                        <div class="informer informer-danger"><span class="fa fa-info"></span></div>
+                        <div class="pnlLgn panel panel-primary animated zoomIn xn-drop-left loginPulsate">
+                            <div class="panel-heading padding-0">
+                                <h3 class="panel-title"><strong>Giriş Yap</strong></h3>
+                            </div>
+                            <div class="panel-body">
+
+                                <div class="login-container login-v2 login-inside">
+                                    <input type="text" id="RetUrl" class="hide" value="@urlInfo.AbsolutePath" />
+                                    <div class="login-box animated fadeInDown">
+                                        <div class="login-body">
+
+                                            <div class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <span class="fa fa-user"></span>
+                                                        </div>
+                                                        <input type="text" id="UserName" class="form-control" placeholder="Kullanıcı Adı" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group-addon">
+                                                            <span class="fa fa-lock"></span>
+                                                        </div>
+                                                        <input type="password" id="Password" class="form-control" placeholder="Şifre" value="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        @{ var reqCode = Guid.NewGuid().ToString().Replace("-", "");
+                                                            <input type="hidden" name="captchaRequestCode" value="@reqCode" id="captchaRequestCode" />
+                                                            <div class="input-group-addon">
+                                                                <span class="fa fa-lock"></span>
+                                                            </div>
+                                                            <img style="max-height:80px;" class="form-control" id="captchaImg" src="@Url.Action("generatecaptcha", "Account", new { captchaRequestCode = @reqCode })" alt="??" />
+                                                            <input id="CaptchaText" class="form-control placeholder-no-fix" type="text" autocomplete="off" placeholder="Güvenlik Kodu" name="CaptchaText" />
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-6">
+                                                        <a href="javascript:void(0);" onclick="$('.pnlsndPwd').removeClass('hide'); $('.pnlLgn').addClass('hide');">Şifrenizi mi unuttunuz?</a>
+                                                    </div>
+                                                    @*<div class="col-md-6">
+                                                            <a href="javascript:void(0);" onclick="yeniDialogBB(null, 'Bir hesap oluşturun', '@(Url.Action("HesapKayit", "Account"))', 'auto', '@ModalSizeClass.Large')">Bir hesap oluşturun</a>
+                                                        </div>*@
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-md-12">
+                                                        <button class="btn btn-primary btn-lg btn-block" onclick="loginControl()">Giriş Yap</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="pnlsndPwd panel panel-primary animated zoomIn xn-drop-left loginPulsate hide">
+                            <div class="registration-container">
+                                <div class="registration-box animated fadeInDown" style="padding-top: 2px;">
+                                    <div class="registration-footer">
+                                        <div class="registration-title"><strong>Şifremi Unuttum</strong>?</div>
+                                        @*<div class="pull-left">
+                                                    © @DateTime.Now.Year Enstitü Online Başvuru Sistemi
+                                                </div>
+                                                <div class="pull-right">
+                                                   <a href="javascript:void(0);">Contact Us</a>
+                                            </div>*@
+                                    </div>
+                                    <div class="registration-body">
+                                        <div class="registration-subtitle">Şifrenizi unuttuysanız aşağıdaki mail giriş alanına sisteme kayıt olduğunuz mail adresinizi giriniz ve enter tuşuna basınız. Bu işlemi yaptığınız zaman sistem mail adresinize şifrenizi sıfırlama linki gönderecektir!</div>
+                                        <div class="form-horizontal">
+                                            <h4>Mail Adresiniz:</h4>
+                                            <div class="form-group" style="padding:0px;margin:0px;">
+                                                <div class="col-md-10" style="padding:0px;margin:0px;padding-right:3px;">
+                                                    <input type="text" id="mailAddr" class="form-control" placeholder="email@domain.com">
+                                                </div>
+                                                <div class="col-md-2" style="padding:0px;margin:0px;">
+                                                    <button style="width:100%;" title="Gönder" onclick="kKontrol()" class="form-control"><i style="font-size:12pt;" class="glyphicon glyphicon-send"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group push-up-20">
+                                                <div class="col-md-6">
+                                                    <a href="javascript:void(0);" onclick="$('.pnlsndPwd').addClass('hide'); $('.pnlLgn').removeClass('hide');" class="btn btn-link btn-block">Sisteme Giriş Yap</a>
+                                                </div> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+
+                        function refrsh(sndr){
+                            var panel = $(sndr);
+                            panel_refresh(panel);
+                            //setTimeout(function(){
+                            //    panel_refresh(panel);
+                            //},3000);
+
+                            //$(this).parents(".dropdown").first().removeClass("open");
+
+                        }
+                        $("#mailAddr").keyup(function (e) {
+
+                            var code = e.which;
+                            if (code == 13)   kKontrol();
+                        });
+                        $("#CaptchaText").keyup(function (e) {
+                            var code = e.which;
+                            if (code == 13)   loginControl();
+                        });
+                        function kKontrol() {
+                            var mail = $("#mailAddr").val();
+                            refrsh($('.pnlsndPwd').first());
+                            $.ajax({
+
+                                url:'@Url.Action("SifreResetle", "Ajax")',
+                                data: { MailAddress: mail },
+                                success: function (result) {
+                                    $('.pnlsndPwd').find('.panel-refresh-layer').remove();
+                                    if (result.IsSuccess) {
+                                        $('.pnlsndPwd').addClass('hide');
+                                        $("#mailAddr").val("");
+
+                                    }
+                                    showMessage((result.IsSuccess ? "success" : "danger"), 'Şifremi Unuttum', result.Title);
+
+                                },
+                                error: function (err) {
+                                    alert(err.responseText);
+                                }
+                            });
+                        }
+                        function loginControl() {
+                            var UserName = $('#UserName').val();
+                            var Password = $('#Password').val();
+                            var CaptchaText = $('#CaptchaText').val();
+                            var captchaRequestCode = $('#captchaRequestCode').val();
+                            var msg = "";
+
+                            //if (UserName == null || UserName == "" || Password == null || Password == "" || CaptchaText == null || CaptchaText == "") {
+                            //    msg = "Kullanıcı adı, Şifre yada Güvenlik Kodu boş bırakılamaz!";
+                            //    showMessage("warning", "login İşlemi", msg);
+                            //    return;
+                            //}
+                            var rtUrl = $('#RetUrl').val();
+                            $.ajax({
+                                url:'@Url.Action("LoginControl", "Ajax")',
+                                data: { UserName: UserName, Password: Password, captchaRequestCode: captchaRequestCode, CaptchaText: CaptchaText, ReturnUrl: rtUrl },
+                                success: function (result) {
+                                    if (result.IsSuccess) {
+                                        if (result.ReturnUrl != null && result.ReturnUrl != "")
+                                            window.location.href = result.ReturnUrl;
+                                    }
+                                    else {
+                                        $('#captchaRequestCode').val(result.NewGuid);
+                                        $('#captchaImg').attr('src', result.NewSrc);
+                                        $('#CaptchaText').val('');
+                                        showMessage("danger", "Login", result.Message);
+                                    }
+                                },
+                                error: function (err) {
+                                    alert(err.responseText);
+                                }
+                            });
+                        }
+
+                        </script>
+                    </li>
+
+
+                }
+                <!-- END LOGIN BLOCK -->
+
+            </ul>
+            <!-- END X-NAVIGATION VERTICAL -->
+            <!-- START BREADCRUMB -->
+            <ul id="navigationCapt" class="breadcrumb" style="min-height:30px;"></ul>
+            <!-- END BREADCRUMB -->
+            <!-- PAGE CONTENT WRAPPER -->
+            <div class="page-content-wrap">
+                @RenderBody()
+                @{
+                    if (UserIdentity.Current.IsAuthenticated)
+                    {
+                        var msgs = MessageBox.GetShows();
+                        if (msgs != null && msgs.Length > 0)
+                        {
+                            <div id="msgs" style="display: none;">
+                                @foreach (var msg in msgs)
+                                {
+                                    var cls = msg.MsgType == MessageBox.MessageType.Success ?
+                                        "success" : (msg.MsgType == MessageBox.MessageType.Warning ? "warning" : (msg.MsgType == MessageBox.MessageType.Error ? "danger" : "info"));
+                                    <div class="panel panel-@cls" style="margin-bottom:3px;">
+
+                                        <div class="panel-body panel-body-pricing">
+                                            @if (!msg.Title.IsNullOrWhiteSpace())
+                                            {
+                                                <h3 class="text-@cls">@Html.Raw(msg.Title)</h3>
+                                            }
+                                            @foreach (var itemmsg in msg.Message)
+                                            {
+                                                <p style="margin: 0px; padding: 0px;">
+                                                    <span class="fa fa-caret-right"></span>@Html.Raw(itemmsg)
+                                                </p>
+                                            }
+                                        </div>
+
+                                    </div>
+                                }
+
+                            </div>
+                        }
+                    }
+                    var mmmsgs = new MmMessage();
+                    if (Session != null && Session["ShwMesaj"] != null)
+                    {
+                        mmmsgs = (MmMessage)Session["ShwMesaj"];
+                        Session["ShwMesaj"] = null;
+                    }
+                    if (mmmsgs.Messages.Count > 0)
+                    {
+                        <div id="msgs" style="display: none;">
+                            @{
+                                var cls = mmmsgs.MessageType == Msgtype.Success ? "success" : (mmmsgs.MessageType == Msgtype.Warning ? "warning" : (mmmsgs.MessageType == Msgtype.Error ? "danger" : "info"));
+                                <div class="panel-body panel-body-pricing">
+                                    @if (!mmmsgs.Title.IsNullOrWhiteSpace())
+                                    {
+                                        <h3 class="text-@cls">@Html.Raw(mmmsgs.Title)</h3>
+                                    }
+                                    @foreach (var itemmsg in mmmsgs.Messages)
+                                    {
+                                        <p style="margin: 0px; padding: 0px;">
+                                            <span class="fa fa-caret-right"></span>@Html.Raw(itemmsg)
+                                        </p>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
+                    if (mmmsgs.ReturnUrl.IsNullOrWhiteSpace() == false)
+                    {
+                        <script>
+                                        setTimeout(function () {
+                                            window.location.href = '@mmmsgs.ReturnUrl';
+                                        }, @mmmsgs.ReturnUrlTimeOut);
+                        </script>
+                    }
+
+                }
+            </div>
+            <!-- END PAGE CONTENT WRAPPER -->
+
+        </div>
+        <div class="row" style="text-align:center;color:white;">
+            <span style="font-size:10pt;">© @(DateTime.Now.Year == 2019 ? DateTime.Now.Year.ToString() : ("2019 - " + DateTime.Now.Year.ToString())) Bilgi İşlem Daire Başkanlığı</span>
+        </div>
+        <!-- END PAGE CONTENT -->
+
+    </div>
+
+    <!-- default with sound -->
+    <div class="message-box animated fadeIn" data-sound="alert" id="message-box-sound-1">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-globe"></span>Alert</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-info btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end default with sound -->
+    <!-- danger with sound -->
+    <div class="message-box message-box-danger animated fadeIn" data-sound="fail" id="message-box-sound-2">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-times"></span>DANGER!</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end danger with sound -->
+    <!-- success -->
+    <div class="message-box message-box-success animated fadeIn" id="message-box-success">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-check"></span>Success</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end success -->
+    <!-- warning -->
+    <div class="message-box message-box-warning animated fadeIn" id="message-box-warning">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-warning"></span>Warning</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end danger -->
+    <!-- info -->
+    <div class="message-box message-box-info animated fadeIn" id="message-box-info">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-info"></span>Information</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end info -->
+    <!-- danger -->
+    <div class="message-box message-box-danger animated fadeIn" id="message-box-danger">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-times"></span>Danger</div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end danger -->
+    <!-- default -->
+    <div class="message-box animated fadeIn" id="message-box-default_MSET">
+        <div class="mb-container">
+            <div class="mb-middle">
+                <div class="mb-title"><span class="fa fa-globe"></span>Some <strong>Title</strong></div>
+                <div class="mb-content">
+                </div>
+                <div class="mb-footer">
+                    <button class="btn btn-default btn-lg pull-right mb-control-close">Kapat</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="MsgsB" style="display: none;">
+    </div>
+
+
+    <script type="text/javascript" src="~/Content/js/settings.js"></script>
+    <script type="text/javascript" src="~/Content/js/plugins.js"></script>
+    <script type="text/javascript" src="~/Content/js/actions.js"></script>
+    <script src="~/Content/assets/plugins/bootstrap-switch/static/js/bootstrap-switch.min.js"></script>
+    <script src="~/Content/assets/plugins/bootbox/bootbox.min.js"></script>
+    <link href="~/Content/assets/plugins/bootstrap-toastr/toastr.css" rel="stylesheet" />
+    <script src="~/Content/assets/plugins/bootstrap-toastr/toastr.min.js"></script>
+    <script src="~/Content/assets/plugins/jquery.pulsate.min.js"></script>
+    <script src="~/Content/js/plugins/bootstrap/bootstrap-file-input.js"></script>
+
+    @*<script type="text/javascript" src="~/Content/js/portlet.js"></script>*@
+    <script src="~/Content/js/jquery.SimpleMask.js"></script>
+    @*<script src="~/Content/ckeditor/ckeditor.js"></script>*@
+
+    <audio id="audio-alert" src="~/Content/audio/alert.mp3" preload="auto"></audio>
+    <audio id="audio-fail" src="~/Content/audio/fail.mp3" preload="auto"></audio>
+
+
+
+    <script src="~/Scripts/biskaPager.js"></script>
+    <script type="text/javascript" src="~/Content/js/app.js"></script>
+    <link href="~/Content/assets/plugins/select2/select2.css" rel="stylesheet" />
+
+    <link href="~/Content/assets/plugins/select2/select2_conquer.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/assets/plugins/select2/select2.js"></script>
+    <script type="text/javascript" src="~/Content/assets/plugins/select2/select2_locale_tr.js"></script>
+    <script src="~/Scripts/printThis.js"></script>
+
+    <script src="~/Scripts/jquery.form.js"></script>
+    @*<script src="~/Content/preloader/prloader.js"></script>*@
+    <script>
+        $(function ($) {
+
+            // site preloader -- also uncomment the div in the header and the css style for #preloader
+            $(window).load(function () {
+                $('#preloader').fadeOut('slow', function () { $(this).remove(); });
+            });
+
+        });
+       function SetCaretAtEnd(elem) {
+           var elemLen = elem.value.length;
+           // For IE Only
+           if (document.selection) {
+               // Set focus
+               elem.focus();
+               // Use IE Ranges
+               var oSel = document.selection.createRange();
+               // Reset position to 0 & then set at end
+               oSel.moveStart('character', -elemLen);
+               oSel.moveStart('character', elemLen);
+               oSel.moveEnd('character', 0);
+               oSel.select();
+           }
+           else if (elem.selectionStart || elem.selectionStart == '0') {
+               // Firefox/Chrome
+               elem.selectionStart = elemLen;
+               elem.selectionEnd = elemLen;
+               elem.focus();
+           } // if
+       }
+        function guid()
+        {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                  .toString(16)
+                  .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+              s4() + '-' + s4() + s4() + s4();
+       }
+        function insertHtml(id, html) {
+            var ele = document.getElementById(id);
+            ele.innerHTML = html;
+            var codes = ele.getElementsByTagName("script");
+            for (var i = 0; i < codes.length; i++) {
+                eval(codes[i].text);
+            }
+        }
+        function getMsg(mMessage) {
+            var cls = mMessage.MessageType == @((int)Msgtype.Success) ?
+                'success' : (mMessage.MessageType == @((int)Msgtype.Warning) ? 'warning' : (mMessage.MessageType == @((int)Msgtype.Error) ? 'danger' : 'info'));
+            var color = mMessage.MessageType == @((int)Msgtype.Success) ?
+                '@RenkTiplier.Success' : (mMessage.MessageType == @((int)Msgtype.Warning) ? '@RenkTiplier.Warning' : (mMessage.MessageType ==  @((int)Msgtype.Error) ? '@RenkTiplier.Danger' : '@RenkTiplier.Info'));
+            var pnlStrt = "<div class=panel panel-" + cls + "  style='margin-bottom:3px;'> <div class='panel-body panel-body-pricing'>";
+            if (mMessage.Title != "") {
+                pnlStrt += "<h3 style='font-size:10pt;' class=text-" + cls + ">" + mMessage.Title + "</h3>";
+            }
+            var _msgs = "<div class='scrolkikkox' style='max-height:365'>";
+            for (var i = 0; i < mMessage.Messages.length; i++) {
+
+                _msgs += "<p style='margin: 0px; padding: 0px;'><span style='color:" + color + ";;' class='fa fa-caret-right " + cls + "'></span>&nbsp " + mMessage.Messages[i] + "</p>";
+            }
+            _msgs += "</div>";
+            var pnlEnd = "</div></div>";
+            $('#MsgsB').html(pnlStrt + _msgs + pnlEnd);
+            bootbox.dialog({
+                message: $('#MsgsB').html(),
+                buttons: {
+                    danger: {
+                        label: 'Tamam',
+                        className: "btn-success",
+                        callback: function () {
+                        }
+                    }
+                }
+            });
+            validateControl(null, mMessage);
+            $(function () {
+                $('.scrolkikkox').slimScroll({
+                    color: 'red',
+                    height: '365px'
+                });
+            })
+        }
+        function mesGonder(GroupID) {
+
+            $.ajax({
+                url: '@Url.Action("MesajKaydet", "Ajax")',
+                type: 'POST',
+                cache: false,
+                data: { "GroupID": GroupID },
+                success: function (result) {
+                    mesGdialogShow(result);
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+
+        }
+        function mesGdialogShow(result, _type) {
+            var btbx = bootbox.dialog({
+                message: result,
+                title: 'Dilek / Öneri / Şikayet',
+                buttons: {
+                    success: {
+                        label: 'Gönder',
+                        className: "btn-danger",
+                        callback: function (event) {
+                            var txt = CKEDITOR.instances.AciklamaHtml.document.getBody().getText().trim();
+                            var data = CKEDITOR.instances.AciklamaHtml.getData().trim();
+                            $('#Aciklama').val(txt);
+                            $('#AciklamaHtml').val(data);
+                            var saveOk = sbmtDosyaKontrol();
+                            if (saveOk) {
+                                _pRefresh($(btbx).find('.modal-dialog').first(), false);
+                                $('#_Form').ajaxForm({
+                                    success: function (result) {
+                                        _pRefresh($(btbx).find('.modal-dialog').first(), true);
+                                        showMmMessage(result.responseText, 'Tamam');
+
+                                        if (result.success) {
+                                            setTimeout(function () {
+                                                var _clsBtn = $('.modal-header').find('button').first();
+                                                $(_clsBtn).click();
+                                            }, 2400)
+                                        }
+                                        else {
+                                            return false;
+                                        }
+                                    },
+                                    complete: function (cmp) {
+                                        _pRefresh($(btbx).find('.modal-dialog').first(), true);
+                                    },
+                                    error: function (err) {
+                                        _pRefresh($(btbx).find('.modal-dialog').first(), true);
+                                    }
+
+                                });
+                                $('#_Form').submit();
+                            }
+                            return false;
+                        }
+                    },
+                    danger: {
+                        label: 'Kapat',
+                        className: "btn-success",
+                        callback: function () {
+                        }
+                    }
+                }
+            });
+            $(btbx).removeAttr("tabindex");
+            $(btbx).find('.modal-dialog').addClass('modal-lg');
+            $(btbx).find('.modal-body').addClass('padding-0');
+        }
+    </script>
+
+    @if (RoleNames.MailIslemleri.InRole())
+    {
+
+        <script>
+        function mGonder(userid, _SetKonu, _SetAciklama, id, msID) {
+                var kIds = new Array();
+                if(userid.indexOf(',')>= 0){
+                    kIds=userid.split(',');
+                }
+                else kIds.push(userid);
+                $.ajax({
+                    url: '@Url.Action("MailGonder", "Ajax")',
+                    type: 'POST',
+                    cache: false,
+                    data: { KullaniciID: kIds,SetKonu:_SetKonu,SetAciklama:_SetAciklama,id:id, },
+                    success: function (result) {
+                        mGdialogShow(result, msID);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+
+            }
+            function mGonderGB(userid,TopluMail,toOrBcc) {
+
+                var kIds = new Array();
+                if(userid.indexOf(',')>= 0){
+                    kIds=userid.split(',');
+                }
+                else kIds.push(userid);
+                $.ajax({
+                    url: '@Url.Action("MailGonder", "Ajax")',
+                    type: 'POST',
+                    cache: false,
+                    data: { KullaniciID: kIds,TopluMail:TopluMail, toOrBcc:toOrBcc},
+                    success: function (result) {
+                        mGdialogShow(result);
+                    },
+                    error: function (err) {
+                        alert(err.responseText);
+                    }
+                });
+
+            }
+            function mGdialogShow(result, msID) {
+                var btbx2 = bootbox.dialog({
+                    message: result,
+                    title: "Mail Gönderme İşlemi",
+                    buttons: {
+                        success: {
+                            label: 'Gönder',
+                            className: "btn-danger",
+                            callback: function (event) {
+                                var txt = CKEDITOR.instances.AciklamaHtml.document.getBody().getText().trim();
+                                var data = CKEDITOR.instances.AciklamaHtml.getData().trim();
+                                $('#Aciklama').val(txt);
+                                $('#AciklamaHtml').val(data);
+                                var saveOk = sbmtDosyaKontrol();
+                                if (saveOk){
+                                    _pRefresh($(btbx2).find('.modal-dialog').first(), false);
+                                    $('#mailForm').ajaxForm({
+                                        success: function(result){
+                                            _pRefresh($(btbx2).find('.modal-dialog').first(), true);
+                                            showMmMessage(result.responseText, 'Tamam');
+                                            if (result.success) {
+                                                if (msID != undefined && msID != "") {
+                                                    var _Konu = $('#Konu').val();
+                                                    getMDetay(msID, _Konu);
+                                                }
+                                            }
+                                            else {
+                                                return false;
+                                            }
+                                        },
+                                        complete:function(cmp){
+                                            _pRefresh($(btbx2).find('.modal-dialog').first(), true);
+                                            setTimeout(function(){
+                                                var _clsBtn=  $('.modal-header').find('button').first();
+                                                if(cmp.responseJSON.success)  $(_clsBtn).click();
+                                            },300);
+                                        },
+                                        error:function(err){
+                                            _pRefresh($(btbx2).find('.modal-dialog').first(), true);
+                                        }
+
+                                    });
+                                    $('#mailForm').submit();
+                                }
+                                return false;
+                            }
+                        },
+                        danger: {
+                            label: 'Kapat',
+                            className: "btn-success",
+                            callback: function () {
+                            }
+                        }
+                    }
+                });
+                $(btbx2).removeAttr("tabindex");
+                $(btbx2).find('.modal-dialog').addClass('modal-lg');
+                $(btbx2).find('.modal-body').addClass('padding-0');
+            }
+        </script>
+
+    }
+    <script>
+
+
+        function _pRefresh(panel, IsRemove) {
+            if(IsRemove){
+                panel.find(".panel-refresh-layer").remove();
+                panel.removeClass("panel-refreshing");
+            }
+            else {
+                panel_refresh(panel);
+            }
+
+
+        }
+        function PopupCenter(url, title, w, h) {
+            // Fixes dual-screen position                         Most browsers      Firefox
+            var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : screen.left;
+            var dualScreenTop = window.screenTop != undefined ? window.screenTop : screen.top;
+
+            var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+            var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+            var left = ((width / 2) - (w / 2)) + dualScreenLeft;
+            var top = ((height / 2) - (h / 2)) + dualScreenTop;
+            var newWindow = window.open(url, title, 'scrollbars=yes, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+            // Puts focus on the newWindow
+            //if (window.focus) {
+            //    newWindow.focus();
+            //}
+        }
+        function showDuyuru(PopupTipID, redirectUrl) {
+            $.ajax({
+                url: '@Url.Action("getDuyuruJson", "KDuyurular")',
+                type: 'POST',
+                enctype: "multipart/form-data",
+                cache: false,
+                dataType: "json",
+                data: { 'PopupTipID': PopupTipID },
+                success: function (result) {
+                    if (result.ShowMessage) {
+                        if(PopupTipID=='@DuyuruPopupTipleri.AnaSayfa'){
+                            var mdlx = bootbox.dialog({
+                                title:"Duyuru",
+                                message: result.HtmlMessage,
+                                buttons: {
+                                    danger: {
+                                        label: 'Tamam',
+                                        className: "btn-primary",
+                                        callback: function() {
+                                            if (redirectUrl != "" && redirectUrl != null) window.location.href = redirectUrl;
+                                        }
+
+                                    }
+                                }
+                            });
+
+                            $(mdlx).find('.modal-dialog').addClass('modal-lg');
+                            $(mdlx).find('.modal-body').addClass('padding-5');
+                        }
+
+
+
+                    }
+                    else {
+                        if (redirectUrl != "" && redirectUrl != null) window.location.href = redirectUrl;
+                    }
+                },
+                error: function (err) {
+                    alert(err.responseText);
+
+                }
+            });
+        }
+
+        var frameLoad = false;
+        function loadedFrame()
+        { frameLoad = true; }
+        function yeniDialogBB(sndr, title, url, h, mdlSize, fncOnClose) {
+            frameLoad = false;
+            var nowx = new Date();
+            var id = Number(nowx);
+            if(h=="auto") h= window.innerHeight-140;
+            var dlgid = 'modal-form-' + id;
+            if (url.toString().indexOf("?") < 0) url += "?";
+            else url += "&";
+            url += "dlgid=" + dlgid;
+            var frame = "<iframe  class='modalFrame' allowtransparency='true' src='" + url + "' border='0' frameborder='0' onload='loadedFrame()' style='width:100%;height:" + h + "px;margin:0px;overflow:hidden;' scrolling='yes'></iframe>";
+            var dlg = "<div class='modal fade' id='" + dlgid + "' tabindex='-1' role='dialog' aria-labelledby='defModalHead' aria-hidden='true'>" +
+                   "<div class='" + mdlSize + "'>" +
+                           "<div class='modal-content'>" +
+                               "<div class='modal-header'>" +
+                                   "<button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Kapat</span></button>" +
+                                   "<h4 class='modal-title'>" + title + "</h4>" +
+                               "</div>" +
+                               "<div class='modal-body' style='padding:0px;'> " +
+                                   frame +
+                               "</div>" +
+                           "</div>" +
+                   "</div>" +
+           "</div>"
+            $('body').append(dlg);
+
+            var btbx = $('#' + dlgid).modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+
+            var clsBtn = btbx.find('.close').first();
+
+            clsBtn.on("click", function () {
+                var mdl = $(this).parents(".modal").first();
+                setTimeout(function () {
+                    mdl.remove();
+                    $('.modal-backdrop').remove();
+                }, 200);
+                if (fncOnClose != null && fncOnClose != undefined) {
+                    setTimeout(fncOnClose, 100);
+                }
+            });
+        }
+        function yeniDialogBBRprLansCape(sndr, title, url, h,w, mdlSize, fncOnClose) {
+            frameLoad = false;
+            var nowx = new Date();
+            var id = Number(nowx);
+            if(h=="auto") h= window.innerHeight-140;
+            var dlgid = 'modal-form-' + id;
+            if (url.toString().indexOf("?") < 0) url += "?";
+            else url += "&";
+            url += "dlgid=" + dlgid;
+            var frame = "<iframe  class='modalFrame' allowtransparency='true' src='" + url + "' border='0' frameborder='0' onload='loadedFrame()' style='width:100%;height:" + h + "px;margin:0px;overflow:hidden;' scrolling='yes'></iframe>";
+            var dlg = "<div class='modal fade' id='" + dlgid + "' tabindex='-1' role='dialog' aria-labelledby='defModalHead' aria-hidden='true'>" +
+                   "<div class='" + mdlSize + "' style='width:"+w+"px'>" +
+                           "<div class='modal-content'>" +
+                               "<div class='modal-header'>" +
+                                   "<button type='button' class='close' data-dismiss='modal'><span aria-hidden='true'>&times;</span><span class='sr-only'>Kapat</span></button>" +
+                                   "<h4 class='modal-title'>" + title + "</h4>" +
+                               "</div>" +
+                               "<div class='modal-body' style='padding:0px;'> " +
+                                   frame +
+                               "</div>" +
+                           "</div>" +
+                   "</div>" +
+           "</div>"
+            $('body').append(dlg);
+
+            var btbx = $('#' + dlgid).modal({
+                backdrop: 'static',
+                keyboard: false,
+                show: true
+            });
+
+            var clsBtn = btbx.find('.close').first();
+
+            clsBtn.on("click", function () {
+                var mdl = $(this).parents(".modal").first();
+                setTimeout(function () {
+                    mdl.remove();
+                    $('.modal-backdrop').remove();
+                }, 200);
+                if (fncOnClose != null && fncOnClose != undefined) {
+                    setTimeout(fncOnClose, 100);
+                }
+            });
+        }
+        function myTimer(eventType, time, progresID, DetailsID) {
+            if (eventType == 0) clearInterval(tmr);
+            else if (eventType == 1) {
+                tmr = setInterval(function () { ProgressSet(progresID, DetailsID) }, time);
+            }
+            else if (eventType == 2) {
+                clearInterval(tmr);
+                tmr = setInterval(function () { ProgressSet(progresID, DetailsID) }, time);
+            }
+        }
+    </script>
+    <script>
+        function printContent(el) {
+            printDiv(el);
+        }
+        function printDiv(eleId) {
+            var PW = window.open('', '_blank', 'Print content');
+            PW.document.write('<link rel="stylesheet" type="text/css" id="theme" href="/Content/css/theme-default.css" />');
+            PW.document.write(document.getElementById(eleId).innerHTML);
+            PW.document.close();
+            PW.focus();
+            PW.print();
+            PW.close();
+        }
+        function printTalep(sndrID,title) {
+            // var ids = sndrID.split("_")[1];
+            //$('.prntHide_' + ids).css("display", "none");
+            setTimeout(function () {
+                $(sndrID).printThis({
+                    debug: false,
+                    importCSS: true,
+                    importStyle: true,
+                    printContainer: false,
+                    loadCSS: "@Url.Content("/Content/css/theme-default.css")",
+                    removeInline: false,
+                    printDelay: 333,
+                    pageTitle: title,
+                    header: "",
+                    formValues: true,
+                });
+                setTimeout(function () {
+                    //$('.prntHide_' + ids).css("display", "");
+                }, 800)
+
+            }, 250)
+
+        }
+        function dialogKapat(dlgID, returnUrl) {
+
+            setTimeout(function () {
+                var mdl = $('#' + dlgID).first();
+                mdl.remove();
+                $('.modal-backdrop').remove();
+                if (returnUrl != null && returnUrl != "")
+                    window.location.href = returnUrl;
+            }, 200);
+
+        }
+        function showMmMessage(msgs,btnName)
+        {
+            bootbox.dialog({
+                message:$.parseHTML(msgs),
+                buttons: {
+                    danger: {
+                        label: btnName,
+                        className: "btn-success",
+                        callback: function () {
+                        }
+                    }
+                }
+            });
+        }
+        $(function () {
+            $('.scrolkikko').slimScroll({
+                color: '#9bbb67'
+            });
+            $('.date-picker').datetimepicker({
+                lang: 'tr',
+                timepicker: false,
+                format: 'd-m-Y'
+            });
+            setTimeout(function () {
+                if ($('#msgs').length > 0) {
+                    bootbox.dialog({
+                        message: $('#msgs').html(),
+                        buttons: {
+                            danger: {
+                                label: "Tamam",
+                                className: "btn-success",
+                                callback: function () {
+                                }
+                            }
+                        }
+                    });
+                }
+                $('.tooltips').tooltip();
+            }, 150);
+
+            var surl = '@urlInfo.LastPath';
+            var lis = $('a[menuurl~="' + surl + '"]').first().parents('li');
+            for (var i = lis.length - 1; i >= 0; i--)
+            {
+                var itemNav = "<li><a href='javascript:void(0);'style='font-size:9pt;'>" + $(lis[i]).find('a').first().html() + "</a></li>";
+                $("#navigationCapt").append(itemNav);
+            }
+            $.mpb('show', { value: [0, 100], speed: 7, state: 'success' });
+            setTimeout(function () { $.mpb('destroy'); }, 700);
+        });
+
+        function showMessage(msgType, Title, Content, Sound) {
+            $mbox = $('#message-box-default_MSET');
+            $mbox.removeClass("message-box-info").removeClass("message-box-success").removeClass("message-box-danger").removeClass("message-box-warning");
+            if (msgType == "message-box-info") {
+                $mbox.addClass("message-box-info");
+                $mbox.find('.mb-title').first().html("<span class='fa fa-info'></span>" + Title + "</div>");
+            }
+            else if (msgType == "success") {
+                $mbox.addClass("message-box-success");
+                $mbox.find('.mb-title').first().html("<span class='fa fa-check'></span>" + Title + "</div>");
+            }
+            else if (msgType == "warning") {
+                $mbox.addClass("message-box-warning");
+                $mbox.find('.mb-title').first().html("<span class='fa fa-warning'></span>" + Title + "</div>");
+            }
+            else if (msgType == "danger") {
+                $mbox.addClass("message-box-danger");
+                $mbox.find('.mb-title').first().html("<span class='fa fa-times'></span>" + Title + "</div>");
+            }
+            else {
+                $mbox.find('.mb-title').first().html("<span class='fa fa-globe'></span>" + Title + "</div>");
+            }
+            $mbox.find('.mb-content').first().html(Content);
+            $mbox.addClass("open");
+        }
+
+        function authenticatedControl(sndr) {
+
+            var retUrl = $(sndr).attr("menuurl");
+            $.ajax({
+                url:'@Url.Action("AuthenticatedControl", "Home")',
+                data: {},
+                success: function (result) {
+
+                    if (!result) {
+                        $('#loginPanel').addClass("active");
+                        $('.pnlLgn').removeClass('hide');
+                        $('.pnlsndPwd').addClass('hide');
+                        $('#RetUrl').val(retUrl);
+                        $('.loginPulsate').pulsate({ color: "#fdbe41", reach: 60, repeat: 14, speed: 300, glow: true });
+                    }
+                    else {
+                        if (retUrl!=undefined) window.location.href = retUrl;
+                    }
+                },
+                error: function (err) {
+                    alert(err.responseText);
+                }
+            });
+        }
+        function pwdSendM() {
+            setTimeout(function(){
+                $('#loginPanel').addClass("active");
+                $('.pnlLgn').addClass('hide');
+                var pwdP=$('.pnlsndPwd');
+                $(pwdP).removeClass('hide');
+            },250);
+
+
+        }
+        function myMask(e, sndr, _isNumericOrDecimal, _maxLength, _firstLength, _lastLength) {
+            var theEvent = e || window.event;
+            var isNumericOrDecimal = _isNumericOrDecimal;
+            var maxLength = _maxLength;
+            var firstLength = _firstLength;
+            var lastLength = _lastLength;
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13]) !== -1 ||
+                // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105) && e.keyCode != 188 && e.keyCode != 190 && e.keyCode!=110) {
+                e.preventDefault();
+            }
+            else {
+                var impVal = $(sndr).val();
+                var impLength = (impVal.length + 1);
+                if (isNumericOrDecimal) {
+                    if (e.keyCode == 188 || e.keyCode==190 || e.keyCode == 110) e.preventDefault();
+                    else if (maxLength > 0) {
+                        if (maxLength < impLength) e.preventDefault();
+                    }
+
+                }
+                else {
+                    if (e.keyCode == 188 || e.keyCode == 190 || e.keyCode == 110) {
+                        if (impVal.replace('.',',').indexOf(",") >= 0 || impVal == "") e.preventDefault();
+
+                    }
+                    var imsplt = impVal.replace('.',',').split(',');
+                    if (imsplt.length > 1) {
+
+                        var maxLength = firstLength + lastLength + 1;
+                        var frVOk = false;
+                        var firstV = imsplt[0].length + 1;
+                        if (firstLength < firstV) frVOk = true;
+                        var frLVOk = false;
+                        var flastV = imsplt[1].length + 1
+                        if (lastLength < flastV) frLVOk = true;
+
+                        if ((impVal.length + 1) > maxLength) {
+
+                            //console.log('(impVal.length + 1) >= maxLength :' + (impVal.length + 1) >= maxLength);
+                            if (frVOk) e.preventDefault();
+                            if (frLVOk) e.preventDefault();
+                        }
+                        if (frVOk && frLVOk) {
+                            e.preventDefault();
+                        }
+                    }
+                    else {
+                        var impLength = (impVal.length + 1);
+                        if (firstLength < impLength && e.keyCode != 188 && e.keyCode != 190 && !e.keyCode == 110) e.preventDefault();
+                    }
+                }
+            }
+            var _id=$(sndr).attr('id');
+            replaceCharMyMsk(_id,e.keyCode);
+        }
+
+        function replaceCharMyMsk(id,kKod){
+            setTimeout(function(){
+                if(kKod==190){
+                    var val=$('#'+id).val();
+                    $('#'+id).val($('#'+id).val().replace('.', ","));
+                }
+            },150);
+        }
+
+        function FilterInputKeyPress(sndr, e, gID) {
+            var code = (e.keyCode ? e.keyCode : e.which);
+            if (code == 13) {
+                FilterTableRow(sndr, gID);
+                return false;
+            }
+
+
+        }
+        function FilterTableRow(sndr, gID) {
+            var _val = $(sndr).val().trim().replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
+            var TableID = "#Filter_Table_" + gID;
+            var TableColumn = ".Filter_Col_" + gID;
+            var FilterInfo = "#FilterInfo_" + gID;
+
+            if (_val == null || _val.trim() == "") {
+                $(TableID).find('.MainRow').each(function (inx, filtrx) {
+                    $(filtrx).removeClass('hide');
+                    if ($(filtrx).next().hasClass('MainRow2')) {
+                        if ($(filtrx).find('span').first().hasClass('fa-angle-down')) {
+                            $(filtrx).next().removeClass('hide');
+                        }
+                        else {
+                            $(filtrx).next().addClass('hide');
+                        }
+                    }
+                });
+                $(FilterInfo).html("");
+            }
+            else {
+                var toplam = $(TableID).find('.MainRow').length;
+                $(TableID).find('.MainRow').each(function (inx, filtrx) {
+                    var show = false;
+                    $(filtrx).find(TableColumn).each(function (inx2, filtrx2) {
+                        var gVal = $(filtrx2).text().trim().replace(/İ/g, 'i').replace(/I/g, 'ı').toLowerCase();
+                        var AShow = gVal.indexOf(_val) > -1;
+                        if (AShow) show = true;
+                    });
+                    if (show) {
+                        $(filtrx).removeClass('hide');
+                        if ($(filtrx).next().hasClass('MainRow2')) {
+                            if ($(filtrx).find('span').first().hasClass('fa-angle-down')) {
+                                $(filtrx).next().removeClass('hide');
+                            }
+                            else {
+                                $(filtrx).next().addClass('hide');
+                            }
+                        }
+                    }
+                    else {
+                        $(filtrx).addClass('hide');
+                        if ($(filtrx).next().hasClass('MainRow2')) {
+                            $(filtrx).next().addClass('hide');
+                        }
+                    }
+                });
+                var Gizli = $(TableID).find('.MainRow.hide').length;
+                var gosterilen = toplam - Gizli;
+                $(FilterInfo).html("<span class='label label-info label-form'>[Aranan:  %<span style='color:maroon;'>" + _val + "</span>%] [Bulunan: <span style='color:maroon;'>" + gosterilen + "</span>]</span>");
+            }
+        }
+        function setTumu(sndr, gID, InpName) {
+            var TableID = "#Filter_Table_" + gID;
+            var checked = $(sndr).prop('checked');
+            $(TableID).find('.MainRow').each(function (inx, trx) {
+                if ($(trx).hasClass('hide') == false) {
+                    var chk = $(trx).find('input[name=' + InpName + ']');
+                    var rwID = $(chk).val();
+                    RwClick(gID,rwID, checked ? false : true);
+                }
+            });
+            checkedInfo(TableID);
+        }
+        function RwClick(gID, rwID, checked) {
+            var TableID = "#Filter_Table_" + gID;
+            var _checked = $(TableID).find('.tr_' + rwID).hasClass("success");
+            if (checked != undefined) _checked = checked;
+            if (_checked) {
+                $(TableID).find('.tr_' + rwID).removeClass("success");
+                $(TableID).find('#chk_' + rwID).prop("checked", false);
+            }
+            else {
+                $(TableID).find('.tr_' + rwID).addClass("success");
+                $(TableID).find('#chk_' + rwID).prop("checked", true);
+            }
+            checkedInfo(TableID);
+        }
+        function checkedInfo(TableID) {
+            var Rows = $(TableID).find('tr.MainRow').length;
+            var CheckedR = $(TableID).find('tr.MainRow.success').length;
+            if (CheckedR > 0)
+                $(TableID).parents('.MainTable').find('.footerInfo').html('Toplam: ' + Rows + ',  Seçilen: ' + CheckedR);
+            else
+                $(TableID).parents('.MainTable').find('.footerInfo').html('Toplam: ' + Rows);
+        }
+    </script>
+    @if (UserIdentity.Current.IsAuthenticated)
+    {
+        <script>
+            function detayGor(KullaniciID, elID) {
+                if(elID!=null && elID!="")       {
+                    var el = $(elID);
+                    _pRefresh(el, false);
+                }
+                setTimeout(function () {
+                    $.ajax({
+                        url: '@Url.Action("getKullaniciDetay", "Ajax")',
+                        data: { 'KullaniciID': KullaniciID },
+                        success: function (result) {
+                            var _btbxx = bootbox.dialog({
+                                message: result,
+                                title: "Profil Bilgileri",
+                                buttons: {
+                                    danger: {
+                                        label: "Kapat",
+                                        className: "btn-success",
+                                        callback: function () {
+                                        }
+                                    }
+                                }
+                            });
+                            var _mdBd = $(_btbxx).find('.modal-body').first();
+                            $(_mdBd).addClass('padding-0');
+                            if(elID!=null && elID!="")       {
+                                var el = $(elID);
+                                _pRefresh(el, true);
+                            }
+                        },
+                        error: function (err) {
+                            alert(err.responseText);
+                            if(elID!=null && elID!="")       {
+                                var el = $(elID);
+                                _pRefresh(el, true);
+                            }
+
+                        }
+                    });
+
+
+                }, 120);
+            }
+
+
+
+
+            var site_settings = '<div class="ts-button">'
+                               +'<span class="fa fa-cog fa-spin"></span>'
+                           +'</div>'
+                           +'<div class="ts-body">'
+                               //+'<div class="ts-title">Options</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_head_fixed" value="1"/> Başlığı Sabitle</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_sb_fixed" value="1" checked/> Menüyü Sabitle</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row hide">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_sb_scroll" value="1"/> Menü Kaydırma Çubuğu</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_sb_right" value="1"/> Menüyü Sağa Al</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_sb_custom" value="1"/> Menü İşretleriyici</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="checkbox" class="icheckbox" name="st_sb_toggled" value="1"/> Menüyü Küçült</label>'
+                               //+'</div>'
+                               //+'<div class="ts-title">Layout</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="radio" class="iradio" name="st_layout_boxed" value="0" checked/> Tam Ekran</label>'
+                               //+'</div>'
+                               //+'<div class="ts-row">'
+                               //    +'<label class="check"><input type="radio" class="iradio" name="st_layout_boxed" value="1"/> Kutu</label>'
+                               //+'</div>'
+                               +'<div class="ts-title">Tema</div>'
+                               + '<div  id="ts-themesX" class="ts-themes">'
+                                   +'<a href="javascript:void(0);" class="active" data-theme="/Content/css/theme-default.css"><img src="/Content/img/themes/default.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-forest.css"><img src="/Content/img/themes/forest.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-dark.css"><img src="/Content/img/themes/dark.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-night.css"><img src="/Content/img/themes/night.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-serenity.css"><img src="/Content/img/themes/serenity.jpg"/></a>'
+
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-default-head-light.css"><img src="/Content/img/themes/default-head-light.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-forest-head-light.css"><img src="/Content/img/themes/forest-head-light.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-dark-head-light.css"><img src="/Content/img/themes/dark-head-light.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-night-head-light.css"><img src="/Content/img/themes/night-head-light.jpg"/></a>'
+                                   +'<a href="javascript:void(0);" data-theme="/Content/css/theme-serenity-head-light.css"><img src="/Content/img/themes/serenity-head-light.jpg"/></a>'
+
+                               +'</div>'
+                               +'<div id="ts-wallpapers">'
+                               +'<div class="ts-title">Arka Plan</div>'
+                                   +'<div class="ts-themes">'
+                                       +'<a href="javascript:void(0);" class="active" data-wall="wall_1"><img src="/Content/img/backgrounds/wall_1.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_2"><img src="/Content/img/backgrounds/wall_2.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_3"><img src="/Content/img/backgrounds/wall_3.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_4"><img src="/Content/img/backgrounds/wall_4.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_5"><img src="/Content/img/backgrounds/wall_5.jpg"/></a>'
+
+                                       +'<a href="javascript:void(0);" data-wall="wall_6"><img src="/Content/img/backgrounds/wall_6.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_7"><img src="/Content/img/backgrounds/wall_7.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_8"><img src="/Content/img/backgrounds/wall_8.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_9"><img src="/Content/img/backgrounds/wall_9.jpg"/></a>'
+                                       +'<a href="javascript:void(0);" data-wall="wall_10"><img src="/Content/img/backgrounds/wall_10.jpg"/></a>'
+                                   +'</div>'
+                               +'</div>'
+                           +'</div>';
+
+            var settings_block = document.createElement('div');
+            settings_block.className = "theme-settings";
+            settings_block.innerHTML = site_settings;
+            document.body.appendChild(settings_block);
+            var st_head_fixed=@Convert.ToInt32(FixedHeader);
+            var st_sb_fixed=@Convert.ToInt32(FixedSidebar);
+            var st_sb_scroll= @Convert.ToInt32(ScrollSidebar);
+            var st_sb_right= @Convert.ToInt32(RightSidebar);
+            var st_sb_custom= @Convert.ToInt32(CustomNavigation);
+            var st_sb_toggled= @Convert.ToInt32(ToggledNavigation);
+            var st_layout_boxed= @Convert.ToInt32(BoxedOrFullWidth);
+            var _BackgroundImage= '@BackgroundImage';
+            var _ThemeName='@ThemeName';
+
+            //set_settings_checkbox("st_layout_boxed",st_layout_boxed);
+            //set_settings_checkbox("st_sb_scroll",st_sb_scroll);
+            //set_settings_checkbox("st_sb_right",st_sb_right);
+            //set_settings_checkbox("st_sb_custom",st_sb_custom);
+            //set_settings_checkbox("st_sb_toggled",st_sb_toggled);
+            //if (st_layout_boxed == 1) {
+            //    set_settings_checkbox("st_head_fixed",-1);
+            //    $('input[name=st_head_fixed]').parents('label').addClass("disabled");
+            //    set_settings_checkbox("st_sb_fixed",-1);
+            //    $('input[name=st_sb_fixed]').parents('label').addClass("disabled");
+
+            //    $('#ts-wallpapers .ts-themes').find('a').each(function(inx,ax){
+            //        var $_a=$(ax);
+            //        var atrVal=$_a.attr('data-wall');
+            //        if(atrVal==_BackgroundImage){
+            //            $_a.addClass("active");
+            //        }
+            //        else {
+            //            $_a.removeClass("active");
+            //        }
+            //    });
+            //    $("#ts-wallpapers").show();
+            //}
+            //else {
+            //    set_settings_checkbox("st_head_fixed",st_head_fixed);
+            //    set_settings_checkbox("st_sb_fixed",st_sb_fixed);
+            //    $("#ts-wallpapers").hide();
+            //}
+            $('#ts-themesX').find('a').each(function(inx,ax){
+                var $_a=$(ax);
+                var atrVal=$_a.attr('data-theme');
+                if(atrVal==_ThemeName){
+                    $_a.addClass("active");
+                }
+                else {
+                    $_a.removeClass("active");
+                }
+            });
+            function setUserTheme(columnName,value) {
+                $.ajax({
+                    url: '@Url.Action("SetThemeSetting", "Ajax")',
+                    data: { columnName: columnName, value: value },
+                    success: function (result) {
+
+                    },
+                    error: function (err) {
+                    }
+                });
+            }
+
+
+
+        </script>
+    }
+    @*<script>
+            $(function () {
+                layoutOnloatTmr();
+            });
+            function layoutOnloatTmr() {
+                onload();
+                setTimeout(function () {
+                    layoutOnloatTmr();
+                }, 1000);
+            }
+        </script>*@
+
+</body>
+</html>

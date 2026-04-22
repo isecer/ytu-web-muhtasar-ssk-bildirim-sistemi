@@ -1,0 +1,82 @@
+﻿@using Database;
+@using WebApp.Models;
+@using BiskaUtil;
+@model YevmiyelerBesBankaHesapNumaralari
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form method="post" class="form-horizontal" role="form">
+        <input type="text" style="display:none;" id="YevmiyeBesBankaHesapNumaraID" name="YevmiyeBesBankaHesapNumaraID" value="@Model.YevmiyeBesBankaHesapNumaraID" />
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default" id="pUnvanK">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeBesBankaHesapNumaraID <= 0 ? "Yeni BES Banka Hesabı Bilgileri Tanımlama İşlemi" : "BES Banka Hesabı Bilgileri Güncelleme İşlemi") </h3>
+                    <ul class="panel-controls">
+                        <li><a href="@Url.Action("Kayit", Model.YevmiyeBesBankaHesapNumaraID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Yevmiye Dökümü Ayrı Olabilir Mi?</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <select class="form-control" name="IsYevmiyeDokumuAyriOlabilir" onchange="if ($(this).val() != 'true') { $('#TdVkn').removeClass('hide'); } else { $('#TdVkn').addClass('hide'); }"> 
+                                        <option value="true" @Model.IsYevmiyeDokumuAyriOlabilir.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsYevmiyeDokumuAyriOlabilir == false).ToSelected())>Hayir</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Hesap Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="HesapKod" id="HesapKod" maxlength="126" value="@Model.HesapKod" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.IsYevmiyeDokumuAyriOlabilir!=true?"":"hide")" id="TdVkn">
+                                <label class="col-md-3 col-xs-4 control-label">Vergi Kimlik No</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="VergiKimlikNo" id="VergiKimlikNo" maxlength="11" value="@Model.VergiKimlikNo" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Firma Adı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="FirmaAdi" id="FirmaAdi" maxlength="256" value="@Model.FirmaAdi" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Iban No</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="IBanNo" id="IBanNo" maxlength="26" value="@Model.IBanNo" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Açıklama</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="Aciklama" id="Aciklama" maxlength="256" value="@Model.Aciklama" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(function () {
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+
+</script>
+

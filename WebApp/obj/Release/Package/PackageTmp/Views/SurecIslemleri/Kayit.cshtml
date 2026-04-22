@@ -1,0 +1,90 @@
+﻿@using WebApp.Models
+@using BiskaUtil
+@model KmSurecIslemleri
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+ 
+}
+
+<div class="row">
+    <form id="FrmBasvuruSurec" method="post" class="form-horizontal" enctype="multipart/form-data" role="form">
+        <input type="text" style="display:none;" id="VASurecID" name="VASurecID" value="@Model.VASurecID" />
+        <div class="col-md-12">
+            <div class="panel panel-success" id="pnlEO">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="glyphicon glyphicon-time"></i>&nbsp; Süreç Kaydı</h3>
+                    <ul class="panel-controls">
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Kayit","SurecIslemleri",new { id = Model.VASurecID })';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+
+
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Süreç Yılı</label>
+                                <div class="col-md-9 col-xs-7">
+                                    @Html.DropDownList("Yil", null, new { @class = "form-control", style = "padding:0px;" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Başlangıç / Bitiş Tarihi</label>
+                                <div class="col-md-9 col-xs-7">
+                                    <table>
+                                        <tr>
+                                            <td><input class="trh form-control form-control-inline input-medium" autocomplete="off" size="16" type="text" value="@Model.BaslangicTarihi.ToDateString()" name="BaslangicTarihi" id="BaslangicTarihi"></td>
+                                            <td style="width:5px;text-align:center;">/</td>
+                                            <td><input class="trh form-control form-control-inline input-medium" autocomplete="off" size="16" type="text" value="@Model.BitisTarihi.ToDateString()" name="BitisTarihi" id="BitisTarihi"></td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="form-group @(Model.VASurecID<=0?"hide":"")">
+                                <label class="col-md-3 col-xs-5 control-label">Birim Bilgilerin Kopyalansın</label>
+                                <div class="col-md-9 col-xs-7">
+                                    <div class="make-switch" data-on-label="Evet" data-off-label="Hayır" data-on="success" data-off="danger">
+                                        <input type="checkbox" value="true" name="BirimleriKopyala" class="toggle" @Model.BirimleriKopyala.ToChecked() />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-5 control-label">Durum</label>
+                                <div class="col-md-9 col-xs-7">
+                                    <div class="make-switch" data-on-label="Aktif" data-off-label="Pasif" data-on="success" data-off="danger">
+                                        <input type="checkbox" value="true" name="IsAktif" class="toggle" @Model.IsAktif.ToChecked() />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button type="submit" class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    $(function () {
+            $('#BaslangicTarihi').datetimepicker({
+                lang: 'tr',
+                timepicker: false,
+                format: 'd-m-Y'
+            });
+            $('#BitisTarihi').datetimepicker({
+                lang: 'tr',
+                timepicker: false,
+                format: 'd-m-Y'
+            }); 
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+     
+</script>

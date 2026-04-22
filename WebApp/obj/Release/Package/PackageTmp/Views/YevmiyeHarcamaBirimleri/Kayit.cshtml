@@ -1,0 +1,104 @@
+﻿@using Database;
+@using WebApp.Models;
+@using BiskaUtil;
+@model YevmiyelerHarcamaBirimleri
+@{
+    var MmMessage = ViewBag.MmMessage as MmMessage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <form method="post" class="form-horizontal" role="form">
+        <input type="text" style="display:none;" id="YevmiyeHarcamaBirimID" name="YevmiyeHarcamaBirimID" value="@Model.YevmiyeHarcamaBirimID" />
+        <div class="col-md-12 col-md-12 col-md-12">
+            <div class="panel panel-default" id="pUnvanK">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;@(Model.YevmiyeHarcamaBirimID <= 0 ? "Yeni Harcama Birimi Tanımlama İşlemi" : "Harcama Birimi Güncelleme İşlemi") </h3>
+                    <ul class="panel-controls">
+                        <li><a href="@Url.Action("Kayit", Model.YevmiyeHarcamaBirimID)" class=""><span class="fa fa-refresh panel-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <div class="panel panel-default form-horizontal">
+                        <div class="panel-body form-group-separated">
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Hesap Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="VergiKimlikNo" id="VergiKimlikNo" maxlength="11" value="@Model.VergiKimlikNo" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Birim Adı</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="BirimAdi" id="BirimAdi" maxlength="256" value="@Model.BirimAdi" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 col-xs-4 control-label">Üniversite İş Yeri mi?</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <select name="IsUniversiteIsyeri" id="IsUniversiteIsyeri" class="form-control" onchange="if ($(this).val() == 'true') { $('.ShowIsYeriKodu').removeClass('hide'); } else { $('.ShowIsYeriKodu').addClass('hide'); }">
+                                        <option></option>
+                                        <option value="true" @Model.IsUniversiteIsyeri.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsUniversiteIsyeri == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ShowIsYeriKodu @(Model.IsUniversiteIsyeri==true?"":"hide")">
+                                <label class="col-md-3 col-xs-4 control-label">İş Yeri Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="IsyeriKodu" id="IsyeriKodu" maxlength="64" value="@Model.IsyeriKodu" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                            <div class="form-group ShowIsYeriKodu @(Model.IsUniversiteIsyeri==true?"":"hide")">
+                                <label class="col-md-3 col-xs-4 control-label">Alt Birim mi?</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <select name="IsAltBirim" class="form-control" onchange="if ($(this).val() != 'true') { $('.ShowSaymanlikKodu').removeClass('hide'); } else { $('.ShowSaymanlikKodu').addClass('hide'); }">
+                                        <option></option>
+                                        <option value="true" @Model.IsAltBirim.ToSelected()>Evet</option>
+                                        <option value="false" @((Model.IsAltBirim == false).ToSelected())>Hayır</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ShowSaymanlikKodu @(Model.IsAltBirim==true?"hide":"")">
+                                <label class="col-md-3 col-xs-4 control-label">Saymanlık Kodu</label>
+                                <div class="col-md-9 col-xs-8">
+                                    <input type="text" name="SaymanlikKod" id="SaymanlikKod" maxlength="24" value="@Model.SaymanlikKod" class="form-control" autocomplete="off" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer">
+                    <a href="@Url.Action("Index")" class="btn btn-default"><i class="fa fa-reply">&nbsp</i>Geri Dön</a>
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+
+    $(function () {
+        var model = '@Html.Raw(Json.Encode(MmMessage))';
+        validateControl(model);
+    });
+    function HKoduChange(sndr) {
+        var sndrVal = $(sndr).val();
+        if (sndrVal == "@HesapKoduTuru.SSKPrimHesapKodlari1003B") {
+            $('.HKvergiKodu').removeClass('hide');
+        }
+        else {
+            $('.HKvergiKodu').addClass('hide');
+        }
+        if (sndrVal == "@HesapKoduTuru.KDVTevkifatHesapKodlari") {
+            $('.HKvergiOran').removeClass('hide');
+        }
+        else {
+            $('.HKvergiOran').addClass('hide');
+
+        }
+
+    }
+</script>
+

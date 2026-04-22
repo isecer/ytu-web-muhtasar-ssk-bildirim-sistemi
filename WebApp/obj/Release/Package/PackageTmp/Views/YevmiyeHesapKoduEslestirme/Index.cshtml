@@ -1,0 +1,170 @@
+﻿@using WebApp.Models;
+@using BiskaUtil;
+@model FmYevmiyelerHesapKodlari
+@{
+    var IndexModel = (MIndexBilgi)ViewBag.IndexModel;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <h3 class="panel-title"><i class="fa fa-list-alt"></i>&nbsp; Hesap Kodu Eşleştirme Listesi</h3>
+                    <ul class="panel-controls">
+                        <li><span class="label label-primary label-form"><a href="@Url.Action("Kayit")" style="color:white;"><i class="fa fa-plus fa-lg"></i> Yeni</a></span></li>
+                        <li><span class="label label-info label-form">Toplam: <b>@IndexModel.Toplam</b></span></li>
+                        <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th width="70">Sıra No</th>
+                                <th class="sirala sorting" width="220" field="HesapKodTurAdi">Hesap Kodu Türü</th>
+                                <th class="sirala sorting" width="140" field="HesapKod">Hesap Kodu</th>
+                                <th class="sirala sorting" field="HesapAdi">Hesap Adı</th>
+                                <th class="sirala sorting" field="IsGelirKaydindaKullanilacak">Gelir Kaydı Yapılacak Mı</th>
+                                <th class="sirala sorting" field="VergiKodu">Vergi Kodu</th>
+                                <th width="35"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="filtrele">
+                                <th></th>
+                                <th>
+                                    @Html.DropDownList("YevmiyeHesapKodTurID", null, new { @class = "form-control" })
+                                </th>
+                                <th>
+                                    <input name="HesapKod" type="text" value="@Model.HesapKod" class="form-control" />
+                                </th>
+                                <th>
+                                    <input name="HesapAdi" type="text" value="@Model.HesapAdi" class="form-control" />
+                                </th>
+                                <th>
+                                    <select class="form-control" name="IsGelirKaydindaKullanilacak" id="IsGelirKaydindaKullanilacak">
+                                        <option></option>
+                                        <option value="true" @Model.IsGelirKaydindaKullanilacak.ToSelected()>Evet</option>
+                                        <option value="false" @((!Model.IsGelirKaydindaKullanilacak).ToSelected())>Hayır</option>
+                                    </select>
+                                </th>
+                                <th>
+                                    <input name="VergiKodu" type="text" value="@Model.VergiKodu" class="form-control" />
+                                </th>
+                                <th></th>
+                            </tr>
+                            @if (Model.RowCount > 0)
+                            {
+                                int RowIndex = Model.StartRowIndex; string trCls = "odd";
+                                foreach (var item in Model.Data)
+                                {
+                                    RowIndex++;
+                                    trCls = RowIndex % 2 == 1 ? "" : "even";
+                                    <tr class="@trCls">
+                                        <td>
+                                            @RowIndex
+                                        </td>
+                                        <td id="tdHkt_@item.YevmiyeHesapKodID">
+                                            @item.HesapKodTurAdi
+                                        </td>
+                                        <td id="tdHk_@item.YevmiyeHesapKodID">
+                                            @item.HesapKod
+                                            @if (item.IsHesapKoduBaslangicEslesmesiYeterli)
+                                            {
+                                                <label class="popover-dismiss"
+                                                       title="Hesap Kodu Otomatik Tamamlama"
+                                                       data-content="Burada belirlenen hesap kodu, yevmiye kayıtlarındaki hesap kodları ile karşılaştırılır. Eşleşen kayıtlara otomatik olarak bu hesap kodu türü atanır. Örnek: Hesap kodu '120' girildiğinde, yevmiye kayıtlarında '120', '120.01', '120.02' gibi bu kodla başlayan tüm hesaplar bu hesap kodu türüne atanacaktır.">
+                                                    <i class="fa fa-info-circle" style="margin:0px;"></i>
+                                                </label>
+                                            }
+                                        </td>
+                                        <td id="tdHa_@item.YevmiyeHesapKodID">
+                                            @item.HesapAdi
+                                        </td>
+                                        <td>
+                                            @(item.IsGelirKaydindaKullanilacak.HasValue ? item.IsGelirKaydindaKullanilacak.Value.ToEvetHayir().ToString() : "")
+                                        </td>
+                                        <td>
+                                            @item.VergiKodu
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Kayit", "YevmiyeHesapKoduEslestirme", new { id = item.YevmiyeHesapKodID })"><i class="fa fa-edit fa-lg tooltips" data-style="blue" data-original-title="Düzelt"></i></a>
+                                            <a href="javascript:void(0)" onclick="SilmeOnay(this,@item.YevmiyeHesapKodID)"><i class="fa fa-trash-o fa-lg tooltips" data-style="blue" data-original-title="Sil"></i></a>
+                                        </td>
+                                    </tr>
+
+
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="7" style="text-align: center;">
+                                        [Listelenen Kayıt Yok]
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @Model.ToPagerString()
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+    $(function () {
+        $(".popover-dismiss").popover({ trigger: 'hover', html: true });
+    });
+    function SilmeOnay(sndr, id) {
+        var HesapKodu = $("#tdHk_" + id).html();
+        var HesapAdi = $("#tdHa_" + id).html();
+        var SoruHtml = "<table style='table-layout:fixed;width:100%;'>" +
+            "<tr><td width='30' style='padding-left:10px;'></td><td style='padding-right:10px;'>" + (HesapKodu + ' - ' + HesapAdi)+"</td></tr>"+
+            "<tr><td width='30' style='color:maroon;padding-left:10px;'><i class='fa fa-info fa-2x'></i></td><td style='color:maroon;padding-right:10px;'>Seçilen Hesap Kodu Eşleştirmesini Silmek İstiyor Musunuz?</td></tr>" +
+            "</table>";
+        bootbox.dialog({
+            message:   SoruHtml,
+            title: "Hesap Kodu Eşleştirme Silme İşlemi",
+            buttons: {
+                success: {
+                    label: "Hesap Kodu Eşleştirmesini Sil",
+                    className: "btn-danger",
+                    callback: function () {
+                        Sil(sndr, id);
+                    }
+                },
+                danger: {
+                    label: "Vazgeç",
+                    className: "btn-success",
+                    callback: function () {
+                    }
+                }
+            }
+        });
+    }
+    function Sil(sndr, id) {
+        $.ajax({
+            url: '@Url.Action("Sil", "YevmiyeHesapKoduEslestirme")',
+            data: { id: id },
+            success: function (result) {
+                toastr[result.success ? "success" : "error"](result.message, "Hesap Kodu Eşleştirme Silme İşlemi")
+                if (result.success) {
+                    $(sndr).closest("tr").remove();
+                    // $(".cls-" + id).remove();
+                }
+
+            },
+            error: function (err) {
+                alert(err.responseText);
+            }
+        });
+    }
+</script>

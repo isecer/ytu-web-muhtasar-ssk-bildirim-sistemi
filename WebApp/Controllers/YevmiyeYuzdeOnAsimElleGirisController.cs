@@ -40,7 +40,7 @@ namespace WebApp.Controllers
                 q = q.Where(p => p.YevmiyeHarcamaBirimID == model.YevmiyeHarcamaBirimID);
 
             if (!model.HesapKod.IsNullOrWhiteSpace())
-                q = q.Where(p => p.HesapKod.StartsWith(model.HesapKod) || p.HesapAdi.Contains(model.HesapKod));
+                q = q.Where(p => p.HesapKod.StartsWith(model.HesapKod) || p.HesapAdi.Contains(model.HesapAdi));
 
             if (!model.Aciklama.IsNullOrWhiteSpace())
                 q = q.Where(p => p.Aciklama.Contains(model.Aciklama));
@@ -259,7 +259,6 @@ namespace WebApp.Controllers
                     x.HesapAdi
                 })
                 .OrderBy(x => x.HesapKod)
-                .Take(50)
                 .ToList();
 
             return Json(data, JsonRequestBehavior.AllowGet);

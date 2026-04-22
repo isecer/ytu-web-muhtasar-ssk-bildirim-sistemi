@@ -1,0 +1,148 @@
+﻿@using BiskaUtil
+@using WebApp.Models
+@model string
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string culture = (string)ViewBag.Culture;
+
+    var MesajKategoriID = (int?)ViewBag.MesajKategoriID;
+    var Duyurular = (List<FrDuyurular>)ViewBag.Duyurular;
+    string MesajGroupID = (string)ViewBag.MesajGroupID;
+}
+
+@if (Duyurular.Count > 0)
+{
+    <div class="row">
+
+        @using (Html.BeginForm())
+        {
+            <div class="col-md-12">
+
+                <!-- START SIMPLE DATATABLE -->
+                <div class="panel panel-danger">
+                    <div class="panel-heading padding-0">
+                        <h3 class="panel-title"><i class="fa fa-bullhorn"></i>&nbsp; Duyurular</h3>
+                        <ul class="panel-controls">
+                            <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        </ul>
+                    </div>
+                    <div class="panel-body">
+
+
+                        <table class="table">
+                            <tbody>
+
+                                @foreach (var item in Duyurular)
+                                {
+
+                                    <tr class="cls-@item.DuyuruID">
+                                        <td>
+
+                                            <div class="panel panel-success">
+                                                <div class="panel-heading" style="padding:1px;">
+                                                    <div class="portlet-title" style="font-size:13pt;font-weight:bold;">
+                                                        <table style="width: 100%; table-layout: fixed;">
+                                                            <tr>
+                                                                <td style="padding-left: 1px; padding-right: 1px;">
+                                                                    @item.Baslik
+                                                                </td>
+                                                                <td style="width: 170px; padding-left: 1px; padding-right: 1px;vertical-align:top;text-align:right;">
+                                                                    @item.Tarih.ToFormatDateAndTime()
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <ul class="panel-controls">
+                                                            @* <li><a href="javascript:void(0);" onclick="printContent('cls-@item.DuyuruID')"><span class="fa fa-print"></span></a></li>*@
+                                                        </ul>
+                                                    </div>
+
+                                                </div>
+                                                <div class="panel-body" style="padding: 1px;">
+                                                    <div class="panel panel-default form-horizontal" style="margin-bottom:0px;">
+                                                        <div class="panel-body form-group-separated">
+                                                            <div class="form-group">
+                                                                <div class="scrolkikko" style="max-height: 400px; width:100%; overflow:hidden;padding:2px;">
+                                                                    @Html.Raw(item.AciklamaHtml)
+                                                                </div>
+                                                            </div>
+                                                            @if (item.EkSayisi > 0)
+                                                            {
+                                                                <div class="form-group">
+                                                                    <label class="col-md-2 col-xs-3 control-label padding-top-0 padding-bottom-0">Ekler <img src="~/Images/Attachment.png" style="height: 16px;" /></label>
+                                                                    <div class="col-md-10  col-xs-9 padding-top-0 padding-bottom-0 " style="text-align: left;">
+                                                                        <div class="panel panel-warning" style="margin:0px;padding:0px;">
+                                                                            <div class="panel-body" style="padding-right:0px;padding-top:2px;padding-bottom:2px;">
+                                                                                <div class="scrolkikko" style="max-height: 100px; width:100%; overflow:hidden;">
+                                                                                    <table style="width: 100%; table-layout: fixed;">
+                                                                                        @if (item.EkSayisi > 0)
+                                                                                        {
+                                                                                            foreach (var item2 in item.DuyuruEkleris.Select((s, inx) => new { inx, s }))
+                                                                                            {
+                                                                                                <tr>
+                                                                                                    <td style="width: 25px;">@(item2.inx + 1))</td>
+                                                                                                    <td class="name"><a href="@item2.s.DosyaYolu" target="_blank"><span class="fa fa-download" style="color: green;"></span>&nbsp;@item2.s.DosyaEkAdi</a></td>
+                                                                                                </tr>
+                                                                                            }
+                                                                                        }
+                                                                                        else
+                                                                                        {
+                                                                                            <tr>
+                                                                                                <td colspan="2">Ek Yok</td>
+                                                                                            </tr>
+                                                                                        }
+
+                                                                                    </table>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                }
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+
+
+
+            </div>
+        }
+    </div>
+}
+ 
+ 
+
+
+
+@if (MesajGroupID != null && MesajGroupID != "")
+{
+    <script>
+
+        setTimeout(function () {
+            mesGonder('@MesajGroupID') 
+        }, 1200);
+
+
+       
+    </script>
+}
+<script>
+    $(function () {
+        showDuyuru(@DuyuruPopupTipleri.AnaSayfa); 
+    }) 
+</script>
+

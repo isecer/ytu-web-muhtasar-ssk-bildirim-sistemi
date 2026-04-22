@@ -1,0 +1,58 @@
+﻿@using Database
+@model List<YevmiyelerHarcamaBirimleriTutarKayit>
+@{
+    Layout = null;
+    var HarcamaBirimi = (YevmiyelerHarcamaBirimleri)ViewBag.HarcamaBirim;
+    var Yil = (int)ViewBag.Yil;
+    var TutarCounts = Model.Count;
+    var KalanCount = 15 - TutarCounts;
+}
+@using (Ajax.BeginForm("TutarEkle", "YevmiyeEmekliKesenekToplamlari", null, new AjaxOptions() { HttpMethod = "POST" }, new { enctype = "multipart/form-data", id = "frmTutarKayit", @class = "form-horizontal" }))
+{
+    @Html.Hidden("Yil", Yil)
+    @Html.Hidden("YevmiyeHarcamaBirimID", HarcamaBirimi.YevmiyeHarcamaBirimID)
+    <div class="col-md-12" style="overflow-x:auto; max-height:600px;">
+        <div class="widget widget-default" style="border-top:1px solid;border-top-color:lightgray; margin-bottom:8px;padding:6px 10px;min-height:20px;">
+            <table style="width:100%;">
+                <tbody>
+                    <tr>
+                        <td style="padding-left:10px;text-align:left;">
+                            <table style="width:100%;">
+                                <tbody>
+                                    <tr>
+                                        <td width="140">Harcama Birimi</td>
+                                        <td width="10">:</td>
+                                        <td class="form-group">
+                                            @HarcamaBirimi.BirimAdi
+                                        </td>
+                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>Tutar</td>
+                                            <td>:</td>
+                                            <td class="form-group">
+                                                @Html.TextBox("Tutar", item.Tutar, new { @class = "form-control", autocomplete = "off" })
+                                            </td>
+                                        </tr>
+                                    }
+                                    @for (int i = 0; i < KalanCount; i++)
+                                    {
+                                        <tr>
+                                            <td>Tutar</td>
+                                            <td>:</td>
+                                            <td class="form-group">
+                                                @Html.TextBox("Tutar", "", new { @class = "form-control", autocomplete = "off" })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+}
+

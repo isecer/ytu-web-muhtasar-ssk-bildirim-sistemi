@@ -1,0 +1,125 @@
+﻿@using WebApp.Models;
+@using Database;
+@using BiskaUtil;
+@model List<Ayarlar>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var grup = Model.Select(s => s.Kategori).Distinct();
+    var dctGrupToggle = (Dictionary<string, bool>)ViewBag.PanelToggled;
+}
+<div class="row">
+    @using (Html.BeginForm())
+    {
+        <div class="col-md-12">
+            <div class="panel panel-danger">
+                <div class="panel-heading padding-0">
+                    <div class="portlet-title">
+                        <h3 class="panel-title"><i class="fa fa-puzzle-piece"></i>&nbsp;Sistem Ayarları</h3>
+                        <ul class="panel-controls">
+                            <li><a href="javascript:void(0);" onclick="setTimeout(function(){window.location.href='@Url.Action("Index")';},600)" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @foreach (var cat in grup)
+                    {
+                        var ayar = Model.Where(p => p.Kategori == cat).ToArray();
+                        var toggleC = dctGrupToggle.Where(p => p.Key == cat).First();
+                        <div class="panel panel-warning @(toggleC.Value?"panel-toggled":"")">
+                            <div class="panel-heading padding-0">
+                                <div class="portlet-title">
+                                    <h3 class="panel-title"><i class="fa fa-cogs"></i>&nbsp;@cat</h3>
+                                    <ul class="panel-controls">
+                                        <li>
+                                            <input type="hidden" name="PanelToggled" value="@(cat)__@toggleC.Value.ToString().ToLower()" />
+                                            <a href="javascript:void(0);" onclick="toogleControl(this, '@cat');" class="panel-collapse"><span class="fa fa-angle-up"></span> </a>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="panel-body" style="padding:0px;margin:0px;">
+                                <div class="panel panel-default form-horizontal" style="padding:0px;margin:0px;">
+                                    <div class="panel-body form-group-separated">
+                                        @foreach (var item in ayar)
+                                        {
+
+                                            <div class="form-group">
+                                                <label class="col-md-4 col-xs-4 control-label">@item.AyarAdi</label>
+                                                <div class="col-md-8 col-xs-8">
+                                                    <div class="input-icon right">
+                                                        <input type="text" style="width:100%;display:none;" name="AyarAdi" value="@item.AyarAdi" />
+
+                                                        @if (item.InpType == "text")
+                                                        {
+                                                            <input type="text" style="width:100%;" name="AyarDegeri" class="form-control" value="@item.AyarDegeri" />
+                                                        }
+                                                        else if (item.InpType == "password")
+                                                        {
+                                                            <input type="password" style="width:100%;" name="AyarDegeri" class="form-control" value="@item.AyarDegeri" />
+                                                        }
+                                                        else if (item.InpType == "textarea")
+                                                        {
+                                                            <textarea style="height: 160px;" name="AyarDegeri" class="form-control">@item.AyarDegeri</textarea>
+                                                        }
+                                                        else if (item.InpType == "checkbox")
+                                                        {
+                                                            var itms = item.SItems.Split(',');
+                                                            var dataOnL = "Evet";
+                                                            var dataOfL = "Hayır";
+                                                            if (itms.Length > 1) { dataOnL = itms[0]; dataOfL = itms[1]; }
+                                                            var chkD = item.AyarDegeri.IsNullOrWhiteSpace() ? false : Convert.ToBoolean(item.AyarDegeri);
+                                                            <input type="text" name="AyarDegeri" value="@item.AyarDegeri" style="display: none;" />
+                                                            <div class="make-switch" data-on-label="@dataOnL" data-off-label="@dataOfL">
+                                                                <input type="checkbox" value="true" class="toggle" @chkD.ToChecked() onchange="checkControl(this)" />
+                                                            </div>
+                                                        }
+                                                        else if (item.InpType == "select")
+                                                        {
+                                                            var itms = item.SItems.Split(',');
+                                                            <select class="form-control" name="AyarDegeri" style="width: 100%;">
+                                                                @foreach (var val in itms)
+                                                                {
+                                                                    <option value="@val" @(val == item.AyarDegeri ? "selected='selected'" : "")>@val</option>
+                                                                }
+                                                            </select>
+                                                        }
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    }
+
+                </div>
+
+                <div class="panel-footer">
+                    <button class="btn btn-primary pull-right"><i class="fa fa-save">&nbsp</i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript">
+
+    function toogleControl(sndr, cat) { 
+        var _val = $(sndr).prev().val();
+        var nval = _val.replace(cat + '__', '') == 'true';
+        $(sndr).prev().val(cat + '__' + (!nval).toString());
+
+    }
+    function checkControl(sndr) {
+        var chk = $(sndr).prop("checked");
+        var pContent = $(sndr).parents(".form-group").first();
+        var pvalFielt = $(pContent).find("input[name='AyarDegeri']").first();
+        $(pvalFielt).val(chk);
+    }
+
+</script>
