@@ -1,8 +1,47 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
-/.vs/MusskProje/v15/Server/sqlite3
-/BiskaUtil/obj/Debug/BiskaUtil.csproj.CopyComplete
-/BiskaUtil/obj/Debug/BiskaUtil.csproj.CopyComplete
-/.vs/MusskProje/FileContentIndex
+# Build results
+bin/
+obj/
+
+# Debug / Release
+Debug/
+Release/
+
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+*.log
+
+# Database
+*.mdf
+*.ldf
+
+# IIS Express
+/.vs/
+/IISExpress/
+
+# Resharper
+_ReSharper*/
+*.DotSettings.user
+
+# NuGet
+packages/
+*.nupkg
+
+# Publish
+publish/
+
+# Others
+*.cache
+*.pdb
+*.dll
+*.exe
